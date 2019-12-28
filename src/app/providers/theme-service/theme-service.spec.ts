@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { DataServiceProvider } from './data-service.service';
 
-describe('DataServiceProvider', () => {
+import { ThemeServiceProvider } from './theme-service';
+
+describe('ThemeServiceProvider', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DataServiceProvider = TestBed.get(DataServiceProvider);
+    const service: ThemeServiceProvider = TestBed.get(ThemeServiceProvider);
     expect(service).toBeTruthy();
   });
 });

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ThemeServiceProvider } from './theme-service.service';
+import { ToastService } from './toast-service';
 
-describe('ThemeServiceProvider', () => {
+describe('ToastService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ThemeServiceProvider = TestBed.get(ThemeServiceProvider);
+    const service: ToastService = TestBed.get(ToastService);
     expect(service).toBeTruthy();
   });
 });

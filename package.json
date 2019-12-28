@@ -21,9 +21,6 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
-    "@aws-amplify/auth": "^2.1.2",
-    "@aws-amplify/storage": "^2.1.2",
-    "aws-amplify-angular": "^4.1.2",
     "@ionic-native/camera": "^5.19.0",
     "@ionic-native/clipboard": "^5.19.0",
     "@ionic-native/core": "^5.0.0",
@@ -47,6 +44,7 @@
     "core-js": "^2.5.4",
     "guid-typescript": "^1.0.9",
     "jszip": "^3.2.2",
+    "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
