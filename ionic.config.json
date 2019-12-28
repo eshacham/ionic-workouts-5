@@ -1,5 +1,7 @@
 {
   "name": "ionic-workouts-5",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
