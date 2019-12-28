@@ -24,3 +24,21 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.swiper-pagination {
+    color: var(--ion-color-light);
+    font-size: 14px;
+    bottom: 4px!important;
+}
+ion-toolbar {
+    --background: var(--ion-color-secondary);
+    --color: var(--ion-color-primary);
+}
+ion-content {
+    --background: var(--ion-color-tertiary);
+}
