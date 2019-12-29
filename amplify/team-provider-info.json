@@ -1,0 +1,15 @@
+{
+    "test": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-ionic-workouts-5-test-175648-authRole",
+            "UnauthRoleArn": "arn:aws:iam::597896071728:role/amplify-ionic-workouts-5-test-175648-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::597896071728:role/amplify-ionic-workouts-5-test-175648-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-ionic-workouts-5-test-175648-deployment",
+            "UnauthRoleName": "amplify-ionic-workouts-5-test-175648-unauthRole",
+            "StackName": "amplify-ionic-workouts-5-test-175648",
+            "StackId": "arn:aws:cloudformation:us-east-1:597896071728:stack/amplify-ionic-workouts-5-test-175648/b6aa73c0-29cd-11ea-acae-12713880e578",
+            "AmplifyAppId": "dhiehrcnz49ce"
+        }
+    }
+}
