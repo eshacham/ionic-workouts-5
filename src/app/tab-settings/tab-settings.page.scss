@@ -1,1 +1,17 @@
 
+ion-list-header {
+    --background: var(--ion-color-tertiary);
+}
+ion-label {
+    color: var(--ion-color-light)!important;
+}
+ion-item {
+    --background: var(--ion-color-primary);
+}
+ion-radio {
+    --color-checked: var(--ion-color-dark);
+    --color: var(--ion-color-light);
+}
+img {
+    max-height: 100%;
+}

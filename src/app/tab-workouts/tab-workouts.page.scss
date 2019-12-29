@@ -1,4 +1,12 @@
-.welcome-card img {
-  max-height: 35vh;
-  overflow: hidden;
+ion-list {
+  padding: 0px;
+  margin: 0px;
+}
+ion-item {
+  --background: var(--ion-color-tertiary);
+  --inner-padding-end: 0px;
+  --padding-start: 0px;
+}
+app-workout-card {
+  width: 100%;
 }
