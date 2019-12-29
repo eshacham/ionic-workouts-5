@@ -1,0 +1,50 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title [hidden]="IsEditMode" class="ion-text-center">
+        {{ name }}
+    </ion-card-title>
+    <ion-input [hidden]="IsDisplayMode" type="text"
+      class="ion-text-center"
+      [(ngModel)]="name"
+      (change)="workoutChanged()">
+    </ion-input>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <p class="ion-text-wrap">
+      <ion-textarea [readonly]="IsDisplayMode"
+      [(ngModel)]="description"
+        (change)="workoutChanged()">
+      </ion-textarea>
+    </p>
+
+    <div *ngIf="daysCount">
+      <ion-item *ngIf="IsDisplayMode" (click)="goToWorkoutDays()" >
+        <ion-label>Days...</ion-label>
+        <ion-badge slot="start">{{ daysCount }}</ion-badge>
+      </ion-item>
+      <ion-item *ngIf="IsEditMode">
+        <ion-badge slot="start">{{ daysCount }}</ion-badge>
+        <ion-label>Days...</ion-label>
+        <ion-button fill="clear" bottom color="secondary" slot="end"
+            (click)="deleteWorkout()">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" bottom color="secondary" slot="end"
+            (click)="exportWorkout()">
+            <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item *ngIf="IsEditMode">
+          <ion-label><small>{{workoutId}}</small></ion-label>
+          <ion-button *ngIf="dataService.isMobile"
+            fill="clear" bottom color="secondary" slot="end"
+            (click)="copyWorkoutId()">
+          <ion-icon slot="icon-only" name="copy"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+
+  </ion-card-content>
+</ion-card>
