@@ -1,0 +1,55 @@
+#workout-day-comp {
+    height: 100%
+}
+
+ion-item#workout-day-header {
+    --background: var(--ion-color-tertiary);
+    --color: var(--ion-color-light);
+    ion-label {
+        max-width: unset;
+        width: 100%;
+    }
+}
+
+ion-list.ios {
+    height: calc(100% - 72px);
+};
+
+ion-list.md {
+    height: calc(100% - 76px);
+};
+
+ion-list {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0px 8px 0px 8px;
+    padding: 0px;
+    background: transparent;
+};
+ion-item {
+    margin-bottom: 5px;
+    border-radius: 5px;
+     --padding-start: 0px;
+     --padding-end: 0px;
+     --inner-padding-end: 0px;
+};
+ion-item.exercise-thumbnail-ion-item {
+    --ion-background-color: var(--ion-color-primary);
+    --border-radius: 5px;
+}
+
+app-exercise-thumbnail {
+    margin: 4px;
+    width: 100%
+}
+ion-reorder{
+    margin-left: 0px;
+    margin-right: 0px;
+    color: var(--ion-color-tertiary);
+}
+ion-label {
+    --color: var(--ion-color-light)!important;
+}
+ion-input {
+    --color: var(--ion-color-light)!important;
+}

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title>select-muscle</ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isSettingMedia">
+      <ion-title>{{mediaToSet}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <svg version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 0 555 781" preserveAspectRatio="xMinYMin meet"
+         class="svg-content">
+         <g>
+          <clipPath id="body-mask">
+            <rect width="555" height=781 />
+          </clipPath>
+       </g>
+      <image clip-path="url(#body-mask)" height="100%" width="100%"
+             xlink:href="./assets/images/muscles/muscle-man.jpg" >
+      </image>
+      <a *ngFor="let group of muscleGroupElements"
+        (click)="toggleMuscle(group.muscle)">
+        <g [attr.id]="group.muscle">
+          <path *ngFor="let path of group.paths; let i = index"
+            fill="#fff" opacity="0" [attr.d]="path"/>
+        </g>
+      </a>
+    </svg>
+
+</ion-content>
+
+<ion-footer>
+  <p>
+    <ion-button *ngFor="let selectedMuscle of selectedMuscles"
+                [fill]="getButtonFill(selectedMuscle)" size="small"
+                (click)="toggleMuscle(selectedMuscle.muscle)">
+        {{selectedMuscle.muscle}}
+    </ion-button>
+  </p>
+</ion-footer>

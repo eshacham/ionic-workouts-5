@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select Exercise</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-item>
+            <ion-label>Filter by Muscles</ion-label>
+            <ion-checkbox [(ngModel)]="useFilter"></ion-checkbox>
+          </ion-item>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+          <ion-button [disabled]="!useFilter" fill="clear"
+            (click)="selectMuscle()" >
+            <ion-icon slot="end" name="body"></ion-icon>
+            <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
+            Select Muscles
+          </ion-button>
+      </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="img.media.ionicPath"></ion-img>
+      </ion-thumbnail>
+      <ion-input type='text' id="highZ"
+          placeholder="Exercise Name"
+          [(ngModel)]="img.media.name"
+          (ionChange)="setImageName($event.target.value, img)">
+      </ion-input>
+      <ion-checkbox slot="end" [(ngModel)]="img.isSelected"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+
+        <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear"
+          (click)="addExercise()"
+          [disabled]="isAddExerciseDisabled">
+          <ion-icon slot="start" name="add-circle"></ion-icon>
+          Add Exercise(s)
+        </ion-button>
+
+        <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear"
+          (click)="goBack()">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>
+          Back to Workouts
+        </ion-button>
+
+      </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-item>
+            <ion-label>As a Superset</ion-label>
+            <ion-checkbox [(ngModel)]="isSet"></ion-checkbox>
+          </ion-item>
+      </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

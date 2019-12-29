@@ -1,0 +1,28 @@
+<div id="workout-day-comp">
+
+  <ion-item class="ion-no-padding" lines="none" id="workout-day-header">
+    <ion-label [hidden]="IsEditMode" class="ion-no-margin">
+      <h2 class="ion-text-center">{{ name }}</h2>
+    </ion-label>
+    <ion-input [hidden]="IsDisplayOrWorkout"
+      type="text" class=" no-margin ion-text-center" [(ngModel)]="name"
+      (change)="workoutDayChanged()">
+    </ion-input>
+  </ion-item>
+  <ion-list lines="none">
+    <ion-reorder-group [disabled]="IsDisplayOrWorkout"
+      (ionItemReorder)="reorderItems($event)">
+      <ion-item *ngFor="let exerciseSet of exerciseSets; let i = index"
+          class="exercise-thumbnail-ion-item">
+        <app-exercise-thumbnail #exerciseSetComponent
+          [exerciseSetId]="exerciseSet"
+          [dayId]=dayId
+          [exerciseSetIndex]="i"
+          (click)="exerciseSetComponent.exerciseSetSelected()">
+        </app-exercise-thumbnail>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+
+</div>

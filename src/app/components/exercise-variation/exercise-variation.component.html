@@ -1,0 +1,7 @@
+<h3 *ngIf="!InEditMode">
+  {{exerciseDetails}}
+</h3>
+<h3 *ngIf="InEditMode" detail
+  (click)="presentPopover($event)">
+    {{exerciseDetails}}
+</h3>
