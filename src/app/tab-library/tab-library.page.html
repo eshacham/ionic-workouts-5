@@ -1,9 +1,57 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      Library
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-item>
+          <ion-label>Filter by Muscles</ion-label>
+          <ion-checkbox [(ngModel)]="useFilter"></ion-checkbox>
+        </ion-item>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+        <ion-button [disabled]="!useFilter" fill="clear"
+          (click)="selectMuscle()" >
+          <ion-icon slot="end" name="body"></ion-icon>
+          <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
+          Select Muscles
+        </ion-button>
+    </ion-buttons>
+
+</ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="img.ionicPath"></ion-img>
+      </ion-thumbnail>
+      <ion-input type='text' value={{img.name}}
+                 placeholder="Exercise Name"
+                 (ionChange)="updateImage($event.target.value, img)">
+      </ion-input>
+      <ion-button slot="end" fill="clear" (click)="setMuscle(img)">
+        <ion-icon slot="icon-only" name="body"></ion-icon>
+        <ion-badge [color]="img.muscles.length ? 'primary' : 'danger'">{{img.muscles.length}}</ion-badge>
+      </ion-button>
+      <ion-button slot="end" fill="clear" [disabled]="img.mediaUsageCounter > 0"
+        (click)="deleteImage(img)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-badge>{{img.mediaUsageCounter}}</ion-badge>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="IsMobile">
+  <ion-toolbar>
+    <ion-button fill="clear" expand="full"
+      (click)="selectImage()">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      Select Image</ion-button>
+  </ion-toolbar>
+</ion-footer>

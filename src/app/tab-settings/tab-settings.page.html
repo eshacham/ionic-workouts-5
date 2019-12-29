@@ -1,9 +1,56 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Settings
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="themes" layout="icon-start" checked>
+      <ion-label>Themes</ion-label>
+      <ion-icon name="color-palette"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="workouts" layout="icon-start">
+      <ion-label>Workouts</ion-label>
+      <ion-icon name="body"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <ion-list *ngIf="selectedSegment==='workouts'" lines="none">
+    <ion-item>
+      <ion-button expand="full" (click)="resetData()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        Reset Data
+      </ion-button>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list *ngIf="selectedSegment==='themes'"
+    (ionChange)="themeSelected($event)" class="ion-no-padding">>
+    <ion-radio-group>
+      <ion-item *ngFor='let theme of themes' >
+        <ion-label>{{theme.name}}</ion-label>
+        <ion-radio
+          slot="start" value={{theme.name}} [checked]='theme.selected'>
+        </ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-grid *ngIf="selectedSegment==='themes'">
+    <ion-row >
+      <ion-col class="ion-text-center">
+        <img src={{getSelectedThemeImage(1)}} >
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <img src={{getSelectedThemeImage(2)}}>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
