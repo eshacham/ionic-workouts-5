@@ -10,6 +10,11 @@
             "StackName": "amplify-ionic-workouts-5-test-175648",
             "StackId": "arn:aws:cloudformation:us-east-1:597896071728:stack/amplify-ionic-workouts-5-test-175648/b6aa73c0-29cd-11ea-acae-12713880e578",
             "AmplifyAppId": "dhiehrcnz49ce"
+        },
+        "categories": {
+            "auth": {
+                "ionicworkouts55d7d9acf": {}
+            }
         }
     }
 }
