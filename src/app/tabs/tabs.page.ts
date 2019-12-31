@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
 import { ToastService } from '../providers/toast-service/toast-service';
 import { Subject } from 'rxjs';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
   selector: 'app-tabs',
@@ -14,15 +15,19 @@ import { Subject } from 'rxjs';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit, OnDestroy {
+  private logger: Logger;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private exportHasStarted = false;
   private importHasStarted = false;
 
   constructor(
-    private themeService: ThemeServiceProvider,
+    loggingService: LoggingService,
+    themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private toastService: ToastService) {
+    this.logger = loggingService.getLogger('App.TabsPage');
+
     themeService.addBodyClass('gray-orange-black');
   }
 
@@ -39,7 +44,7 @@ export class TabsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((error) => {
         if (error) {
-          console.log('tab-page redux - getError:', error);
+          this.logger.debug('ngOnInit', 'etError:', error);
           this.toastService.presentToast(error, 'danger');
         }
       });
@@ -47,8 +52,8 @@ export class TabsPage implements OnInit, OnDestroy {
     this.store.select(getWorkoutExportInProgress)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((exportInProgress) => {
+        this.logger.debug('ngOnInit', 'getWorkoutExportInProgress', exportInProgress);
         if (this.exportHasStarted && !exportInProgress) {
-          console.log('tab-page redux - export has finished:');
           this.toastService.presentToast('Export workout has completed!');
         }
         this.exportHasStarted = exportInProgress;
@@ -57,8 +62,8 @@ export class TabsPage implements OnInit, OnDestroy {
     this.store.select(getWorkoutImportInProgress)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((importInProgress) => {
+        this.logger.debug('ngOnInit', 'getWorkoutExportInProgress', importInProgress);
         if (this.importHasStarted && !importInProgress) {
-          console.log('tab-page redux - import has finished:');
           this.toastService.presentToast('Import workout has completed!');
         }
         this.importHasStarted = importInProgress;

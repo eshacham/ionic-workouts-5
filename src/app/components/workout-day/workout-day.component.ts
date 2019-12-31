@@ -14,6 +14,7 @@ import {
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
   selector: 'app-workout-day',
@@ -21,6 +22,7 @@ import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
   styleUrls: ['./workout-day.component.scss'],
 })
 export class WorkoutDayComponent implements OnInit, OnDestroy {
+  private logger: Logger;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private exerciseSets: string[];
@@ -30,7 +32,10 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   @Input() displayMode: DisplayMode;
 
   constructor(
-    private store: Store<IAppState>) {
+    loggingService: LoggingService,
+    private store: Store<IAppState>
+  ) {
+    this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
 
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
@@ -43,7 +48,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(workoutDay => {
         if (workoutDay) {
-          console.log(`workout-day ${this.dayId} getWorkoutDay`, workoutDay);
+          this.logger.debug('ngOnInit', `${this.dayId} getWorkoutDay`, workoutDay);
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.handleSelectedWorkoutDayStateChange(workoutDay);
@@ -52,7 +57,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log(`workout-day ${this.dayId} onDestroy`);
+    this.logger.debug('ngOnDestroy', `${this.dayId} onDestroy`);
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -87,7 +92,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   reorderItems(event: CustomEvent<ItemReorderEventDetail>) {
     const from = event.detail.from;
     const to = event.detail.to;
-    console.log(`Moving item from ${from} to ${to}`);
+    this.logger.info('reorderItems', `Moving day from ${from} to ${to}`);
     this.store.dispatch(new ReorderExerciseSets({
       dayId: this.dayId,
       fromIndex: from < to ? from : to,

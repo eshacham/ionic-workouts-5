@@ -22,6 +22,7 @@ import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { Guid } from 'guid-typescript';
 import { DisplayMode } from 'src/app/models/enums';
 import { UpdateExerciseMediaUsage } from 'src/app/store/actions/exercisesMedia.actions';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
   selector: 'app-workout-days',
@@ -29,6 +30,7 @@ import { UpdateExerciseMediaUsage } from 'src/app/store/actions/exercisesMedia.a
   styleUrls: ['./workout-days.page.scss'],
 })
 export class WorkoutDaysPage implements OnInit, OnDestroy {
+  private logger: Logger;
 
   days: string[];
   name: string;
@@ -54,10 +56,12 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   };
 
   constructor(
+    loggingService: LoggingService,
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private store: Store<IAppState>) {
+    this.logger = loggingService.getLogger('App.WorkoutDaysPage');
     this.subs = this.route.params.subscribe(params => {
       this.workoutId = params.id;
     });
@@ -83,19 +87,19 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(async (data) => {
         if (data.workout) {
-          console.log(`workout-days ${this.workoutId} - getCurrentWorkout:`, data);
+          this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
           this.days = data.workout.days;
           this.name = data.workout.name;
           if (!this.slides) {
-            console.log('workout-days ngOninit no slides!');
+            this.logger.warn('ngOnInit', 'no slides!');
             return;
           }
           this.slides.update();
           const selectedDay = data.selectedDayId;
           const lastWorkoutDayIndex = this.days.findIndex(day => day === selectedDay);
-          console.log(`workout-days ${this.workoutId} - selectedDay ${selectedDay} on index ${lastWorkoutDayIndex}`);
+          this.logger.info('ngOnInit', `${this.workoutId} - selectedDay ${selectedDay} on index ${lastWorkoutDayIndex}`);
           if (lastWorkoutDayIndex !== this.activeDayIndex) {
-            console.log(`workout-days ${this.workoutId} - sliding to last selected day index ${lastWorkoutDayIndex}`);
+            this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${lastWorkoutDayIndex}`);
             await new Promise(() => setTimeout(async () => {
               await this.slides.slideTo(lastWorkoutDayIndex, 0);
             }, 1));
@@ -103,7 +107,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
             this.store.select(getWorkoutDay(selectedDay))
               .pipe(take(1))
               .subscribe(workoutDayState => {
-                  this.adjustDisplayMode(workoutDayState);
+                this.adjustDisplayMode(workoutDayState);
               });
           }
         }
@@ -113,7 +117,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   async slideChanged() {
     if (this.slides && this.days) {
       this.activeDayIndex = await this.slides.getActiveIndex();
-      console.log(`workout-days ${this.workoutId} slideChanged to index ${this.activeDayIndex}`);
+      this.logger.info('slideChanged', `${this.workoutId} slideChanged to index ${this.activeDayIndex}`);
       this.store.select(getWorkoutDay(this.activeDayId))
         .pipe(take(1))
         .subscribe(state => {
@@ -130,7 +134,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   private adjustDisplayMode(workoutDayState: WorkoutDayBean) {
-    console.log(`workout-days ${this.workoutId} adjusting Display mode to - ${DisplayMode[workoutDayState.displayMode]}`);
+    this.logger.debug('adjustDisplayMode', `${this.workoutId} adjusting Display mode to - ${DisplayMode[workoutDayState.displayMode]}`);
     this.DisplayMode = workoutDayState.displayMode;
     switch (this.DisplayMode) {
       case DisplayMode.Display:
@@ -149,7 +153,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log(`workout-days ${this.workoutId} ngOnDestroy`);
+    this.logger.debug('ngOnDestroy', this.workoutId);
     this.subs.unsubscribe();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
@@ -177,7 +181,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     });
     const index = this.activeDayIndex;
     const islast = this.days.length - 1 === index;
-    console.log(`workout-days ${this.workoutId} splicing (insert) at ${index}`);
+    this.logger.info('addWorkoutDay', `${this.workoutId} insert at ${index}`);
     this.fabEdit.activated = true;
     this.store.dispatch(new AddWorkoutDay({
       workoutId: this.workoutId,

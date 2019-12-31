@@ -12,6 +12,7 @@ import { getWorkouts } from '../store/selectors/workouts.selectors';
 import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
 import { WorkoutSelectionPopoverComponent } from '../components/workout-selection-popover/workout-selection-popover.component';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -19,6 +20,7 @@ import { WorkoutSelectionPopoverComponent } from '../components/workout-selectio
   styleUrls: ['tab-workouts.page.scss']
 })
 export class TabWorkoutsPage implements OnInit, OnDestroy {
+  private logger: Logger;
 
   @ViewChild('fabEdit', { static: true }) fabEdit: IonFab;
 
@@ -29,16 +31,18 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
+    loggingService: LoggingService,
     private store: Store<IAppState>,
     private popoverCtrl: PopoverController,
-    ) {
+  ) {
+    this.logger = loggingService.getLogger('App.TabWorkoutsPage');
   }
 
   ngOnInit() {
     this.store.select(getWorkouts)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(workouts => {
-        console.log('tab-workouts selectWorkouts', workouts);
+        this.logger.debug('ngOnInit', 'getWorkouts', workouts);
         this.workouts = workouts;
       });
   }
@@ -55,7 +59,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     if (this.mode !== val) {
       this.mode = val;
       if (this.DisplayMode === DisplayMode.Display) {
-        console.log('tab-workouts, set display mode', this.workouts);
+        this.logger.debug('DisplayMode', this.workouts);
         this.store.dispatch(new UpdateWorkouts());
       }
     }

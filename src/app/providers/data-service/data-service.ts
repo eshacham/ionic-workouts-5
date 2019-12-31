@@ -18,13 +18,11 @@ import Auth from '@aws-amplify/auth';
 import S3 from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
 
-
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
 
 @Injectable()
 export class DataServiceProvider {
-
   private exerciseMediaBeans: ExerciseMediaBean[];
   private logger: Logger;
   private credentials: any;
@@ -273,10 +271,10 @@ export class DataServiceProvider {
     return result;
   }
   async updateAndCreateNewImage(image: any, blob: any) {
-    const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, image.name, blob, { replace: true});
+    const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, image.name, blob, { replace: true });
     image.nativePath = this.mobileFile.dataDirectory + image.name;
     image.ionicPath = this.getIonicPath(image.nativePath),
-    this.logger.info('updateAndCreateNewImage', `image id ${image.id}, name ${image.name} imported`, blob, file);
+      this.logger.info('updateAndCreateNewImage', `image id ${image.id}, name ${image.name} imported`, blob, file);
   }
 
   private getImageFile(image: ExerciseMediaBean): any {

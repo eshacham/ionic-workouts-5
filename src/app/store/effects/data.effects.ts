@@ -41,7 +41,8 @@ import {
     ExportWorkout,
     ExportWorkoutSuccess,
     ImportWorkout,
-    ImportWorkoutSuccess} from '../actions/workouts.actions';
+    ImportWorkoutSuccess
+} from '../actions/workouts.actions';
 import { getMediaIdsByWorkout, getMediaIdsByDay } from '../selectors/exercises.selectors';
 import {
     MusclesFilterActionsTypes,
@@ -61,15 +62,20 @@ import {
     ChangeDisplayModeSuccess,
     ChangeDisplayMode
 } from '../actions/workoutDays.actions';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Injectable()
 export class DataEffects {
+    private logger: Logger;
 
     constructor(
+        loggingService: LoggingService,
         private dataService: DataServiceProvider,
         private actions$: Actions,
         private store: Store<IAppState>
-    ) { }
+    ) {
+        this.logger = loggingService.getLogger('App.DataEffects');
+    }
 
     @Effect()
     getAllData$ = this.actions$.pipe(
@@ -77,7 +83,7 @@ export class DataEffects {
         mergeMap((action: GetData) => from(this.dataService.getAllData()).pipe(
             map((allData: AllDataMaps) => (new GetDataSuccess(allData))),
             catchError(err => {
-                console.log('getAllData effect - got an error:', err);
+                this.logger.error('getAllData', err);
                 return of(new GetDataError(err.message));
             })
         ))
@@ -91,7 +97,7 @@ export class DataEffects {
         mergeMap(([action, workoutsData]) => from(this.dataService.saveWorkouts(workoutsData)).pipe(
             map(() => (new WorkoutsSavedSuccess())),
             catchError(err => {
-                console.log('saveWorkouts effect - got an error:', err);
+                this.logger.error('saveWorkouts', err);
                 return of(new WorkoutsSavedError(err.message));
             })
         ))
@@ -105,7 +111,7 @@ export class DataEffects {
         mergeMap(([action, imagessData]) => from(this.dataService.saveImages(imagessData)).pipe(
             map(() => (new ImagesSavedSuccess())),
             catchError(err => {
-                console.log('UpdateImages effect - got an error:', err);
+                this.logger.error('saveImages', err);
                 return of(new WorkoutsSavedError(err.message));
             })
         ))
@@ -117,7 +123,7 @@ export class DataEffects {
         mergeMap((action: ExportWorkout) => from(this.dataService.exportWorkout(action.payload.workoutId)).pipe(
             map((exportId: string) => (new ExportWorkoutSuccess())),
             catchError(err => {
-                console.log('export workout effect - got an error:', err);
+                this.logger.error('exportWorkout', err);
                 return of(new GetDataError(err.message));
             })
         ))
@@ -129,7 +135,7 @@ export class DataEffects {
         mergeMap((action: ImportWorkout) => from(this.dataService.importWorkout(action.payload.workoutId)).pipe(
             map((data: { workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }) => (new ImportWorkoutSuccess(data))),
             catchError(err => {
-                console.log('import workout effect - got an error:', err);
+                this.logger.error('importWorkout', err);
                 return of(new GetDataError(err.message));
             })
         ))
@@ -144,7 +150,7 @@ export class DataEffects {
                     (new AddExerciseMediaSuccess({ exerciseMedia: newImage })),
                     (new UpdateImages())]),
                 catchError(err => {
-                    console.log('AddExerciseMedia effect - got an error:', err);
+                    this.logger.error('addNewImage', err);
                     return of(new GetDataError(err.message));
                 })
             ))
@@ -160,7 +166,7 @@ export class DataEffects {
                     (new UpdateImages())
                 ]),
                 catchError(err => {
-                    console.log('DeleteExerciseMedia effect - got an error:', err);
+                    this.logger.error('deleteImage', err);
                     return of(new GetDataError(err.message));
                 })
             ))
@@ -174,7 +180,7 @@ export class DataEffects {
             new UpdateImages()
         ])),
         catchError(err => {
-            console.log('UpdateExerciseMedia effect - got an error:', err);
+            this.logger.error('updateImage', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -187,7 +193,7 @@ export class DataEffects {
             new UpdateImages()
         ])),
         catchError(err => {
-            console.log('UpdateExerciseMediaUsage effect - got an error:', err);
+            this.logger.error('updateImageUsage', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -212,7 +218,7 @@ export class DataEffects {
             return actions;
         }),
         catchError(err => {
-            console.log('DeleteExercise effect - got an error:', err);
+            this.logger.error('deleteExercise', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -242,7 +248,7 @@ export class DataEffects {
             return actions;
         }),
         catchError(err => {
-            console.log('DeleteWorkout effect - got an error:', err);
+            this.logger.error('deleteWorkout', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -269,7 +275,7 @@ export class DataEffects {
             return actions;
         }),
         catchError(err => {
-            console.log('DeleteWorkoutDay effect - got an error:', err);
+            this.logger.error('deleteWorkoutDay', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -282,7 +288,7 @@ export class DataEffects {
             new UpdateImages()
         ])),
         catchError(err => {
-            console.log('AddExerciseMuscleFilter effect - got an error:', err);
+            this.logger.error('addExerciseMuscleFilter', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -295,7 +301,7 @@ export class DataEffects {
             new UpdateImages()
         ])),
         catchError(err => {
-            console.log('DeleteExerciseMuscleFilter effect - got an error:', err);
+            this.logger.error('deleteExerciseMuscleFilter', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -308,7 +314,7 @@ export class DataEffects {
             new UpdateWorkouts()
         ])),
         catchError(err => {
-            console.log('DeleteExerciseMuscleFilter effect - got an error:', err);
+            this.logger.error('moveWorkoutDay', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -321,7 +327,7 @@ export class DataEffects {
             new UpdateWorkouts()
         ])),
         catchError(err => {
-            console.log('AddWorkoutDay effect - got an error:', err);
+            this.logger.error('addWorkoutDay', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -333,7 +339,7 @@ export class DataEffects {
             new UpdateWorkouts()
         ])),
         catchError(err => {
-            console.log('AddWorkout effect - got an error:', err);
+            this.logger.error('addWorkout', err);
             return of(new GetDataError(err.message));
         })
     );
@@ -346,7 +352,7 @@ export class DataEffects {
             new UpdateWorkouts()
         ])),
         catchError(err => {
-            console.log('ChangeDisplayMode effect - got an error:', err);
+            this.logger.error('changeDisplayMode', err);
             return of(new GetDataError(err.message));
         })
 

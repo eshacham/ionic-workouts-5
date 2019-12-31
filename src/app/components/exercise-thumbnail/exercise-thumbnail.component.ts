@@ -26,6 +26,7 @@ import {
 } from 'src/app/store/actions/exercises.actions';
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -45,6 +46,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     timedRestTimer = null;
     displayMode = DisplayMode;
     weightUnit = WeightUnit;
+    private logger: Logger;
 
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
@@ -112,22 +114,26 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     constructor(
+        loggingService: LoggingService,
         private domSanitizer: DomSanitizer,
         private popoverCtrl: PopoverController,
-        private store: Store<IAppState>) {
+        private store: Store<IAppState>
+    ) {
+        this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
     }
 
     ngOnInit() {
         this.store.select(getExerciseSet(this.exerciseSetId))
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(exerciseSet => {
-                console.log('exercise-thumbnail selectexerciseSet', exerciseSet);
+                this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
                 this.exercises = exerciseSet.exercises;
                 this.images = exerciseSet.media;
             });
         this.store.select(getWorkoutDay(this.dayId))
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(day => {
+                this.logger.debug('ngOnInit', 'getWorkoutDay', day);
                 if (day) {
                     this.handleWorkoutDayStateChange(day);
                 }
@@ -135,7 +141,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log('onDestroy - exercise-thumbnail');
+        this.logger.debug('ngOnDestroy');
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }
@@ -168,7 +174,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             state = 'starting';
             this.startWorkout();
         }
-        console.log(`exercise-thumbnail - handleWorkoutDayStateChange: ${state} workout`, activeExerciseName);
+        this.logger.info('handleWorkoutDayStateChange', `${state} workout`, activeExerciseName);
     }
 
     toggleEditExercise() {

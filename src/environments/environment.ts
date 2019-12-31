@@ -10,10 +10,10 @@ export const environment = {
         loggerName: 'root',
         logLevel: 'DEBUG'
       },
-      {
-        loggerName: 'App.DataServiceProvider',
-        logLevel: 'INFO'
-      }
+      // {
+      //   loggerName: 'App.DataServiceProvider',
+      //   logLevel: 'INFO'
+      // }
     ]
   }
 };

@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { getLibraryMusclesFilter } from '../store/selectors/musclesFilter.selectors';
 import { getExercisesMedias } from '../store/selectors/ExercisesMedia.selectors';
 import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../store/actions/exercisesMedia.actions';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
   selector: 'app-tab-library',
@@ -22,11 +23,13 @@ import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../s
   styleUrls: ['tab-library.page.scss']
 })
 export class TabLibraryPage implements OnInit, OnDestroy {
+  private logger: Logger;
 
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
+    loggingService: LoggingService,
     private camera: Camera,
     private actionSheetController: ActionSheetController,
     private toastService: ToastService,
@@ -36,6 +39,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private dataService: DataServiceProvider,
     private store: Store<IAppState>) {
     this.exerciseMediaBean = [];
+    this.logger = loggingService.getLogger('App.TabLibraryPage');
   }
 
   exerciseMediaBean: ExerciseMediaBean[];
@@ -77,10 +81,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.store.select(getLibraryMusclesFilter)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((filter) => {
-        console.log('tab-library-page redux - getLibraryMusclesFilter:', filter);
+        this.logger.debug('ngOnInit', 'getLibraryMusclesFilter', filter);
         this.musclesFilter = filter;
       });
-
     }
 
     ngOnDestroy() {
@@ -109,7 +112,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     };
 
     const actionSheet = await this.actionSheetController.create(options);
-    console.log('presenting action sheet...');
+    this.logger.debug('selectImage', 'presenting action sheet!');
     await actionSheet.present();
   }
 
@@ -121,7 +124,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       correctOrientation: true
     };
     const imagePath = await this.camera.getPicture(options);
-    console.log('took picture as: ', imagePath);
+    this.logger.debug('takePicture', 'took picture as: ', imagePath);
     let imageName: string;
     let ImagePath: string;
 
@@ -151,7 +154,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
 
   updateImage(value: string, image: ExerciseMediaBean) {
-    console.log(`tab-library-page - updating image (id ${image.id}) name to ${value}`);
+    this.logger.debug('updateImage', `updating image (id ${image.id}) name to ${value}`);
     this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name: value }));
     this.presentToast('File updated.');
   }

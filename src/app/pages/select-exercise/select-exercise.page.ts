@@ -15,6 +15,7 @@ import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { Guid } from 'guid-typescript';
 import { AddExerciseSets } from 'src/app/store/actions/exerciseSets.actions';
 import { getExercisesMedias } from 'src/app/store/selectors/ExercisesMedia.selectors';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 interface SelectedExerciseMedia {
   isSelected: boolean;
@@ -28,6 +29,7 @@ interface SelectedExerciseMedia {
   styleUrls: ['./select-exercise.page.scss'],
 })
 export class SelectExercisePage implements OnInit, OnDestroy {
+  private logger: Logger;
 
   workoutId?: string;
   isSet = false;
@@ -38,9 +40,11 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
+    loggingService: LoggingService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<IAppState>) {
+    this.logger = loggingService.getLogger('App.SelectExercisePage');
     this.selectedExerciseMedia = [];
     this.subs = this.route.params.subscribe(params => {
       this.workoutId = params.id;
@@ -96,14 +100,14 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     this.store.select(getHasDataBeenReset)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(reset => {
-        console.log('select exercise redux - getHasDataBeenReset:', reset);
+        this.logger.debug('ngOnInit', 'getHasDataBeenReset', reset);
         this.haveWorkoutsBeenReset = reset;
       });
 
     this.store.select(getLibraryMusclesFilter)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(async (filter) => {
-        console.log('select-exercise redux - getLibraryMusclesFilter:', filter);
+        this.logger.debug('ngOnInit', 'getLibraryMusclesFilter', filter);
         this.musclesFilter = filter;
       });
 
@@ -113,13 +117,13 @@ export class SelectExercisePage implements OnInit, OnDestroy {
         if (currentWorkout && currentWorkout.workout && this.workoutId === currentWorkout.workout.id) {
           const dayId = currentWorkout.selectedDayId;
           this.lastSelectedWorkoutDayId = dayId;
-          console.log('select-exercise - getCurrentWorkout - selectedDayId:', dayId);
+          this.logger.debug('ngOnInit', 'getCurrentWorkout', dayId);
         }
       });
   }
 
   ngOnDestroy() {
-    console.log('onDestroy - select-exercise');
+    this.logger.debug('ngOnDestroy');
     this.subs.unsubscribe();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
@@ -155,7 +159,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   }
 
   goBack() {
-    console.log('select-exercise: Workouts have been reset! Can\'t update it now');
+    this.logger.warn('goBack', 'Workouts have been reset! Can\'t update it now');
     this.router.navigate(['']);
   }
 

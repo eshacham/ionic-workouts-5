@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ThemeServiceProvider } from '../providers/theme-service/theme-service';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { Router } from '@angular/router';
+import { Logger, LoggingService } from 'ionic-logging-service';
 
 interface Theme  {
   name: string;
@@ -15,10 +16,15 @@ interface Theme  {
   styleUrls: ['tab-settings.page.scss']
 })
 export class TabSettingsPage {
+  private logger: Logger;
+
   constructor(
+    loggingService: LoggingService,
     private themeService: ThemeServiceProvider,
     private router: Router,
-    private dataServiceProvider: DataServiceProvider) {}
+    private dataServiceProvider: DataServiceProvider) {
+      this.logger = loggingService.getLogger('App.TabSettingsPage');
+    }
 
   selectedSegment = 'themes';
 
@@ -33,7 +39,7 @@ export class TabSettingsPage {
 
   themeSelected(event: any) {
     const selectedtheme = event.detail.value;
-    console.log('theme seledted: ', selectedtheme);
+    this.logger.debug('theme seledted: ', selectedtheme);
     for (const theme of this.themes) {
       if (theme.name !== selectedtheme) {
         this.themeService.removeBodyClass(theme.name);
@@ -51,7 +57,7 @@ export class TabSettingsPage {
 
   segmentChanged(event: any) {
     this.selectedSegment = event.detail.value;
-    console.log('Segment changed', this.selectedSegment);
+    this.logger.debug('segmentChanged', this.selectedSegment);
   }
 
   async resetData() {
