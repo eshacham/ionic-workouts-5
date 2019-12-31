@@ -47,6 +47,7 @@
     "cordova-sqlite-storage": "^4.0.0",
     "core-js": "^2.6.11",
     "guid-typescript": "^1.0.9",
+    "ionic-logging-service": "^8.0.0",
     "jszip": "^3.2.2",
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.5.4",

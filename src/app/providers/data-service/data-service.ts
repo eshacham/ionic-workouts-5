@@ -16,6 +16,8 @@ import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
 import Auth from '@aws-amplify/auth';
 import S3 from '@aws-amplify/storage';
+import { Logger, LoggingService } from 'ionic-logging-service';
+
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -24,9 +26,11 @@ const IMAGES_STORAGE_KEY = 'my_images';
 export class DataServiceProvider {
 
   private exerciseMediaBeans: ExerciseMediaBean[];
+  private logger: Logger;
   private credentials: any;
 
   constructor(
+    loggingService: LoggingService,
     private platform: Platform,
     private mobileFile: MobileFile,
     private webview: WebView,
@@ -34,7 +38,8 @@ export class DataServiceProvider {
     private store: Store<IAppState>,
     private http: HttpClient,
   ) {
-    console.log('data-service - constructor');
+    // console.log('data-service - constructor');
+    this.logger = loggingService.getLogger('App.DataServiceProvider');
   }
 
   async getAllData(): Promise<AllDataMaps> {
@@ -66,8 +71,10 @@ export class DataServiceProvider {
 
     data = { ...workoutsData, ...imagesData };
     if (data.workouts && data.media) {
-      console.log('data-service - loaded cached workouts', Object.keys(data.workouts.byId));
-      console.log('data-service - loaded cached images', Object.keys(data.media.byId));
+      // console.log('data-service - loaded cached workouts', Object.keys(data.workouts.byId));
+      // console.log('data-service - loaded cached images', Object.keys(data.media.byId));
+      this.logger.info('getAllData', 'loaded cached workouts', Object.keys(data.workouts.byId));
+      this.logger.info('getAllData', 'loaded cached images', Object.keys(data.media.byId));
     }
     return data;
   }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -32,6 +32,13 @@ import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers
 import { ThemeServiceProvider } from './providers/theme-service/theme-service';
 import { DataServiceProvider } from './providers/data-service/data-service';
 
+import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
+import { environment } from 'src/environments/environment';
+
+export function configureLogging(loggingService: LoggingService): () => void {
+  return () => loggingService.configure(environment.logging);
+}
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -51,6 +58,7 @@ import { DataServiceProvider } from './providers/data-service/data-service';
     EffectsModule.forRoot([DataEffects]),
     HttpClientModule,
     AmplifyAngularModule,
+    LoggingServiceModule,
   ],
   providers: [
     StatusBar,
@@ -68,7 +76,13 @@ import { DataServiceProvider } from './providers/data-service/data-service';
     WebView,
     Clipboard,
     ThemeServiceProvider,
-    DataServiceProvider
+    DataServiceProvider,
+    {
+      deps: [LoggingService],
+      multi: true,
+      provide: APP_INITIALIZER,
+      useFactory: configureLogging
+    }
   ],
   bootstrap: [AppComponent]
 })
