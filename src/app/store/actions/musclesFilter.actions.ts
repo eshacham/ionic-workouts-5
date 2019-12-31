@@ -13,32 +13,32 @@ export enum MusclesFilterActionsTypes {
 
 export class SetExerciseMuscleFilter implements Action {
     readonly type = MusclesFilterActionsTypes.SetExerciseMuscleFilter;
-    constructor (public muscles: Muscles[]) {}
+    constructor(public muscles: Muscles[]) {}
 }
 export class AddExerciseMuscleFilter implements Action {
     readonly type = MusclesFilterActionsTypes.AddExerciseMuscleFilter;
-    constructor (public payload: { muscle: Muscles, mediaId: string}) {}
+    constructor(public payload: { muscle: Muscles, mediaId: string}) {}
 }
 export class AddExerciseMuscleFilterSuccess implements Action {
     readonly type = MusclesFilterActionsTypes.AddExerciseMuscleFilterSuccess;
-    constructor (public payload: { muscle: Muscles, mediaId: string}) {}
+    constructor(public payload: { muscle: Muscles, mediaId: string}) {}
 }
 export class DeleteExerciseMuscleFilter implements Action {
     readonly type = MusclesFilterActionsTypes.DeleteExerciseMuscleFilter;
-    constructor (public payload: { muscle: Muscles, mediaId: string}) {}
+    constructor(public payload: { muscle: Muscles, mediaId: string}) {}
 }
 export class DeleteExerciseMuscleFilterSuccess implements Action {
     readonly type = MusclesFilterActionsTypes.DeleteExerciseMuscleFilterSuccess;
-    constructor (public payload: { muscle: Muscles, mediaId: string}) {}
+    constructor(public payload: { muscle: Muscles, mediaId: string}) {}
 }
 
 export class AddLibraryMuscleFilter implements Action {
     readonly type = MusclesFilterActionsTypes.AddLibraryMuscleFilter;
-    constructor (public muscle: Muscles) {}
+    constructor(public muscle: Muscles) {}
 }
 export class DeleteLibraryMuscleFilter implements Action {
     readonly type = MusclesFilterActionsTypes.DeleteLibraryMuscleFilter;
-    constructor (public muscle: Muscles) {}
+    constructor(public muscle: Muscles) {}
 }
 
 export type MusclesFilterActions =

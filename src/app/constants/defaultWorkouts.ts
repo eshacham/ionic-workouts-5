@@ -181,28 +181,28 @@ const buildDefaultWorkouts = () => {
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         })
                                     ],
-                                    'restBetweenReps': 20,
-                                    'restAfterExercise': 20
+                                    restBetweenReps: 20,
+                                    restAfterExercise: 20
                                 })
                             ]
                         }),
@@ -1500,28 +1500,28 @@ const buildDefaultWorkouts = () => {
 
                                     reps: [
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         })
                                     ],
-                                    'restBetweenReps': 20,
-                                    'restAfterExercise': 20
+                                    restBetweenReps: 20,
+                                    restAfterExercise: 20
                                 })
                             ]
                         }),
@@ -2827,28 +2827,28 @@ const buildDefaultWorkouts = () => {
 
                                     reps: [
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         })
                                     ],
-                                    'restBetweenReps': 20,
-                                    'restAfterExercise': 20
+                                    restBetweenReps: 20,
+                                    restAfterExercise: 20
                                 })
                             ]
                         }),
@@ -4154,28 +4154,28 @@ const buildDefaultWorkouts = () => {
 
                                     reps: [
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         }),
                                         new Rep({
-                                            'weight': 50,
-                                            'weightUnit': WeightUnit.Lbs,
-                                            'times': 12
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            times: 12
                                         })
                                     ],
-                                    'restBetweenReps': 20,
-                                    'restAfterExercise': 20
+                                    restBetweenReps: 20,
+                                    restAfterExercise: 20
                                 })
                             ]
                         }),
@@ -5306,12 +5306,12 @@ const buildDefaultWorkouts = () => {
     ];
 };
 
-let _defaultWorkouts: Workout[];
+let defaultWorkouts: Workout[];
 const getDefaultWorkouts = (): Workout[] => {
-    if (!_defaultWorkouts) {
-        _defaultWorkouts = buildDefaultWorkouts();
+    if (!defaultWorkouts) {
+        defaultWorkouts = buildDefaultWorkouts();
     }
-    return _defaultWorkouts;
+    return defaultWorkouts;
 };
 export const getDefaultWorkoutsMaps = (): WorkoutsDataMaps => {
     const workoutsData: WorkoutsDataMaps = {

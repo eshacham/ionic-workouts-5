@@ -14,7 +14,7 @@ export enum ExerciseMediaActionsTypes {
 
 export class AddExerciseMedia implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMedia;
-    constructor (public payload: {
+    constructor(public payload: {
         origPath: string,
         origName: string,
         newName: string,
@@ -22,7 +22,7 @@ export class AddExerciseMedia implements Action {
 }
 export class AddExerciseMediaSuccess implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMediaSuccess;
-    constructor (public payload: {
+    constructor(public payload: {
         exerciseMedia: ExerciseMediaBean,
     }) { }
 }
@@ -58,13 +58,13 @@ export class UpdateExerciseMediaUsageSuccess implements Action {
 }
 export class DeleteExerciseMedia implements Action {
     readonly type = ExerciseMediaActionsTypes.DeleteExerciseMedia;
-    constructor (public payload: {
+    constructor(public payload: {
         image: ExerciseMediaBean,
     }) { }
 }
 export class DeleteExerciseMediaSuccess implements Action {
     readonly type = ExerciseMediaActionsTypes.DeleteExerciseMediaSuccess;
-    constructor (public payload: {
+    constructor(public payload: {
         imageId: string,
     }) { }
 }
