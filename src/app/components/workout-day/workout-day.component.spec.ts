@@ -20,8 +20,6 @@ describe('WorkoutDayPage', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WorkoutDayComponent);
     component = fixture.componentInstance;
-    component.inWorkoutDaysPublisher = new Subject();
-    component.workoutDay = defaultFirstWorkout.days[0];
     fixture.detectChanges();
   });
 
