@@ -100,7 +100,7 @@
                     class="ion-no-padding">
                 <ion-item>
                     <ion-input type="text"
-                        [(ngModel)]="exercise.name"
+                        [ngModel]="exercise.name"
                         (change)="exerciseChanged(i, $event.target.value, 'name')"
                         class="ion-text-center"
                         placeholder="Exercise Name">
@@ -182,7 +182,7 @@
                         Set Rest: {{exercises[0].restBetweenReps}} seconds
                     </h3>
                     <ion-item>
-                        <ion-range [(ngModel)]="exercises[0].restBetweenReps"
+                        <ion-range [ngModel]="exercises[0].restBetweenReps"
                             (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
                             <ion-icon slot="start" size="small" name="repeat" color="dark"></ion-icon>
                             <ion-icon slot="end" name="repeat" color="dark"></ion-icon>
@@ -192,7 +192,7 @@
                         Exercise Rest: {{exercises[0].restAfterExercise}} seconds
                     </h3>
                     <ion-item>
-                        <ion-range [(ngModel)]="exercises[0].restAfterExercise"
+                        <ion-range [ngModel]="exercises[0].restAfterExercise"
                             (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
                             <ion-icon slot="start" size="small" name="body" color="dark"></ion-icon>
                             <ion-icon slot="end" name="body" color="dark"></ion-icon>

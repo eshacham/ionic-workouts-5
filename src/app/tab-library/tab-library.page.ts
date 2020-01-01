@@ -24,7 +24,6 @@ import { Logger, LoggingService } from 'ionic-logging-service';
 })
 export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
-
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -84,12 +83,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         this.logger.debug('ngOnInit', 'getLibraryMusclesFilter', filter);
         this.musclesFilter = filter;
       });
-    }
+  }
 
-    ngOnDestroy() {
-      this.ngUnsubscribe.next();
-      this.ngUnsubscribe.complete();
-    }
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   private presentToast(text: string) {
     this.toastService.presentToast(text);
@@ -141,11 +140,11 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
 
   private addNewImage(imagePath: string, imageName: string, newImageName: string) {
-      this.store.dispatch(new AddExerciseMedia({
-        origPath: imagePath,
-        origName: imageName,
-        newName: newImageName
-      }));
+    this.store.dispatch(new AddExerciseMedia({
+      origPath: imagePath,
+      origName: imageName,
+      newName: newImageName
+    }));
   }
 
   async deleteImage(imgEntry: ExerciseMediaBean) {
@@ -154,9 +153,13 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
 
   updateImage(value: string, image: ExerciseMediaBean) {
-    this.logger.debug('updateImage', `updating image (id ${image.id}) name to ${value}`);
+    this.logger.debug('updateImage', `updating image name to ${value}`);
     this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name: value }));
     this.presentToast('File updated.');
+  }
+
+  safeImage(media: ExerciseMediaBean): any {
+    return this.dataService.safeImage(media);
   }
 
   async setMuscle(imgEntry: ExerciseMediaBean) {

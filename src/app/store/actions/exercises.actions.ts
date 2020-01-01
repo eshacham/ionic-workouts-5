@@ -3,7 +3,7 @@ import { Rep } from 'src/app/models/Rep';
 import { ExerciseBean } from 'src/app/models/Exercise';
 
 export enum ExerciseActionsTypes {
-    UpdateExercise = '[Exercise] update exercise set',
+    UpdateExercise = '[Exercise] update exercise',
     DeleteExercise = '[Exercise] Delete exercise',
     DeleteExerciseInProgress = '[Exercise] Delete exercise is in progress',
     ResetReps = '[Exercise] Reset all reps',

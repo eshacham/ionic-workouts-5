@@ -2,7 +2,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { PopoverController } from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
 import { DisplayMode, WeightUnit, RunningState } from 'src/app/models/enums';
@@ -27,6 +26,7 @@ import {
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -115,7 +115,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     constructor(
         loggingService: LoggingService,
-        private domSanitizer: DomSanitizer,
+        private dataService: DataServiceProvider,
         private popoverCtrl: PopoverController,
         private store: Store<IAppState>
     ) {
@@ -144,12 +144,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.logger.debug('ngOnDestroy');
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
-    }
-
-    safeImage(media: ExerciseMediaBean): SafeUrl {
-        if (media) {
-            return this.domSanitizer.bypassSecurityTrustUrl(media.ionicPath);
-        }
     }
 
     toggleOpen() {
@@ -541,4 +535,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         popover.present();
     }
 
+    safeImage(media: ExerciseMediaBean): any {
+        return this.dataService.safeImage(media);
+      }
 }

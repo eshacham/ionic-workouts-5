@@ -2,13 +2,8 @@ import { ExerciseMediaBean } from '../models/ExerciseMedia';
 import { MediaDataMaps } from '../models/interfaces';
 import { Muscles } from '../models/enums';
 
-const mediaUrl = (name: string): string => {
-    return `assets/images/${name}`;
-};
-
 const addMedia = (map: Map<string, ExerciseMediaBean>, name: string, muscles: Muscles[]) => {
-    const url = mediaUrl(name);
-    const media = ExerciseMediaBean.create(name, name, url, new Set(muscles));
+    const media = ExerciseMediaBean.create(name, name, new Set(muscles));
     map.set(media.id, media);
 };
 

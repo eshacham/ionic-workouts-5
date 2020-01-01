@@ -27,22 +27,23 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
-      <ion-thumbnail slot="start">
-        <ion-img [src]="img.ionicPath"></ion-img>
-      </ion-thumbnail>
-      <ion-input type='text' value={{img.name}}
-                 placeholder="Exercise Name"
-                 (ionChange)="updateImage($event.target.value, img)">
-      </ion-input>
-      <ion-button slot="end" fill="clear" (click)="setMuscle(img)">
-        <ion-icon slot="icon-only" name="body"></ion-icon>
-        <ion-badge [color]="img.muscles.length ? 'primary' : 'danger'">{{img.muscles.length}}</ion-badge>
-      </ion-button>
-      <ion-button slot="end" fill="clear" [disabled]="img.mediaUsageCounter > 0"
-        (click)="deleteImage(img)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-        <ion-badge>{{img.mediaUsageCounter}}</ion-badge>
-      </ion-button>
+      <img [src]="safeImage(img)" slot="start"/>
+      <div>
+        <ion-input type='text'
+          [ngModel]=img.name
+          placeholder="Exercise Name"
+          (change)="updateImage($event.target.value, img)">
+        </ion-input>
+        <ion-button slot="end" fill="clear" (click)="setMuscle(img)">
+          <ion-icon slot="icon-only" name="body"></ion-icon>
+          <ion-badge [color]="img.muscles.length ? 'primary' : 'danger'">{{img.muscles.length}}</ion-badge>
+        </ion-button>
+        <ion-button slot="end" fill="clear" [disabled]="img.mediaUsageCounter > 0"
+          (click)="deleteImage(img)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+          <ion-badge>{{img.mediaUsageCounter}}</ion-badge>
+        </ion-button>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

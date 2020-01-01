@@ -16,6 +16,7 @@ import { Guid } from 'guid-typescript';
 import { AddExerciseSets } from 'src/app/store/actions/exerciseSets.actions';
 import { getExercisesMedias } from 'src/app/store/selectors/ExercisesMedia.selectors';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 
 interface SelectedExerciseMedia {
   isSelected: boolean;
@@ -42,6 +43,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   constructor(
     loggingService: LoggingService,
     private router: Router,
+    private dataService: DataServiceProvider,
     private route: ActivatedRoute,
     private store: Store<IAppState>) {
     this.logger = loggingService.getLogger('App.SelectExercisePage');
@@ -148,6 +150,9 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     image.newName = value;
   }
 
+  safeImage(media: ExerciseMediaBean): any {
+    return this.dataService.safeImage(media);
+  }
   addExercise() {
     const { sets, exes } = this.getNewSets();
     this.store.dispatch(new AddExerciseSets({

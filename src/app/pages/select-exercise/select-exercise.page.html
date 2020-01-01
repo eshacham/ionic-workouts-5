@@ -27,12 +27,12 @@
   <ion-list>
     <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
       <ion-thumbnail slot="start">
-        <ion-img [src]="img.media.ionicPath"></ion-img>
+        <img [src]="safeImage(img.media)"/>
       </ion-thumbnail>
       <ion-input type='text' id="highZ"
           placeholder="Exercise Name"
-          [(ngModel)]="img.media.name"
-          (ionChange)="setImageName($event.target.value, img)">
+          [ngModel]="img.media.name"
+          (change)="setImageName($event.target.value, img)">
       </ion-input>
       <ion-checkbox slot="end" [(ngModel)]="img.isSelected"></ion-checkbox>
     </ion-item>

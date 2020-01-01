@@ -2,7 +2,6 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { File as MobileFile, FileEntry } from '@ionic-native/File/ngx';
-import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Platform } from '@ionic/angular';
 import { ExerciseMediaBean } from '../../models/ExerciseMedia';
 import { Muscles } from '../../models/enums';
@@ -17,6 +16,8 @@ import * as JSZip from 'jszip';
 import Auth from '@aws-amplify/auth';
 import S3 from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -29,9 +30,10 @@ export class DataServiceProvider {
 
   constructor(
     loggingService: LoggingService,
+    private domSanitizer: DomSanitizer,
     private platform: Platform,
-    private mobileFile: MobileFile,
     private webview: WebView,
+    private mobileFile: MobileFile,
     private storage: Storage,
     private store: Store<IAppState>,
     private http: HttpClient,
@@ -60,12 +62,7 @@ export class DataServiceProvider {
       workoutsData = await this.initDefaultWorkouts();
       imagesData = await this.initDefaultImages();
       this.store.dispatch(new DataReset());
-    } else {
-      if (this.isMobile) {
-        this.assertImagesPath(imagesData);
-      }
     }
-
     data = { ...workoutsData, ...imagesData };
     if (data.workouts && data.media) {
       this.logger.info('getAllData', 'loaded cached workouts', Object.keys(data.workouts.byId));
@@ -102,21 +99,6 @@ export class DataServiceProvider {
     return data;
   }
 
-  private assertImagesPath(mediaDataMaps: MediaDataMaps) {
-    const imagesToUpdate = Object.values(mediaDataMaps.media.byId)
-      .filter(i => !i.isDefault && i.nativePath.indexOf(this.mobileFile.dataDirectory) < 0);
-    for (const image of imagesToUpdate) {
-      const oldPath = image.nativePath;
-      const name = image.nativePath.substr(image.nativePath.lastIndexOf('/') + 1);
-      image.nativePath = this.mobileFile.dataDirectory + name;
-      image.ionicPath = this.getIonicPath(image.nativePath);
-      this.logger.info('assertImagesPath', `update images media path from ${oldPath} to ${image.nativePath}`);
-    }
-    if (imagesToUpdate.length) {
-      this.saveImages(mediaDataMaps);
-    }
-  }
-
   async saveImages(images: MediaDataMaps) {
     await this.storage.ready();
     await this.storage.set(IMAGES_STORAGE_KEY, images);
@@ -144,17 +126,14 @@ export class DataServiceProvider {
     }
   }
 
-  async addImage(origImagePath: string, origImageName: string, newImageName: string):
-    Promise<ExerciseMediaBean> {
-    await this.mobileFile.copyFile(origImagePath, origImageName, this.mobileFile.dataDirectory, newImageName);
-    const nativePath = this.mobileFile.dataDirectory + newImageName;
-    this.logger.info('addImage', `new image ${origImagePath}/${origImageName} has been copied to ${nativePath}`);
+  async addImage(origImagePath: string, origImageName: string, newImageName: string): Promise<ExerciseMediaBean> {
+    const newImageId = Guid.raw();
+    await this.mobileFile.copyFile(origImagePath, origImageName, this.mobileFile.dataDirectory, newImageId);
+    this.logger.info('addImage', `new image ${newImageName} copied`);
 
     const newEntry: ExerciseMediaBean = new ExerciseMediaBean({
-      id: Guid.raw(),
+      id: newImageId,
       name: newImageName,
-      ionicPath: this.getIonicPath(nativePath),
-      nativePath,
       isDefault: false,
       muscles: new Set(),
     });
@@ -163,17 +142,14 @@ export class DataServiceProvider {
 
   async deleteImage(image: ExerciseMediaBean): Promise<string> {
     if (this.isMobile && !image.isDefault) {
-      const path = image.nativePath.substr(0, image.nativePath.lastIndexOf('/') + 1);
-      const name = image.nativePath.substr(image.nativePath.lastIndexOf('/') + 1);
+      const path = this.mobileFile.dataDirectory;
+      const name = image.id;
       this.logger.info('deleteImage', `deleting image file ${path}/${name}`);
       await this.mobileFile.removeFile(path, name);
     }
     return image.id;
   }
 
-  getIonicPath(img: string) {
-    return (img === null) ? '' : this.webview.convertFileSrc(img);
-  }
 
   get isAndriod(): boolean {
     return this.platform.is('android');
@@ -270,23 +246,42 @@ export class DataServiceProvider {
     this.logger.info('importWorkout', 'imported and updated result', result);
     return result;
   }
-  async updateAndCreateNewImage(image: any, blob: any) {
-    const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, image.name, blob, { replace: true });
-    image.nativePath = this.mobileFile.dataDirectory + image.name;
-    image.ionicPath = this.getIonicPath(image.nativePath),
-      this.logger.info('updateAndCreateNewImage', `image id ${image.id}, name ${image.name} imported`, blob, file);
+  async updateAndCreateNewImage(image: ExerciseMediaBean, blob: any) {
+    const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, image.id, blob, { replace: true });
+    this.logger.info('updateAndCreateNewImage', `image ${image.name} imported`, blob, file);
   }
 
   private getImageFile(image: ExerciseMediaBean): any {
     return new Promise(async (resolve) => {
+      let imageName: string;
       if (!image.isDefault) {
-        const mobileFileEntry = (await this.mobileFile.resolveLocalFilesystemUrl(image.nativePath)) as FileEntry;
+        imageName = this.getImageNativePath(image.id);
+        const mobileFileEntry = (await this.mobileFile.resolveLocalFilesystemUrl(imageName)) as FileEntry;
         mobileFileEntry.file((data) => resolve(data));
       } else {
-        this.http.get(image.nativePath, { responseType: 'blob' })
+        imageName = this.getImageDefaultPath(image.id);
+        this.http.get(imageName, { responseType: 'blob' })
           .subscribe((data) => resolve(data));
       }
     });
+  }
+
+  private getImageNativePath(imageName: string): string {
+    return `${this.mobileFile.dataDirectory}${imageName}`;
+  }
+  private getImageDefaultPath(imageName: string): string {
+    return `assets/images/${imageName}`;
+  }
+  private getMobilePath(url: string) {
+    return this.webview.convertFileSrc(url);
+  }
+  safeImage(media: ExerciseMediaBean): SafeUrl {
+    const imagePath = media.isDefault
+    ? this.getImageDefaultPath(media.id)
+    : this.getMobilePath(this.getImageNativePath(media.id));
+
+    const url = this.domSanitizer.bypassSecurityTrustUrl(imagePath);
+    return url;
   }
 
   private readFileData(fileName: string, file: Blob): Promise<{ name: string, data: any }> {
