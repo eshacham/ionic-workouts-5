@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TabLibraryPage } from './tab-library.page';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { ExpandableComponentModule } from '../components/expandable/expandable.module';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
+    ExpandableComponentModule,
     RouterModule.forChild(routes),
   ],
   declarations: [TabLibraryPage],

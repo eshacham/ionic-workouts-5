@@ -26,31 +26,45 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
-      <img [src]="safeImage(img.media)" slot="start"/>
-      <div>
-        <ion-input type='text'
-          [ngModel]=img.media.name
-          placeholder="Exercise Name"
-          (change)="updateImage($event.target.value, img.media)">
-        </ion-input>
-        <ion-button slot="end" fill="clear" (click)="setMuscle(img.media)">
-          <ion-icon slot="icon-only" name="body"></ion-icon>
-          <ion-badge [color]="img.media.muscles.length ? 'primary' : 'danger'">{{img.media.muscles.length}}</ion-badge>
-        </ion-button>
 
-          <ion-button slot="end" fill="clear" [disabled]="img.usage.length > 0"
-            (click)="deleteImage(img.media)">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-            <ion-badge>{{img.usage.length}}</ion-badge>
-          </ion-button>
-          <ion-button fill="clear"
-          (click)="refreshImageUsage(img)">
-          <ion-icon slot="icon-only" name="refresh"></ion-icon>
-          </ion-button>
-        
-      </div>
+    <ion-item *ngFor="let img of getFilteredImages()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <ion-input type='text'
+            [ngModel]=img.media.name
+            placeholder="Exercise Name"
+            (change)="updateImage($event.target.value, img.media)">
+          </ion-input>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button fill="clear" (click)="setMuscle(img.media)">
+            <ion-icon slot="icon-only" name="body"></ion-icon>
+            <ion-badge [color]="img.media.muscles.length ? 'primary' : 'danger'">{{img.media.muscles.length}}</ion-badge>
+        </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+        <ion-item lines="none" (click)="expandItem(img, $event)">
+          <img [src]="safeImage(img.media)" slot="start"/>
+          <app-expandable expandHeight="100px" [expanded]="img.expanded" slot="end">
+            <ion-button fill="clear" [disabled]="img.usage.length > 0"
+              (click)="deleteImage(img.media)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+              <ion-badge>{{img.usage.length}}</ion-badge>
+            </ion-button>
+            <ion-button fill="clear"
+              (click)="refreshImageUsage(img, $event)">
+            <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+          </app-expandable>
+        </ion-item>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
     </ion-item>
+
   </ion-list>
 </ion-content>
 

@@ -21,7 +21,7 @@ import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
   usage: { workoutId: string, dayId: string }[];
-  open: boolean;
+  expanded: boolean;
 }
 
 @Component({
@@ -84,7 +84,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         this.images = media.map(m => ({
           media: m,
           usage: [],
-          open: false
+          expanded: false
         }));
       });
 
@@ -163,12 +163,29 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  refreshImageUsage(image: ExerciseMediaWithUsage) {
+  expandItem(item: ExerciseMediaWithUsage, event: AnyFn): void {
+    if (item.expanded) {
+      item.expanded = false;
+    } else {
+      this.refreshImageUsage(item, event);
+      this.images.map(listItem => {
+        if (item === listItem) {
+          listItem.expanded = !listItem.expanded;
+        } else {
+          listItem.expanded = false;
+        }
+        return listItem;
+      });
+    }
+  }
+
+  refreshImageUsage(image: ExerciseMediaWithUsage, event: any) {
     this.store.select(getExerciseMediaUsage(image.media.id))
       .pipe(take(1))
       .subscribe(usage => {
         image.usage = usage;
       });
+    event.stopPropagation();
   }
 
   updateImage(value: string, image: ExerciseMediaBean) {
