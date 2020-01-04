@@ -38,11 +38,17 @@
           <ion-icon slot="icon-only" name="body"></ion-icon>
           <ion-badge [color]="img.media.muscles.length ? 'primary' : 'danger'">{{img.media.muscles.length}}</ion-badge>
         </ion-button>
-        <ion-button slot="end" fill="clear" [disabled]="img.media.mediaUsageCounter > 0"
-          (click)="deleteImage(img.media)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-          <ion-badge>{{img.media.mediaUsageCounter}}</ion-badge>
-        </ion-button>
+
+          <ion-button slot="end" fill="clear" [disabled]="img.usage.length > 0"
+            (click)="deleteImage(img.media)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+            <ion-badge>{{img.usage.length}}</ion-badge>
+          </ion-button>
+          <ion-button fill="clear"
+          (click)="refreshImageUsage(img)">
+          <ion-icon slot="icon-only" name="refresh"></ion-icon>
+          </ion-button>
+        
       </div>
     </ion-item>
   </ion-list>

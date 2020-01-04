@@ -24,3 +24,13 @@ export const getMediaIdsByWorkout = (workoutId: string) => createSelector(
         return mediaIds;
     }
 );
+export const getExerciseMediaUsage = (mediaId: string) => createSelector(
+    exercisesState,
+    (exercises: IExercisesState) => {
+        const exesArray = Object.entries(exercises.byId);
+        const usage = exesArray
+                .filter(([_, exercise]) => exercise.mediaId === mediaId)
+                .map(([_, exercise]) => ({ workoutId: exercise.workoutId, dayId: exercise.dayId }));
+        return usage;
+    }
+);

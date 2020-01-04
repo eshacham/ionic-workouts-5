@@ -10,12 +10,13 @@ import { ToastService } from '../providers/toast-service/toast-service';
 import { Muscles } from '../models/enums';
 import { MuscleFilterFor } from '../pages/select-muscle/select-muscle.page';
 import { IAppState } from '../store/state/app.state';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { getLibraryMusclesFilter } from '../store/selectors/musclesFilter.selectors';
 import { getExercisesMedias } from '../store/selectors/ExercisesMedia.selectors';
 import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 
 interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -160,6 +161,14 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   async deleteImage(imgEntry: ExerciseMediaBean) {
     this.store.dispatch(new DeleteExerciseMedia({ image: imgEntry }));
     this.presentToast('File removed.');
+  }
+
+  refreshImageUsage(image: ExerciseMediaWithUsage) {
+    this.store.select(getExerciseMediaUsage(image.media.id))
+      .pipe(take(1))
+      .subscribe(usage => {
+        image.usage = usage;
+      });
   }
 
   updateImage(value: string, image: ExerciseMediaBean) {
