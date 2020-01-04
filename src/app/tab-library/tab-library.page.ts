@@ -17,6 +17,12 @@ import { getExercisesMedias } from '../store/selectors/ExercisesMedia.selectors'
 import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 
+interface ExerciseMediaWithUsage {
+  media: ExerciseMediaBean;
+  usage: { workoutId: string, dayId: string }[];
+  open: boolean;
+}
+
 @Component({
   selector: 'app-tab-library',
   templateUrl: 'tab-library.page.html',
@@ -26,27 +32,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(
-    loggingService: LoggingService,
-    private camera: Camera,
-    private actionSheetController: ActionSheetController,
-    private toastService: ToastService,
-    private filePath: FilePath,
-    private router: Router,
-    private route: ActivatedRoute,
-    private dataService: DataServiceProvider,
-    private store: Store<IAppState>) {
-    this.exerciseMediaBean = [];
-    this.logger = loggingService.getLogger('App.TabLibraryPage');
+  exerciseMediaWithUsage: ExerciseMediaWithUsage[];
+  get images(): ExerciseMediaWithUsage[] {
+    return this.exerciseMediaWithUsage;
   }
-
-  exerciseMediaBean: ExerciseMediaBean[];
-  get images(): ExerciseMediaBean[] {
-    return this.exerciseMediaBean;
-  }
-  set images(images: ExerciseMediaBean[]) {
-    this.exerciseMediaBean = images;
+  set images(images: ExerciseMediaWithUsage[]) {
+    this.exerciseMediaWithUsage = images;
   }
 
   isUsingFilter = false;
@@ -68,13 +59,32 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     return this.isMobile;
   }
 
+  constructor(
+    loggingService: LoggingService,
+    private camera: Camera,
+    private actionSheetController: ActionSheetController,
+    private toastService: ToastService,
+    private filePath: FilePath,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataService: DataServiceProvider,
+    private store: Store<IAppState>) {
+    this.exerciseMediaWithUsage = [];
+    this.logger = loggingService.getLogger('App.TabLibraryPage');
+  }
+
+
   ngOnInit() {
     this.isMobile = this.dataService.isMobile;
 
     this.store.select(getExercisesMedias)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(media => {
-        this.images = media;
+        this.images = media.map(m => ({
+          media: m,
+          usage: [],
+          open: false
+        }));
       });
 
     this.store.select(getLibraryMusclesFilter)
@@ -187,16 +197,16 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.router.navigate(['select-muscle'], extra);
   }
 
-  getFilteredImages(): ExerciseMediaBean[] {
+  getFilteredImages(): ExerciseMediaWithUsage[] {
     if (!this.useFilter) {
       return this.images;
     }
     if (this.filteredMusclesCount === 0) {
       return [];
     }
-    const images = this.exerciseMediaBean.filter((image) => {
+    const images = this.exerciseMediaWithUsage.filter((image) => {
       const intersection =
-        image.muscles.filter(imageMuscle => this.musclesFilter.includes(imageMuscle));
+        image.media.muscles.filter(imageMuscle => this.musclesFilter.includes(imageMuscle));
       return (intersection.length > 0);
     });
     return images;
