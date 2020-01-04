@@ -26,8 +26,6 @@ import {
     DeleteExerciseMediaSuccess,
     UpdateExerciseMedia,
     UpdateExerciseMediaSuccess,
-    UpdateExerciseMediaUsage,
-    UpdateExerciseMediaUsageSuccess
 } from '../actions/exercisesMedia.actions';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { ExerciseActionsTypes, DeleteExercise, DeleteExerciseInProgress } from '../actions/exercises.actions';
@@ -185,18 +183,6 @@ export class DataEffects {
         })
     );
 
-    @Effect()
-    updateImageUsage$ = this.actions$.pipe(
-        ofType(ExerciseMediaActionsTypes.UpdateExerciseMediaUsage),
-        mergeMap((action: UpdateExerciseMediaUsage) => ([
-            new UpdateExerciseMediaUsageSuccess(action.payload),
-            new UpdateImages()
-        ])),
-        catchError(err => {
-            this.logger.error('updateImageUsage', err);
-            return of(new GetDataError(err.message));
-        })
-    );
 
     @Effect()
     deleteExercise$ = this.actions$.pipe(
@@ -211,10 +197,6 @@ export class DataEffects {
                     setId: action.payload.setId
                 }));
             }
-            actions.push(new UpdateExerciseMediaUsage({
-                ids: [action.payload.mediaId],
-                mediaUsageCounterInc: -1
-            }));
             return actions;
         }),
         catchError(err => {
@@ -234,12 +216,6 @@ export class DataEffects {
         ),
         switchMap(([payload, mediaIds]) => {
             const actions: any[] = [];
-            if (mediaIds.length) {
-                actions.push(new UpdateExerciseMediaUsage({
-                    ids: mediaIds,
-                    mediaUsageCounterInc: -1
-                }));
-            }
             actions.push(new DeleteWorkoutInProgress({
                 id: payload.id,
                 days: payload.days
@@ -264,12 +240,6 @@ export class DataEffects {
         ),
         switchMap(([payload, mediaIds]) => {
             const actions: any[] = [];
-            if (mediaIds.length) {
-                actions.push(new UpdateExerciseMediaUsage({
-                    ids: mediaIds,
-                    mediaUsageCounterInc: -1
-                }));
-            }
             actions.push(new DeleteWorkoutDaySuccess(payload));
             actions.push(new UpdateWorkouts());
             return actions;

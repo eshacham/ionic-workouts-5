@@ -60,7 +60,6 @@ const getDefaultExerciseMedia = (): Map<string, ExerciseMediaBean> => {
 
 export const attachMedia2Exercise = (id: string): string => {
     const media = getDefaultExerciseMedia().get(id);
-    media.mediaUsageCounter++;
     return media.id;
 };
 

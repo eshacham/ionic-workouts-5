@@ -165,7 +165,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  expandItem(item: ExerciseMediaWithUsage, event: AnyFn): void {
+  expandItem(item: ExerciseMediaWithUsage, event: any): void {
     if (item.expanded) {
       item.expanded = false;
     } else {

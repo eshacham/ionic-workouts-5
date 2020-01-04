@@ -21,7 +21,6 @@ import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { Guid } from 'guid-typescript';
 import { DisplayMode } from 'src/app/models/enums';
-import { UpdateExerciseMediaUsage } from 'src/app/store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 
 @Component({
@@ -216,13 +215,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   moveBackWorkoutDay(event) {
     this.store.dispatch(new MoveWorkoutDay({ direction: Direction.Backword }));
     event.stopPropagation();
-  }
-
-  decreseMediasUsage(mediaIds: string[]) {
-    this.store.dispatch(new UpdateExerciseMediaUsage({
-      ids: mediaIds,
-      mediaUsageCounterInc: -1
-    }));
   }
 
   getWorkoutDayIndexById(id: string) {

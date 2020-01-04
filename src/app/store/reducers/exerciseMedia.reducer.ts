@@ -52,8 +52,6 @@ export const exercisesMediaReducers = (
         }
         case ExerciseMediaActionsTypes.UpdateExerciseMediaSuccess: {
             const mediaId = action.payload.id;
-            const mediaUsageCounterUpdate = action.payload.mediaUsageCounterInc || 0;
-            const mediaUsageCounter = state.byId[mediaId].mediaUsageCounter + mediaUsageCounterUpdate;
             return {
                 ...state,
                 byId: {
@@ -61,40 +59,24 @@ export const exercisesMediaReducers = (
                     [mediaId]: {
                         ...state.byId[mediaId],
                         name: action.payload.name || state.byId[mediaId].name,
-                        mediaUsageCounter
                     }
                 }
             };
         }
-        case ExerciseMediaActionsTypes.UpdateExerciseMediaUsageSuccess: {
-            const ids2Update = action.payload.ids;
-            const incFactor = action.payload.mediaUsageCounterInc;
-            const mediasArray = Object.entries(state.byId);
-            const newMap = mediasArray
-                .reduce((map, obj) => (map[obj[0]] =
-                    (ids2Update.includes(obj[0]))
-                        ? { ...obj[1], mediaUsageCounter: obj[1].mediaUsageCounter + incFactor }
-                        : obj[1],
-                    map), {});
-            return {
-                ...state,
-                byId: newMap
-            };
-        }
-        case ExerciseSetActionsTypes.AddExerciseSets: {
-            const ids2Update = action.payload.exes.map(exe => exe.mediaId);
-            const mediasArray = Object.entries(state.byId);
-            const newMap = mediasArray
-                .reduce((map, obj) => (map[obj[0]] =
-                    (ids2Update.includes(obj[0]))
-                        ? { ...obj[1], mediaUsageCounter: obj[1].mediaUsageCounter + 1 }
-                        : obj[1],
-                    map), {});
-            return {
-                ...state,
-                byId: newMap
-            };
-        }
+        // case ExerciseSetActionsTypes.AddExerciseSets: {
+        //     const ids2Update = action.payload.exes.map(exe => exe.mediaId);
+        //     const mediasArray = Object.entries(state.byId);
+        //     const newMap = mediasArray
+        //         .reduce((map, obj) => (map[obj[0]] =
+        //             (ids2Update.includes(obj[0]))
+        //                 ? { ...obj[1], mediaUsageCounter: obj[1].mediaUsageCounter + 1 }
+        //                 : obj[1],
+        //             map), {});
+        //     return {
+        //         ...state,
+        //         byId: newMap
+        //     };
+        // }
         case ExerciseMediaActionsTypes.DeleteExerciseMediaSuccess: {
             return {
                 ...state,
