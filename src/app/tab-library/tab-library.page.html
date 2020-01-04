@@ -53,13 +53,13 @@
                 (click)="goToWorkoutDay(use, $event)">
                 <ion-icon slot="icon-only" name="walk"></ion-icon>
             </ion-button>
-            <ion-button fill="clear" [disabled]="img.usage.length > 0"
-              (click)="deleteImage(img.media)">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-            </ion-button>
             <ion-button fill="clear"
               (click)="refreshImageUsage(img, $event)">
             <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" [disabled]="img.usage.length > 0"
+              (click)="deleteImage(img.media)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
           </app-expandable>
         </ion-item>
