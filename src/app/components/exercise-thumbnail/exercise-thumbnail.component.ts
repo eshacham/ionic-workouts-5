@@ -50,7 +50,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
-    private showExerciseDetail = false;
+    private expanded = false;
     private isInRunningMode = false;
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
@@ -79,13 +79,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     get timedRestRemaining(): number { return this.remainingTimedRestSec; }
 
-    get IsOpen(): boolean { return this.showExerciseDetail; }
-    set IsOpen(val: boolean) {
-        this.showExerciseDetail = val;
-    }
-
-    get OpenedExercises(): ExerciseBean[] {
-        return this.IsOpen ? this.exercises : [];
+    get ExpandedExercises(): ExerciseBean[] {
+        return this.expanded ? this.exercises : [];
     }
 
     get IsRunning(): boolean { return this.isInRunningMode; }
@@ -146,8 +141,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.complete();
     }
 
-    toggleOpen() {
-        this.IsOpen = !this.IsOpen;
+    // toggleOpen() {
+    //     this.IsOpen = !this.IsOpen;
+    // }
+    expandItem(): void {
+        this.expanded = !this.expanded;
     }
 
     handleWorkoutDayStateChange(day: WorkoutDayBean) {
