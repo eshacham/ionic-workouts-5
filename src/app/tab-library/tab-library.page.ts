@@ -188,6 +188,10 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
+  goToWorkoutDay(usage: {workoutId: string, dayId: string}, event: any) {
+    this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
+    event.stopPropagation();
+  }
   updateImage(value: string, image: ExerciseMediaBean) {
     this.logger.debug('updateImage', `updating image name to ${value}`);
     this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name: value }));

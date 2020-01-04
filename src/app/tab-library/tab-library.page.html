@@ -49,10 +49,13 @@
         <ion-item lines="none" (click)="expandItem(img, $event)">
           <img [src]="safeImage(img.media)" slot="start"/>
           <app-expandable expandHeight="100px" [expanded]="img.expanded" slot="end">
+            <ion-button *ngFor="let use of img.usage" size="small" fill="clear"
+                (click)="goToWorkoutDay(use, $event)">
+                <ion-icon slot="icon-only" name="walk"></ion-icon>
+            </ion-button>
             <ion-button fill="clear" [disabled]="img.usage.length > 0"
               (click)="deleteImage(img.media)">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
-              <ion-badge>{{img.usage.length}}</ion-badge>
             </ion-button>
             <ion-button fill="clear"
               (click)="refreshImageUsage(img, $event)">
