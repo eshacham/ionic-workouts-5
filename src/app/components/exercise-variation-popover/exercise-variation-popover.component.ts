@@ -34,6 +34,7 @@ export class ExerciseVariationPopoverComponent implements OnInit {
   }
 
   updateExercise() {
+    // console.log('updateExercise in ExerciseVariationPopoverComponent');
     const exe = ExerciseBean.copy(this.exercise);
     this.store.dispatch(new UpdateExercise({
       exercise: exe

@@ -51,6 +51,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
+    restBetweenReps = 0;
+    restAfterExercise = 0;
     private expanded = false;
     private isInRunningMode = false;
     private isInEditMode = false;
@@ -129,6 +131,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                             this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
                             this.exercises = exerciseSet.exercises;
                             this.images = exerciseSet.media;
+                            this.restBetweenReps = this.exercises[0].restBetweenReps;
+                            this.restAfterExercise = this.exercises[0].restAfterExercise;
                         });
                     this.store.select(getWorkoutDay(this.dayId))
                         .pipe(takeUntil(this.ngUnsubscribe))
@@ -148,9 +152,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.complete();
     }
 
-    // toggleOpen() {
-    //     this.IsOpen = !this.IsOpen;
-    // }
     expandItem(): void {
         this.expanded = !this.expanded;
     }
@@ -206,8 +207,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     exerciseChanged(index: number, value: string | number, prop: string) {
+        this.logger.debug('exerciseChanged', 'value, prop', value, prop);
         const newExe = ExerciseBean
-            .copy(this.exercises[index]);
+            .copy(this.exercises[index], {
+                restBetweenReps: this.restBetweenReps,
+                restAfterExercise: this.restAfterExercise
+            });
         newExe[prop] = value;
         this.store.dispatch(new UpdateExercise({
             exercise: newExe
@@ -542,5 +547,5 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     safeImage(media: ExerciseMediaBean): any {
         return this.dataService.safeImage(media);
-      }
+    }
 }

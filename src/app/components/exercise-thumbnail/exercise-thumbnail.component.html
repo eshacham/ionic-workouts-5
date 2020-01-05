@@ -172,20 +172,20 @@
                 <ion-col>
                     <ion-list lines="none" class="noBottomMargin">
                         <h3 class="ion-text-center">
-                            Rest between reps: {{exercises[0].restBetweenReps}} seconds
+                            Rest between reps: {{restBetweenReps}} seconds
                         </h3>
                         <ion-item>
-                            <ion-range [ngModel]="exercises[0].restBetweenReps" debounce="100"
+                            <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
                                 <ion-icon slot="start" size="small" name="repeat" color="dark"></ion-icon>
                                 <ion-icon slot="end" name="repeat" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                         <h3 class="ion-text-center">
-                            Rest after set: {{exercises[0].restAfterExercise}} seconds
+                            Rest after set: {{restAfterExercise}} seconds
                         </h3>
                         <ion-item>
-                            <ion-range [ngModel]="exercises[0].restAfterExercise" debounce="100"
+                            <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
                                 <ion-icon slot="start" size="small" name="body" color="dark"></ion-icon>
                                 <ion-icon slot="end" name="body" color="dark"></ion-icon>
