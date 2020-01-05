@@ -9,13 +9,13 @@
 
 <ion-content>
 
-    <ion-fab vertical="top" horizontal="end" #fabWorkout id="fabWorkout">
+    <ion-fab vertical="top" horizontal="start" #fabWorkout id="fabWorkout">
         <ion-fab-button size="small"
         (click)="startWorkoutToggler()" color="warning">
           <ion-icon name="play"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start">
+        <ion-fab-list side="end">
           <ion-fab-button size="small"
           (click)="stopWorkout()" color="light">
             <ion-icon name="pause"></ion-icon>
@@ -24,37 +24,36 @@
 
     </ion-fab>
 
-    <ion-fab vertical="top" horizontal="start" #fabEdit id="fabEdit">
+    <ion-fab vertical="bottom" horizontal="end" #fabEdit id="fabEdit">
         <ion-fab-button size="small"
         (click)="editWorkoutToggler()" color="warning">
           <ion-icon name="construct"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="end">
-          <ion-fab-button size="small"
-          (click)="selectExerciseToAdd($event)" color="light">
-            <ion-icon name="walk"></ion-icon>
+        <ion-fab-list side="start">
+          <ion-fab-button size="small" [disabled]="isLastDayActive"
+            (click)="moveForwardWorkoutDay($event)" color="light">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button size="small" [disabled]="isFirstDayActive"
+            (click)="moveBackWorkoutDay($event)" color="light">
+            <ion-icon name="arrow-back"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
 
-        <ion-fab-list side="bottom">
+        <ion-fab-list side="top">
+          <ion-fab-button size="small" [disabled]="isOneDayOnly"
+            (click)="deleteWorkoutDay($event)" color="light">
+            <ion-icon name="trash"></ion-icon>
+          </ion-fab-button>
           <ion-fab-button size="small"
            (click)="addWorkoutDay($event)" color="light">
             <ion-icon name="today"></ion-icon>
           </ion-fab-button>
-          <ion-fab-button size="small" [disabled]="isOneDayOnly"
-          (click)="deleteWorkoutDay($event)" color="light">
-            <ion-icon name="trash"></ion-icon>
+          <ion-fab-button size="small"
+            (click)="selectExerciseToAdd($event)" color="light">
+            <ion-icon name="walk"></ion-icon>
           </ion-fab-button>
-          <ion-fab-button size="small" [disabled]="isFirstDayActive"
-          (click)="moveBackWorkoutDay($event)" color="light">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-button size="small" [disabled]="isLastDayActive"
-          (click)="moveForwardWorkoutDay($event)" color="light">
-            <ion-icon name="arrow-forward"></ion-icon>
-          </ion-fab-button>
-
         </ion-fab-list>
     </ion-fab>
 
