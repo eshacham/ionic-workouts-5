@@ -132,23 +132,24 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     }
   }
 
-  private adjustDisplayMode(workoutDayState: WorkoutDayBean) {
+  private async adjustDisplayMode(workoutDayState: WorkoutDayBean) {
     this.logger.debug('adjustDisplayMode', `${this.workoutId} adjusting Display mode to - ${DisplayMode[workoutDayState.displayMode]}`);
     this.DisplayMode = workoutDayState.displayMode;
     switch (this.DisplayMode) {
       case DisplayMode.Display:
-        this.fabEdit.close();
-        this.fabWorkout.close();
+        await this.fabEdit.close();
+        await this.fabWorkout.close();
         break;
       case DisplayMode.Edit:
         this.fabEdit.activated = true;
-        this.fabWorkout.close();
+        await this.fabWorkout.close();
         break;
       case DisplayMode.Workout:
-        this.fabEdit.close();
         this.fabWorkout.activated = true;
+        await this.fabEdit.close();
         break;
     }
+    this.logger.exit('editWorkoutToggler', 'fabEdit.activated', this.fabEdit.activated);
   }
 
   ngOnDestroy() {
@@ -169,7 +170,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     return this.days && this.days.length === 1;
   }
 
-  private async addWorkoutDay(event) {
+  private async addWorkoutDay(event: any) {
     const newId = Guid.raw();
     const newDay = new WorkoutDayBean({
       id: newId,
@@ -201,20 +202,20 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     this.store.dispatch(new DeleteWorkoutDay({
       dayId: this.activeDayId,
     }));
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
     await this.slides.update();
 
     event.stopPropagation();
   }
 
-  moveForwardWorkoutDay(event) {
-    this.store.dispatch(new MoveWorkoutDay({ direction: Direction.Forward }));
+  moveForwardWorkoutDay(event: any) {
     event.stopPropagation();
+    this.store.dispatch(new MoveWorkoutDay({ direction: Direction.Forward }));
   }
 
-  moveBackWorkoutDay(event) {
-    this.store.dispatch(new MoveWorkoutDay({ direction: Direction.Backword }));
+  moveBackWorkoutDay(event: any) {
     event.stopPropagation();
+    this.store.dispatch(new MoveWorkoutDay({ direction: Direction.Backword }));
   }
 
   getWorkoutDayIndexById(id: string) {
@@ -265,7 +266,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     this.DispatchChangeDisplayMode();
   }
 
-  async editWorkoutToggler() {
+  editWorkoutToggler() {
     switch (this.DisplayMode) {
       case DisplayMode.Workout:
       case DisplayMode.Display:
@@ -279,7 +280,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     this.DispatchChangeDisplayMode();
   }
 
-  async selectExerciseToAdd(event) {
+  selectExerciseToAdd(event: any) {
     this.router.navigate(['select-exercise'], { relativeTo: this.route });
     event.stopPropagation();
   }
