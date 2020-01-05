@@ -167,25 +167,25 @@
                     </div>
             </ion-col>
         </ion-row>
-        <app-expandable expandHeight="400px" [expanded]="expanded">
+        <app-expandable expandHeight="200px" [expanded]="expanded">
             <ion-row class="ion-justify-content-center">
                 <ion-col>
                     <ion-list lines="none" class="noBottomMargin">
                         <h3 class="ion-text-center">
-                            Set Rest: {{exercises[0].restBetweenReps}} seconds
+                            Rest between reps: {{exercises[0].restBetweenReps}} seconds
                         </h3>
                         <ion-item>
-                            <ion-range [ngModel]="exercises[0].restBetweenReps"
+                            <ion-range [ngModel]="exercises[0].restBetweenReps" debounce="100"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
                                 <ion-icon slot="start" size="small" name="repeat" color="dark"></ion-icon>
                                 <ion-icon slot="end" name="repeat" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                         <h3 class="ion-text-center">
-                            Exercise Rest: {{exercises[0].restAfterExercise}} seconds
+                            Rest after set: {{exercises[0].restAfterExercise}} seconds
                         </h3>
                         <ion-item>
-                            <ion-range [ngModel]="exercises[0].restAfterExercise"
+                            <ion-range [ngModel]="exercises[0].restAfterExercise" debounce="100"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
                                 <ion-icon slot="start" size="small" name="body" color="dark"></ion-icon>
                                 <ion-icon slot="end" name="body" color="dark"></ion-icon>
