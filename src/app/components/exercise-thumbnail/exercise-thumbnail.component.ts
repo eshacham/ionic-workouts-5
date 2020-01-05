@@ -27,6 +27,7 @@ import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
+import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -118,19 +119,25 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.store.select(getExerciseSet(this.exerciseSetId))
+        this.store.select(getCurrentWorkout)
             .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(exerciseSet => {
-                this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
-                this.exercises = exerciseSet.exercises;
-                this.images = exerciseSet.media;
-            });
-        this.store.select(getWorkoutDay(this.dayId))
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(day => {
-                this.logger.debug('ngOnInit', 'getWorkoutDay', day);
-                if (day) {
-                    this.handleWorkoutDayStateChange(day);
+            .subscribe(data => {
+                if (data.selectedDayId === this.dayId) {
+                    this.store.select(getExerciseSet(this.exerciseSetId))
+                        .pipe(takeUntil(this.ngUnsubscribe))
+                        .subscribe(exerciseSet => {
+                            this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
+                            this.exercises = exerciseSet.exercises;
+                            this.images = exerciseSet.media;
+                        });
+                    this.store.select(getWorkoutDay(this.dayId))
+                        .pipe(takeUntil(this.ngUnsubscribe))
+                        .subscribe(day => {
+                            this.logger.debug('ngOnInit', 'getWorkoutDay', day);
+                            if (day) {
+                                this.handleWorkoutDayStateChange(day);
+                            }
+                        });
                 }
             });
     }

@@ -11,17 +11,19 @@ import { mediaState } from './ExercisesMedia.selectors';
 
 export const setsState = (state: IAppState): IExerciseSetsState => state.sets;
 
-export const getExerciseSet = (id: string) => createSelector(
+export const getExerciseSet = (setId: string) => createSelector(
     setsState,
     exercisesState,
     mediaState,
-    (exerciseSets: IExerciseSetsState,
-     exercises: IExercisesState,
-     media: IExercisesMediaState) => {
+    (
+        exerciseSets: IExerciseSetsState,
+        exercises: IExercisesState,
+        media: IExercisesMediaState
+    ) => {
         let set: ExerciseSetBean;
         let exes: ExerciseBean[] = [];
         let medias: ExerciseMediaBean[] = [];
-        set = exerciseSets.byId[id];
+        set = exerciseSets.byId[setId];
         if (set) {
             const exeIds = set.exercises;
             exes = exeIds.map(exeId => exercises.byId[exeId]);
