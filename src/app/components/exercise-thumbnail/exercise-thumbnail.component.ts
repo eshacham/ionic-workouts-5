@@ -131,8 +131,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                             this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
                             this.exercises = exerciseSet.exercises;
                             this.images = exerciseSet.media;
-                            this.restBetweenReps = this.exercises[0].restBetweenReps;
-                            this.restAfterExercise = this.exercises[0].restAfterExercise;
+                            if (this.exercises[0]) {
+                                this.restBetweenReps = this.exercises[0].restBetweenReps;
+                                this.restAfterExercise = this.exercises[0].restAfterExercise;
+                            }
                         });
                     this.store.select(getWorkoutDay(this.dayId))
                         .pipe(takeUntil(this.ngUnsubscribe))

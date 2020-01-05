@@ -57,10 +57,11 @@ export const workoutsReducers = (
         }
         case WorkoutDaysActionsTypes.DeleteWorkoutDaySuccess: {
             const dayId2Delete = action.payload.dayId;
-            const oldDays = state.byId[state.selectedWorkoutId].days;
+            const selectedWorkout = state.byId[state.selectedWorkoutId];
+            const oldDays = selectedWorkout ? selectedWorkout.days : [];
             const newDays = oldDays.filter(d => d !== dayId2Delete);
             const dayIndex2Delete = oldDays.indexOf(dayId2Delete);
-            const newDayIndex2Select = dayIndex2Delete === 0 ? 0 : dayIndex2Delete - 1;
+            const newDayIndex2Select = !dayIndex2Delete ? 0 : dayIndex2Delete - 1;
             const newDayId2Select = newDays[newDayIndex2Select];
             return {
                 ...state,
