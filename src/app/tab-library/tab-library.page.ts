@@ -97,6 +97,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         this.musclesFilter = filter;
       });
   }
+  ionViewWillEnter() {
+    this.logger.debug('ionViewWillEnter');
+    this.images.filter(i => i.expanded)
+      .forEach(image => this.refreshImageUsage(image));
+    }
+
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
@@ -181,13 +187,13 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     }
   }
 
-  refreshImageUsage(image: ExerciseMediaWithUsage, event: any) {
+  refreshImageUsage(image: ExerciseMediaWithUsage, event: any = null) {
     this.store.select(getExerciseMediaUsage(image.media.id))
       .pipe(take(1))
       .subscribe(usage => {
         image.usage = usage;
       });
-    event.stopPropagation();
+    if (event) { event.stopPropagation(); }
   }
 
   goToWorkoutDay(usage: {workoutId: string, dayId: string}, event: any) {
