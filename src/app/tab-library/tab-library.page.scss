@@ -1,6 +1,8 @@
-ion-item > div {
+ion-item {
     width: 100%;
-    margin-left: 10px;
+    margin-left: 0px;
+    --inner-padding-end: 0px;
+    --padding-start: 0px;
 }
 ion-input {
     font-size: small;
@@ -9,4 +11,7 @@ img {
     height: 80px;
     width: 80px;
     margin: 2px 1px;
+}
+app-expandable {
+    margin: 0px;
 }
