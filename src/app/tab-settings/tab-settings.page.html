@@ -31,7 +31,7 @@
   </ion-list>
 
   <ion-list *ngIf="selectedSegment==='themes'"
-    (ionChange)="themeSelected($event)" class="ion-no-padding">>
+    (ionChange)="themeSelected($event)" class="ion-no-padding">
     <ion-radio-group>
       <ion-item *ngFor='let theme of themes' >
         <ion-label>{{theme.name}}</ion-label>
