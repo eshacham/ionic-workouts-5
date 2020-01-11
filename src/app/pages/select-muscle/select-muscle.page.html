@@ -3,10 +3,11 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
-    <ion-title>select-muscle</ion-title>
+    <ion-title>Muscles</ion-title>
   </ion-toolbar>
-  <ion-toolbar *ngIf="isSettingMedia">
-      <ion-title>{{mediaToSet}}</ion-title>
+  <ion-toolbar id="second" >
+      <ion-title *ngIf="isSettingMedia">{{mediaToSet}}</ion-title>
+      <ion-title *ngIf="!isSettingMedia">Set Filter</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -38,10 +39,10 @@
 
 <ion-footer>
   <p>
-    <ion-button *ngFor="let selectedMuscle of selectedMuscles"
+    <ion-button *ngFor="let selectedMuscle of selectedMuscles" color="primary"
                 [fill]="getButtonFill(selectedMuscle)" size="small"
                 (click)="toggleMuscle(selectedMuscle.muscle)">
-        {{selectedMuscle.muscle}}
+        <h3>{{selectedMuscle.muscle}}</h3>
     </ion-button>
   </p>
 </ion-footer>

@@ -1,5 +1,31 @@
-.svg-content {
-    width: 93%;
-    margin: auto;
-	display: block;
+
+ion-toolbar#second {
+    --background: var(--ion-color-tertiary);
+}
+
+ion-content {
+    --background: var(--ion-color-tertiary);
+    --padding-end: 8px;
+    --padding-start: 8px;
+}
+
+ion-footer {
+    background: var(--ion-color-tertiary);
+    p {
+        background: var(--ion-color-tertiary);
+       margin-top: 0px;
+       margin-bottom: 0px;
+       margin-left: 8px;
+       margin-right: 8px;
+       padding: 4px;
+       ion-button {
+           margin: 4px;
+           h3 {
+               color: var(--ion-color-light);
+               margin-bottom: 0px;
+               margin-top: 0px;
+               font-size: small;
+            }
+       }
+    }
 }
