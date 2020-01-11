@@ -238,7 +238,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.router.navigate(['select-muscle'], extra);
   }
 
-  getFilteredImages(): ExerciseMediaWithUsage[] {
+  get filteredImages(): ExerciseMediaWithUsage[] {
     if (!this.useFilter) {
       return this.images;
     }

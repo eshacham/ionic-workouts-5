@@ -1,5 +1,5 @@
 ion-card {
-    --border-radius: 16px;
+    --border-radius: 4px;
     --background: var(--ion-color-primary);
     margin-bottom: 4px;
     margin-top: 8px;
@@ -16,10 +16,14 @@ ion-card {
     }
     ion-card-content {
         padding-top: 0px;
-        padding-left: 60px;
-        padding-right: 60px;
-        p {
+        padding-left: 45px;
+        padding-right: 45px;
+        ion-textarea {
             color: var(--ion-color-dark);
+            padding-left: 8px;
+        }
+        ion-textarea[ng-reflect-readonly="false"] {
+            color: var(--ion-color-light);
         }
         ion-item {
             --background: var(--ion-color-tertiary);

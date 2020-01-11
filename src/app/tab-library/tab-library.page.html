@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Library
+      Exercises
     </ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+</ion-header>
+
+<ion-toolbar id="second">
     <ion-buttons slot="start">
-        <ion-item>
-          <ion-label>Filter by Muscles</ion-label>
-          <ion-checkbox [(ngModel)]="useFilter"></ion-checkbox>
+        <ion-item lines="none">
+          <ion-label color="light">Filter by Muscles</ion-label>
+          <ion-checkbox [(ngModel)]="useFilter" color="primary">
+          </ion-checkbox>
         </ion-item>
     </ion-buttons>
 
@@ -20,27 +23,28 @@
           Select Muscles
         </ion-button>
     </ion-buttons>
-
 </ion-toolbar>
-</ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list>
+<ion-content>
 
-    <ion-item *ngFor="let img of getFilteredImages()">
+  <ion-list lines="none">
+
+    <ion-item *ngFor="let img of filteredImages">
     <ion-grid>
       <ion-row>
-        <ion-col size="9">
-          <ion-input type='text'
+        <ion-col size="9" class="ion-text-center">
+          <ion-input type='text' class="ion-text-wrap"
             [ngModel]=img.media.name
             placeholder="Exercise Name"
             (change)="updateImage($event.target.value, img.media)">
           </ion-input>
         </ion-col>
         <ion-col size="3">
-          <ion-button fill="clear" (click)="setMuscle(img.media)">
+          <ion-button fill="clear" (click)="setMuscle(img.media)" color="dark">
             <ion-icon slot="icon-only" name="body"></ion-icon>
-            <ion-badge [color]="img.media.muscles.length ? 'primary' : 'danger'">{{img.media.muscles.length}}</ion-badge>
+            <ion-badge *ngIf="img.media.muscles.length" [color]="tertiary">
+              {{img.media.muscles.length}}
+            </ion-badge>
         </ion-button>
         </ion-col>
       </ion-row>
@@ -50,11 +54,11 @@
           <img [src]="safeImage(img.media)" slot="start"/>
           <app-expandable expandHeight="100px" [expanded]="img.expanded" slot="start">
             <ion-button fill="clear" [disabled]="img.usage.length > 0"
-              (click)="deleteImage(img.media)">
+              (click)="deleteImage(img.media)" color="light">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
             <ion-button *ngFor="let use of img.usage" size="small" fill="clear"
-                (click)="goToWorkoutDay(use, $event)">
+                (click)="goToWorkoutDay(use, $event)" color="light">
                 <ion-icon slot="icon-only" name="walk"></ion-icon>
             </ion-button>
           </app-expandable>

@@ -6,17 +6,23 @@
 
 <ion-content>
 
-  <ion-fab vertical="top" horizontal="start" #fabEdit id="fabEdit" slot="fixed">
-    <ion-fab-button size="small" color="warning"(click)="editWorkouts()">
+  <ion-fab edge slot="fixed"
+    vertical="top" horizontal="start"
+      #fabEdit id="fabEdit" >
+    <ion-fab-button size="small"
+      color="tertiary"
+      (click)="editWorkouts()">
       <ion-icon name="construct"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button size="small" (click)="addWorkout($event)"
-        color="light" >
+      <ion-fab-button size="small"
+        (click)="addWorkout($event)"
+        color="warning" >
         <ion-icon name="today"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button size="small" (click)="importWorkout($event)"
-        color="light" >
+      <ion-fab-button size="small"
+        (click)="importWorkout($event)"
+        color="warning" >
         <ion-icon name="cloud-download"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
