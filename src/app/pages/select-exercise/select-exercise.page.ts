@@ -164,7 +164,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.logger.warn('goBack', 'Workouts have been reset! Can\'t update it now');
+    this.logger.warn('go to home page', 'Workouts have been reset! Can\'t update it now');
     this.router.navigate(['']);
   }
 
