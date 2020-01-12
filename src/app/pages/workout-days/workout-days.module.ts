@@ -17,11 +17,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: WorkoutDaysPage,
-  },
-  {
-    path: 'select-muscle',
-    loadChildren: () => import('../select-muscle/select-muscle.module').then(m => m.SelectMusclePageModule)
-  },
+  }
 ];
 
 @NgModule({

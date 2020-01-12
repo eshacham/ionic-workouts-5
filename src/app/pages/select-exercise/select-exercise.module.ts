@@ -12,7 +12,11 @@ const routes: Routes = [
     path: 'select-exercise',
     pathMatch: 'full',
     component: SelectExercisePage
-  }
+  },
+  {
+    path: 'select-exercise/select-muscle',
+    loadChildren: () => import('../select-muscle/select-muscle.module').then(m => m.SelectMusclePageModule)
+  },
 ];
 
 @NgModule({

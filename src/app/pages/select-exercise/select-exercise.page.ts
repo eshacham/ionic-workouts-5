@@ -219,6 +219,6 @@ export class SelectExercisePage implements OnInit, OnDestroy {
         }
       }
     };
-    this.router.navigate(['../select-muscle'], extra);
+    this.router.navigate(['select-muscle'], extra);
   }
 }
