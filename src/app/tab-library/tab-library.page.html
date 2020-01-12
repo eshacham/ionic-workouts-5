@@ -4,27 +4,29 @@
       Exercises
     </ion-title>
   </ion-toolbar>
-</ion-header>
 
-<ion-toolbar id="second">
+  <ion-toolbar id="second">
+    
     <ion-buttons slot="start">
-        <ion-item lines="none">
-          <ion-label color="light">Filter by Muscles</ion-label>
-          <ion-checkbox [(ngModel)]="useFilter" color="primary">
-          </ion-checkbox>
-        </ion-item>
+      <ion-item lines="none">
+        <ion-label color="light">Filter by Muscles</ion-label>
+        <ion-checkbox [(ngModel)]="useFilter" color="primary">
+        </ion-checkbox>
+      </ion-item>
     </ion-buttons>
 
     <ion-buttons slot="end">
-        <ion-button [disabled]="!useFilter" fill="clear"
-          (click)="selectMuscle()" >
-          <ion-icon slot="end" name="body"></ion-icon>
-          <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
-          Select Muscles
-        </ion-button>
+      <ion-button [disabled]="!useFilter" fill="clear"
+        (click)="selectMuscle()" >
+        <ion-icon slot="end" name="body"></ion-icon>
+        <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
+        Select Muscles
+      </ion-button>
     </ion-buttons>
-</ion-toolbar>
 
+  </ion-toolbar>
+
+</ion-header>
 <ion-content>
 
   <ion-list lines="none">

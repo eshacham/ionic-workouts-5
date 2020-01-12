@@ -2,68 +2,86 @@
   <ion-toolbar>
     <ion-title>Select Exercise</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-item>
-            <ion-label>Filter by Muscles</ion-label>
-            <ion-checkbox [(ngModel)]="useFilter"></ion-checkbox>
-          </ion-item>
-      </ion-buttons>
 
-      <ion-buttons slot="end">
-          <ion-button [disabled]="!useFilter" fill="clear"
-            (click)="selectMuscle()" >
-            <ion-icon slot="end" name="body"></ion-icon>
-            <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
-            Select Muscles
-          </ion-button>
-      </ion-buttons>
+  <ion-toolbar id="second">
+
+    <ion-buttons slot="start">
+      <ion-item lines="none">
+        <ion-label color="light">Filter by Muscles</ion-label>
+        <ion-checkbox [(ngModel)]="useFilter" color="primary">
+        </ion-checkbox>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!useFilter" fill="clear"
+        (click)="selectMuscle()" >
+        <ion-icon slot="end" name="body"></ion-icon>
+        <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
+        Select Muscles
+      </ion-button>
+    </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
-    <ion-item *ngFor="let img of getFilteredImages()" class="ion-text-wrap">
-      <ion-thumbnail slot="start">
-        <img [src]="safeImage(img.media)"/>
-      </ion-thumbnail>
-      <ion-input type='text' id="highZ"
-          placeholder="Exercise Name"
-          [ngModel]="img.media.name"
-          (change)="setImageName($event.target.value, img)">
-      </ion-input>
-      <ion-checkbox slot="end" [(ngModel)]="img.isSelected"></ion-checkbox>
+  <ion-list lines="none">
+
+    <ion-item *ngFor="let img of getFilteredImages()">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-input type='text' class="ion-text-wrap"
+              [ngModel]="img.media.name"
+              placeholder="Exercise Name"
+              (change)="setImageName($event.target.value, img)">
+            </ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none" >
+              <img [src]="safeImage(img.media)" slot="start"/>
+              <ion-checkbox slot="end" [(ngModel)]="img.isSelected"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
     </ion-item>
   </ion-list>
 
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar id="second">
+
     <ion-buttons slot="start">
 
-        <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear"
-          (click)="addExercise()"
-          [disabled]="isAddExerciseDisabled">
-          <ion-icon slot="start" name="add-circle"></ion-icon>
-          Add Exercise(s)
-        </ion-button>
+      <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear"
+        (click)="addExercise()"
+        [disabled]="isAddExerciseDisabled">
+        <ion-icon slot="start" name="add-circle"></ion-icon>
+        Add Exercise(s)
+      </ion-button>
 
-        <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear"
-          (click)="goBack()">
-          <ion-icon slot="start" name="arrow-back"></ion-icon>
-          Back to Workouts
-        </ion-button>
+      <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear"
+        (click)="goBack()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        Back to Workouts
+      </ion-button>
 
-      </ion-buttons>
-        <ion-buttons slot="end">
-          <ion-item>
-            <ion-label>As a Superset</ion-label>
-            <ion-checkbox [(ngModel)]="isSet"></ion-checkbox>
-          </ion-item>
-      </ion-buttons>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none">
+        <ion-label color="light">As a Superset</ion-label>
+        <ion-checkbox [(ngModel)]="isSet" color="primary">
+        </ion-checkbox>
+      </ion-item>
+    </ion-buttons>
 
   </ion-toolbar>
 </ion-footer>

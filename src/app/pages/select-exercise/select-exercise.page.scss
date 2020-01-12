@@ -1,4 +1,42 @@
-ion-input#highZ {
-    z-index: 3;
-    position: relative;
-};
+ion-toolbar#second {
+    --background: var(--ion-color-tertiary);
+    ion-item {
+        padding-bottom: 0px;
+        ion-label {
+            padding-left: 4px;
+        }
+        ion-checkbox {
+            --background: var(--ion-color-primary)
+        }
+    }
+}
+ion-list {
+    margin: 8px;
+    background: var(--ion-color-tertiary);
+}
+ion-item {
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 12px;
+    --background: var(--ion-color-tertiary);
+    --inner-padding-end: 0px;
+    --padding-start: 0px;
+    ion-grid {
+        background: var(--ion-color-primary);
+        border-radius: 4px;
+        ion-row {
+            padding-left:20px;
+            padding-right:20px;
+        }
+    }
+}
+ion-input {
+    font-size: 14px;
+    color: var(--ion-color-light);
+}
+img {
+    height: 80px;
+    width: 80px;
+    margin: 0px;
+}
