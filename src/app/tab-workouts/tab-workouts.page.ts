@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
-import { IonFab, PopoverController } from '@ionic/angular';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { IonFab, PopoverController, IonList } from '@ionic/angular';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { WorkoutBean } from '../models/Workout';
 import { DisplayMode } from '../models/enums';
 import { IAppState } from '../store/state/app.state';
@@ -23,6 +23,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   private logger: Logger;
 
   @ViewChild('fabEdit', { static: true }) fabEdit: IonFab;
+  @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
 
   workouts: WorkoutBean[];
 
@@ -83,6 +84,13 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     const workout = WorkoutBean.create({ id: newWorkoutId, dayId: newDayId });
     const day = WorkoutDayBean.create({ id: newDayId, workoutId: newWorkoutId });
     this.store.dispatch(new AddWorkout({ workout, day }));
+    setTimeout(() => {
+      const items = this.list.nativeElement.children;
+      const newWorkout = items[this.workouts.length - 1];
+      if (newWorkout) {
+         newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 1);
   }
 
   async importWorkout(event: any) {
