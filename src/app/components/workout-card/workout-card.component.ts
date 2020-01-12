@@ -61,7 +61,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
     const id = this.workoutId;
     this.logger.info('goToWorkoutDays', 'going to workout with id', JSON.stringify(id));
     this.store.dispatch(new SelectWorkout({ workoutId: id }));
-    this.router.navigateByUrl(`/tabs/tab-workouts/workout-days/${id}`);
+    this.router.navigate(['workout'], {relativeTo: this.route});
   }
 
   get daysCount(): number {

@@ -200,7 +200,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SelectWorkout({ workoutId: usage.workoutId }));
     this.store.dispatch(new SelectWorkoutDay(usage));
-    this.router.navigateByUrl(`/tabs/tab-workouts/workout-days/${usage.workoutId}`);
+    this.router.navigateByUrl('/tabs/tab-workouts/workout');
     event.stopPropagation();
   }
   updateImage(value: string, image: ExerciseMediaBean) {

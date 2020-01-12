@@ -7,7 +7,7 @@ import { ExerciseBean } from 'src/app/models/Exercise';
 import { Muscles } from 'src/app/models/enums';
 import { MuscleFilterFor } from '../select-muscle/select-muscle.page';
 import { IAppState } from '../../store/state/app.state';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { getHasDataBeenReset } from 'src/app/store/selectors/data.selectors';
 import { getLibraryMusclesFilter } from 'src/app/store/selectors/musclesFilter.selectors';
@@ -37,7 +37,6 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   haveWorkoutsBeenReset = false;
   lastSelectedWorkoutDayId?: string;
   private musclesFilter: Muscles[];
-  private subs: Subscription;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
@@ -48,9 +47,6 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     private store: Store<IAppState>) {
     this.logger = loggingService.getLogger('App.SelectExercisePage');
     this.selectedExerciseMedia = [];
-    this.subs = this.route.params.subscribe(params => {
-      this.workoutId = params.id;
-    });
   }
 
   selectedExerciseMedia: SelectedExerciseMedia[];
@@ -116,7 +112,8 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     this.store.select(getCurrentWorkout)
       .pipe(take(1))
       .subscribe(async (currentWorkout) => {
-        if (currentWorkout && currentWorkout.workout && this.workoutId === currentWorkout.workout.id) {
+        if (currentWorkout && currentWorkout.workout) {
+          this.workoutId = currentWorkout.workout.id;
           const dayId = currentWorkout.selectedDayId;
           this.lastSelectedWorkoutDayId = dayId;
           this.logger.debug('ngOnInit', 'getCurrentWorkout', dayId);
@@ -126,7 +123,6 @@ export class SelectExercisePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.logger.debug('ngOnDestroy');
-    this.subs.unsubscribe();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

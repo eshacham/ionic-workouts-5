@@ -1,4 +1,4 @@
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
@@ -34,7 +34,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   days: string[];
   name: string;
   workoutId: string;
-  subs: Subscription;
   activeDayIndex = 0;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -61,9 +60,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private store: Store<IAppState>) {
     this.logger = loggingService.getLogger('App.WorkoutDaysPage');
-    this.subs = this.route.params.subscribe(params => {
-      this.workoutId = params.id;
-    });
   }
 
   get activeDayId(): string {
@@ -86,14 +82,10 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(async (data) => {
         if (data.workout) {
-          this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
+          this.workoutId = data.workout.id;
           this.days = data.workout.days;
           this.name = data.workout.name;
-          if (!this.slides) {
-            this.logger.warn('ngOnInit', 'no slides!');
-            return;
-          }
-          this.slides.update();
+          this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
           const selectedDay = data.selectedDayId;
           const lastWorkoutDayIndex = this.days.findIndex(day => day === selectedDay);
           this.logger.info('ngOnInit', `${this.workoutId} - selectedDay ${selectedDay} on index ${lastWorkoutDayIndex}`);
@@ -109,6 +101,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
                 this.adjustDisplayMode(workoutDayState);
               });
           }
+        } else {
+          this.logger.info('ngOnInit', `${this.workoutId} - not in state`, data);
+          this.router.navigate(['']);
         }
       });
   }
@@ -154,7 +149,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.logger.debug('ngOnDestroy', this.workoutId);
-    this.subs.unsubscribe();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
     this.store.dispatch(new UnselectWorkout());
