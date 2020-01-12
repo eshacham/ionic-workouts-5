@@ -38,11 +38,13 @@
 </ion-content>
 
 <ion-footer>
-  <p>
-    <ion-button *ngFor="let selectedMuscle of selectedMuscles" color="primary"
+  <ion-row class="ion-text-center">
+  <ion-col *ngFor="let selectedMuscle of selectedMuscles">
+    <ion-button color="primary"
                 [fill]="getButtonFill(selectedMuscle)" size="small"
                 (click)="toggleMuscle(selectedMuscle.muscle)">
-        <h3>{{selectedMuscle.muscle}}</h3>
+        <ion-label>{{selectedMuscle.muscle}}</ion-label>
     </ion-button>
-  </p>
+  </ion-col>
+</ion-row>
 </ion-footer>
