@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { WorkoutDayBean } from '../../models/WorkoutDay';
 import { DisplayMode, RunningState } from '../../models/enums';
@@ -10,11 +10,13 @@ import {
   UpdateWorkoutDay,
   ReorderExerciseSets,
   StopExercise,
+  ResetExerciseSetScrollIntoView,
 } from 'src/app/store/actions/workoutDays.actions';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { IonList } from '@ionic/angular';
 
 @Component({
   selector: 'app-workout-day',
@@ -30,6 +32,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
   @Input() dayId: string;
   @Input() displayMode: DisplayMode;
+  @ViewChild(IonList, { read: ElementRef, static: false }) list: ElementRef;
 
   constructor(
     loggingService: LoggingService,
@@ -52,6 +55,15 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.handleSelectedWorkoutDayStateChange(workoutDay);
+          if (workoutDay.scrollToExerciseSetIndex >= 0) {
+            this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex');
+            setTimeout(() => {
+              const items = this.list.nativeElement.children[0].children;
+              const set = items[workoutDay.scrollToExerciseSetIndex];
+              set.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              this.store.dispatch(new ResetExerciseSetScrollIntoView({ dayId: this.dayId }));
+            }, 1);
+          }
         }
       });
   }
@@ -64,7 +76,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
   handleSelectedWorkoutDayStateChange(state: WorkoutDayBean) {
     if (state.displayMode === DisplayMode.Workout &&
-        state.runningState === RunningState.Completed) {
+      state.runningState === RunningState.Completed) {
       if (state.runningExerciseSetIndex + 1 < this.exerciseSets.length) {
         this.store.dispatch(new StartExercise({
           id: state.id,

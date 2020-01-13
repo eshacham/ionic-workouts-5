@@ -44,6 +44,7 @@ export class WorkoutDayBean extends WorkoutDayBase {
     displayMode: DisplayMode;
     runningState: RunningState;
     workoutId?: string;
+    scrollToExerciseSetIndex?: number;
 
     constructor(options: {
         id: string,
@@ -52,13 +53,15 @@ export class WorkoutDayBean extends WorkoutDayBase {
         runningExerciseSetIndex?: number,
         displayMode?: DisplayMode,
         runningState?: RunningState,
-        workoutId?: string;
+        workoutId?: string,
+        scrollToExerciseSetIndex?: number
     }) {
         super(options);
         if (options.exerciseSets) {
             this.exerciseSets = options.exerciseSets;
         }
         this.runningExerciseSetIndex = options.runningExerciseSetIndex;
+        this.scrollToExerciseSetIndex = options.scrollToExerciseSetIndex;
         this.displayMode = options.displayMode || DisplayMode.Display;
         this.runningState = options.runningState || RunningState.NA;
         if (options.workoutId) {

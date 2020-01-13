@@ -127,7 +127,8 @@ export const workoutDaysReducers = (
                     ...state.byId,
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
-                        exerciseSets: [...oldSets, ...newSets]
+                        exerciseSets: [...oldSets, ...newSets],
+                        scrollToExerciseSetIndex: oldSets.length + newSets.length - 1
                     }
                 },
             };
@@ -150,6 +151,18 @@ export const workoutDaysReducers = (
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
                         exerciseSets: newSets
+                    }
+                },
+            };
+        }
+        case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [action.payload.dayId]: {
+                        ...state.byId[action.payload.dayId],
+                        scrollToExerciseSetIndex: undefined
                     }
                 },
             };
