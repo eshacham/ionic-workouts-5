@@ -30,7 +30,7 @@ export const getExerciseMediaUsage = (mediaId: string) => createSelector(
         const exesArray = Object.entries(exercises.byId);
         const usage = exesArray
                 .filter(([_, exercise]) => exercise.mediaId === mediaId)
-                .map(([_, exercise]) => ({ workoutId: exercise.workoutId, dayId: exercise.dayId }));
+                .map(([_, exercise]) => ({ workoutId: exercise.workoutId, dayId: exercise.dayId, setId: exercise.setId }));
         return usage;
     }
 );

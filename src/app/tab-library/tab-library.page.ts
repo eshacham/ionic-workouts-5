@@ -18,7 +18,7 @@ import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../s
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 import { SelectWorkout } from '../store/actions/workouts.actions';
-import { SelectWorkoutDay } from '../store/actions/workoutDays.actions';
+import { SelectWorkoutDay, SetExerciseSetScrollIntoView } from '../store/actions/workoutDays.actions';
 
 interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -196,10 +196,11 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     if (event) { event.stopPropagation(); }
   }
 
-  goToWorkoutDay(usage: {workoutId: string, dayId: string}, event: any) {
+  goToWorkoutDay(usage: {workoutId: string, dayId: string, setId: string}, event: any) {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SelectWorkout({ workoutId: usage.workoutId }));
     this.store.dispatch(new SelectWorkoutDay(usage));
+    this.store.dispatch(new SetExerciseSetScrollIntoView(usage));
     this.router.navigateByUrl('/tabs/tab-workouts/workout');
     event.stopPropagation();
   }
