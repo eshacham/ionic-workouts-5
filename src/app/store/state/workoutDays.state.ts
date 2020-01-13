@@ -2,10 +2,12 @@ import { WorkoutDayBean } from 'src/app/models/WorkoutDay';
 import { IState } from './generics';
 
 export interface IWorkoutDaysState extends IState<WorkoutDayBean> {
-    deleteSelectedWorkoutDay?: string;
+    // deleteSelectedWorkoutDay?: string;
+    // lastAddedExerciseSetId: string;
 }
 
 export const initialWorkoutDaysState: IWorkoutDaysState = {
-    deleteSelectedWorkoutDay: undefined,
+    // deleteSelectedWorkoutDay: undefined,
+    // lastAddedExerciseSetId: undefined,
     byId: {},
 };
