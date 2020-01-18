@@ -9,17 +9,38 @@ ion-item#item-with-image-and-button {
     position: relative;
     ion-button[bottom] {
         position: absolute;
-        left: calc(100% - 27px);
-        top: calc(100% - 29px);
+        margin:2px;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+        left: calc(100% - 24px);
+        top: calc(100% - 24px);
+    }
+    ion-button[top] {
+        position: absolute;
+        margin:2px;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+        left: calc(0px);
+        top: calc(0px);
     }
 };
 ion-col.col-with-image-and-button {
     height: 94px;
     text-align: center;
-    ion-button[up] {
+    ion-button[mid] {
+        margin:2px;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+        margin: 0px;
         position: absolute;
-        left: calc(100% - 18px);
-        top: 27px;
+        left: calc(100% - 13px);
+        top: 25px;
     }
 }
 ion-col#col-rep {

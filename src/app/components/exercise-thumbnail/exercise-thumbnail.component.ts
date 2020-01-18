@@ -28,6 +28,8 @@ import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutD
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
+import { Router } from '@angular/router';
+import { ScrollToExerciseMedia } from 'src/app/store/actions/exercisesMedia.actions';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -115,7 +117,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         loggingService: LoggingService,
         private dataService: DataServiceProvider,
         private popoverCtrl: PopoverController,
-        private store: Store<IAppState>
+        private store: Store<IAppState>,
+        private router: Router,
+
     ) {
         this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
     }
@@ -206,6 +210,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             mediaId: exercise.mediaId,
             deleteSet: this.exercises.length === 1
         }));
+    }
+
+    goToImages(exercise: ExerciseBean) {
+        this.logger.info('goToImages', `going to image ${exercise.id}`);
+        this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
+        this.router.navigateByUrl('/tabs/tab-library');
     }
 
     exerciseChanged(index: number, value: string | number, prop: string) {

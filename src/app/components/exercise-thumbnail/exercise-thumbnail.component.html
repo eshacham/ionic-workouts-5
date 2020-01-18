@@ -4,8 +4,13 @@
       <div [hidden]="IsRunning">
           <ion-list lines="none">
               <ion-item *ngFor="let exercise of exercises; let i = index"
-                [ngClass]="getTopBottomMarginClass(exercise)">
-                <img [src]="safeImage(images[i])" slot="start"/>
+                [ngClass]="getTopBottomMarginClass(exercise)"
+                id="item-with-image-and-button">
+                <img [src]="safeImage(images[i])"/>
+                    <ion-button fill="clear" top color="dark"
+                        (click)="goToImages(exercise)">
+                        <ion-icon slot="icon-only" name="folder"></ion-icon>
+                    </ion-button>
                 <ion-label>
                     <h2 class="ion-text-wrap">{{exercise.name}}</h2>
                     <app-exercise-variation class="ion-text-wrap"
@@ -33,7 +38,13 @@
               <ion-row class="ion-justify-content-around">
                   <ion-col *ngFor="let exercise of exercises; let i = index"
                         class="ion-text-center">
-                    <img [src]="safeImage(images[i])" />
+                    <ion-item id="item-with-image-and-button">
+                        <img [src]="safeImage(images[i])" />
+                        <ion-button fill="clear" top color="dark"
+                            (click)="goToImages(exercise)">
+                            <ion-icon slot="icon-only" name="folder"></ion-icon>
+                        </ion-button>
+                    </ion-item>
                   </ion-col>
               </ion-row>
               <ion-row class="ion-justify-content-around">
@@ -117,8 +128,12 @@
                         (click)="deleteExercise(exercise)">
                         <ion-icon slot="icon-only" name="trash"></ion-icon>
                     </ion-button>
+                    <ion-button fill="clear" top color="dark"
+                        (click)="goToImages(exercise)">
+                        <ion-icon slot="icon-only" name="folder"></ion-icon>
+                    </ion-button>
                 </ion-item>
-                <ion-button fill="clear" up color="tertiary"
+                <ion-button fill="clear" mid color="tertiary"
                     *ngIf="isNotLastInSet(exercise)"
                     (click)="switchExercises(i)">
                     <ion-icon slot="icon-only" name="repeat"></ion-icon>
@@ -197,8 +212,13 @@
 
   <div *ngSwitchDefault>
       <ion-list lines="none">
-          <ion-item *ngFor="let exercise of exercises; let i = index">
-            <img [src]="safeImage(images[i])" slot="start"/>
+          <ion-item *ngFor="let exercise of exercises; let i = index"
+            id="item-with-image-and-button">
+            <img [src]="safeImage(images[i])"/>
+            <ion-button fill="clear" top color="dark"
+                (click)="goToImages(exercise)">
+                <ion-icon slot="icon-only" name="folder"></ion-icon>
+            </ion-button>
             <ion-label>
                 <h2 class="ion-text-wrap">{{exercise.name}}</h2>
                 <app-exercise-variation class="ion-text-wrap"

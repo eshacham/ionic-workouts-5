@@ -2,7 +2,7 @@ import { initialExercisesMediaState, IExercisesMediaState } from '../state/Exerc
 import { DataActionsTypes, DataActions } from '../actions/data.actions';
 import { MusclesFilterActionsTypes, MusclesFilterActions } from '../actions/musclesFilter.actions';
 import { ExerciseMediaActionsTypes, ExerciseMediaActions } from '../actions/exercisesMedia.actions';
-import { ExerciseSetActionsTypes, ExerciseSetActions } from '../actions/exerciseSets.actions';
+import { ExerciseSetActions } from '../actions/exerciseSets.actions';
 import { removeItemFromMap } from './utils';
 import { WorkoutsActions, WorkoutsActionsTypes } from '../actions/workouts.actions';
 
@@ -86,6 +86,19 @@ export const exercisesMediaReducers = (
                     ...state.byId,
                     ...action.payload.imagesData.media.byId,
                 },
+            };
+        }
+        case ExerciseMediaActionsTypes.ScrollToExerciseMedia: {
+            const index = Object.keys(state.byId).indexOf(action.payload.imageId);
+            return {
+                ...state,
+                scrollToExerciseMediaIndex: index
+            };
+        }
+        case ExerciseMediaActionsTypes.ResetScrollToExerciseMedia: {
+            return {
+                ...state,
+                scrollToExerciseMediaIndex: undefined
             };
         }
         default: {

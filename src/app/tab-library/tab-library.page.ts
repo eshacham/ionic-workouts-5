@@ -14,7 +14,12 @@ import { takeUntil, take } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { getLibraryMusclesFilter } from '../store/selectors/musclesFilter.selectors';
 import { getExercisesMedias } from '../store/selectors/ExercisesMedia.selectors';
-import { UpdateExerciseMedia, AddExerciseMedia, DeleteExerciseMedia } from '../store/actions/exercisesMedia.actions';
+import {
+  UpdateExerciseMedia,
+  AddExerciseMedia,
+  DeleteExerciseMedia,
+  ResetScrollToExerciseMedia
+} from '../store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 import { SetExerciseSetInWorkoutDay } from '../store/actions/workoutDays.actions';
@@ -77,14 +82,13 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger = loggingService.getLogger('App.TabLibraryPage');
   }
 
-
   ngOnInit() {
     this.isMobile = this.dataService.isMobile;
 
     this.store.select(getExercisesMedias)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(media => {
-        this.images = media.map(m => ({
+        this.images = media.images.map(m => ({
           media: m,
           usage: [],
           expanded: false
@@ -98,12 +102,20 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         this.musclesFilter = filter;
       });
   }
-  ionViewWillEnter() {
-    this.logger.debug('ionViewWillEnter');
+  ionViewDidEnter() {
+    this.logger.debug('ionViewDidEnter');
     this.images.filter(i => i.expanded)
       .forEach(image => this.refreshImageUsage(image));
-    }
 
+    this.store.select(getExercisesMedias)
+      .pipe(take(1))
+      .subscribe(media => {
+        if (media.scrollTo > 0) {
+          this.store.dispatch(new ResetScrollToExerciseMedia());
+          setTimeout(() => this.scrollTo(media.scrollTo), 1);
+        }
+      });
+  }
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
@@ -165,15 +177,17 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       origName: imageName,
       newName: newImageName
     }));
-    setTimeout(() => {
-      this.useFilter = false;
-      this.logger.info('addNewImage', 'need to scroll to new image', this.images[0]);
-      const items = this.list.nativeElement.children;
-      const newWorkout = items[0];
-      if (newWorkout) {
-         newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 1);
+    setTimeout(() => this.scrollTo(0), 1);
+  }
+
+  private scrollTo(index: number) {
+    this.useFilter = false;
+    this.logger.info('scrollTo', `need to scroll to image ${index}`, this.images[index]);
+    const items = this.list.nativeElement.children;
+    const image = items[index];
+    if (image) {
+      image.scrollIntoView({ behavior: 'auto', block: 'start'});
+    }
   }
 
   async deleteImage(imgEntry: ExerciseMediaBean) {
@@ -206,7 +220,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     if (event) { event.stopPropagation(); }
   }
 
-  goToWorkoutDay(usage: {workoutId: string, dayId: string, setId: string}, event: any) {
+  goToWorkoutDay(usage: { workoutId: string, dayId: string, setId: string }, event: any) {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SetExerciseSetInWorkoutDay(usage));
     this.router.navigateByUrl('/tabs/tab-workouts/workout');
