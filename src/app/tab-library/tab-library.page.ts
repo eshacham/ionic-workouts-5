@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, IonList } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { ExerciseMediaBean } from '../models/ExerciseMedia';
@@ -32,6 +32,8 @@ interface ExerciseMediaWithUsage {
 })
 export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
+  @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
+
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseMediaWithUsage: ExerciseMediaWithUsage[];
@@ -163,6 +165,15 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       origName: imageName,
       newName: newImageName
     }));
+    setTimeout(() => {
+      this.useFilter = false;
+      this.logger.info('addNewImage', 'need to scroll to new image', this.images[0]);
+      const items = this.list.nativeElement.children;
+      const newWorkout = items[0];
+      if (newWorkout) {
+         newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 1);
   }
 
   async deleteImage(imgEntry: ExerciseMediaBean) {

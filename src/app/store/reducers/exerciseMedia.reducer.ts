@@ -63,20 +63,6 @@ export const exercisesMediaReducers = (
                 }
             };
         }
-        // case ExerciseSetActionsTypes.AddExerciseSets: {
-        //     const ids2Update = action.payload.exes.map(exe => exe.mediaId);
-        //     const mediasArray = Object.entries(state.byId);
-        //     const newMap = mediasArray
-        //         .reduce((map, obj) => (map[obj[0]] =
-        //             (ids2Update.includes(obj[0]))
-        //                 ? { ...obj[1], mediaUsageCounter: obj[1].mediaUsageCounter + 1 }
-        //                 : obj[1],
-        //             map), {});
-        //     return {
-        //         ...state,
-        //         byId: newMap
-        //     };
-        // }
         case ExerciseMediaActionsTypes.DeleteExerciseMediaSuccess: {
             return {
                 ...state,
@@ -88,8 +74,8 @@ export const exercisesMediaReducers = (
             return {
                 ...state,
                 byId: {
+                    [newId]: action.payload.exerciseMedia,
                     ...state.byId,
-                    [newId]: action.payload.exerciseMedia
                 }
             };
         }
