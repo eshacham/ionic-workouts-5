@@ -87,14 +87,15 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
           this.name = data.workout.name;
           this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
           const selectedDay = data.selectedDayId;
-          const lastWorkoutDayIndex = this.days.findIndex(day => day === selectedDay);
-          this.logger.info('ngOnInit', `${this.workoutId} - selectedDay ${selectedDay} on index ${lastWorkoutDayIndex}`);
-          if (lastWorkoutDayIndex !== this.activeDayIndex) {
-            this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${lastWorkoutDayIndex}`);
+          const selectedDayIndex = this.days.findIndex(day => day === selectedDay);
+          this.logger.info('ngOnInit', `${this.workoutId} - selectedDay ${selectedDay} on index ${selectedDayIndex}`);
+          if (selectedDayIndex !== this.activeDayIndex) {
+            this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
             await new Promise(() => setTimeout(async () => {
-              await this.slides.slideTo(lastWorkoutDayIndex, 0);
+              await this.slides.slideTo(selectedDayIndex, 0);
             }, 1));
           } else {
+            this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${selectedDay}`);
             this.store.select(getWorkoutDay(selectedDay))
               .pipe(take(1))
               .subscribe(workoutDayState => {

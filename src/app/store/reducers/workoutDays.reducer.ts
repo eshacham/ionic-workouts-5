@@ -167,7 +167,7 @@ export const workoutDaysReducers = (
                 },
             };
         }
-        case WorkoutDaysActionsTypes.SetExerciseSetScrollIntoView: {
+        case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
             const day = state.byId[action.payload.dayId];
             const index = day.exerciseSets.indexOf(action.payload.setId);
             return {

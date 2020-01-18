@@ -43,9 +43,11 @@ export const workoutsReducers = (
                 byId: removeItemFromMap(workoutId, state)
             };
         }
-        case WorkoutDaysActionsTypes.SelectWorkoutDay: {
+        case WorkoutDaysActionsTypes.SelectWorkoutDay:
+        case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
             return {
                 ...state,
+                selectedWorkoutId: action.payload.workoutId,
                 byId: {
                     ...state.byId,
                     [action.payload.workoutId]: {

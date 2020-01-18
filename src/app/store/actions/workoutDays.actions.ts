@@ -25,7 +25,7 @@ export enum WorkoutDaysActionsTypes {
     ChangeDisplayModeSuccess = '[WorkoutDays] Workout day display mode has changed',
 
     ReorderExerciseSets = '[WorkoutDays] Reorder exercise sets',
-    SetExerciseSetScrollIntoView = '[WorkoutDays] Set the exercise set scroll into view',
+    SetExerciseSetInWorkoutDay = '[WorkoutDays] Set the exercise set scroll into view',
     ResetExerciseSetScrollIntoView = '[WorkoutDays] Reset exercise set scroll into view',
 }
 
@@ -43,7 +43,8 @@ export class SelectWorkoutDay implements Action {
     readonly type = WorkoutDaysActionsTypes.SelectWorkoutDay;
     constructor(public payload: {
         workoutId: string;
-        dayId: string
+        dayId: string;
+        setId?: string;
     }) { }
 }
 
@@ -144,10 +145,10 @@ export class ReorderExerciseSets implements Action {
         toIndex: number,
     }) { }
 }
-export class SetExerciseSetScrollIntoView implements Action {
-    readonly type = WorkoutDaysActionsTypes.SetExerciseSetScrollIntoView;
+export class SetExerciseSetInWorkoutDay implements Action {
+    readonly type = WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay;
     constructor(public payload: {
-        dayId: string, setId: string
+        workoutId: string, dayId: string, setId: string
     }) { }
 }
 export class ResetExerciseSetScrollIntoView implements Action {
@@ -174,5 +175,5 @@ export type WorkoutDaysActions =
     ChangeDisplayModeSuccess |
     ReorderExerciseSets |
     ResetExerciseSetScrollIntoView |
-    SetExerciseSetScrollIntoView
+    SetExerciseSetInWorkoutDay
     ;

@@ -60,7 +60,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               const items = this.list.nativeElement.children[0].children;
               const set = items[workoutDay.scrollToExerciseSetIndex];
-              set.scrollIntoView({ behavior: 'auto', block: 'start' });
+              set.scrollIntoView();
               this.store.dispatch(new ResetExerciseSetScrollIntoView({ dayId: this.dayId }));
             }, 1);
           }
