@@ -84,7 +84,8 @@ export const workoutDaysReducers = (
                         ...state.byId[action.payload.id],
                         runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
                         displayMode: action.payload.displayMode,
-                        runningState: action.payload.runningState
+                        runningState: action.payload.runningState,
+                        scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
                     }
                 },
             };
