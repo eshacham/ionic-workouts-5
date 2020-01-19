@@ -12,14 +12,12 @@
 
  <ion-card-content>
 
-    <p class="ion-text-wrap">
-      <ion-textarea [readonly]="IsDisplayMode"
-      [(ngModel)]="description"
-        (change)="workoutChanged()">
-      </ion-textarea>
-    </p>
+    <ion-textarea [readonly]="IsDisplayMode" class="ion-text-wrap"
+    [(ngModel)]="description"
+      (change)="workoutChanged()">
+    </ion-textarea>
 
-    <div *ngIf="daysCount">
+    <ion-list *ngIf="daysCount">
       <ion-item *ngIf="IsDisplayMode" (click)="goToWorkoutDays()" >
         <ion-label>Days...</ion-label>
         <ion-badge slot="start">{{ daysCount }}</ion-badge>
@@ -44,7 +42,7 @@
           <ion-icon slot="icon-only" name="copy"></ion-icon>
         </ion-button>
       </ion-item>
-    </div>
+    </ion-list>
 
   </ion-card-content>
 </ion-card>

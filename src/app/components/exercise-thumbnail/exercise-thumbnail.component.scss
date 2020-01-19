@@ -4,10 +4,10 @@ ion-grid {
 ion-row {
     --ion-padding: 4px;
 }
-ion-item#item-with-image-and-button {
+div#div-with-image-and-button {
     display: inline-block;
     position: relative;
-    ion-button[bottom] {
+    ion-button[bottom-right] {
         position: absolute;
         margin:2px;
         --padding-start: 0px;
@@ -15,23 +15,19 @@ ion-item#item-with-image-and-button {
         --padding-top: 0px;
         --padding-bottom: 0px;
         left: calc(100% - 24px);
-        top: calc(100% - 24px);
+        top: calc(100% - 32px);
     }
-    ion-button[top] {
+    ion-button[top-left] {
         position: absolute;
         margin:2px;
         --padding-start: 0px;
         --padding-end: 0px;
         --padding-top: 0px;
         --padding-bottom: 0px;
-        left: calc(0px);
-        top: calc(0px);
+        left: 0px;
+        top: 0px;
     }
-};
-ion-col.col-with-image-and-button {
-    height: 94px;
-    text-align: center;
-    ion-button[mid] {
+    ion-button[top-right] {
         margin:2px;
         --padding-start: 0px;
         --padding-end: 0px;
@@ -39,10 +35,11 @@ ion-col.col-with-image-and-button {
         --padding-bottom: 0px;
         margin: 0px;
         position: absolute;
-        left: calc(100% - 13px);
-        top: 25px;
+        left: calc(100% - 24px);
+        top: 0px;
     }
 }
+
 ion-col#col-rep {
     margin: 2px 0px 2px 0px;
     padding: 4px 5px 4px 5px;
@@ -55,7 +52,11 @@ ion-item {
     padding-left: 0px;
     --inner-padding-end: 0px;
     --padding-start: 0px;
+    ion-row {
+        width: 100%;
+    }
 };
+
 img {
     height: 80px;
     width: 80px;
@@ -96,12 +97,7 @@ h4 {
     background: var(--ion-color-light);
     color: var(--ion-color-danger);
 }
-.noTopMargin {
-    margin-top: 0px;
-}
-.noBottomMargin {
-    margin-bottom: 0px;
-}
+
 ion-buttons {
     width: 100%
 }

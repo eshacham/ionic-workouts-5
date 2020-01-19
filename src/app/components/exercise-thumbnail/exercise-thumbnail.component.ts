@@ -279,14 +279,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         return !this.hasSet || this.isLastInSet(exerciseSet);
     }
 
-    getTopBottomMarginClass(exercise: ExerciseBean) {
-        if (this.isFirstInSet(exercise)) {
-            return ['noBottomMargin'];
-        } else {
-            return ['noTopMargin'];
-        }
-    }
-
     get hasTimedRep(): boolean {
         return this.exercises.some((exe) => {
             return exe.reps.some((rep) => {
