@@ -48,3 +48,8 @@ app-expandable {
     margin: 0px;
     padding-bottom: 2px;
 }
+
+
+ion-toolbar#toolbarInFooter {
+    --background: var(--ion-color-tertiary);
+}

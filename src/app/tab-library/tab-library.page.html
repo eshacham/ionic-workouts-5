@@ -6,7 +6,7 @@
   </ion-toolbar>
 
   <ion-toolbar id="second">
-    
+
     <ion-buttons slot="start">
       <ion-item lines="none">
         <ion-label color="light">Filter by Muscles</ion-label>
@@ -74,7 +74,7 @@
 </ion-content>
 
 <ion-footer *ngIf="IsMobile">
-  <ion-toolbar>
+  <ion-toolbar id=toolbarInFooter>
     <ion-button fill="clear" expand="full"
       (click)="selectImage()">
       <ion-icon slot="start" name="camera"></ion-icon>
