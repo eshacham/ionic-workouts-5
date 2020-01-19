@@ -9,7 +9,7 @@
                 <img [src]="safeImage(images[i])"/>
                     <ion-button fill="clear" top color="dark"
                         (click)="goToImages(exercise)">
-                        <ion-icon slot="icon-only" name="folder"></ion-icon>
+                        <ion-icon slot="icon-only" name="folder-open"></ion-icon>
                     </ion-button>
                 <ion-label>
                     <h2 class="ion-text-wrap">{{exercise.name}}</h2>
@@ -42,7 +42,7 @@
                         <img [src]="safeImage(images[i])" />
                         <ion-button fill="clear" top color="dark"
                             (click)="goToImages(exercise)">
-                            <ion-icon slot="icon-only" name="folder"></ion-icon>
+                            <ion-icon slot="icon-only" name="folder-open"></ion-icon>
                         </ion-button>
                     </ion-item>
                   </ion-col>
@@ -130,7 +130,7 @@
                     </ion-button>
                     <ion-button fill="clear" top color="dark"
                         (click)="goToImages(exercise)">
-                        <ion-icon slot="icon-only" name="folder"></ion-icon>
+                        <ion-icon slot="icon-only" name="folder-open"></ion-icon>
                     </ion-button>
                 </ion-item>
                 <ion-button fill="clear" mid color="tertiary"
@@ -217,7 +217,7 @@
             <img [src]="safeImage(images[i])"/>
             <ion-button fill="clear" top color="dark"
                 (click)="goToImages(exercise)">
-                <ion-icon slot="icon-only" name="folder"></ion-icon>
+                <ion-icon slot="icon-only" name="folder-open"></ion-icon>
             </ion-button>
             <ion-label>
                 <h2 class="ion-text-wrap">{{exercise.name}}</h2>

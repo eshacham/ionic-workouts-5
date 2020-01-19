@@ -8,6 +8,7 @@ import { IAppState } from '../store/state/app.state';
 import { ToastService } from '../providers/toast-service/toast-service';
 import { Subject } from 'rxjs';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -20,12 +21,15 @@ export class TabsPage implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private exportHasStarted = false;
   private importHasStarted = false;
+  private loading: HTMLIonLoadingElement;
 
   constructor(
     loggingService: LoggingService,
     themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private loadingController: LoadingController
+  ) {
     this.logger = loggingService.getLogger('App.TabsPage');
 
     themeService.addBodyClass('gray-orange-black');
@@ -54,20 +58,32 @@ export class TabsPage implements OnInit, OnDestroy {
       .subscribe((exportInProgress) => {
         this.logger.debug('ngOnInit', 'getWorkoutExportInProgress', exportInProgress);
         if (this.exportHasStarted && !exportInProgress) {
+          this.loadingController.dismiss();
           this.toastService.presentToast('Export workout has completed!');
         }
         this.exportHasStarted = exportInProgress;
+        if (this.exportHasStarted) { this.presentBusy('Exporting Workout...'); }
       });
 
     this.store.select(getWorkoutImportInProgress)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((importInProgress) => {
-        this.logger.debug('ngOnInit', 'getWorkoutExportInProgress', importInProgress);
+        this.logger.debug('ngOnInit', 'getWorkoutImportInProgress', importInProgress);
         if (this.importHasStarted && !importInProgress) {
+          this.loadingController.dismiss();
           this.toastService.presentToast('Import workout has completed!');
         }
         this.importHasStarted = importInProgress;
+        if (this.importHasStarted) { this.presentBusy('Importing Workout...'); }
       });
+  }
+
+  private async presentBusy(message: string): Promise<void> {
+    this.loading = await this.loadingController.create({
+      message,
+      spinner: 'lines'
+    });
+    this.loading.present();
   }
 
   ngOnDestroy(): void {
