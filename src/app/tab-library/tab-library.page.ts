@@ -103,7 +103,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       });
   }
   ionViewDidEnter() {
-    this.logger.debug('ionViewDidEnter');
+    this.logger.debug('ionViewDidEnter', 'getting getExercisesMedias');
     this.images.filter(i => i.expanded)
       .forEach(image => this.refreshImageUsage(image));
 
@@ -112,6 +112,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       .subscribe(media => {
         if (media.scrollTo >= 0) {
           this.store.dispatch(new ResetScrollToExerciseMedia());
+          this.logger.info('ionViewDidEnter', 'need to scroll to media', media.scrollTo);
           setTimeout(() => this.scrollTo(media.scrollTo), 1);
         }
       });

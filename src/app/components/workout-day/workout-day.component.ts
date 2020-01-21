@@ -62,7 +62,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
               const set = items[workoutDay.scrollToExerciseSetIndex];
               set.scrollIntoView({ behavior: 'smooth', block: 'start' });
               this.store.dispatch(new ResetExerciseSetScrollIntoView({ dayId: this.dayId }));
-            }, 1);
+            }, 100);
           }
         }
       });
