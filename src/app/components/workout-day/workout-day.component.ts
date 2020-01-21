@@ -55,7 +55,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.handleSelectedWorkoutDayStateChange(workoutDay);
-          if (workoutDay.scrollToExerciseSetIndex > 0) {
+          if (workoutDay.scrollToExerciseSetIndex >= 0) {
             this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', workoutDay.scrollToExerciseSetIndex);
             setTimeout(() => {
               const items = this.list.nativeElement.children[0].children;

@@ -110,7 +110,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.store.select(getExercisesMedias)
       .pipe(take(1))
       .subscribe(media => {
-        if (media.scrollTo > 0) {
+        if (media.scrollTo >= 0) {
           this.store.dispatch(new ResetScrollToExerciseMedia());
           setTimeout(() => this.scrollTo(media.scrollTo), 1);
         }
@@ -186,7 +186,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     const items = this.list.nativeElement.children;
     const image = items[index];
     if (image) {
-      image.scrollIntoView({ behavior: 'auto', block: 'start'});
+      image.scrollIntoView({ behavior: 'auto', block: 'start' });
     }
   }
 
