@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import { ThemeServiceProvider } from '../providers/theme-service/theme-service';
+import { Component, OnInit } from '@angular/core';
+import { ThemeServiceProvider, ITheme } from '../providers/theme-service/theme-service';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { Router } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../store/state/app.state';
+import { getTheme } from '../store/selectors/data.selectors';
+import { take } from 'rxjs/operators';
+import { SetTheme } from '../store/actions/data.actions';
 
-interface Theme  {
-  name: string;
+interface ISelectedTheme  {
   selected: boolean;
-  image: string;
+  theTheme: ITheme;
 }
 
 @Component({
@@ -15,44 +19,44 @@ interface Theme  {
   templateUrl: 'tab-settings.page.html',
   styleUrls: ['tab-settings.page.scss']
 })
-export class TabSettingsPage {
+export class TabSettingsPage implements OnInit {
   private logger: Logger;
+  themes: ISelectedTheme[];
+  selectedSegment = 'themes';
 
   constructor(
     loggingService: LoggingService,
     private themeService: ThemeServiceProvider,
+    private store: Store<IAppState>,
     private router: Router,
     private dataServiceProvider: DataServiceProvider) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
+      this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
+      this.logger.entry('ctor', this.themes);
     }
 
-  selectedSegment = 'themes';
-
-  themes: Theme[] = [
-    { name: 'pink-skin', selected: false, image: '/assets/images/themes/pink-skin' },
-    { name: 'red-blue-brown', selected: false, image: '/assets/images/themes/red-blue-brown' },
-    { name: 'gray-yellow-green', selected: false, image: '/assets/images/themes/gray-yellow-green' },
-    { name: 'mustard-red-cream', selected: false, image: '/assets/images/themes/mustard-red-cream' },
-    { name: 'green-haki-bordo', selected: false, image: '/assets/images/themes/green-haki-bordo' },
-    { name: 'gray-orange-black', selected: true, image: '/assets/images/themes/gray-orange-black' },
-  ];
-
-  themeSelected(event: any) {
-    const selectedtheme = event.detail.value;
-    this.logger.debug('theme seledted: ', selectedtheme);
-    for (const theme of this.themes) {
-      if (theme.name !== selectedtheme) {
-        this.themeService.removeBodyClass(theme.name);
-        theme.selected = false;
-      } else {
-        this.themeService.addBodyClass(theme.name);
-        theme.selected = true;
-      }
+    ngOnInit() {
+      this.store.select(getTheme)
+      .pipe(take(1))
+      .subscribe((theme) => {
+        this.logger.info('ngOnInit', 'getTheme', theme);
+        if (theme) {
+          this.themes.find(t => t.theTheme.name === theme).selected = true;
+        }
+      });
     }
+
+   themeSelected(selectedtheme: string) {
+    this.themes.forEach(t => t.selected = t.theTheme.name === selectedtheme);
+    this.logger.debug('theme selected: ', selectedtheme);
+    this.store.dispatch(new SetTheme(selectedtheme));
   }
 
   getSelectedThemeImage(i: number): string {
-    return `${this.themes.filter(t => t.selected)[0].image}-${i}.png`;
+    const theme = this.themes.find(t => t.selected);
+    if (theme) {
+      return `${theme.theTheme.image}-${i}.png`;
+    }
   }
 
   segmentChanged(event: any) {

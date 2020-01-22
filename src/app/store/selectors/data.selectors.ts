@@ -58,3 +58,8 @@ export const getError = createSelector(
     dataState,
     (state: IDataState) => state.error
 );
+
+export const getTheme = createSelector(
+    dataState,
+    (state: IDataState) => state.theme
+);

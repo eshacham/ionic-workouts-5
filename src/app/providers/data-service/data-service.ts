@@ -9,7 +9,7 @@ import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { DataReset, GetData } from 'src/app/store/actions/data.actions';
+import { DataReset, LoadData } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
@@ -18,9 +18,11 @@ import S3 from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { ThemeServiceProvider } from '../theme-service/theme-service';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
+const THEME_STORAGE_KEY = 'my_theme';
 
 @Injectable()
 export class DataServiceProvider {
@@ -41,13 +43,18 @@ export class DataServiceProvider {
     this.logger = loggingService.getLogger('App.DataServiceProvider');
   }
 
+  async getThemeData(): Promise<string> {
+    const theme = await this.getTheme();
+    return theme || ThemeServiceProvider.defaultTheme;
+  }
+
   async getAllData(): Promise<AllDataMaps> {
     let data: AllDataMaps = {
       workouts: { byId: {} },
       days: { byId: {} },
       sets: { byId: {} },
       exercises: { byId: {} },
-      media: { byId: {} }
+      media: { byId: {} },
     };
 
     let imagesData: MediaDataMaps;
@@ -75,6 +82,11 @@ export class DataServiceProvider {
     await this.storage.ready();
     const data: MediaDataMaps = await this.storage.get(IMAGES_STORAGE_KEY);
     return data;
+  }
+  private async getTheme(): Promise<string> {
+    await this.storage.ready();
+    const theme: string = await this.storage.get(THEME_STORAGE_KEY);
+    return theme;
   }
 
   private async initDefaultImages(): Promise<MediaDataMaps> {
@@ -104,6 +116,11 @@ export class DataServiceProvider {
     await this.storage.set(IMAGES_STORAGE_KEY, images);
     this.logger.info('saveImages', 'images have been saved');
   }
+  async saveTheme(theme: string) {
+    await this.storage.ready();
+    await this.storage.set(THEME_STORAGE_KEY, theme);
+    this.logger.info('saveTheme', 'theme have been saved');
+  }
 
   async saveWorkouts(workoutsDataMaps: WorkoutsDataMaps) {
     await this.storage.ready();
@@ -115,7 +132,7 @@ export class DataServiceProvider {
     await this.storage.ready();
     await this.storage.remove(IMAGES_STORAGE_KEY);
     await this.storage.remove(WORKOUTS_STORAGE_KEY);
-    this.store.dispatch(new GetData());
+    this.store.dispatch(new LoadData());
     this.logger.info('resetData', 'images and workouts have been reset');
   }
 

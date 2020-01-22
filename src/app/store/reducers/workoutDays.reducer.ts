@@ -14,7 +14,7 @@ export const workoutDaysReducers = (
             ExerciseSetActions)
     : IWorkoutDaysState => {
     switch (action.type) {
-        case DataActionsTypes.GetDataSuccess: {
+        case DataActionsTypes.LoadDataSuccess: {
             return {
                 ...state,
                 byId: action.payload.days.byId,

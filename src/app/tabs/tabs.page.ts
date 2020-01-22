@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemeServiceProvider } from '../providers/theme-service/theme-service';
-import { getHasDataBeenLoaded, getError, getWorkoutExportInProgress, getWorkoutImportInProgress } from '../store/selectors/data.selectors';
-import { take, takeUntil } from 'rxjs/operators';
-import { GetData } from '../store/actions/data.actions';
+import {
+  getError,
+  getWorkoutExportInProgress,
+  getWorkoutImportInProgress,
+  getTheme
+} from '../store/selectors/data.selectors';
+import { takeUntil } from 'rxjs/operators';
+import { LoadData } from '../store/actions/data.actions';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
 import { ToastService } from '../providers/toast-service/toast-service';
@@ -25,23 +30,22 @@ export class TabsPage implements OnInit, OnDestroy {
 
   constructor(
     loggingService: LoggingService,
-    themeService: ThemeServiceProvider,
+    private themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private toastService: ToastService,
     private loadingController: LoadingController
   ) {
     this.logger = loggingService.getLogger('App.TabsPage');
-
-    themeService.addBodyClass('gray-orange-black');
-    // themeService.addBodyClass('original');
   }
 
   ngOnInit() {
-    this.store.select(getHasDataBeenLoaded)
-      .pipe(take(1))
-      .subscribe(loaded => {
-        if (!loaded) {
-          this.store.dispatch(new GetData());
+    this.store.dispatch(new LoadData());
+
+    this.store.select(getTheme)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((theme) => {
+        if (theme) {
+          this.themeService.setTheme(theme);
         }
       });
 

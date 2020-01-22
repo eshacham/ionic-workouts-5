@@ -1,20 +1,46 @@
 import { Injectable, RendererFactory2, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+export interface ITheme {
+  name: string;
+  image: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeServiceProvider {
+  public static defaultTheme = 'gray-orange-black';
   renderer: Renderer2;
+
+  themes: ITheme[] = [
+    { name: 'pink-skin', image: '/assets/images/themes/pink-skin' },
+    { name: 'red-blue-brown', image: '/assets/images/themes/red-blue-brown' },
+    { name: 'gray-yellow-green', image: '/assets/images/themes/gray-yellow-green' },
+    { name: 'mustard-red-cream', image: '/assets/images/themes/mustard-red-cream' },
+    { name: 'green-haki-bordo', image: '/assets/images/themes/green-haki-bordo' },
+    { name: 'gray-orange-black', image: '/assets/images/themes/gray-orange-black' },
+  ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
-  addBodyClass(bodyClass: string) {
+  private addBodyClass(bodyClass: string) {
     this.renderer.addClass(this.document.body, bodyClass);
   }
-  removeBodyClass(bodyClass: string) {
+  private removeBodyClass(bodyClass: string) {
     this.renderer.removeClass(this.document.body, bodyClass);
   }
+
+  setTheme(selectedtheme: string) {
+    for (const theme of this.themes) {
+      if (theme.name !== selectedtheme) {
+        this.removeBodyClass(theme.name);
+      } else {
+        this.addBodyClass(theme.name);
+      }
+    }
+  }
+
 }

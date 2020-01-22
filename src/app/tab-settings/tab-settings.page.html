@@ -19,7 +19,6 @@
     </ion-segment-button>
   </ion-segment>
 
-
   <ion-list *ngIf="selectedSegment==='workouts'" lines="none">
     <ion-item>
       <ion-button expand="full" (click)="resetData()">
@@ -27,16 +26,15 @@
         Reset Data
       </ion-button>
     </ion-item>
-
   </ion-list>
 
-  <ion-list *ngIf="selectedSegment==='themes'"
-    (ionChange)="themeSelected($event)" class="ion-no-padding">
+   <ion-list *ngIf="selectedSegment==='themes'"
+     class="ion-no-padding">
     <ion-radio-group>
       <ion-item *ngFor='let theme of themes' >
-        <ion-label>{{theme.name}}</ion-label>
-        <ion-radio
-          slot="start" value={{theme.name}} [checked]='theme.selected'>
+        <ion-label>{{theme.theTheme.name}}</ion-label>
+        <ion-radio (ionSelect)="themeSelected($event.detail.value)"
+          slot="start" value={{theme.theTheme.name}} [checked]="theme.selected">
         </ion-radio>
       </ion-item>
     </ion-radio-group>

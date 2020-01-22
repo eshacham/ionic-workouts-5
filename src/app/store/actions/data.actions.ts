@@ -2,9 +2,12 @@ import { Action } from '@ngrx/store';
 import { AllDataMaps } from 'src/app/models/interfaces';
 
 export enum DataActionsTypes {
-    GetData = '[Data] Get app data',
-    GetDataSuccess = '[Data] Get app data success',
-    GetDataError = '[Data] Get app data error',
+    LoadData = '[Data] Load app data',
+    LoadDataSuccess = '[Data] Get app data success',
+    LoadDataError = '[Data] Load app data error',
+    LoadTheme = '[Data] Load app theme',
+    LoadThemeSuccess = '[Data] Get app theme success',
+    LoadThemeError = '[Data] Load app theme error',
     DataReset = '[Data] Data have been reset',
     UpdateWorkouts = '[Data] Update workouts',
     WorkoutsSavedSuccess = '[Data] Workouts have been updated',
@@ -12,25 +15,39 @@ export enum DataActionsTypes {
     UpdateImages = '[Data] Update images',
     ImagesSavedSuccess = '[Data] Images have been updated',
     ImagesSavedError = '[Data] Images saved error',
+    SetTheme = '[Data] Set the selected theme',
+    ThemeSavedSuccess = '[Data] Theme have been updated',
+    ThemeSavedError = '[Data] Theme saved error',
 }
-export class GetData implements Action {
-    public readonly type = DataActionsTypes.GetData;
+export class LoadData implements Action {
+    public readonly type = DataActionsTypes.LoadData;
 }
 
-export class GetDataSuccess implements Action {
-    public readonly type = DataActionsTypes.GetDataSuccess;
+export class LoadDataSuccess implements Action {
+    public readonly type = DataActionsTypes.LoadDataSuccess;
     constructor(public payload: AllDataMaps) { }
 }
-export class GetDataError implements Action {
-    public readonly type = DataActionsTypes.GetDataError;
+export class LoadDataError implements Action {
+    public readonly type = DataActionsTypes.LoadDataError;
     constructor(public payload: string) { }
 }
 
+export class LoadTheme implements Action {
+    public readonly type = DataActionsTypes.LoadTheme;
+}
+
+export class LoadThemeSuccess implements Action {
+    public readonly type = DataActionsTypes.LoadThemeSuccess;
+    constructor(public theme: string) { }
+}
+export class LoadThemeError implements Action {
+    public readonly type = DataActionsTypes.LoadThemeError;
+    constructor(public payload: string) { }
+}
 export class DataReset implements Action {
     readonly type = DataActionsTypes.DataReset;
     constructor() { }
 }
-
 export class UpdateWorkouts implements Action {
     readonly type = DataActionsTypes.UpdateWorkouts;
     constructor() { }
@@ -57,15 +74,33 @@ export class ImagesSavedError implements Action {
     readonly type = DataActionsTypes.ImagesSavedError;
     constructor(public payload: string) { }
 }
+export class SetTheme implements Action {
+    readonly type = DataActionsTypes.SetTheme;
+    constructor(public payload: string) { }
+}
+export class ThemeSavedSuccess implements Action {
+    readonly type = DataActionsTypes.ThemeSavedSuccess;
+    constructor(public payload: string) { }
+}
+export class ThemeSavedError implements Action {
+    readonly type = DataActionsTypes.ThemeSavedError;
+    constructor(public payload: string) { }
+}
 
 export type DataActions =
-    GetData |
-    GetDataSuccess |
-    GetDataError |
+    LoadData |
+    LoadDataSuccess |
+    LoadDataError |
+    LoadTheme |
+    LoadThemeSuccess |
+    LoadThemeError |
     DataReset |
     WorkoutsSavedSuccess |
     WorkoutsSavedError |
     UpdateImages |
     ImagesSavedSuccess |
-    ImagesSavedError
+    ImagesSavedError |
+    SetTheme |
+    ThemeSavedSuccess |
+    ThemeSavedError
     ;

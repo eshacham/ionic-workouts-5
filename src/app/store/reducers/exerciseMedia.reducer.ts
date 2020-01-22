@@ -16,7 +16,7 @@ export const exercisesMediaReducers = (
         WorkoutsActions)
     : IExercisesMediaState => {
     switch (action.type) {
-        case DataActionsTypes.GetDataSuccess: {
+        case DataActionsTypes.LoadDataSuccess: {
             return {
                 ...state,
                 byId: action.payload.media ? action.payload.media.byId : null,

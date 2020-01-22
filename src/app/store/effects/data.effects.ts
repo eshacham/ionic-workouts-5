@@ -5,15 +5,20 @@ import { of, from } from 'rxjs';
 import { switchMap, map, withLatestFrom, mergeMap, catchError } from 'rxjs/operators';
 import { IAppState } from '../state/app.state';
 import {
-    GetData,
+    LoadData,
     DataActionsTypes,
-    GetDataSuccess,
+    LoadDataSuccess,
     UpdateWorkouts,
     WorkoutsSavedSuccess,
     UpdateImages,
     ImagesSavedSuccess,
-    GetDataError,
+    LoadDataError,
     WorkoutsSavedError,
+    SetTheme,
+    ThemeSavedSuccess,
+    ThemeSavedError,
+    LoadTheme,
+    LoadThemeSuccess,
 } from '../actions/data.actions';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
@@ -76,20 +81,44 @@ export class DataEffects {
     }
 
     @Effect()
-    getAllData$ = this.actions$.pipe(
-        ofType(DataActionsTypes.GetData),
-        mergeMap((action: GetData) => from(this.dataService.getAllData()).pipe(
-            map((allData: AllDataMaps) => (new GetDataSuccess(allData))),
+    loadAllData$ = this.actions$.pipe(
+        ofType(DataActionsTypes.LoadData),
+        mergeMap((action: LoadData) => from(this.dataService.getAllData()).pipe(
+            map((allData: AllDataMaps) => (new LoadDataSuccess(allData))),
             catchError(err => {
                 this.logger.error('getAllData', err);
-                return of(new GetDataError(err.message));
+                return of(new LoadDataError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    loadThemeData$ = this.actions$.pipe(
+        ofType(DataActionsTypes.LoadTheme),
+        mergeMap((action: LoadTheme) => from(this.dataService.getThemeData()).pipe(
+            map((theme: string) => (new LoadThemeSuccess(theme))),
+            catchError(err => {
+                this.logger.error('getAllData', err);
+                return of(new LoadDataError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    setTheme$ = this.actions$.pipe(
+        ofType(DataActionsTypes.SetTheme),
+        mergeMap((action: SetTheme) => from(this.dataService.saveTheme(action.payload)).pipe(
+            map(() => (new ThemeSavedSuccess(action.payload))),
+            catchError(err => {
+                this.logger.error('saveTheme', err);
+                return of(new ThemeSavedError(err.message));
             })
         ))
     );
 
     @Effect()
     saveWorkouts$ = this.actions$.pipe(
-        ofType<UpdateWorkouts>(DataActionsTypes.UpdateWorkouts),
+        ofType(DataActionsTypes.UpdateWorkouts),
         map((action: UpdateWorkouts) => action),
         withLatestFrom(this.store.pipe(select(getWorkoutsData))),
         mergeMap(([action, workoutsData]) => from(this.dataService.saveWorkouts(workoutsData)).pipe(
@@ -103,7 +132,7 @@ export class DataEffects {
 
     @Effect()
     saveImages$ = this.actions$.pipe(
-        ofType<UpdateImages>(DataActionsTypes.UpdateImages),
+        ofType(DataActionsTypes.UpdateImages),
         map((action: UpdateImages) => action),
         withLatestFrom(this.store.pipe(select(getImagesData))),
         mergeMap(([action, imagessData]) => from(this.dataService.saveImages(imagessData)).pipe(
@@ -115,6 +144,8 @@ export class DataEffects {
         ))
     );
 
+
+
     @Effect()
     exportWorkout$ = this.actions$.pipe(
         ofType(WorkoutsActionsTypes.ExportWorkout),
@@ -122,7 +153,7 @@ export class DataEffects {
             map((exportId: string) => (new ExportWorkoutSuccess())),
             catchError(err => {
                 this.logger.error('exportWorkout', err);
-                return of(new GetDataError(err.message));
+                return of(new LoadDataError(err.message));
             })
         ))
     );
@@ -134,7 +165,7 @@ export class DataEffects {
             map((data: { workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }) => (new ImportWorkoutSuccess(data))),
             catchError(err => {
                 this.logger.error('importWorkout', err);
-                return of(new GetDataError(err.message));
+                return of(new LoadDataError(err.message));
             })
         ))
     );
@@ -149,7 +180,7 @@ export class DataEffects {
                     (new UpdateImages())]),
                 catchError(err => {
                     this.logger.error('addNewImage', err);
-                    return of(new GetDataError(err.message));
+                    return of(new LoadDataError(err.message));
                 })
             ))
     );
@@ -165,7 +196,7 @@ export class DataEffects {
                 ]),
                 catchError(err => {
                     this.logger.error('deleteImage', err);
-                    return of(new GetDataError(err.message));
+                    return of(new LoadDataError(err.message));
                 })
             ))
     );
@@ -179,10 +210,9 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('updateImage', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
-
 
     @Effect()
     deleteExercise$ = this.actions$.pipe(
@@ -201,13 +231,13 @@ export class DataEffects {
         }),
         catchError(err => {
             this.logger.error('deleteExercise', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
     @Effect()
     deleteWorkout$ = this.actions$.pipe(
-        ofType<DeleteWorkout>(WorkoutsActionsTypes.DeleteWorkout),
+        ofType(WorkoutsActionsTypes.DeleteWorkout),
         map((action: DeleteWorkout) => action.payload),
         mergeMap((payload: { id: string, days: string[] }) =>
             of(payload).pipe(
@@ -225,13 +255,13 @@ export class DataEffects {
         }),
         catchError(err => {
             this.logger.error('deleteWorkout', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
     @Effect()
     deleteWorkoutDay$ = this.actions$.pipe(
-        ofType<DeleteWorkoutDay>(WorkoutDaysActionsTypes.DeleteWorkoutDay),
+        ofType(WorkoutDaysActionsTypes.DeleteWorkoutDay),
         map((action: DeleteWorkoutDay) => action.payload),
         mergeMap((payload: { dayId: string }) =>
             of(payload).pipe(
@@ -246,7 +276,7 @@ export class DataEffects {
         }),
         catchError(err => {
             this.logger.error('deleteWorkoutDay', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
@@ -259,7 +289,7 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('addExerciseMuscleFilter', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
@@ -272,7 +302,7 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('deleteExerciseMuscleFilter', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
@@ -285,7 +315,7 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('moveWorkoutDay', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
@@ -298,9 +328,10 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('addWorkoutDay', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
+
     @Effect()
     addWorkout$ = this.actions$.pipe(
         ofType(WorkoutsActionsTypes.AddWorkout),
@@ -310,7 +341,7 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('addWorkout', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
     );
 
@@ -323,9 +354,7 @@ export class DataEffects {
         ])),
         catchError(err => {
             this.logger.error('changeDisplayMode', err);
-            return of(new GetDataError(err.message));
+            return of(new LoadDataError(err.message));
         })
-
     );
-
 }

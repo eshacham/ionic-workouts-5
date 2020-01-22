@@ -16,7 +16,7 @@ export const exerciseSetsReducers = (
             WorkoutsActions )
     : IExerciseSetsState => {
     switch (action.type) {
-        case DataActionsTypes.GetDataSuccess: {
+        case DataActionsTypes.LoadDataSuccess: {
             return {
                 ...state,
                 byId: action.payload.sets.byId,
