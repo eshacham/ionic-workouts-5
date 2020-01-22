@@ -129,7 +129,9 @@ export const workoutDaysReducers = (
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
                         exerciseSets: [...oldSets, ...newSets],
-                        scrollToExerciseSetIndex: oldSets.length + newSets.length - 1
+                        scrollToExerciseSetIndex: oldSets.length + newSets.length - 1,
+                        scrollToExerciseSetId: newSets[0],
+                        scrollToExerciseSet: false
                     }
                 },
             };
@@ -163,7 +165,9 @@ export const workoutDaysReducers = (
                     ...state.byId,
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
-                        scrollToExerciseSetIndex: undefined
+                        scrollToExerciseSetIndex: undefined,
+                        scrollToExerciseSetId: undefined,
+                        scrollToExerciseSet: undefined
                     }
                 },
             };
@@ -177,7 +181,9 @@ export const workoutDaysReducers = (
                     ...state.byId,
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
-                        scrollToExerciseSetIndex: index
+                        scrollToExerciseSetIndex: index,
+                        scrollToExerciseSetId: action.payload.setId,
+                        scrollToExerciseSet: action.payload.scroll,
                     }
                 },
             };

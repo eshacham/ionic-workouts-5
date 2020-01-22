@@ -15,7 +15,8 @@ import {
   ChangeDisplayMode,
   DeleteWorkoutDay,
   MoveWorkoutDay,
-  StopExercise
+  StopExercise,
+  SetExerciseSetInWorkoutDay
 } from 'src/app/store/actions/workoutDays.actions';
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
@@ -109,6 +110,23 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       });
   }
 
+  ionViewDidEnter() {
+    this.logger.debug('ionViewDidEnter', 'current day id', this.activeDayId);
+    this.store.select(getWorkoutDay(this.activeDayId))
+      .pipe(take(1))
+      .subscribe(workoutDay => {
+        if (workoutDay && workoutDay.scrollToExerciseSetIndex) {
+          this.logger.debug('ionViewDidEnter', 'need to scrollToExerciseSetId', workoutDay.scrollToExerciseSetId);
+          this.store.dispatch(new SetExerciseSetInWorkoutDay({
+            workoutId: this.workoutId,
+            dayId: this.activeDayId,
+            setId: workoutDay.scrollToExerciseSetId,
+            scroll: true
+          }));
+        }
+      });
+  }
+
   async slideChanged() {
     if (this.slides && this.days) {
       this.activeDayIndex = await this.slides.getActiveIndex();
@@ -172,7 +190,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       name: 'new workout day',
       exerciseSets: [],
       workoutId: this.workoutId,
-      displayMode: DisplayMode.Edit
+      displayMode: DisplayMode.Edit,
     });
     const index = this.activeDayIndex;
     const islast = this.days.length - 1 === index;

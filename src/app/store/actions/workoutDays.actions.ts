@@ -148,8 +148,14 @@ export class ReorderExerciseSets implements Action {
 export class SetExerciseSetInWorkoutDay implements Action {
     readonly type = WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay;
     constructor(public payload: {
-        workoutId: string, dayId: string, setId: string
-    }) { }
+        workoutId: string,
+        dayId: string,
+        setId?: string,
+        setIndex?: number,
+        scroll?: boolean
+    }) {
+        payload.scroll = payload.scroll || false;
+    }
 }
 export class ResetExerciseSetScrollIntoView implements Action {
     readonly type = WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView;

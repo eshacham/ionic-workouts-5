@@ -33,7 +33,7 @@ export class WorkoutDay extends WorkoutDayBase {
             exerciseSets: day.exerciseSets.map(s => s.id),
             workoutId,
             displayMode: DisplayMode.Display,
-            runningState: RunningState.NA
+            runningState: RunningState.NA,
         };
     }
 }
@@ -45,6 +45,8 @@ export class WorkoutDayBean extends WorkoutDayBase {
     runningState: RunningState;
     workoutId?: string;
     scrollToExerciseSetIndex?: number;
+    scrollToExerciseSetId?: string;
+    scrollToExerciseSet?: boolean;
 
     constructor(options: {
         id: string,
@@ -55,6 +57,8 @@ export class WorkoutDayBean extends WorkoutDayBase {
         runningState?: RunningState,
         workoutId?: string,
         scrollToExerciseSetIndex?: number
+        scrollToExerciseSetId?: string
+        scrollToExerciseSet?: boolean
     }) {
         super(options);
         if (options.exerciseSets) {
@@ -62,6 +66,8 @@ export class WorkoutDayBean extends WorkoutDayBase {
         }
         this.runningExerciseSetIndex = options.runningExerciseSetIndex;
         this.scrollToExerciseSetIndex = options.scrollToExerciseSetIndex;
+        this.scrollToExerciseSetId = options.scrollToExerciseSetId;
+        this.scrollToExerciseSet = options.scrollToExerciseSet || false;
         this.displayMode = options.displayMode || DisplayMode.Display;
         this.runningState = options.runningState || RunningState.NA;
         if (options.workoutId) {
@@ -77,7 +83,7 @@ export class WorkoutDayBean extends WorkoutDayBase {
             id: options.id,
             name: 'new workout day',
             exerciseSets: [],
-            workoutId: options.workoutId
+            workoutId: options.workoutId,
         });
     }
 }
