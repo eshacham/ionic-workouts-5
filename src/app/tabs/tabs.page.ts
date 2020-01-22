@@ -33,6 +33,7 @@ export class TabsPage implements OnInit, OnDestroy {
     this.logger = loggingService.getLogger('App.TabsPage');
 
     themeService.addBodyClass('gray-orange-black');
+    // themeService.addBodyClass('original');
   }
 
   ngOnInit() {
