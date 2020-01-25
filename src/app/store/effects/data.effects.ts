@@ -19,6 +19,9 @@ import {
     ThemeSavedError,
     LoadTheme,
     LoadThemeSuccess,
+    ResetData,
+    ResetDataSuccess,
+    ResetDataError,
 } from '../actions/data.actions';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
@@ -112,6 +115,18 @@ export class DataEffects {
             catchError(err => {
                 this.logger.error('saveTheme', err);
                 return of(new ThemeSavedError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    resetData$ = this.actions$.pipe(
+        ofType(DataActionsTypes.ResetData),
+        mergeMap((action: ResetData) => from(this.dataService.resetData()).pipe(
+            map(() => (new ResetDataSuccess())),
+            catchError(err => {
+                this.logger.error('resetData', err);
+                return of(new ResetDataError(err.message));
             })
         ))
     );

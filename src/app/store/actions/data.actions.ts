@@ -5,16 +5,23 @@ export enum DataActionsTypes {
     LoadData = '[Data] Load app data',
     LoadDataSuccess = '[Data] Get app data success',
     LoadDataError = '[Data] Load app data error',
+
     LoadTheme = '[Data] Load app theme',
     LoadThemeSuccess = '[Data] Get app theme success',
     LoadThemeError = '[Data] Load app theme error',
-    DataReset = '[Data] Data have been reset',
+
+    ResetData = '[Data] Data needs to be reset',
+    ResetDataSuccess = '[Data] Data have been reset',
+    ResetDataError = '[Data] Data reset error',
+
     UpdateWorkouts = '[Data] Update workouts',
     WorkoutsSavedSuccess = '[Data] Workouts have been updated',
     WorkoutsSavedError = '[Data] Workouts saved error',
+
     UpdateImages = '[Data] Update images',
     ImagesSavedSuccess = '[Data] Images have been updated',
     ImagesSavedError = '[Data] Images saved error',
+
     SetTheme = '[Data] Set the selected theme',
     ThemeSavedSuccess = '[Data] Theme have been updated',
     ThemeSavedError = '[Data] Theme saved error',
@@ -44,10 +51,21 @@ export class LoadThemeError implements Action {
     public readonly type = DataActionsTypes.LoadThemeError;
     constructor(public payload: string) { }
 }
-export class DataReset implements Action {
-    readonly type = DataActionsTypes.DataReset;
+
+export class ResetData implements Action {
+    public readonly type = DataActionsTypes.ResetData;
     constructor() { }
 }
+export class ResetDataSuccess implements Action {
+    readonly type = DataActionsTypes.ResetDataSuccess;
+    constructor() { }
+}
+
+export class ResetDataError implements Action {
+    public readonly type = DataActionsTypes.ResetDataError;
+    constructor(public payload: string) { }
+}
+
 export class UpdateWorkouts implements Action {
     readonly type = DataActionsTypes.UpdateWorkouts;
     constructor() { }
@@ -94,7 +112,9 @@ export type DataActions =
     LoadTheme |
     LoadThemeSuccess |
     LoadThemeError |
-    DataReset |
+    ResetData |
+    ResetDataSuccess |
+    ResetDataError |
     WorkoutsSavedSuccess |
     WorkoutsSavedError |
     UpdateImages |

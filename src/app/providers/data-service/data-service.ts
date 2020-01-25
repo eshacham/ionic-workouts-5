@@ -9,7 +9,7 @@ import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { DataReset, LoadData } from 'src/app/store/actions/data.actions';
+import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
@@ -45,7 +45,10 @@ export class DataServiceProvider {
 
   async getThemeData(): Promise<string> {
     const theme = await this.getTheme();
-    return theme || ThemeServiceProvider.defaultTheme;
+    if (!theme) {
+      this.store.dispatch(new SetTheme(ThemeServiceProvider.defaultTheme));
+    }
+    return theme;
   }
 
   async getAllData(): Promise<AllDataMaps> {
@@ -68,7 +71,6 @@ export class DataServiceProvider {
     if (!imagesData || !workoutsData) {
       workoutsData = await this.initDefaultWorkouts();
       imagesData = await this.initDefaultImages();
-      this.store.dispatch(new DataReset());
     }
     data = { ...workoutsData, ...imagesData };
     if (data.workouts && data.media) {

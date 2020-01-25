@@ -20,7 +20,7 @@ export const dataReducers =
                 theme: action.theme,
             };
         }
-        case DataActionsTypes.DataReset: {
+        case DataActionsTypes.ResetDataSuccess: {
             return {
                 ...state,
                 hasDataBeenReset: true,
@@ -46,6 +46,7 @@ export const dataReducers =
         case DataActionsTypes.LoadThemeError:
         case DataActionsTypes.WorkoutsSavedError:
         case DataActionsTypes.ThemeSavedError:
+        case DataActionsTypes.ResetDataError:
         case DataActionsTypes.ImagesSavedError: {
             return {
                 ...state,
