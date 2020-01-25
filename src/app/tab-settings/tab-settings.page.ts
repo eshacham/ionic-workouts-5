@@ -7,6 +7,8 @@ import { IAppState } from '../store/state/app.state';
 import { getTheme } from '../store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
+import { ActionSheetController } from '@ionic/angular';
+
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -29,6 +31,8 @@ export class TabSettingsPage implements OnInit {
     private themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private router: Router,
+    public actionSheetController: ActionSheetController
+
     ) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
       this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
@@ -67,8 +71,30 @@ export class TabSettingsPage implements OnInit {
   }
 
   async resetData() {
-    this.store.dispatch(new ResetData());
-    this.router.navigate(['']);
+    this.presentActionSheet();
   }
 
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Reset Workouts Data Confirmation',
+      subHeader: 'Reset workouts data will delete any new or customized workout, including its images.',
+      buttons: [{
+        text: 'Reset',
+        role: 'destructive',
+        handler: () => {
+          this.logger.info('reset clicked');
+          this.store.dispatch(new ResetData());
+          this.router.navigate(['']);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          this.logger.info('cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
 }
