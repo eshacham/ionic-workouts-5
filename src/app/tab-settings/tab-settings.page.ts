@@ -46,7 +46,7 @@ export class TabSettingsPage implements OnInit {
       });
     }
 
-   themeSelected(selectedTheme) {
+   themeSelected(selectedTheme: string) {
     this.themes.forEach(t => t.selected = t.theTheme.name === selectedTheme);
     this.logger.debug('theme selected: ', selectedTheme);
     this.store.dispatch(new SetTheme(selectedTheme));
@@ -59,8 +59,8 @@ export class TabSettingsPage implements OnInit {
     }
   }
 
-  segmentChanged(event: any) {
-    this.selectedSegment = event.detail.value;
+  segmentChanged(segment: string) {
+    this.selectedSegment = segment;
     this.logger.debug('segmentChanged', this.selectedSegment);
   }
 

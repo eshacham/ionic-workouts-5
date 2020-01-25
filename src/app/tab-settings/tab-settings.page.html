@@ -8,8 +8,9 @@
 
 <ion-content>
 
-  <ion-segment (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="themes" layout="icon-start" checked>
+  <ion-segment (ionChange)="segmentChanged($event.detail.value)"
+      value={{selectedSegment}}>
+    <ion-segment-button value="themes" layout="icon-start">
       <ion-label>Themes</ion-label>
       <ion-icon name="color-palette"></ion-icon>
     </ion-segment-button>
