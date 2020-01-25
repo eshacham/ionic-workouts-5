@@ -46,10 +46,10 @@ export class TabSettingsPage implements OnInit {
       });
     }
 
-   themeSelected(selectedtheme: string) {
-    this.themes.forEach(t => t.selected = t.theTheme.name === selectedtheme);
-    this.logger.debug('theme selected: ', selectedtheme);
-    this.store.dispatch(new SetTheme(selectedtheme));
+   themeSelected(selectedTheme) {
+    this.themes.forEach(t => t.selected = t.theTheme.name === selectedTheme);
+    this.logger.debug('theme selected: ', selectedTheme);
+    this.store.dispatch(new SetTheme(selectedTheme));
   }
 
   getSelectedThemeImage(i: number): string {

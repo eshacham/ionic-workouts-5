@@ -34,7 +34,7 @@
       <ion-item *ngFor='let theme of themes' >
         <ion-label>{{theme.theTheme.name}}</ion-label>
         <ion-radio (ionSelect)="themeSelected($event.detail.value)"
-          slot="start" value={{theme.theTheme.name}} [checked]="theme.selected">
+          slot="start" value={{theme.theTheme.name}}>
         </ion-radio>
       </ion-item>
     </ion-radio-group>
