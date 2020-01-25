@@ -4,21 +4,24 @@
       Settings
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+
+    <ion-segment (ionChange)="segmentChanged($event.detail.value)"
+        value={{selectedSegment}}>
+      <ion-segment-button value="themes" layout="icon-start">
+        <ion-label>Themes</ion-label>
+        <ion-icon name="color-palette"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="workouts" layout="icon-start">
+        <ion-label>Workouts</ion-label>
+        <ion-icon name="body"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-segment (ionChange)="segmentChanged($event.detail.value)"
-      value={{selectedSegment}}>
-    <ion-segment-button value="themes" layout="icon-start">
-      <ion-label>Themes</ion-label>
-      <ion-icon name="color-palette"></ion-icon>
-    </ion-segment-button>
-    <ion-segment-button value="workouts" layout="icon-start">
-      <ion-label>Workouts</ion-label>
-      <ion-icon name="body"></ion-icon>
-    </ion-segment-button>
-  </ion-segment>
 
   <ion-list *ngIf="selectedSegment==='workouts'" lines="none">
     <ion-item>
