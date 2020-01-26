@@ -7,7 +7,7 @@ import {
   getTheme
 } from '../store/selectors/data.selectors';
 import { takeUntil } from 'rxjs/operators';
-import { LoadData } from '../store/actions/data.actions';
+import { LoadData, ClearError } from '../store/actions/data.actions';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
 import { ToastService } from '../providers/toast-service/toast-service';
@@ -54,7 +54,9 @@ export class TabsPage implements OnInit, OnDestroy {
       .subscribe((error) => {
         if (error) {
           this.logger.debug('ngOnInit', 'etError:', error);
+          if (this.loading) { this.loadingController.dismiss(); }
           this.toastService.presentToast(error, 'danger');
+          this.store.dispatch(new ClearError());
         }
       });
 

@@ -25,6 +25,8 @@ export enum DataActionsTypes {
     SetTheme = '[Data] Set the selected theme',
     ThemeSavedSuccess = '[Data] Theme have been updated',
     ThemeSavedError = '[Data] Theme saved error',
+
+    ClearError = '[Data] Clear the last error'
 }
 export class LoadData implements Action {
     public readonly type = DataActionsTypes.LoadData;
@@ -105,6 +107,11 @@ export class ThemeSavedError implements Action {
     constructor(public payload: string) { }
 }
 
+export class ClearError implements Action {
+    readonly type = DataActionsTypes.ClearError;
+    constructor() { }
+}
+
 export type DataActions =
     LoadData |
     LoadDataSuccess |
@@ -122,5 +129,6 @@ export type DataActions =
     ImagesSavedError |
     SetTheme |
     ThemeSavedSuccess |
-    ThemeSavedError
+    ThemeSavedError |
+    ClearError
     ;

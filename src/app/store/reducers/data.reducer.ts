@@ -50,7 +50,13 @@ export const dataReducers =
         case DataActionsTypes.ImagesSavedError: {
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+            };
+        }
+        case DataActionsTypes.ClearError: {
+            return {
+                ...state,
+                error: undefined,
             };
         }
         case WorkoutsActionsTypes.ImportWorkout: {
