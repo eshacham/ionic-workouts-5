@@ -118,12 +118,13 @@
               <ion-col *ngFor="let exercise of exercises; let i = index"
                     class="ion-no-padding">
                 <ion-item>
-                    <ion-input type="text"
+                    <ion-textarea type="text"
+                        autoGrow="true" required="true" wrap="soft"
                         [ngModel]="exercise.name"
                         (change)="exerciseChanged(i, $event.target.value, 'name')"
-                        class="ion-text-center"
+                        class="ion-text-center ion-text-wrap"
                         placeholder="Exercise Name">
-                    </ion-input>
+                    </ion-textarea>
                 </ion-item>
             </ion-col>
         </ion-row>

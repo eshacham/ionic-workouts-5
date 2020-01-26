@@ -126,6 +126,9 @@ ion-input {
         margin: 4px!important;
     }
 }
+ion-textarea {
+    --color: var(--ion-color-dark);
+}
 ion-button {
     --padding-end: 2px;
     --padding-start: 2px;
