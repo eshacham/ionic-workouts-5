@@ -80,8 +80,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     get timedRepRemaining(): number { return this.remainingTimedRepSec; }
 
-    get timedToRestAfterCurrentRep(): number { return this.secToRestAfterCurrentRep; }
-
     get timedRestRemaining(): number { return this.remainingTimedRestSec; }
 
     get ExpandedExercises(): ExerciseBean[] {
@@ -97,9 +95,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     set IsEditing(val: boolean) {
         this.isInEditMode = val;
     }
-    get isDayInEditMode(): boolean {
-        return this.DisplayMode === DisplayMode.Edit;
-    }
+
     get DisplayMode(): DisplayMode {
         return this.mode;
     }
@@ -107,10 +103,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         if (this.mode !== val) {
             this.mode = val;
         }
-    }
-
-    get isEditMode(): boolean {
-        return this.mode === DisplayMode.Edit;
     }
 
     constructor(
@@ -183,10 +175,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.logger.info('handleWorkoutDayStateChange', `${state} workout`, activeExerciseName);
     }
 
-    toggleEditExercise() {
-        this.IsEditing = !this.IsEditing;
-    }
-
     runExercise() {
         this.startWorkout();
         this.store.dispatch(new StartExercise({
@@ -212,7 +200,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }));
     }
 
-    goToImages(exercise: ExerciseBean) {
+    goToImagesLibraryPage(exercise: ExerciseBean) {
         this.logger.info('goToImages', `going to image ${exercise.id}`);
         this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
         this.router.navigateByUrl('/tabs/tab-library');
@@ -243,40 +231,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }));
     }
 
-    isTimedRepRemaining(repIndex: number): boolean {
-        return this.activeRepIndex === repIndex &&
-            this.remainingTimedRepSec > 0 && this.IsRunning;
-    }
-
     get isResting(): boolean {
         return this.remainingTimedRestSec > 0 && this.IsRunning;
-    }
-
-    get hasSet(): boolean {
-        return this.exercises.length > 1;
-    }
-
-    exerciseSetSelected() {
-    }
-
-    isFirstInSet(exercise: ExerciseBean): boolean {
-        return this.hasSet && this.activeExercise === exercise;
-    }
-
-    isLastInSet(exercise: ExerciseBean): boolean {
-        return this.hasSet && this.exercises[this.exercises.length - 1] === exercise;
-    }
-
-    isNotLastInSet(exercise: ExerciseBean): boolean {
-        return this.hasSet && this.exercises[this.exercises.length - 1] !== exercise;
-    }
-
-    isFirstSet(exercise: ExerciseBean): boolean {
-        return !this.hasSet || this.isFirstInSet(exercise);
-    }
-
-    isLastSet(exerciseSet: ExerciseBean): boolean {
-        return !this.hasSet || this.isLastInSet(exerciseSet);
     }
 
     get hasTimedRep(): boolean {
@@ -298,9 +254,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             return rep.seconds > 0 && rep.isComplete;
         });
     }
-    isExecrciseSetActive(exerciseIndex: number): boolean {
-        return exerciseIndex === this.activeExerciseInSetIndex;
-    }
 
     getRepClass(rep: Rep, exercise: ExerciseBean) {
         const classes: string[] = ['nonActiveRep'];
@@ -314,14 +267,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                 }
             }
         }
-
-
         return classes;
     }
 
     getSecondsStateText(rep: Rep) {
         if (rep.isActive) {
-            return `${this.timedRepRemaining}/${rep.seconds}`;
+            return `${this.timedRepRemaining}(${rep.seconds})`;
         } else {
             return `${rep.seconds}`;
         }
@@ -390,7 +341,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             }, 1000);
         }
     }
-
     private stopRestTimer() {
         if (this.timedRestTimer) {
             clearInterval(this.timedRestTimer);
@@ -416,7 +366,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.stopRepTimer();
         this.startTimedRep();
     }
-
     private setRepsIncompleteState(exerciseId: string, incompleteIndex: number) {
         this.store.dispatch(new SetRepsIncompleteState({
             exerciseId,
@@ -494,16 +443,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             }
         }
     }
-
     private setRepsCompleteState(exerciseId: string, completeIndex: number) {
         this.store.dispatch(new SetRepsCompleteState({
             exerciseId,
             completeIndex
         }));
-    }
-
-    get isActiveRepCompleted(): boolean {
-        return this.activeRep.isComplete;
     }
 
     get activeRep(): Rep {
