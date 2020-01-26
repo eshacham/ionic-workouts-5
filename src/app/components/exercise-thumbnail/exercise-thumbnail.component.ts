@@ -255,15 +255,15 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         });
     }
 
-    getRepClass(rep: Rep, exercise: ExerciseBean) {
-        const classes: string[] = ['nonActiveRep'];
+    getRepClass(rep: Rep, index: number) {
+        const classes: string[] = [];
         if (this.IsRunning) {
-            if (rep.isActive) {
-                classes.push('fadeOutAndIn');
+            if (this.activeRepIndex === index) {
+                classes.push('fadeOutAndIn', 'activeRep');
             } else { // non active rep
                 if (!this.hasTimedRep &&
-                    this.activeRepIndex === exercise.reps.indexOf(rep)) {
-                    classes.push('fadeOutAndIn');
+                    this.activeRepIndex === index) {
+                    classes.push('nonActiveRep');
                 }
             }
         }

@@ -1,8 +1,40 @@
+ion-list {
+    margin: 0px;
+    padding: 0px;
+}
+ion-item {
+    padding-left: 0px;
+    --inner-padding-end: 0px;
+    --padding-start: 0px;
+    ion-row {
+        width: 100%;
+    }
+};
 ion-grid {
     padding: 0px;
 }
 ion-row {
     --ion-padding: 4px;
+}
+ion-row#repsRow {
+    background: var(--ion-color-tertiary);
+}
+
+ion-col#colRep {
+    margin: 0px 0px 0px 0px;
+    padding: 4px 5px 4px 5px;
+}
+.activeRep {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-light);
+}
+.nonActiveRep {
+    background: var(--ion-color-tertiary);
+    color: var(--ion-color-light);
+}
+.editRep {
+    background: var(--ion-color-tertiary);
+    color: var(--ion-color-light);
 }
 div#div-with-image-and-button {
     display: inline-block;
@@ -40,23 +72,6 @@ div#div-with-image-and-button {
     }
 }
 
-ion-col#col-rep {
-    margin: 2px 0px 2px 0px;
-    padding: 4px 5px 4px 5px;
-}
-ion-list {
-    margin: 0px;
-    padding: 0px;
-}
-ion-item {
-    padding-left: 0px;
-    --inner-padding-end: 0px;
-    --padding-start: 0px;
-    ion-row {
-        width: 100%;
-    }
-};
-
 img {
     height: 80px;
     width: 80px;
@@ -78,25 +93,15 @@ h3 {
     color: var(--ion-color-dark);
     font-size: 14px;
     margin: 0px 0px 2px 0px;
-    padding: 0px;
+    padding: 3px;
 }
 h4 {
     font-size: 14px;
     margin: 0px 0px 2px 0px;
     padding: 0px;
+    color: var(--ion-color-light);
 }
-.activeRep {
-    background: var(--ion-color-light);
-    color: var(--ion-color-dark);
-}
-.nonActiveRep {
-    background: var(--ion-color-secondary);
-    color: var(--ion-color-danger);
-}
-.editRep {
-    background: var(--ion-color-light);
-    color: var(--ion-color-danger);
-}
+
 
 ion-buttons {
     width: 100%
@@ -134,9 +139,7 @@ ion-button {
     --padding-start: 2px;
 }
 .bordered {
-    background: var(--ion-color-secondary);
-    color: var(--ion-color-dark);
-    margin: 2px 0px 2px 0px;
+    color: var(--ion-color-light);
     text-align: center;
 }
 ion-range {
