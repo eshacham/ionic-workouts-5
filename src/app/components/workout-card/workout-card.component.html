@@ -1,13 +1,17 @@
 <ion-card mode="md">
   <ion-card-header>
-    <ion-card-title [hidden]="IsEditMode" class="ion-text-center">
+
+    <ion-card-title color="dark" class="ion-text-center">
+      <h4 [hidden]="IsEditMode" >
         {{ name }}
+      </h4>
+      <ion-input [hidden]="IsDisplayMode" type="text"
+
+        [(ngModel)]="name"
+        (change)="workoutChanged()">
+      </ion-input>
     </ion-card-title>
-    <ion-input [hidden]="IsDisplayMode" type="text"
-      class="ion-text-center"
-      [(ngModel)]="name"
-      (change)="workoutChanged()">
-    </ion-input>
+
   </ion-card-header>
 
  <ion-card-content>

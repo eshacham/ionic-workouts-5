@@ -1,12 +1,13 @@
 <ion-item>
-  <ion-label position="floating">
-    <h4>Type Workout Id here</h4>
+  <ion-label position="stacked"
+    class="ion-text-center">
+    <h4>Type key here</h4>
   </ion-label>
-  <ion-input
+  <ion-input class="ion-text-center"
     [(ngModel)]="selectedWorkout">
   </ion-input>
-  <ion-button (click)="importWorkout()"
-    expand="full">
+  <ion-button expand="block"
+    (click)="importWorkout()">
     Import
   </ion-button>
 </ion-item>
