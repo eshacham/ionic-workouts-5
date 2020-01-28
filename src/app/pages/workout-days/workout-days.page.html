@@ -17,7 +17,7 @@
           <ion-icon name="play"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start">
+        <ion-fab-list side="start" class="animated fadeInRight">
           <ion-fab-button size="small"
           (click)="stopWorkout()" color="warning">
             <ion-icon name="pause"></ion-icon>
@@ -34,8 +34,7 @@
           <ion-icon name="construct"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start">
-
+        <ion-fab-list side="start" class="animated fadeInRight" >
           <ion-fab-button size="small" [disabled]="isLastDayActive"
           (click)="moveForwardWorkoutDay($event)" color="warning">
           <ion-icon name="arrow-forward"></ion-icon>
