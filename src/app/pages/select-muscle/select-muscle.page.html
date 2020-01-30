@@ -26,24 +26,33 @@
       <image clip-path="url(#body-mask)" height="100%" width="100%"
              xlink:href="./assets/images/muscles/muscle-man.jpg" >
       </image>
-      <a *ngFor="let group of muscleGroupElements"
-        (click)="toggleMuscle(group.muscle)">
-        <g [attr.id]="group.muscle">
-          <path *ngFor="let path of group.paths; let i = index"
-            fill="#fff" opacity="0" [attr.d]="path"/>
+      <a *ngFor="let group of muscleGroups"
+        (click)="toggleMuscle(group)">
+        <g>
+          <path *ngFor="let path of group.paths"
+            [attr.id]="path.id"
+            fill="red" opacity="0" [attr.d]="path.data"/>
         </g>
       </a>
+      <animate *ngFor="let path of selectedPaths"
+          [attr.xlink:href]="getAnimationHref(path)"
+          attributeName="opacity"
+          values="0;0.4;0.6;0.4;0"
+          keyTimes="0;0.2;0.5;0.8;1"
+          dur="2s"
+          begin="0.2"
+          repeatCount="indefinite" />
     </svg>
 
 </ion-content>
 
 <ion-footer>
   <ion-row class="ion-text-center">
-  <ion-col *ngFor="let selectedMuscle of selectedMuscles">
+  <ion-col *ngFor="let group of muscleGroups">
     <ion-button color="primary"
-                [fill]="getButtonFill(selectedMuscle)" size="small"
-                (click)="toggleMuscle(selectedMuscle.muscle)">
-        <ion-label>{{selectedMuscle.muscle}}</ion-label>
+                [fill]="getButtonFill(group)" size="small"
+                (click)="toggleMuscle(group)">
+        <ion-label>{{group.name}}</ion-label>
     </ion-button>
   </ion-col>
 </ion-row>
