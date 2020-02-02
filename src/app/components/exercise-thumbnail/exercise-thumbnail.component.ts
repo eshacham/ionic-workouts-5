@@ -256,26 +256,50 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     getRepClass(rep: Rep, index: number) {
-        const classes: string[] = [];
         if (this.IsRunning) {
-            if (this.activeRepIndex === index) {
-                classes.push('fadeOutAndIn', 'activeRep');
-            } else { // non active rep
-                if (!this.hasTimedRep &&
-                    this.activeRepIndex === index) {
-                    classes.push('nonActiveRep');
-                }
+            if (this.isRepConsideredActive(rep, index)) {
+                return 'divRep divActive';
             }
+            return 'divRep divNonActive';
         }
-        return classes;
+    }
+    getRepSecondsStyle(rep: Rep): any {
+        const animation = {
+            animation: `${rep.isActive ? rep.seconds : 0}s linear mymove`
+        };
+        return animation;
+    }
+    isRepConsideredActive(rep: Rep, index: number) {
+        if (rep.isComplete) {
+            return false;
+        }
+        return (rep.isActive || (this.activeRepIndex === index && !this.activeRep.seconds));
+    }
+
+    getRepTimesStyle(rep: Rep, index): any {
+        const animation = {
+            animation: `${this.isRepConsideredActive(rep, index) ? 4 : 0}s linear infinite fadeinout`
+        };
+        return animation;
     }
 
     getSecondsStateText(rep: Rep) {
-        if (rep.isActive) {
-            return `${this.timedRepRemaining}(${rep.seconds})`;
-        } else {
+        if (rep.isComplete) {
             return `${rep.seconds}`;
         }
+        if (rep.isActive) {
+            return `${this.timedRepRemaining}`;
+        }
+        return `${rep.seconds}`;
+    }
+    getSecondsProgress(rep: Rep) {
+        if (rep.isComplete) {
+            return 1;
+        }
+        if (rep.isActive) {
+            return this.timedRepRemaining / rep.seconds;
+        }
+        return 1;
     }
 
     startWorkout() {

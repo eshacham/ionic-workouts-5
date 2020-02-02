@@ -63,20 +63,29 @@
                   </ion-col>
               </ion-row>
               <ion-row *ngFor="let exercise of exercises;" id=repsRow>
-                  <ion-col *ngFor="let rep of exercise.reps; let i = index" id="colRep"
-                          [ngClass]="getRepClass(rep, i)" >
-                      <div *ngIf='rep.weight'>
-                          <h4 class="ion-text-center">{{rep.weight}}<small>{{' ' + weightUnit[rep.weightUnit]}}</small></h4>
+                  <ion-col *ngFor="let rep of exercise.reps; let i = index" id="colRep" >
+                      <div *ngIf='rep.weight'
+                        [ngClass]="getRepClass(rep, i)"
+                        [ngStyle]="getRepTimesStyle(rep, i)">
+                          <h4 class="ion-text-center">
+                              {{rep.weight}}
+                              <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
+                        </h4>
                       </div>
-                      <div *ngIf='rep.times'>
-                          <h4 class="ion-text-center">{{rep.times}}<small> Times</small>
-                              <ion-icon *ngIf='rep.isComplete' name="checkmark"></ion-icon>
+                      <div *ngIf='rep.times'
+                        [ngClass]="getRepClass(rep, i)"
+                        [ngStyle]="getRepTimesStyle(rep, i)">
+                          <h4 class="times">{{rep.times}}<small> Times</small>
+                            <ion-icon *ngIf='rep.isComplete' name="checkmark" class="check"></ion-icon>
                           </h4>
                       </div>
-                      <div *ngIf='rep.seconds'>
-                        <h4 class="ion-text-center">{{getSecondsStateText(rep)}}<small> Seconds</small>
-                            <ion-icon *ngIf='rep.isComplete' name="checkmark"></ion-icon>
+                      <div *ngIf="rep.seconds" class="nonActiveRep seconds">
+                        <h4 class="ion-text-center seconds">{{getSecondsStateText(rep)}}<small> Sec</small>
                         </h4>
+                        <ion-progress-bar *ngIf="rep.isActive || rep.isComplete"
+                            color="primary" reversed="true"
+                            [value]="getSecondsProgress(rep)">
+                        </ion-progress-bar>
                     </div>
                   </ion-col>
               </ion-row>

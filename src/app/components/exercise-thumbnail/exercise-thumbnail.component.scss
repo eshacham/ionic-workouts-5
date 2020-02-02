@@ -21,16 +21,17 @@ ion-row#repsRow {
 }
 
 ion-col#colRep {
-    margin: 0px 0px 0px 0px;
-    padding: 4px 5px 4px 5px;
+    margin: 0px;
+    padding: 4px;
 }
-.activeRep {
+.divRep {
+    color: var(--ion-color-light);
+}
+.divActive {
     background: var(--ion-color-primary);
-    color: var(--ion-color-light);
 }
-.nonActiveRep {
+.divNonActive {
     background: var(--ion-color-tertiary);
-    color: var(--ion-color-light);
 }
 .editRep {
     background: var(--ion-color-tertiary);
@@ -71,6 +72,10 @@ div#div-with-image-and-button {
         top: 0px;
     }
 }
+.check {
+    font-size: x-large;
+    color: var(--ion-color-primary);
+}
 
 img {
     height: 80px;
@@ -97,11 +102,22 @@ h3 {
 }
 h4 {
     font-size: 14px;
-    margin: 0px 0px 2px 0px;
+    margin: 0px;
     padding: 0px;
     color: var(--ion-color-light);
 }
-
+h4.times {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 24px;
+}
+h4.seconds {
+    margin-bottom: 3px;
+}
+div.seconds {
+    height: 24px;
+}
 
 ion-buttons {
     width: 100%
@@ -110,15 +126,12 @@ ion-buttons {
     --color: var(--ion-color-danger);
     --background: var(--ion-color-secondary);
 }
-.fadeOutAndIn {
-        -webkit-animation: fadeinout 4s linear infinite;
-        animation: fadeinout 4s linear infinite;
-        opacity: 1;
-    }
-@-webkit-keyframes fadeinout {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.25; }
+
+@keyframes mymove {
+  from { width: 0%; }
+  to { width: 100%; }
 }
+
 @keyframes fadeinout {
     0%,100% { opacity: 0.25; }
     50% { opacity: 1; }
