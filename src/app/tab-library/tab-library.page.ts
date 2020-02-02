@@ -22,7 +22,7 @@ import {
 } from '../store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
-import { SetExerciseSetInWorkoutDay } from '../store/actions/workoutDays.actions';
+import { SetExerciseSetInWorkoutDay, SelectWorkoutDay } from '../store/actions/workoutDays.actions';
 
 interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -223,8 +223,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   goToWorkoutDay(usage: { workoutId: string, dayId: string, setId: string }, event: any) {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
-    this.store.dispatch(new SetExerciseSetInWorkoutDay(usage));
-    this.router.navigateByUrl('/tabs/tab-workouts/workout');
+    this.store.dispatch(new SelectWorkoutDay(usage));
+    setTimeout(() => {
+      const payload = { ...usage} ;
+      this.store.dispatch(new SetExerciseSetInWorkoutDay(payload));
+      this.router.navigateByUrl('/tabs/tab-workouts/workout');
+    }, 100);
     event.stopPropagation();
   }
   updateImage(value: string, image: ExerciseMediaBean) {
