@@ -25,10 +25,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-// ::-webkit-scrollbar,
-// *::-webkit-scrollbar {
-//     display: none;
-// }
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    display: none;
+}
 
 .swiper-pagination {
     color: var(--ion-color-light);
