@@ -91,25 +91,25 @@
               </ion-row>
               <ion-row class="ion-justify-content-center">
                   <ion-col *ngIf="isResting" class="ion-text-center">
-                      <ion-button expand="full" class="et-button"
+                      <ion-button expand="block" class="et-button"
                           (click)="skipRest()">
                           Rest {{timedRestRemaining}} Seconds or Skip
                       </ion-button>
                   </ion-col>
                   <ion-buttons *ngIf="!isResting">
-                       <ion-col class="ion-text-center">
+                       <ion-col class="ion-text-end">
                             <ion-button fill="clear" color="tertiary"
                                 [disabled]="!isPrevRepAvailable" (click)="prevRep()">
                                 <ion-icon slot="icon-only" name="arrow-dropleft"></ion-icon>
                             </ion-button>
                         </ion-col>
                         <ion-col size="6">
-                            <ion-button expand="full" class="et-button"
+                            <ion-button expand="block" class="et-button"
                                 (click)="nextRep(true)">
                                 Done!
                             </ion-button>
                         </ion-col>
-                        <ion-col class="ion-text-center">
+                        <ion-col class="ion-text-start">
                             <ion-button fill="clear" color="tertiary"
                                 (click)="nextRep(false)">
                                 <ion-icon slot="icon-only" name="arrow-dropright"></ion-icon>
@@ -127,8 +127,8 @@
               <ion-col *ngFor="let exercise of exercises; let i = index"
                     class="ion-no-padding">
                 <ion-item>
-                    <ion-textarea type="text"
-                        autoGrow="true" required="true" wrap="soft"
+                    <ion-textarea type="text" autoGrow="true"
+                        rows="1" required="true" wrap="soft"
                         [ngModel]="exercise.name"
                         (change)="exerciseChanged(i, $event.target.value, 'name')"
                         class="ion-text-center ion-text-wrap"
