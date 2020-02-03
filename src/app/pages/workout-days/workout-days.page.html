@@ -37,24 +37,24 @@
         <ion-fab-list side="start" class="animated fadeInRight" >
           <ion-fab-button size="small" [disabled]="isLastDayActive"
           (click)="moveForwardWorkoutDay($event)" color="warning">
-          <ion-icon name="arrow-forward"></ion-icon>
+          <ion-icon name="skip-forward"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small" [disabled]="isFirstDayActive"
             (click)="moveBackWorkoutDay($event)" color="warning">
-            <ion-icon name="arrow-back"></ion-icon>
+            <ion-icon name="skip-backward"></ion-icon>
           </ion-fab-button>
 
           <ion-fab-button size="small" [disabled]="isOneDayOnly"
               (click)="deleteWorkoutDay($event)" color="warning">
-              <ion-icon name="trash"></ion-icon>
+              <ion-icon name="remove-circle"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
             (click)="addWorkoutDay($event)" color="warning">
-            <ion-icon name="today"></ion-icon>
+            <ion-icon name="add-circle"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
             (click)="selectExerciseToAdd($event)" color="warning">
-            <ion-icon name="walk"></ion-icon>
+            <ion-icon name="fitness"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
 

@@ -105,15 +105,16 @@ h4 {
     margin: 0px;
     padding: 0px;
     color: var(--ion-color-light);
-}
-h4.times {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 24px;
-}
-h4.seconds {
-    margin-bottom: 3px;
+
+    &.times {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 24px;
+    }
+    &.seconds {
+        margin-bottom: 3px;
+    }
 }
 div.seconds {
     height: 24px;

@@ -10,7 +10,8 @@
                         <img [src]="safeImage(images[i])"/>
                         <ion-button fill="clear" top-left color="primary"
                             (click)="goToImagesLibraryPage(exercise)">
-                            <ion-icon slot="icon-only" name="folder-open"></ion-icon>
+                            <ion-icon slot="icon-only"
+                                name="fitness"></ion-icon>
                         </ion-button>
                     </div>
                 </ion-col>
@@ -50,7 +51,8 @@
                         <img [src]="safeImage(images[i])" />
                         <ion-button fill="clear" top-left color="primary"
                             (click)="goToImagesLibraryPage(exercise)">
-                            <ion-icon slot="icon-only" name="folder-open"></ion-icon>
+                            <ion-icon slot="icon-only"
+                                name="fitness"></ion-icon>
                         </ion-button>
                     </div>
                   </ion-col>
@@ -100,7 +102,7 @@
                        <ion-col class="ion-text-end">
                             <ion-button fill="clear" color="tertiary"
                                 [disabled]="!isPrevRepAvailable" (click)="prevRep()">
-                                <ion-icon slot="icon-only" name="arrow-dropleft"></ion-icon>
+                                <ion-icon slot="icon-only" name="skip-backward"></ion-icon>
                             </ion-button>
                         </ion-col>
                         <ion-col size="6">
@@ -112,7 +114,7 @@
                         <ion-col class="ion-text-start">
                             <ion-button fill="clear" color="tertiary"
                                 (click)="nextRep(false)">
-                                <ion-icon slot="icon-only" name="arrow-dropright"></ion-icon>
+                                <ion-icon slot="icon-only" name="skip-forward"></ion-icon>
                             </ion-button>
                         </ion-col>
                   </ion-buttons>
@@ -144,16 +146,17 @@
                     <img [src]="safeImage(images[i])"/>
                     <ion-button fill="clear" top-right color="primary"
                         (click)="deleteExercise(exercise)">
-                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                        <ion-icon slot="icon-only" name="close"></ion-icon>
                     </ion-button>
                     <ion-button fill="clear" top-left color="primary"
                         (click)="goToImagesLibraryPage(exercise)">
-                        <ion-icon slot="icon-only" name="folder-open"></ion-icon>
+                        <ion-icon slot="icon-only"
+                            name="fitness"></ion-icon>
                     </ion-button>
                     <ion-button fill="clear" bottom-right color="primary"
                         *ngIf="!last"
                         (click)="switchExercises(i)">
-                        <ion-icon slot="icon-only" name="repeat"></ion-icon>
+                        <ion-icon slot="icon-only" name="swap"></ion-icon>
                     </ion-button>
                     <ion-button fill="clear" bottom-right color="primary"
                         *ngIf="last"
@@ -196,7 +199,7 @@
                         <div class="bordered" >
                             <ion-button fill="clear" size="small" narrow-padding color="light"
                                 (click)="deleteRep(i)" [disabled]="isMinReps">
-                                <ion-icon slot="icon-only" name="trash" narrow-padding></ion-icon>
+                                <ion-icon slot="icon-only" name="remove-circle" narrow-padding></ion-icon>
                             </ion-button>
                             <ion-button fill="clear" size="small" narrow-padding color="light"
                                 (click)="addRep(i)" [disabled]="isMaxReps">
@@ -209,23 +212,23 @@
                 <ion-col>
                     <ion-list lines="none">
                         <h3 class="ion-text-center">
-                            Rest between reps: {{restBetweenReps}} seconds
+                            Rest between sets: {{restBetweenReps}} seconds
                         </h3>
                         <ion-item>
                             <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
-                                <ion-icon slot="start" size="small" name="repeat" color="dark"></ion-icon>
-                                <ion-icon slot="end" name="repeat" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="albums" color="dark"></ion-icon>
+                                <ion-icon slot="end" name="albums" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                         <h3 class="ion-text-center">
-                            Rest after set: {{restAfterExercise}} seconds
+                            Rest after exercise: {{restAfterExercise}} seconds
                         </h3>
                         <ion-item>
                             <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
-                                <ion-icon slot="start" size="small" name="body" color="dark"></ion-icon>
-                                <ion-icon slot="end" name="body" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="fitness" color="dark"></ion-icon>
+                                <ion-icon slot="end" name="fitness" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                     </ion-list>
@@ -243,7 +246,8 @@
                         <img [src]="safeImage(images[i])"/>
                         <ion-button fill="clear" top-left color="primary"
                             (click)="goToImagesLibraryPage(exercise)">
-                            <ion-icon slot="icon-only" name="folder-open"></ion-icon>
+                            <ion-icon slot="icon-only"
+                                name="fitness"></ion-icon>
                         </ion-button>
                     </div>
                 </ion-col>
