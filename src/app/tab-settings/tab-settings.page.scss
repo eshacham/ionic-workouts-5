@@ -1,6 +1,12 @@
+ion-toolbar#second {
+    --background: var(--ion-color-tertiary);
+}
 ion-list {
     padding: 0px;
-    margin: 0px;
+    margin-left: 10px;
+    margin-top: 1px;
+    margin-right: 10px;
+    margin-bottom: 5px;
   }
 ion-label {
     color: var(--ion-color-light)!important;

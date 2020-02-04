@@ -4,8 +4,8 @@
       Settings
     </ion-title>
   </ion-toolbar>
-  <ion-toolbar>
 
+  <ion-toolbar id="second">
     <ion-segment (ionChange)="segmentChanged($event.detail.value)" value={{selectedSegment}}>
       <ion-segment-button value="themes" layout="icon-start">
         <ion-label>Themes</ion-label>
@@ -16,7 +16,6 @@
         <ion-icon name="walk"></ion-icon>
       </ion-segment-button>
     </ion-segment>
-
   </ion-toolbar>
 </ion-header>
 
