@@ -16,7 +16,7 @@ export class ThemeServiceProvider {
   themes: ITheme[] = [
     { name: 'orange', image: '/assets/images/themes/orange' },
     { name: 'violet', image: '/assets/images/themes/violet' },
-    { name: 'red-blue-brown', image: '/assets/images/themes/red-blue-brown' },
+    { name: 'brown', image: '/assets/images/themes/brown' },
     { name: 'gray-yellow-green', image: '/assets/images/themes/gray-yellow-green' },
     { name: 'mustard-red-cream', image: '/assets/images/themes/mustard-red-cream' },
     { name: 'green-haki-bordo', image: '/assets/images/themes/green-haki-bordo' },
