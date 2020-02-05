@@ -19,7 +19,9 @@
       <ion-button [disabled]="!useFilter" fill="clear"
         (click)="selectMuscle()" color="light">
         <ion-icon slot="end" name="body"></ion-icon>
-        <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
+        <ion-badge slot="end" color="primary">
+          {{filteredMusclesCount}}
+        </ion-badge>
         Select Muscles
       </ion-button>
     </ion-buttons>
