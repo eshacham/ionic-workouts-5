@@ -14,12 +14,12 @@ export class ThemeServiceProvider {
   renderer: Renderer2;
 
   themes: ITheme[] = [
-    { name: 'pink-skin', image: '/assets/images/themes/pink-skin' },
+    { name: 'orange', image: '/assets/images/themes/orange' },
+    { name: 'violet', image: '/assets/images/themes/violet' },
     { name: 'red-blue-brown', image: '/assets/images/themes/red-blue-brown' },
     { name: 'gray-yellow-green', image: '/assets/images/themes/gray-yellow-green' },
     { name: 'mustard-red-cream', image: '/assets/images/themes/mustard-red-cream' },
     { name: 'green-haki-bordo', image: '/assets/images/themes/green-haki-bordo' },
-    { name: 'gray-orange-black', image: '/assets/images/themes/gray-orange-black' },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
