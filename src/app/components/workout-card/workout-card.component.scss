@@ -36,6 +36,7 @@ ion-card {
             --detail-icon-color: var(--ion-color-warning);
             ion-label {
                 color: var(--ion-color-light);
+                max-width: unset;
             }
             ion-badge {
                 color: var(--ion-color-light);

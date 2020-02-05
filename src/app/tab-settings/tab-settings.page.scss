@@ -13,6 +13,7 @@ ion-label {
 }
 ion-item {
     --background: var(--ion-color-primary);
+    --background-hover: var(--ion-color-danger);
 }
 ion-radio {
     --color-checked: var(--ion-color-dark);

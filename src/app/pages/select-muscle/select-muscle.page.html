@@ -6,8 +6,14 @@
     <ion-title>Muscles</ion-title>
   </ion-toolbar>
   <ion-toolbar id="second" >
-      <ion-title *ngIf="isSettingMedia">{{mediaToSet}}</ion-title>
-      <ion-title *ngIf="!isSettingMedia">Set Filter</ion-title>
+      <ion-title *ngIf="isSettingMedia"
+        color="light" size="small">
+        {{mediaToSet}}
+      </ion-title>
+      <ion-title *ngIf="!isSettingMedia"
+        color="light" size="small">
+        Set Exercises Filter
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
