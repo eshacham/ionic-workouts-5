@@ -19,7 +19,7 @@ export class ThemeServiceProvider {
     { name: 'brown', image: '/assets/images/themes/brown' },
     { name: 'green', image: '/assets/images/themes/green' },
     { name: 'blue', image: '/assets/images/themes/blue' },
-    { name: 'gray-yellow-green', image: '/assets/images/themes/gray-yellow-green' },
+    { name: 'red', image: '/assets/images/themes/red' },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
