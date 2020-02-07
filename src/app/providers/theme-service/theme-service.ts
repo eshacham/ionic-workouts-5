@@ -18,8 +18,8 @@ export class ThemeServiceProvider {
     { name: 'violet', image: '/assets/images/themes/violet' },
     { name: 'brown', image: '/assets/images/themes/brown' },
     { name: 'green', image: '/assets/images/themes/green' },
+    { name: 'blue', image: '/assets/images/themes/blue' },
     { name: 'gray-yellow-green', image: '/assets/images/themes/gray-yellow-green' },
-    { name: 'mustard-red-cream', image: '/assets/images/themes/mustard-red-cream' },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
