@@ -27,6 +27,9 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   editExercise() {
     this.close(ExerciseAction.EditSet);
   }
+  editVariation() {
+    this.close(ExerciseAction.EditVariation);
+  }
   deleteExercise() {
     this.close(ExerciseAction.Delete);
   }

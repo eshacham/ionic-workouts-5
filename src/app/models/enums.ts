@@ -54,8 +54,9 @@ export enum ExerciseSetAction {
 export enum ExerciseAction {
     Delete,
     EditSet,
+    EditVariation,
     GotoExercise,
-    SwitchSet
+    SwitchSet,
 }
 export enum Muscles {
     Longus = 'Longus',

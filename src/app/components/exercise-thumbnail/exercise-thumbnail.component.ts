@@ -8,6 +8,7 @@ import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/m
 import { Rep } from 'src/app/models/Rep';
 import { ExerciseThumbnailPopoverComponent } from '../exercise-thumbnail-popover/exercise-thumbnail-popover.component';
 import { ChooseExerciseActionPopoverComponent } from '../choose-exercise-action-popover/choose-exercise-action-popover.component';
+import { ExerciseVariationPopoverComponent } from '../exercise-variation-popover/exercise-variation-popover.component';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { IAppState } from 'src/app/store/state/app.state';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
@@ -25,7 +26,7 @@ import {
     DeleteRep,
 } from 'src/app/store/actions/exercises.actions';
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
-import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
+import { StartExercise, ExerciseCompleted, SetExerciseSetInWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
@@ -60,7 +61,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+    private workoutId: string;
     @Input() dayId: string;
     @Input() exerciseSetId: string;
     @Input() exerciseSetIndex: number;
@@ -121,6 +122,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(data => {
                 if (data.selectedDayId === this.dayId) {
+                    this.workoutId = data.workout.id;
                     this.store.select(getExerciseSet(this.exerciseSetId))
                         .pipe(takeUntil(this.ngUnsubscribe))
                         .subscribe(exerciseSet => {
@@ -151,6 +153,14 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     expandItem(): void {
+        if (!this.expanded) {
+            this.store.dispatch(new SetExerciseSetInWorkoutDay({
+            workoutId: this.workoutId,
+            dayId: this.dayId,
+            setId: this.exerciseSetId,
+            scroll: true
+          }));
+        }
         this.expanded = !this.expanded;
     }
 
@@ -510,6 +520,16 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     get isMinReps(): boolean {
         return this.exercises[0].reps.length === MINREPS;
     }
+    async presentVariationPopover(event: Event, exercise: ExerciseBean) {
+        const popover = await this.popoverCtrl.create({
+            component: ExerciseVariationPopoverComponent,
+            event,
+            componentProps: {
+                exercise
+              }
+        });
+        popover.present();
+    }
 
     async presentPopover(event: Event, rep: Rep, repIndex: number, exeId: string) {
         const popover = await this.popoverCtrl.create({
@@ -541,6 +561,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                     break;
                 case ExerciseAction.SwitchSet:
                     this.switchExercises(index);
+                    break;
+                case ExerciseAction.EditVariation:
+                    this.presentVariationPopover(event, exercise);
                     break;
                 default:
                     break;

@@ -63,14 +63,4 @@ export class ExerciseVariationComponent {
     return details.length ? details.join(' | ') : '...';
   }
 
-  async presentPopover(event: Event) {
-    const popover = await this.popoverCtrl.create({
-      component: ExerciseVariationPopoverComponent,
-      event,
-      componentProps: {
-        exercise: this.exercise
-      }
-    });
-    popover.present();
-  }
 }
