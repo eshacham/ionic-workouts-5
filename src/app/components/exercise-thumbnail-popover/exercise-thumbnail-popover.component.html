@@ -8,7 +8,7 @@
     </ion-item>
     <ion-item>
         <ion-label>Weight Unit:</ion-label>
-        <ion-select interface="popover"
+        <ion-select interface="alert"
             [(ngModel)]="rep.weightUnit"
             (ionChange)="UpdateRep()">
             <ion-select-option *ngFor="let weightUnit of weightUnits"

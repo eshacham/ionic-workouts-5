@@ -42,3 +42,6 @@ ion-toolbar {
 ion-content {
     --background: var(--ion-color-tertiary);
 }
+ion-popover {
+    --width: 250px!important;
+}
