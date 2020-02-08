@@ -7,7 +7,7 @@ import { IAppState } from '../store/state/app.state';
 import { getTheme } from '../store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
-import { ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 
 interface ISelectedTheme  {
@@ -31,8 +31,7 @@ export class TabSettingsPage implements OnInit {
     private themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private router: Router,
-    public actionSheetController: ActionSheetController
-
+    public alertController: AlertController
     ) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
       this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
@@ -71,30 +70,33 @@ export class TabSettingsPage implements OnInit {
   }
 
   async resetData() {
-    this.presentActionSheet();
+    this.presentAlertConfirm();
   }
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Reset Workouts Data Confirmation',
-      subHeader: 'Reset workouts data will delete any new or customized workout, including its images.',
-      buttons: [{
-        text: 'Reset',
-        role: 'destructive',
-        handler: () => {
-          this.logger.info('reset clicked');
-          this.store.dispatch(new ResetData());
-          this.router.navigate(['']);
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Reset workouts data will delete any new or customized workout, including its images.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            this.logger.info('Confirm canceled');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.store.dispatch(new ResetData());
+            this.router.navigate(['']);
+          }
         }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          this.logger.info('cancel clicked');
-        }
-      }]
+      ]
     });
-    await actionSheet.present();
+
+    await alert.present();
   }
+
 }
