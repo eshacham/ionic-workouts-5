@@ -2,20 +2,27 @@ ion-list {
     margin: 0px;
     padding: 0px;
 }
+
 ion-item {
     padding-left: 0px;
     --inner-padding-end: 0px;
     --padding-start: 0px;
+
     ion-row {
         width: 100%;
     }
-};
+}
+
+;
+
 ion-grid {
     padding: 0px;
 }
+
 ion-row {
     --ion-padding: 4px;
 }
+
 ion-row#repsRow {
     background: var(--ion-color-tertiary);
 }
@@ -24,54 +31,24 @@ ion-col#colRep {
     margin: 0px;
     padding: 4px;
 }
+
 .divRep {
     color: var(--ion-color-light);
 }
+
 .divActive {
     background: var(--ion-color-primary);
 }
+
 .divNonActive {
     background: var(--ion-color-tertiary);
 }
+
 .editRep {
     background: var(--ion-color-tertiary);
     color: var(--ion-color-light);
 }
-div#div-with-image-and-button {
-    display: inline-block;
-    position: relative;
-    ion-button[bottom-right] {
-        position: absolute;
-        margin:2px;
-        --padding-start: 0px;
-        --padding-end: 0px;
-        --padding-top: 0px;
-        --padding-bottom: 0px;
-        left: calc(100% - 24px);
-        top: calc(100% - 32px);
-    }
-    ion-button[top-left] {
-        position: absolute;
-        margin:2px;
-        --padding-start: 0px;
-        --padding-end: 0px;
-        --padding-top: 0px;
-        --padding-bottom: 0px;
-        left: 0px;
-        top: 0px;
-    }
-    ion-button[top-right] {
-        margin:2px;
-        --padding-start: 0px;
-        --padding-end: 0px;
-        --padding-top: 0px;
-        --padding-bottom: 0px;
-        margin: 0px;
-        position: absolute;
-        left: calc(100% - 24px);
-        top: 0px;
-    }
-}
+
 .check {
     font-size: x-large;
     color: var(--ion-color-primary);
@@ -82,11 +59,12 @@ img {
     width: 80px;
     margin: 2px 1px;
 }
+
 ion-label {
     margin: 0px;
     padding: 4px;
     font-size: 17px;
-    color: var(--ion-color-dark)!important;
+    color: var(--ion-color-dark) !important;
 }
 
 h2 {
@@ -94,12 +72,14 @@ h2 {
     margin: 0px 0px 2px 0px;
     font-weight: normal;
 }
+
 h3 {
     color: var(--ion-color-dark);
     font-size: 14px;
     margin: 0px 0px 2px 0px;
     padding: 3px;
 }
+
 h4 {
     font-size: 14px;
     margin: 0px;
@@ -112,10 +92,12 @@ h4 {
         align-items: center;
         height: 24px;
     }
+
     &.seconds {
         margin-bottom: 3px;
     }
 }
+
 div.seconds {
     height: 24px;
 }
@@ -123,44 +105,66 @@ div.seconds {
 ion-buttons {
     width: 100%
 }
+
 .et-button {
     --color: var(--ion-color-tertiary);
     --background: var(--ion-color-secondary);
 }
 
 @keyframes mymove {
-  from { width: 0%; }
-  to { width: 100%; }
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
 }
 
 @keyframes fadeinout {
-    0%,100% { opacity: 0.25; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 ion-input {
-    color: var(--ion-color-dark)!important;
+    color: var(--ion-color-dark) !important;
+
     input {
         text-align: center;
-        margin: 4px!important;
+        margin: 4px !important;
     }
 }
+
 ion-textarea {
     --color: var(--ion-color-dark);
     --padding-top: 4px;
     --padding-bottom: 4px;
     --padding-end: 4px;
-    --padding-start: 4px!important;
+    --padding-start: 4px !important;
 }
 
 ion-button {
     --padding-end: 2px;
     --padding-start: 2px;
 }
+
+ion-button#img-btn {
+    height: auto;
+    margin: 0px;
+}
+
 .bordered {
     color: var(--ion-color-light);
     text-align: center;
 }
+
 ion-range {
     --knob-background: var(--ion-color-tertiary);
     --bar-background: var(--ion-color-medium);

@@ -4,9 +4,10 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
-import { DisplayMode, WeightUnit, RunningState } from 'src/app/models/enums';
+import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/models/enums';
 import { Rep } from 'src/app/models/Rep';
 import { ExerciseThumbnailPopoverComponent } from '../exercise-thumbnail-popover/exercise-thumbnail-popover.component';
+import { ChooseExerciseActionPopoverComponent } from '../choose-exercise-action-popover/choose-exercise-action-popover.component';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { IAppState } from 'src/app/store/state/app.state';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
@@ -50,7 +51,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     displayMode = DisplayMode;
     weightUnit = WeightUnit;
     private logger: Logger;
-
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
     restBetweenReps = 0;
@@ -198,6 +198,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             mediaId: exercise.mediaId,
             deleteSet: this.exercises.length === 1
         }));
+    }
+    selectAction(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
+        this.presetActionsPopover(event, exercise, index, last);
     }
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
@@ -516,6 +519,35 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         });
         popover.present();
     }
+    async presetActionsPopover(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
+        const popover = await this.popoverCtrl.create({
+            component: ChooseExerciseActionPopoverComponent,
+            event,
+            componentProps: { canSwap: !last , isExpanded: this.expanded }
+        });
+        popover.present();
+        popover.onDidDismiss()
+        .then(result => {
+            this.logger.info('onDidDismiss', result.data as ExerciseAction);
+            switch (result.data) {
+                case ExerciseAction.Delete:
+                    this.deleteExercise(exercise);
+                    break;
+                case ExerciseAction.EditSet:
+                    this.expandItem();
+                    break;
+                case ExerciseAction.GotoExercise:
+                    this.goToImagesLibraryPage(exercise);
+                    break;
+                case ExerciseAction.SwitchSet:
+                    this.switchExercises(index);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
 
     safeImage(media: ExerciseMediaBean): any {
         return this.dataService.safeImage(media);

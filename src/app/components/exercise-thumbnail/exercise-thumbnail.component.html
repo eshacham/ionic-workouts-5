@@ -6,13 +6,9 @@
                 <ion-item *ngFor="let exercise of exercises; let i = index; let first = first">
                     <ion-row class="ion-align-items-start">
                         <ion-col size="3">
-                            <div id="div-with-image-and-button">
-                                <img [src]="safeImage(images[i])" />
-                                <ion-button fill="clear" top-left color="primary"
-                                    (click)="goToImagesLibraryPage(exercise)">
-                                    <ion-icon slot="icon-only" name="fitness"></ion-icon>
-                                </ion-button>
-                            </div>
+                            <ion-button id="img-btn">
+                                <img [src]="safeImage(images[i])" (click)="goToImagesLibraryPage(exercise)"/>
+                            </ion-button>
                         </ion-col>
                         <ion-col size="8">
                             <ion-label class="ion-text-center">
@@ -42,12 +38,9 @@
                 </ion-row>
                 <ion-row class="ion-justify-content-around">
                     <ion-col *ngFor="let exercise of exercises; let i = index" class="ion-text-center">
-                        <div id="div-with-image-and-button">
-                            <img [src]="safeImage(images[i])" />
-                            <ion-button fill="clear" top-left color="primary" (click)="goToImagesLibraryPage(exercise)">
-                                <ion-icon slot="icon-only" name="fitness"></ion-icon>
-                            </ion-button>
-                        </div>
+                        <ion-button id="img-btn">
+                            <img [src]="safeImage(images[i])" (click)="goToImagesLibraryPage(exercise)"/>
+                        </ion-button>
                     </ion-col>
                 </ion-row>
                 <ion-row class="ion-justify-content-around">
@@ -122,23 +115,11 @@
             <ion-row>
                 <ion-col *ngFor="let exercise of exercises; let i = index; let last = last"
                     class="ion-no-padding ion-text-center">
-                    <div id="div-with-image-and-button">
-                        <img [src]="safeImage(images[i])" />
-                        <ion-button fill="clear" top-right color="primary" (click)="deleteExercise(exercise)">
-                            <ion-icon slot="icon-only" name="close"></ion-icon>
+
+                        <ion-button id="img-btn" (click)="selectAction($event, exercise, i, last)">
+                            <img [src]="safeImage(images[i])" />
                         </ion-button>
-                        <ion-button fill="clear" top-left color="primary" (click)="goToImagesLibraryPage(exercise)">
-                            <ion-icon slot="icon-only" name="fitness"></ion-icon>
-                        </ion-button>
-                        <ion-button fill="clear" bottom-right color="primary" *ngIf="!last"
-                            (click)="switchExercises(i)">
-                            <ion-icon slot="icon-only" name="swap"></ion-icon>
-                        </ion-button>
-                        <ion-button fill="clear" bottom-right color="primary" *ngIf="last" (click)="expandItem()">
-                            <ion-icon slot="icon-only" [name]="expanded ? 'arrow-dropup' : 'arrow-dropdown'">
-                            </ion-icon>
-                        </ion-button>
-                    </div>
+
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -213,12 +194,9 @@
             <ion-item *ngFor="let exercise of exercises; let i = index">
                 <ion-row class="ion-align-items-start">
                     <ion-col size="3">
-                        <div id="div-with-image-and-button">
-                            <img [src]="safeImage(images[i])" />
-                            <ion-button fill="clear" top-left color="primary" (click)="goToImagesLibraryPage(exercise)">
-                                <ion-icon slot="icon-only" name="fitness"></ion-icon>
-                            </ion-button>
-                        </div>
+                        <ion-button id="img-btn">
+                            <img [src]="safeImage(images[i])" (click)="goToImagesLibraryPage(exercise)"/>
+                        </ion-button>
                     </ion-col>
                     <ion-col size="9">
                         <ion-label class="ion-align-items-start">

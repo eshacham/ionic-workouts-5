@@ -51,6 +51,12 @@ export enum ExerciseSetAction {
     MoveDayForward,
     MoveDayBack,
 }
+export enum ExerciseAction {
+    Delete,
+    EditSet,
+    GotoExercise,
+    SwitchSet
+}
 export enum Muscles {
     Longus = 'Longus',
     Fingers = 'Fingers',

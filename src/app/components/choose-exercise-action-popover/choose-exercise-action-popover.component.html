@@ -1,0 +1,26 @@
+<ion-list>
+  <ion-item>
+    <ion-button fill="clear" (click)="editExercise()">
+      <ion-label slot="start">Edit Set</ion-label>
+      <ion-icon slot="end" [name]="isExpanded ? 'close' : 'construct'"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button fill="clear" (click)="deleteExercise()">
+      <ion-label slot="start">Delete Set</ion-label>
+      <ion-icon slot="end" name="trash"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item *ngIf="canSwap">
+    <ion-button fill="clear" (click)="swapExercise()">
+      <ion-label slot="start">Swap Sets</ion-label>
+      <ion-icon slot="end" name="swap"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button fill="clear" (click)="viewExercise()">
+      <ion-label slot="start">View Exercise</ion-label>
+      <ion-icon slot="end" name="fitness"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-list>
