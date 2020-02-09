@@ -1,32 +1,59 @@
-<ion-list>
+<ion-list *ngIf="!isSetActions">
   <ion-item>
-    <ion-button fill="clear" (click)="editExercise()">
-      <ion-label slot="start">Edit Set</ion-label>
+    <ion-button fill="clear" (click)="configureSet()">
+      <ion-label slot="start">{{!isExpanded ? 'Configure sets' : 'Close sets configuration'}}</ion-label>
       <ion-icon slot="end" [name]="isExpanded ? 'close' : 'construct'"></ion-icon>
     </ion-button>
   </ion-item>
   <ion-item>
     <ion-button fill="clear" (click)="editVariation()">
-      <ion-label slot="start">Edit Variation</ion-label>
+      <ion-label slot="start">Edit set variation</ion-label>
       <ion-icon slot="end" name="build"></ion-icon>
     </ion-button>
   </ion-item>
   <ion-item>
     <ion-button fill="clear" (click)="deleteExercise()">
-      <ion-label slot="start">Delete Set</ion-label>
+      <ion-label slot="start">Delete set</ion-label>
       <ion-icon slot="end" name="trash"></ion-icon>
     </ion-button>
   </ion-item>
   <ion-item *ngIf="canSwap">
     <ion-button fill="clear" (click)="swapExercise()">
-      <ion-label slot="start">Swap Sets</ion-label>
+      <ion-label slot="start">Swap sets</ion-label>
       <ion-icon slot="end" name="swap"></ion-icon>
     </ion-button>
   </ion-item>
   <ion-item>
     <ion-button fill="clear" (click)="viewExercise()">
-      <ion-label slot="start">View Exercise</ion-label>
+      <ion-label slot="start">View exercise in library</ion-label>
       <ion-icon slot="end" name="fitness"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-list>
+
+<ion-list *ngIf="isSetActions">
+  <ion-item>
+    <ion-button fill="clear" (click)="configureSet()">
+      <ion-label slot="start">Close sets configuration</ion-label>
+      <ion-icon slot="end" name="close"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button fill="clear" (click)="editSet()">
+      <ion-label slot="start">Edit set</ion-label>
+      <ion-icon slot="end" name="construct"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button fill="clear" (click)="addSet()" [disabled]="isMaxReps">
+      <ion-label slot="start">Add set</ion-label>
+      <ion-icon slot="end" name="add-circle"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button fill="clear" (click)="deleteSet()" [disabled]="isMinReps">
+      <ion-label slot="start">Delete set</ion-label>
+      <ion-icon slot="end" name="remove-circle"></ion-icon>
     </ion-button>
   </ion-item>
 </ion-list>

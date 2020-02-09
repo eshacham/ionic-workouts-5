@@ -104,22 +104,18 @@
         <ion-grid>
             <ion-row class="ion-justify-content-around">
                 <ion-col *ngFor="let exercise of exercises; let i = index" class="ion-no-padding">
-
                     <ion-textarea type="text" rows="2" required="true" [ngModel]="exercise.name"
                         (change)="exerciseChanged(i, $event.target.value, 'name')" class="ion-text-center"
                         placeholder="Exercise Name">
                     </ion-textarea>
-
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col *ngFor="let exercise of exercises; let i = index; let last = last"
                     class="ion-no-padding ion-text-center">
-
-                        <ion-button id="img-btn" (click)="selectAction($event, exercise, i, last)">
-                            <img [src]="safeImage(images[i])" />
-                        </ion-button>
-
+                    <ion-button id="img-btn" (click)="selectExerciseAction($event, exercise, i, last)">
+                        <img [src]="safeImage(images[i])" />
+                    </ion-button>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -133,7 +129,7 @@
             <ion-row *ngFor="let exercise of ExpandedExercises;"
                 class="ion-justify-content-center ion-no-margin ion-padding-bottom">
                 <ion-col *ngFor="let rep of exercise.reps; let i = index" class="ion-no-padding editRep">
-                    <div (click)="presentPopover($event, rep, i, exercise.id)">
+                    <div (click)="selectSetAction($event, exercise, i, rep)">
                         <h4 *ngIf='rep.weight' class="ion-text-center">
                             {{rep.weight}}
                             <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
@@ -148,16 +144,6 @@
                         <h4 *ngIf='!rep.weight && !rep.times && !rep.seconds' class="ion-text-center">
                             ...
                         </h4>
-                    </div>
-                    <div class="bordered">
-                        <ion-button fill="clear" size="small" narrow-padding color="light" (click)="deleteRep(i)"
-                            [disabled]="isMinReps">
-                            <ion-icon slot="icon-only" name="remove-circle" narrow-padding></ion-icon>
-                        </ion-button>
-                        <ion-button fill="clear" size="small" narrow-padding color="light" (click)="addRep(i)"
-                            [disabled]="isMaxReps">
-                            <ion-icon slot="icon-only" name="add-circle" narrow-padding></ion-icon>
-                        </ion-button>
                     </div>
                 </ion-col>
             </ion-row>

@@ -155,11 +155,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     expandItem(): void {
         if (!this.expanded) {
             this.store.dispatch(new SetExerciseSetInWorkoutDay({
-            workoutId: this.workoutId,
-            dayId: this.dayId,
-            setId: this.exerciseSetId,
-            scroll: true
-          }));
+                workoutId: this.workoutId,
+                dayId: this.dayId,
+                setId: this.exerciseSetId,
+                scroll: true
+            }));
         }
         this.expanded = !this.expanded;
     }
@@ -209,8 +209,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             deleteSet: this.exercises.length === 1
         }));
     }
-    selectAction(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
-        this.presetActionsPopover(event, exercise, index, last);
+    selectExerciseAction(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
+        this.presentActionsPopover(event, exercise, index, last);
+    }
+    selectSetAction(event: Event, exercise: ExerciseBean, index: number, rep: Rep) {
+        this.presentActionsPopover(event, exercise, index, false, true, rep);
     }
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
@@ -526,7 +529,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             event,
             componentProps: {
                 exercise
-              }
+            }
         });
         popover.present();
     }
@@ -539,36 +542,59 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         });
         popover.present();
     }
-    async presetActionsPopover(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
+    async presentActionsPopover(
+        event: Event,
+        exercise: ExerciseBean,
+        index: number,
+        last: boolean = false,
+        isSetActions: boolean = false,
+        rep: Rep = null,
+    ) {
         const popover = await this.popoverCtrl.create({
             component: ChooseExerciseActionPopoverComponent,
             event,
-            componentProps: { canSwap: !last , isExpanded: this.expanded }
+            componentProps: {
+                canSwap: !last,
+                isExpanded: this.expanded,
+                isSetActions,
+                rep,
+                isMinReps: this.isMinReps,
+                isMaxReps: this.isMaxReps,
+            }
         });
         popover.present();
         popover.onDidDismiss()
-        .then(result => {
-            this.logger.info('onDidDismiss', result.data as ExerciseAction);
-            switch (result.data) {
-                case ExerciseAction.Delete:
-                    this.deleteExercise(exercise);
-                    break;
-                case ExerciseAction.EditSet:
-                    this.expandItem();
-                    break;
-                case ExerciseAction.GotoExercise:
-                    this.goToImagesLibraryPage(exercise);
-                    break;
-                case ExerciseAction.SwitchSet:
-                    this.switchExercises(index);
-                    break;
-                case ExerciseAction.EditVariation:
-                    this.presentVariationPopover(event, exercise);
-                    break;
-                default:
-                    break;
-            }
-        });
+            .then(result => {
+                this.logger.info('onDidDismiss', result.data as ExerciseAction);
+                switch (result.data) {
+                    case ExerciseAction.DeleteExercise:
+                        this.deleteExercise(exercise);
+                        break;
+                    case ExerciseAction.ConfigureSet:
+                        this.expandItem();
+                        break;
+                    case ExerciseAction.GotoExercise:
+                        this.goToImagesLibraryPage(exercise);
+                        break;
+                    case ExerciseAction.SwapSets:
+                        this.switchExercises(index);
+                        break;
+                    case ExerciseAction.EditVariation:
+                        this.presentVariationPopover(event, exercise);
+                        break;
+                    case ExerciseAction.EditSet:
+                        this.presentPopover(event, rep, index, exercise.id);
+                        break;
+                    case ExerciseAction.AddSet:
+                        this.addRep(index);
+                        break;
+                    case ExerciseAction.DeleteSet:
+                        this.deleteRep(index);
+                        break;
+                    default:
+                        break;
+                }
+            });
     }
 
 

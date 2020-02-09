@@ -52,11 +52,14 @@ export enum ExerciseSetAction {
     MoveDayBack,
 }
 export enum ExerciseAction {
-    Delete,
+    DeleteExercise,
+    ConfigureSet,
     EditSet,
+    AddSet,
+    DeleteSet,
+    SwapSets,
     EditVariation,
     GotoExercise,
-    SwitchSet,
 }
 export enum Muscles {
     Longus = 'Longus',
