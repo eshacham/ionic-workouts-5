@@ -13,8 +13,6 @@ ion-item {
     }
 }
 
-;
-
 ion-grid {
     padding: 0px;
 }
@@ -24,12 +22,12 @@ ion-row {
 }
 
 ion-row#repsRow {
-    background: var(--ion-color-tertiary);
+    margin-bottom: 2px;
 }
 
 ion-col#colRep {
-    margin: 0px;
-    padding: 4px;
+    margin-right: 4px;
+    background: var(--ion-color-tertiary);
 }
 
 .divRep {
@@ -44,11 +42,6 @@ ion-col#colRep {
     background: var(--ion-color-tertiary);
 }
 
-.editRep {
-    background: var(--ion-color-tertiary);
-    color: var(--ion-color-light);
-}
-
 .check {
     font-size: x-large;
     color: var(--ion-color-primary);
@@ -57,7 +50,8 @@ ion-col#colRep {
 img {
     height: 80px;
     width: 80px;
-    margin: 2px 1px;
+    border: 2px;
+    border-style: solid;
 }
 
 ion-label {
@@ -150,9 +144,25 @@ ion-textarea {
     --padding-start: 4px !important;
 }
 
+ion-row.editSets {
+    margin-bottom: 2px;
+}
+ion-col.editSets {
+    background: var(--ion-color-tertiary);
+    margin-left: 4px;
+    border: 1px;
+    border-style: solid;
+    border-color: var(--ion-color-primary-contrast);
+}
 ion-button {
-    --padding-end: 2px;
-    --padding-start: 2px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    height: 100%;
+    div.editSets {
+        h4 {
+            display: block;
+          }
+    }
 }
 
 ion-button#img-btn {
