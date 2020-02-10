@@ -1,0 +1,26 @@
+ion-button {
+    width: 100%;
+    margin: 0px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    color: var(--ion-color-tertiary);
+}
+ion-list {
+    padding-left: 10px;
+    padding-right: 8px;
+    background: var(--ion-color-warning);
+}
+ion-item {
+    width: 100%;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+    --inner-padding-start: 0px;
+    --background: var(--ion-color-warning);
+}
+
+ion-label {
+    font-size: 15px!important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

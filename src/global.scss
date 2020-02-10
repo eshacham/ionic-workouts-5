@@ -44,4 +44,9 @@ ion-content {
 }
 ion-popover {
     --width: 250px!important;
+    --background: var(--ion-color-light)!important;
+}
+ion-alert {
+    --background: var(--ion-color-warning)!important;
+
 }

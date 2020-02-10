@@ -1,9 +1,16 @@
+ion-item {
+    --inner-padding-end: 0px;
+    --inner-padding-start: 0px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --background: var(--ion-color-warning);
+}
 ion-select {
-    font-size: 13px;
+    font-size: 14px;
 }
 ion-label {
-    font-size: 13px!important;
+    font-size: 17px!important;
 }
 ion-input {
-    font-size: 13px;
+    font-size: 14px;
 }

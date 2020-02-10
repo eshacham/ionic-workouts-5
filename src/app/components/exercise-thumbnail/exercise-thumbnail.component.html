@@ -162,24 +162,30 @@
             <ion-row class="ion-justify-content-center" *ngIf="expanded">
                 <ion-col>
                     <ion-list lines="none">
-                        <h3 class="ion-text-center">
-                            Rest between sets: {{restBetweenReps}} seconds
-                        </h3>
+                        <ion-item>
+                            <h3 class="ion-text-center" slot="start">
+                                Rest between <small class="large">sets</small>: {{restBetweenReps}} seconds
+                            </h3>
+
+                        </ion-item>
                         <ion-item>
                             <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
-                                <ion-icon slot="start" size="small" name="albums" color="dark"></ion-icon>
-                                <ion-icon slot="end" name="albums" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="stopwatch" color="dark"></ion-icon>
+                                <ion-icon slot="end" name="stopwatch" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
-                        <h3 class="ion-text-center">
-                            Rest after exercise: {{restAfterExercise}} seconds
-                        </h3>
+                        <ion-item>
+                            <h3 class="ion-text-center" slot="start">
+                                Rest after <small class="large">exercise</small>: {{restAfterExercise}} seconds
+                            </h3>
+
+                        </ion-item>
                         <ion-item>
                             <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
-                                <ion-icon slot="start" size="small" name="fitness" color="dark"></ion-icon>
-                                <ion-icon slot="end" name="fitness" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="stopwatch" color="dark"></ion-icon>
+                                <ion-icon slot="end" name="stopwatch" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                     </ion-list>
