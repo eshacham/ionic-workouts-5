@@ -44,7 +44,7 @@ const MINREPS = 1;
 export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     activeRepIndex = 0;
     activeExerciseInSetIndex = 0;
-    remainingTimedRepSec = 0;
+    remainingTimedRepSec = 0.0;
     timedRepTimer = null;
     secToRestAfterCurrentRep = 0;
     remainingTimedRestSec = 0;
@@ -307,7 +307,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             return `${rep.seconds}`;
         }
         if (rep.isActive) {
-            return `${this.timedRepRemaining}`;
+            return `${this.timedRepRemaining.toFixed(1)}`;
         }
         return `${rep.seconds}`;
     }
@@ -355,12 +355,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
             this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec--;
+                this.remainingTimedRepSec = this.remainingTimedRepSec - 0.1;
                 if (this.remainingTimedRepSec <= 0) {
                     this.stopRepTimer();
                     this.nextRep(true);
                 }
-            }, 1000);
+            }, 100);
         }
     }
 

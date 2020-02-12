@@ -29,6 +29,10 @@
 *::-webkit-scrollbar {
     display: none;
 }
+* {
+    // font-family: 'jura' !important;
+    --ion-font-family: 'Jura';
+}
 
 .swiper-pagination {
     color: var(--ion-color-light);
@@ -48,5 +52,4 @@ ion-popover {
 }
 ion-alert {
     --background: var(--ion-color-warning)!important;
-
 }
