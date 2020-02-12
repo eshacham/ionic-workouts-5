@@ -42,11 +42,6 @@ ion-col#colRep {
     background: var(--ion-color-tertiary);
 }
 
-.check {
-    font-size: x-large;
-    color: var(--ion-color-primary);
-}
-
 img {
     height: 80px;
     width: 80px;
@@ -66,35 +61,28 @@ small.large {
     color: var(--ion-color-tertiary);
 }
 h2 {
-    font-size: 16px;
     margin: 0px 0px 2px 0px;
     font-weight: normal;
 }
 
 h3 {
     color: var(--ion-color-dark);
-    font-size: 14px;
     margin: 0px 0px 2px 10px;
     padding: 3px;
 }
 
 h4 {
-    font-size: 14px;
     margin: 0px;
     padding: 0px;
     color: var(--ion-color-light);
-
-    &.times {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        height: 24px;
-    }
-
     &.seconds {
-        margin-bottom: 3px;
+        margin-bottom: 10px;
+    }
+    &.comlpeted {
+        text-decoration: line-through;
     }
 }
+
 
 div.seconds {
     height: 24px;

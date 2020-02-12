@@ -271,13 +271,16 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         });
     }
 
-    getRepClass(rep: Rep, index: number) {
+    getRepClass(rep: Rep, index: number): string {
+        let cls = '';
         if (this.IsRunning) {
+            cls = 'divRep';
             if (this.isRepConsideredActive(rep, index)) {
-                return 'divRep divActive';
+                cls += ' divActive';
             }
-            return 'divRep divNonActive';
+            cls += ' divNonActive';
         }
+        return cls;
     }
     getRepSecondsStyle(rep: Rep): any {
         const animation = {
