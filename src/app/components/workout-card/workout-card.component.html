@@ -2,11 +2,11 @@
   <ion-card-header>
 
     <ion-card-title color="dark" class="ion-text-center">
-      <h4 [hidden]="IsEditMode" >
+      <!-- <h4 [hidden]="IsEditMode" >
         {{ name }}
-      </h4>
-      <ion-input [hidden]="IsDisplayMode" type="text"
-
+      </h4> -->
+      <ion-input [readonly]="IsDisplayMode" type="text"
+        placeholder="Enter workout name here..."
         [(ngModel)]="name"
         (change)="workoutChanged()">
       </ion-input>
@@ -17,7 +17,9 @@
  <ion-card-content>
 
     <ion-textarea [readonly]="IsDisplayMode" class="ion-text-wrap"
-    [(ngModel)]="description"
+      autoGrow="true" maxlength=256
+      placeholder="Enter workout description here..."
+      [(ngModel)]="description"
       (change)="workoutChanged()">
     </ion-textarea>
 

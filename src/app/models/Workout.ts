@@ -46,8 +46,8 @@ export class WorkoutBean extends WorkoutBase {
     static create(options: {id: string, dayId: string}) {
         return new WorkoutBean({
             id: options.id,
-            name: 'new workout',
-            description: 'describe the workout',
+            name: '',
+            description: '',
             days: [ options.dayId ]
         });
     }
