@@ -307,7 +307,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             return `${rep.seconds}`;
         }
         if (rep.isActive) {
-            return `${this.timedRepRemaining.toFixed(1)}`;
+            return `${this.timedRepRemaining.toFixed(0)}`;
         }
         return `${rep.seconds}`;
     }

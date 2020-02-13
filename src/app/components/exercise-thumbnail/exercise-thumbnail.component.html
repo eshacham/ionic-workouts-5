@@ -74,7 +74,7 @@
                         <div *ngIf="rep.seconds" class="nonActiveRep seconds">
                             <h4 class="ion-text-center seconds"
                                 [ngClass]="{'comlpeted': rep.isComplete}">
-                                {{getSecondsStateText(rep)}}<small> Sec</small>
+                                {{getSecondsStateText(rep)}}
                             </h4>
                             <ion-progress-bar *ngIf="rep.isActive"
                                 color="secondary" reversed="true"
@@ -155,7 +155,8 @@
                                 <small>Reps</small>
                             </h4>
                             <h4 *ngIf='rep.seconds' class="ion-text-center">
-                                {{rep.seconds}}<small>{{' Seconds'}}</small>
+                                {{rep.seconds}}
+                                <small>Sec</small>
                             </h4>
                             <h4 *ngIf='!rep.weight && !rep.times && !rep.seconds'
                                 class="ion-text-center">
@@ -170,7 +171,7 @@
                     <ion-list lines="none">
                         <ion-item>
                             <h3 class="ion-text-center" slot="start">
-                                Rest between <small class="large">sets</small>: {{restBetweenReps}} seconds
+                                Rest between sets: {{restBetweenReps}} sec
                             </h3>
 
                         </ion-item>
@@ -183,7 +184,7 @@
                         </ion-item>
                         <ion-item>
                             <h3 class="ion-text-center" slot="start">
-                                Rest after <small class="large">exercise</small>: {{restAfterExercise}} seconds
+                                Rest after sets: {{restAfterExercise}} sec
                             </h3>
 
                         </ion-item>

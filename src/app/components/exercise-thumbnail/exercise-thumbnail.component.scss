@@ -67,7 +67,7 @@ h2 {
 
 h3 {
     color: var(--ion-color-dark);
-    margin: 0px 0px 2px 10px;
+    margin: 0px 0px 2px 0px;
     padding: 3px;
 }
 
@@ -168,6 +168,7 @@ ion-button#img-btn {
 }
 
 ion-range {
+    padding-top: 0px;
     --knob-background: var(--ion-color-tertiary);
     --bar-background: var(--ion-color-medium);
     --bar-background-active: var(--ion-color-secondary);
