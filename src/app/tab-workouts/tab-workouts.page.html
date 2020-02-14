@@ -6,15 +6,15 @@
 
 <ion-content>
 
-  <ion-fab edge slot="fixed"
-    vertical="top" horizontal="start"
+  <ion-fab  slot="fixed"
+    vertical="bottom" horizontal="end"
       #fabEdit id="fabEdit" >
     <ion-fab-button size="small"
       color="tertiary"
       (click)="editWorkouts()">
       <ion-icon name="construct"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="end" class="animated fadeInLeft">
+    <ion-fab-list side="top" class="animated fadeInLeft">
       <ion-fab-button size="small"
         (click)="addWorkout($event)"
         color="warning" >
@@ -22,7 +22,7 @@
       </ion-fab-button>
     </ion-fab-list>
 
-    <ion-fab-list side="bottom" class="animated fadeInDown">
+    <ion-fab-list side="start" class="animated fadeInDown">
       <ion-fab-button size="small"
         (click)="importWorkout($event)"
         color="warning" >
