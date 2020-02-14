@@ -52,17 +52,10 @@ img {
 ion-label {
     margin: 0px;
     padding: 4px;
-    font-size: 17px;
-    color: var(--ion-color-dark) !important;
     max-width: unset!important;
-}
-small.large {
-    font-size: large;
-    color: var(--ion-color-tertiary);
 }
 h2 {
     margin: 0px 0px 2px 0px;
-    font-weight: normal;
 }
 
 h3 {
@@ -161,7 +154,10 @@ ion-button#img-btn {
     height: auto;
     margin: 0px;
 }
-
+ion-button#done {
+    height: 32px;
+    --background-hover: var(--ion-color-danger);
+}
 .bordered {
     color: var(--ion-color-light);
     text-align: center;

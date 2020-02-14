@@ -11,9 +11,10 @@
                             </ion-button>
                         </ion-col>
                         <ion-col size="8">
-                            <ion-label>
+                            <ion-label color="dark">
                                 <h2 class="ion-text-wrap">{{exercise.name}}</h2>
-                                <app-exercise-variation class="ion-text-wrap" #variationComponent [exercise]="exercise">
+                                <app-exercise-variation class="ion-text-wrap" #variationComponent
+                                    [exercise]="exercise">
                                 </app-exercise-variation>
                             </ion-label>
                         </ion-col>
@@ -31,7 +32,7 @@
             <ion-grid>
                 <ion-row class="ion-justify-content-around">
                     <ion-col *ngFor="let exercise of exercises; let i = index">
-                        <ion-label class="ion-text-wrap ion-text-center">
+                        <ion-label class="ion-text-wrap ion-text-center" color="dark">
                             {{exercise.name}}
                         </ion-label>
                     </ion-col>
@@ -97,7 +98,8 @@
                             </ion-button>
                         </ion-col>
                         <ion-col size="6">
-                            <ion-button expand="block" class="et-button" (click)="nextRep(true)">
+                            <ion-button id="done" expand="block" class="et-button"
+                                (click)="nextRep(true)" >
                                 Done!
                             </ion-button>
                         </ion-col>
@@ -211,7 +213,7 @@
                         </ion-button>
                     </ion-col>
                     <ion-col size="9">
-                        <ion-label class="ion-align-items-start">
+                        <ion-label class="ion-align-items-start" color="dark">
                             <h2 class="ion-text-wrap">{{exercise.name}}</h2>
                             <app-exercise-variation class="ion-text-wrap" [exercise]="exercise">
                             </app-exercise-variation>
