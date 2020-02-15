@@ -19,10 +19,7 @@ ion-card {
         }
     }
     .editInput {
-        // border-color: var(--ion-color-dark-contrast);
-        // border-width: 1px;
-        // border-style: solid;
-        text-decoration: underline;
+        --background: rgba(var(--ion-color-secondary-rgb), 0.125);
     }
 
     ion-card-content {
@@ -32,6 +29,7 @@ ion-card {
         ion-textarea {
             color: var(--ion-color-light);
             padding-left: 8px;
+            margin-bottom: 8px;
         }
         ion-list {
             padding: 0px;
