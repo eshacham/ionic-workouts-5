@@ -36,8 +36,8 @@
     <ion-item *ngFor="let img of filteredImages">
     <ion-grid>
       <ion-row>
-        <ion-col size="9" class="ion-text-center">
-          <ion-input type='text' class="ion-text-wrap"
+        <ion-col size="9">
+          <ion-input type='text' class="editInputSec"
             [ngModel]=img.media.name
             placeholder="Exercise Name"
             (change)="updateImage($event.target.value, img.media)">

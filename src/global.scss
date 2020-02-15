@@ -52,3 +52,11 @@ ion-popover {
 ion-alert {
     --background: var(--ion-color-warning)!important;
 }
+.editInputSec {
+    --background: rgba(var(--ion-color-secondary-rgb), 0.125);
+    border-radius: 14px;
+}
+// .editInputTer {
+//     --background: rgba(var(--ion-color-tertiary-rgb), 0.125);
+//     border-radius: 14px;
+// }

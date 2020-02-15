@@ -117,10 +117,14 @@
     <div *ngSwitchCase="displayMode.Edit">
         <ion-grid>
             <ion-row class="ion-justify-content-around">
-                <ion-col *ngFor="let exercise of exercises; let i = index" class="ion-no-padding">
-                    <ion-textarea type="text" rows="2" required="true" [ngModel]="exercise.name"
-                        (change)="exerciseChanged(i, $event.target.value, 'name')" class="ion-text-center"
-                        placeholder="Exercise Name">
+                <ion-col *ngFor="let exercise of exercises; let i = index"
+                    class="ion-no-padding ion-padding-end">
+                    <ion-textarea type="text" rows="1" autoGrow="true"
+                        required="true" maxlength="64"
+                        [ngModel]="exercise.name"
+                        (change)="exerciseChanged(i, $event.target.value, 'name')"
+                        class="editInputSec ion-text-center"
+                        placeholder="Enter exercise name here...">
                     </ion-textarea>
                 </ion-col>
             </ion-row>
@@ -175,7 +179,6 @@
                             <h3 class="ion-text-center" slot="start">
                                 Rest between sets: {{restBetweenReps}} sec
                             </h3>
-
                         </ion-item>
                         <ion-item>
                             <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
@@ -188,7 +191,6 @@
                             <h3 class="ion-text-center" slot="start">
                                 Rest after sets: {{restAfterExercise}} sec
                             </h3>
-
                         </ion-item>
                         <ion-item>
                             <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"

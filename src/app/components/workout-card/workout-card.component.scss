@@ -18,20 +18,19 @@ ion-card {
             --padding-start: 0px;
         }
     }
-    .editInput {
-        --background: rgba(var(--ion-color-secondary-rgb), 0.125);
-    }
 
     ion-card-content {
         padding-top: 0px;
-        padding-left: 45px;
-        padding-right: 45px;
+        padding-left: 20px;
+        padding-right: 20px;
         ion-textarea {
             color: var(--ion-color-light);
-            padding-left: 8px;
-            margin-bottom: 8px;
+            --padding-start: 8px;
+            --padding-end: 8px;
+            --margin-bottom: 8px;
         }
         ion-list {
+            margin-top: 6px;
             padding: 0px;
         }
         ion-item {

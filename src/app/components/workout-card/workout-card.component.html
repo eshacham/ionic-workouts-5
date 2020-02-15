@@ -4,7 +4,7 @@
     <ion-card-title color="dark" class="ion-text-center">
 
       <ion-input [readonly]="IsDisplayMode" type="text"
-        [ngClass]="{ 'editInput': IsEditMode }"
+        [ngClass]="{ 'editInputSec': IsEditMode }"
         placeholder="Enter workout name here..."
         [(ngModel)]="name"
         (change)="workoutChanged()">
@@ -15,10 +15,10 @@
 
  <ion-card-content>
 
-    <ion-textarea [readonly]="IsDisplayMode"
+    <ion-textarea [readonly]="IsDisplayMode" type="text"
       class="ion-text-wrap"
-      [ngClass]="{ 'editInput': IsEditMode }"
-      autoGrow="true" maxlength=256
+      [ngClass]="{ 'editInputSec': IsEditMode }"
+      maxlength="256" rows="1" autoGrow="true"
       placeholder="Enter workout description here..."
       [(ngModel)]="description"
       (change)="workoutChanged()">

@@ -22,22 +22,16 @@ ion-item {
     --background: var(--ion-color-tertiary);
     --inner-padding-end: 0px;
     --padding-start: 0px;
-    ion-grid {
-        background: var(--ion-color-primary);
-        border-radius: 4px;
-        ion-row {
-            padding-left:20px;
-            padding-right:20px;
-        }
-    }
+
     ion-badge {
         --background: var(--ion-color-tertiary);
         --color: var(--ion-color-light);
     }
 }
 ion-input {
-    // font-size: 14px;
     color: var(--ion-color-light);
+    --padding-start: 4px!important;
+    --padding-end: 4px!important;
 }
 img {
     height: 80px;
@@ -48,7 +42,9 @@ app-expandable {
     margin: 0px;
     padding-bottom: 2px;
 }
-
+ion-grid {
+    background: var(--ion-color-primary);
+}
 
 ion-toolbar#toolbarInFooter {
     --background: var(--ion-color-tertiary);
