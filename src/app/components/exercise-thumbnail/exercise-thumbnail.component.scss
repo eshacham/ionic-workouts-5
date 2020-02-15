@@ -50,6 +50,7 @@ img {
 }
 
 ion-label {
+    font-size: medium!important;
     margin: 0px;
     padding: 4px;
     max-width: unset!important;
@@ -77,18 +78,13 @@ h4 {
     }
 }
 
-
 div.seconds {
     height: 24px;
 }
 
 ion-buttons {
+    margin-top: 8px;
     width: 100%
-}
-
-.et-button {
-    --color: var(--ion-color-tertiary);
-    --background: var(--ion-color-secondary);
 }
 
 @keyframes mymove {
@@ -155,17 +151,19 @@ ion-button#img-btn {
     height: auto;
     margin: 0px;
 }
-ion-button#done {
+ion-button.et-button {
     height: 32px;
-    --background-hover: var(--ion-color-danger);
+    --color: var(--ion-color-tertiary);
+    --background: var(--ion-color-secondary);
+    --background-hover: rgba(var(--ion-color-secondary-rgb), 0.125);
 }
+
 .bordered {
     color: var(--ion-color-light);
     text-align: center;
 }
 
 ion-range {
-    padding-top: 0px;
     --knob-background: var(--ion-color-tertiary);
     --bar-background: var(--ion-color-medium);
     --bar-background-active: var(--ion-color-secondary);
