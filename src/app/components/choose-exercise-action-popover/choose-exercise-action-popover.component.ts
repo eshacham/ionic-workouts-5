@@ -36,9 +36,6 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   editSet() {
     this.close(ExerciseAction.EditSet);
   }
-  editVariation() {
-    this.close(ExerciseAction.EditVariation);
-  }
   deleteExercise() {
     this.close(ExerciseAction.DeleteExercise);
   }
@@ -47,9 +44,6 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   }
   addSet() {
     this.close(ExerciseAction.AddSet);
-  }
-  configureSet() {
-      this.close(ExerciseAction.ConfigureSet);
   }
   swapExercise() {
     this.close(ExerciseAction.SwapSets);

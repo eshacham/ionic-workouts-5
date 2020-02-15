@@ -53,12 +53,10 @@ export enum ExerciseSetAction {
 }
 export enum ExerciseAction {
     DeleteExercise,
-    ConfigureSet,
     EditSet,
     AddSet,
     DeleteSet,
     SwapSets,
-    EditVariation,
     GotoExercise,
 }
 export enum Muscles {

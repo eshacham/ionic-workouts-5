@@ -152,7 +152,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.complete();
     }
 
-    expandItem(): void {
+    toggleExpandedExercise(): void {
         if (!this.expanded) {
             this.store.dispatch(new SetExerciseSetInWorkoutDay({
                 workoutId: this.workoutId,
@@ -573,17 +573,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                     case ExerciseAction.DeleteExercise:
                         this.deleteExercise(exercise);
                         break;
-                    case ExerciseAction.ConfigureSet:
-                        this.expandItem();
-                        break;
                     case ExerciseAction.GotoExercise:
                         this.goToImagesLibraryPage(exercise);
                         break;
                     case ExerciseAction.SwapSets:
                         this.switchExercises(index);
-                        break;
-                    case ExerciseAction.EditVariation:
-                        this.presentVariationPopover(event, exercise);
                         break;
                     case ExerciseAction.EditSet:
                         this.presentPopover(event, rep, index, exercise.id);
