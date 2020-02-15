@@ -46,7 +46,7 @@ ion-content {
     --background: var(--ion-color-tertiary);
 }
 ion-popover {
-    --width: 250px!important;
+    --width: 300px!important;
     --background: var(--ion-color-light)!important;
 }
 ion-alert {
@@ -56,7 +56,3 @@ ion-alert {
     --background: rgba(var(--ion-color-secondary-rgb), 0.125);
     border-radius: 14px;
 }
-// .editInputTer {
-//     --background: rgba(var(--ion-color-tertiary-rgb), 0.125);
-//     border-radius: 14px;
-// }
