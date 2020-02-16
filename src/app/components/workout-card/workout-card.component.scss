@@ -34,17 +34,20 @@ ion-card {
         ion-list {
             margin-top: 6px;
             padding: 0px;
+            ion-row {
+                background: var(--ion-color-tertiary);
+            }
         }
         ion-item {
             --background: var(--ion-color-tertiary);
             --detail-icon-color: var(--ion-color-warning);
             ion-label {
                 color: var(--ion-color-light);
-                max-width: unset;
             }
             ion-badge {
                 color: var(--ion-color-light);
             }
+            
         }
     }
 }

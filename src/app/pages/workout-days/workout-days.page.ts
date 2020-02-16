@@ -131,13 +131,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     if (this.slides && this.days) {
       this.activeDayIndex = await this.slides.getActiveIndex();
       this.logger.info('slideChanged', `${this.workoutId} slideChanged to index ${this.activeDayIndex}`);
-      this.store.select(getWorkoutDay(this.activeDayId))
-        .pipe(take(1))
-        .subscribe(state => {
-          if (state) {
-            this.adjustDisplayMode(state);
-          }
-        });
       this.store.dispatch(new SelectWorkoutDay(
         {
           workoutId: this.workoutId,

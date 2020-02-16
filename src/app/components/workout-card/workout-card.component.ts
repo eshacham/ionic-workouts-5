@@ -8,8 +8,9 @@ import { IAppState } from 'src/app/store/state/app.state';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { getWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { take } from 'rxjs/operators';
-import { SelectWorkout, DeleteWorkout, ExportWorkout, UpdateWorkout } from 'src/app/store/actions/workouts.actions';
+import { DeleteWorkout, ExportWorkout, UpdateWorkout } from 'src/app/store/actions/workouts.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { SelectWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
 
 @Component({
   selector: 'app-workout-card',
@@ -22,7 +23,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   @Input() workoutId: string;
   @Input() displayMode: DisplayMode;
 
-  private workoutBean: WorkoutBean;
+  private workout: WorkoutBean;
   private name: string;
   private description: string;
 
@@ -43,35 +44,38 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
       .subscribe(workout => {
         this.logger.debug('ngOnInit', 'getWorkout', workout);
         if (workout) {
-          this.workoutBean = workout;
-          this.name = this.workoutBean.name;
-          this.description = this.workoutBean.description;
+          this.workout = workout;
+          this.name = this.workout.name;
+          this.description = this.workout.description;
         }
       });
   }
 
   ngOnDestroy() {
-    this.logger.debug('ngOnDestroy', this.workoutBean);
+    this.logger.debug('ngOnDestroy', this.workout);
   }
 
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
 
-  async goToWorkoutDays() {
-    const id = this.workoutId;
-    this.logger.info('goToWorkoutDays', 'going to workout with id', JSON.stringify(id));
-    this.store.dispatch(new SelectWorkout({ workoutId: id }));
+  async goToWorkoutDay(dayId: string) {
+    this.logger.info('goToWorkoutDay', this.workoutId , dayId);
+    // this.store.dispatch(new SelectWorkout({ workoutId: id }));
+    this.store.dispatch(new SelectWorkoutDay({
+      workoutId:  this.workoutId,
+      dayId
+    }));
     this.router.navigate(['workout'], {relativeTo: this.route});
   }
 
   get daysCount(): number {
-    return (this.workoutBean.days) ? this.workoutBean.days.length : 0;
+    return (this.workout.days) ? this.workout.days.length : 0;
   }
 
   deleteWorkout() {
     this.store.dispatch(new DeleteWorkout({
       id: this.workoutId,
-      days: this.workoutBean.days
+      days: this.workout.days
     }));
   }
 
@@ -82,7 +86,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   }
 
   workoutChanged() {
-    const workout = { ...this.workoutBean };
+    const workout = { ...this.workout };
     workout.name = this.name;
     workout.description = this.description;
     this.store.dispatch(new UpdateWorkout({ workout }));

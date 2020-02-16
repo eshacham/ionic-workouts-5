@@ -18,20 +18,24 @@
     <ion-textarea [readonly]="IsDisplayMode" type="text"
       class="ion-text-wrap"
       [ngClass]="{ 'editInputSec': IsEditMode }"
-      maxlength="256" rows="1" autoGrow="true"
+      maxlength="256" rows="3"
       placeholder="Enter workout description here..."
       [(ngModel)]="description"
       (change)="workoutChanged()">
     </ion-textarea>
 
     <ion-list *ngIf="daysCount">
-      <ion-item *ngIf="IsDisplayMode" (click)="goToWorkoutDays()" >
-        <ion-label>Days...</ion-label>
-        <ion-badge slot="start">{{ daysCount }}</ion-badge>
-      </ion-item>
+      <ion-row *ngIf="IsDisplayMode" >
+        <ion-col class="ion-text-center"
+          *ngFor="let day of workout.days; let i = index;">
+        <ion-button fill="clear"
+          (click)="goToWorkoutDay(day)">
+          <ion-badge slot="start">Day {{ i+1 }}</ion-badge>
+        </ion-button>
+      </ion-col>
+      </ion-row>
       <ion-item *ngIf="IsEditMode">
-        <ion-badge slot="start">{{ daysCount }}</ion-badge>
-        <ion-label>Days...</ion-label>
+        <ion-badge slot="start">{{ daysCount }} Days</ion-badge>
         <ion-button fill="clear" color="light" slot="end"
             (click)="deleteWorkout()">
             <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
