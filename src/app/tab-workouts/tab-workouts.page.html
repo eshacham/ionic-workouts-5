@@ -6,8 +6,8 @@
 
 <ion-content>
 
-  <ion-fab  slot="fixed"
-    vertical="bottom" horizontal="end"
+  <ion-fab slot="fixed" edge="true"
+    vertical="top" horizontal="end"
       #fabEdit id="fabEdit" >
 
     <ion-fab-button size="small"
@@ -16,7 +16,7 @@
       <ion-icon name="settings-sharp"></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-list side="start" class="animated fadeInRight">
+    <ion-fab-list side="bottom" class="animated fadeInDown">
       <ion-fab-button size="small"
         (click)="addWorkout($event)"
         color="warning" >
