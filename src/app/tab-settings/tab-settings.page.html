@@ -6,14 +6,15 @@
   </ion-toolbar>
 
   <ion-toolbar id="second">
-    <ion-segment (ionChange)="segmentChanged($event.detail.value)" value={{selectedSegment}}>
+    <ion-segment (ionChange)="segmentChanged($event.detail.value)"
+      value={{selectedSegment}} >
       <ion-segment-button value="themes" layout="icon-start">
         <ion-label>Themes</ion-label>
-        <ion-icon name="color-palette"></ion-icon>
+        <ion-icon name="color-palette-sharp"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="workouts" layout="icon-start">
         <ion-label>Workouts</ion-label>
-        <ion-icon name="walk"></ion-icon>
+        <ion-icon name="walk-sharp"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -26,7 +27,7 @@
     <ion-item>
       <ion-button expand="full" (click)="resetData()"
         color="light" fill="clear">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
         Reset Data
       </ion-button>
     </ion-item>
@@ -34,10 +35,12 @@
 
   <ion-list *ngIf="selectedSegment==='themes'"
       class="ion-no-padding">
-    <ion-radio-group value={{selectedTheme}}>
+    <ion-radio-group value={{selectedTheme}}
+      (ionChange)="themeSelected($event.detail.value)">
       <ion-item *ngFor='let theme of themes'>
         <ion-label>{{theme.theTheme.name}}</ion-label>
-        <ion-radio (ionSelect)="themeSelected($event.detail.value)" slot="start" value={{theme.theTheme.name}}>
+        <ion-radio slot="start"
+          value={{theme.theTheme.name}}>
         </ion-radio>
       </ion-item>
     </ion-radio-group>

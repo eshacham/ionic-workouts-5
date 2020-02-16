@@ -22,7 +22,7 @@
                             <ion-button *ngIf="first" class="ion-float-right" fill="clear"
                                 (click)="runExercise()"
                                 color="danger">
-                                <ion-icon slot="icon-only" name="play"></ion-icon>
+                                <ion-icon slot="icon-only" name="play-sharp"></ion-icon>
                             </ion-button>
                         </ion-col>
                     </ion-row>
@@ -96,7 +96,7 @@
                         <ion-col class="ion-text-end">
                             <ion-button fill="clear" color="danger" [disabled]="!isPrevRepAvailable"
                                 (click)="prevRep()">
-                                <ion-icon slot="icon-only" name="skip-backward"></ion-icon>
+                                <ion-icon slot="icon-only" name="play-skip-back-circle-sharp"></ion-icon>
                             </ion-button>
                         </ion-col>
                         <ion-col size="6">
@@ -107,7 +107,7 @@
                         </ion-col>
                         <ion-col class="ion-text-start">
                             <ion-button fill="clear" color="danger" (click)="nextRep(false)">
-                                <ion-icon slot="icon-only" name="skip-forward"></ion-icon>
+                                <ion-icon slot="icon-only" name="play-skip-forward-circle-sharp"></ion-icon>
                             </ion-button>
                         </ion-col>
                     </ion-buttons>
@@ -154,7 +154,7 @@
                     <ion-button expand="full" fill="clear" color="danger"
                         (click)="toggleExpandedExercise()">
                         <ion-icon slot="icon-only"
-                            [name]="expanded ? 'arrow-up' : 'arrow-down'"></ion-icon>
+                            [name]="expanded ? 'caret-up-sharp' : 'caret-down-sharp'"></ion-icon>
                     </ion-button>
                 </ion-col>
             </ion-row>
@@ -197,8 +197,8 @@
                         <ion-item>
                             <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
-                                <ion-icon slot="start" size="small" name="stopwatch" color="dark"></ion-icon>
-                                <ion-icon slot="end" name="stopwatch" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="stopwatch-sharp" color="dark"></ion-icon>
+                                <ion-icon slot="end" name="stopwatch-sharp" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>
                         <ion-item>
@@ -209,7 +209,7 @@
                         <ion-item>
                             <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
-                                <ion-icon slot="start" size="small" name="stopwatch" color="dark"></ion-icon>
+                                <ion-icon slot="start" size="small" name="stopwatch-sharp" color="dark"></ion-icon>
                                 <ion-icon slot="end" name="stopwatch" color="dark"></ion-icon>
                             </ion-range>
                         </ion-item>

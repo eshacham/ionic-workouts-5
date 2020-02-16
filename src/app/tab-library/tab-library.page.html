@@ -18,7 +18,7 @@
     <ion-buttons slot="end">
       <ion-button [disabled]="!useFilter" fill="clear"
         (click)="selectMuscle()" color="light">
-        <ion-icon slot="end" name="body"></ion-icon>
+        <ion-icon slot="end" name="body-sharp"></ion-icon>
         <ion-badge slot="end" color="primary">
           {{filteredMusclesCount}}
         </ion-badge>
@@ -45,7 +45,7 @@
         </ion-col>
         <ion-col size="3">
           <ion-button fill="clear" (click)="setMuscle(img.media)" color="dark">
-            <ion-icon slot="icon-only" name="body"></ion-icon>
+            <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
             <ion-badge *ngIf="img.media.muscles.length" [color]="tertiary">
               {{img.media.muscles.length}}
             </ion-badge>
@@ -59,11 +59,11 @@
           <app-expandable expandHeight="100px" [expanded]="img.expanded" slot="start">
             <ion-button fill="clear" [disabled]="img.usage.length > 0"
               (click)="deleteImage(img.media)" color="light">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
+              <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
             </ion-button>
             <ion-button *ngFor="let use of img.usage" size="small" fill="clear"
                 (click)="goToWorkoutDay(use, $event)" color="light">
-                <ion-icon slot="icon-only" name="walk"></ion-icon>
+                <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
             </ion-button>
           </app-expandable>
         </ion-item>
@@ -79,7 +79,7 @@
   <ion-toolbar id=toolbarInFooter>
     <ion-button fill="clear" expand="full"
       (click)="selectImage()">
-      <ion-icon slot="start" name="camera"></ion-icon>
+      <ion-icon slot="start" name="camera-sharp"></ion-icon>
       Select Image</ion-button>
   </ion-toolbar>
 </ion-footer>

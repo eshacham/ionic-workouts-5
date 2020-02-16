@@ -16,7 +16,7 @@
     <ion-buttons slot="end">
       <ion-button [disabled]="!useFilter" fill="clear"
         (click)="selectMuscle()" color="light">
-        <ion-icon slot="end" name="body"></ion-icon>
+        <ion-icon slot="end" name="body-sharp"></ion-icon>
         <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
         Select Muscles
       </ion-button>
@@ -63,13 +63,13 @@
       <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear"
         (click)="addExercise()"
         [disabled]="isAddExerciseDisabled">
-        <ion-icon slot="start" name="add-circle"></ion-icon>
+        <ion-icon slot="start" name="add-circle-sharp"></ion-icon>
         Add Exercise(s)
       </ion-button>
 
       <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear"
         (click)="goBack()">
-        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        <ion-icon slot="start" name="arrow-back-sharp"></ion-icon>
         Back to Workouts
       </ion-button>
 

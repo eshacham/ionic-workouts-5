@@ -2,19 +2,19 @@
   <ion-item>
     <ion-button size="large" fill="clear" (click)="deleteExercise()">
       Delete this exercise
-      <ion-icon slot="start" name="trash" color="primary"></ion-icon>
+      <ion-icon slot="start" name="trash-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
   <ion-item *ngIf="canSwap">
     <ion-button size="large" fill="clear" (click)="swapExercise()">
       Swap exercise with next
-      <ion-icon slot="start" name="swap" color="primary"></ion-icon>
+      <ion-icon slot="start" name="swap-horizontal-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
   <ion-item>
     <ion-button size="large" fill="clear" (click)="viewExercise()">
       Locate in Exercises library
-      <ion-icon slot="start" name="fitness" color="primary"></ion-icon>
+      <ion-icon slot="start" name="barbell-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
 
@@ -24,19 +24,19 @@
   <ion-item>
     <ion-button size="large" fill="clear" (click)="editSet()">
       Edit this set
-      <ion-icon slot="start" name="create" color="primary"></ion-icon>
+      <ion-icon slot="start" name="create-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
   <ion-item>
     <ion-button size="large" fill="clear" (click)="addSet()" [disabled]="isMaxReps">
       Add a copied set
-      <ion-icon slot="start" name="add-circle" color="primary"></ion-icon>
+      <ion-icon slot="start" name="add-circle-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
   <ion-item>
     <ion-button size="large" fill="clear" (click)="deleteSet()" [disabled]="isMinReps">
       Delete this set
-      <ion-icon slot="start" name="remove-circle" color="primary"></ion-icon>
+      <ion-icon slot="start" name="remove-circle-sharp" color="primary"></ion-icon>
   </ion-button>
   </ion-item>
 

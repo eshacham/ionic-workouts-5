@@ -14,13 +14,13 @@
         #fabWorkout id="fabWorkout">
         <ion-fab-button size="small"
           (click)="startWorkoutToggler()" color="tertiary">
-          <ion-icon name="play"></ion-icon>
+          <ion-icon name="play-sharp"></ion-icon>
         </ion-fab-button>
 
         <ion-fab-list side="start" class="animated fadeInRight">
           <ion-fab-button size="small"
           (click)="stopWorkout()" color="warning">
-            <ion-icon name="pause"></ion-icon>
+            <ion-icon name="pause-sharp"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
 
@@ -31,30 +31,30 @@
         #fabEdit id="fabEdit">
         <ion-fab-button size="small"
         (click)="editWorkoutToggler()" color="tertiary">
-          <ion-icon name="construct"></ion-icon>
+          <ion-icon name="settings-sharp"></ion-icon>
         </ion-fab-button>
 
         <ion-fab-list side="start" class="animated fadeInRight" >
           <ion-fab-button size="small" [disabled]="isLastDayActive"
           (click)="moveForwardWorkoutDay($event)" color="warning">
-          <ion-icon name="skip-forward"></ion-icon>
+          <ion-icon name="arrow-forward-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small" [disabled]="isFirstDayActive"
             (click)="moveBackWorkoutDay($event)" color="warning">
-            <ion-icon name="skip-backward"></ion-icon>
+            <ion-icon name="arrow-back-circle-sharp"></ion-icon>
           </ion-fab-button>
 
           <ion-fab-button size="small" [disabled]="isOneDayOnly"
               (click)="deleteWorkoutDay($event)" color="warning">
-              <ion-icon name="remove-circle"></ion-icon>
+              <ion-icon name="remove-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
             (click)="addWorkoutDay($event)" color="warning">
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="add-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
             (click)="selectExerciseToAdd($event)" color="warning">
-            <ion-icon name="fitness"></ion-icon>
+            <ion-icon name="barbell-sharp"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
 

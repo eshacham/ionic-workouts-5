@@ -7,9 +7,11 @@ ion-list {
     margin-top: 1px;
     margin-right: 10px;
     margin-bottom: 5px;
-  }
-ion-label {
-    color: var(--ion-color-light)!important;
+}
+ion-radio-group {
+    ion-label {
+        color: var(--ion-color-light)!important;
+    }
 }
 ion-item {
     --background: var(--ion-color-primary);
@@ -21,4 +23,12 @@ ion-radio {
 }
 img {
     max-height: 100%;
+}
+ion-segment {
+    background: var(--ion-color-primary);
+    ion-segment-button {
+        --background-checked: var(--ion-color-primary-tint);
+        --color: var(--ion-color-tertiary);
+        --color-checked: var(--ion-color-tertiary);
+    }
 }
