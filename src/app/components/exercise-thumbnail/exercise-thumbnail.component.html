@@ -121,7 +121,7 @@
             <ion-row class="ion-justify-content-around">
                 <ion-col *ngFor="let exercise of exercises; let i = index"
                     class="ion-no-padding ion-padding-end">
-                    <ion-textarea type="text" rows="1"
+                    <ion-textarea type="text" [rows]="exercises.length"
                         required="true" maxlength="64"
                         [ngModel]="exercise.name"
                         (change)="exerciseChanged(i, $event.target.value, 'name')"

@@ -60,7 +60,6 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
 
   async goToWorkoutDay(dayId: string) {
     this.logger.info('goToWorkoutDay', this.workoutId , dayId);
-    // this.store.dispatch(new SelectWorkout({ workoutId: id }));
     this.store.dispatch(new SelectWorkoutDay({
       workoutId:  this.workoutId,
       dayId
