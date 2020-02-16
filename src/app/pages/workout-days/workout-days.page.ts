@@ -38,9 +38,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   activeDayIndex = 0;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  @ViewChild('slider', { static: true }) slides: Slides;
-  @ViewChild('fabWorkout', { static: true }) fabWorkout: IonFab;
-  @ViewChild('fabEdit', { static: true }) fabEdit: IonFab;
+  @ViewChild('slider') slides?: Slides;
+  @ViewChild('fabWorkout') fabWorkout?: IonFab;
+  @ViewChild('fabEdit') fabEdit?: IonFab;
 
   slideOpts = {
     autoHeight: false,
@@ -99,8 +99,10 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
             this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${selectedDay}`);
             this.store.select(getWorkoutDay(selectedDay))
               .pipe(take(1))
-              .subscribe(workoutDayState => {
+              .subscribe(async workoutDayState => {
+                await new Promise(() => setTimeout(async () => {
                 this.adjustDisplayMode(workoutDayState);
+                }, 1));
               });
           }
         } else {
