@@ -141,7 +141,8 @@
             <ion-row>
                 <ion-col *ngFor="let exercise of exercises; let i = index"
                     class="ion-text-center">
-                    <ion-button (click)="presentVariationPopover($event, exercise)">
+                    <ion-button expand="full" fill="clear" color="danger"
+                        (click)="presentVariationPopover($event, exercise)">
                         <app-exercise-variation class="ion-text-wrap ion-text-center"
                             [exercise]="exercise"
                             [inEditMode]="true">
@@ -154,7 +155,8 @@
                     <ion-button expand="full" fill="clear" color="danger"
                         (click)="toggleExpandedExercise()">
                         <ion-icon slot="icon-only"
-                            [name]="expanded ? 'caret-up-sharp' : 'caret-down-sharp'"></ion-icon>
+                            [name]="expanded ? 'caret-up-sharp' : 'caret-down-sharp'">
+                        </ion-icon>
                     </ion-button>
                 </ion-col>
             </ion-row>
