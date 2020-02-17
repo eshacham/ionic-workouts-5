@@ -15,10 +15,13 @@
 
  <ion-card-content>
 
-    <ion-textarea [readonly]="IsDisplayMode" type="text"
-      class="ion-text-wrap"
-      [ngClass]="{ 'editInputSec': IsEditMode }"
-      maxlength="256" rows="3"
+    <p *ngIf="IsDisplayMode"
+      class="ion-text-wrap">
+      {{description}}
+    </p>
+    <ion-textarea *ngIf="IsEditMode" type="text"
+      class="ion-text-wrap editInputSec"
+      maxlength="256" autoGrow="true"
       placeholder="Enter workout description here..."
       [(ngModel)]="description"
       (change)="workoutChanged()">

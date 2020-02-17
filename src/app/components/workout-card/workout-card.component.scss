@@ -25,6 +25,9 @@ ion-card {
         padding-top: 0px;
         padding-left: 20px;
         padding-right: 20px;
+        p {
+            color: var(--ion-color-light);
+        }
         ion-textarea {
             color: var(--ion-color-light);
             --padding-start: 8px;
@@ -47,7 +50,7 @@ ion-card {
             ion-badge {
                 color: var(--ion-color-light);
             }
-            
+
         }
     }
 }
