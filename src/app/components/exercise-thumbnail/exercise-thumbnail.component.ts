@@ -59,6 +59,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private expanded = false;
     private isInRunningMode = false;
     private isInEditMode = false;
+    isNameInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     private workoutId: string;
@@ -216,6 +217,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.presentActionsPopover(event, exercise, index, false, true, rep);
     }
 
+    allowEdit() {
+
+    }
     goToImagesLibraryPage(exercise: ExerciseBean) {
         this.logger.info('goToImages', `going to image ${exercise.id}`);
         this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
