@@ -27,9 +27,11 @@ ion-card {
         padding-right: 20px;
         p {
             color: var(--ion-color-light);
+            font-size: larger;
         }
         ion-textarea {
             color: var(--ion-color-light);
+            font-size: larger;
             --padding-start: 8px;
             --padding-end: 8px;
             --margin-bottom: 8px;
