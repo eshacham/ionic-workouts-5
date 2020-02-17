@@ -64,6 +64,7 @@ h3 {
     margin: 0px 0px 2px 0px;
     padding: 3px;
     font-size: large;
+    word-break: break-word;
 }
 
 h4 {
@@ -111,13 +112,11 @@ ion-buttons {
 
 ion-input {
     color: var(--ion-color-dark) !important;
-
     input {
         text-align: center;
         margin: 4px !important;
     }
 }
-
 ion-textarea {
     --color: var(--ion-color-dark);
     margin-bottom: 4px;
@@ -156,7 +155,6 @@ ion-button.et-button {
     height: 32px;
     --color: var(--ion-color-tertiary);
     --background: var(--ion-color-secondary);
-    --background-hover: rgba(var(--ion-color-secondary-rgb), 0.125);
 }
 
 .bordered {
