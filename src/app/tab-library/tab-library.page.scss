@@ -28,8 +28,12 @@ ion-item {
         --color: var(--ion-color-light);
     }
 }
+ion-input {
+    color: var(--ion-color-dark) !important;
+    text-align: center;
+}
 ion-textarea {
-    color: var(--ion-color-light);
+    --color: var(--ion-color-dark);
     --padding-start: 4px!important;
     --padding-end: 4px!important;
 }

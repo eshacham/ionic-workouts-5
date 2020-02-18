@@ -41,6 +41,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  isNameInEditMode = false;
   exerciseMediaWithUsage: ExerciseMediaWithUsage[];
   get images(): ExerciseMediaWithUsage[] {
     return this.exerciseMediaWithUsage;
