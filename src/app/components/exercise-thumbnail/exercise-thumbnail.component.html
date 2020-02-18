@@ -122,7 +122,7 @@
             <ion-row class="ion-justify-content-around">
                 <ion-col *ngFor="let exercise of exercises; let i = index"
                     class="ion-no-padding ion-padding-end">
-                    <ion-input *ngIf="!isNameInEditMode" autofocus="true"
+                    <ion-input *ngIf="!isNameInEditMode" 
                         [ngModel]="exercise.name" (ionFocus)="isNameInEditMode = true">
                     </ion-input>
                     <ion-textarea *ngIf="isNameInEditMode" (ionBlur)="isNameInEditMode = false"
