@@ -37,7 +37,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="9">
-          <ion-input *ngIf="!isNameInEditMode" 
+          <ion-input *ngIf="!isNameInEditMode"
             [ngModel]=img.media.name (ionFocus)="isNameInEditMode = true">
           </ion-input>
           <ion-textarea *ngIf="isNameInEditMode" (ionBlur)="isNameInEditMode = false"
@@ -64,7 +64,7 @@
           <img [src]="safeImage(img.media)" slot="start"/>
           <app-expandable expandHeight="100px" [expanded]="img.expanded" slot="start">
             <ion-button fill="clear" [disabled]="img.usage.length > 0"
-              (click)="deleteImage(img.media)" color="light">
+              (click)="deleteImage(img.media)" color="danger">
               <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
             </ion-button>
             <ion-button *ngFor="let use of img.usage" size="small" fill="clear"

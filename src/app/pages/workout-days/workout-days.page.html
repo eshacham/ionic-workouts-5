@@ -44,8 +44,8 @@
             <ion-icon name="arrow-back-circle-sharp"></ion-icon>
           </ion-fab-button>
 
-          <ion-fab-button size="small" [disabled]="isOneDayOnly"
-              (click)="deleteWorkoutDay($event)" color="warning">
+          <ion-fab-button [disabled]="isOneDayOnly" color="warning"
+              (click)="deleteWorkoutDay($event)" >
               <ion-icon name="remove-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"

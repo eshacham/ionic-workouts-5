@@ -1,8 +1,9 @@
 <ion-list *ngIf="!isSetActions">
   <ion-item>
-    <ion-button size="large" fill="clear" (click)="deleteExercise()">
+    <ion-button size="large" fill="clear"
+      (click)="deleteExercise()">
       Delete this exercise
-      <ion-icon slot="start" name="trash-sharp" color="primary"></ion-icon>
+      <ion-icon slot="start" name="trash-sharp" color="danger"></ion-icon>
   </ion-button>
   </ion-item>
   <ion-item *ngIf="canSwap">
@@ -34,9 +35,10 @@
   </ion-button>
   </ion-item>
   <ion-item>
-    <ion-button size="large" fill="clear" (click)="deleteSet()" [disabled]="isMinReps">
+    <ion-button size="large" fill="clear"
+      (click)="deleteSet()" [disabled]="isMinReps">
       Delete this set
-      <ion-icon slot="start" name="remove-circle-sharp" color="primary"></ion-icon>
+      <ion-icon slot="start" name="remove-circle-sharp" color="danger"></ion-icon>
   </ion-button>
   </ion-item>
 
