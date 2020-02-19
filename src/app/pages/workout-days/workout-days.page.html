@@ -10,16 +10,16 @@
 <ion-content>
 
     <ion-fab edge="true" slot="fixed"
-      vertical="top" horizontal="end"
+        vertical="top" horizontal="end"
         #fabWorkout id="fabWorkout">
         <ion-fab-button size="small"
-          (click)="startWorkoutToggler()" color="tertiary">
+          (click)="startWorkoutToggler()" >
           <ion-icon name="play-sharp"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start" class="animated fadeInRight">
+        <ion-fab-list side="start" class="animated fadeInDown">
           <ion-fab-button size="small"
-          (click)="stopWorkout()" color="warning">
+          (click)="stopWorkout()" >
             <ion-icon name="pause-sharp"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
@@ -30,30 +30,30 @@
       vertical="bottom" horizontal="end"
         #fabEdit id="fabEdit">
         <ion-fab-button size="small"
-        (click)="editWorkoutToggler()" color="tertiary">
+        (click)="editWorkoutToggler()" >
           <ion-icon name="settings-sharp"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start" class="animated fadeInRight" >
+        <ion-fab-list side="start" class="animated fadeInUp" >
           <ion-fab-button size="small" [disabled]="isLastDayActive"
-          (click)="moveForwardWorkoutDay($event)" color="warning">
+          (click)="moveForwardWorkoutDay($event)" >
           <ion-icon name="arrow-forward-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small" [disabled]="isFirstDayActive"
-            (click)="moveBackWorkoutDay($event)" color="warning">
+            (click)="moveBackWorkoutDay($event)" >
             <ion-icon name="arrow-back-circle-sharp"></ion-icon>
           </ion-fab-button>
 
-          <ion-fab-button [disabled]="isOneDayOnly" color="warning"
+          <ion-fab-button [disabled]="isOneDayOnly"
               (click)="deleteWorkoutDay($event)" >
               <ion-icon name="remove-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
-            (click)="addWorkoutDay($event)" color="warning">
+            (click)="addWorkoutDay($event)" >
             <ion-icon name="add-circle-sharp"></ion-icon>
           </ion-fab-button>
           <ion-fab-button size="small"
-            (click)="selectExerciseToAdd($event)" color="warning">
+            (click)="selectExerciseToAdd($event)" >
             <ion-icon name="barbell-sharp"></ion-icon>
           </ion-fab-button>
         </ion-fab-list>
@@ -66,8 +66,7 @@
     <ion-slide *ngFor="let day of days">
         <app-workout-day
           [dayId]="day"
-          [displayMode]="DisplayMode"
-        >
+          [displayMode]="DisplayMode" >
       </app-workout-day>
    </ion-slide>
   </ion-slides>

@@ -356,10 +356,10 @@
     --ion-color-light-tint: #e5e6e0;
   }
   .orange {
-    --pri: #363636;
-    --sec: #c1beb9;
+    --pri: #363636; // suc
+    --sec: #c1beb9; // war
     --ter: #E37334;
-    --dan: #22ACE2;
+    --dan: #7334E3;
     --dar: #3E363F;
     --med: #a2a09d;
     --lig: #f5f2eb;
@@ -399,12 +399,12 @@
     --ion-color-success-shade: #303030;
     --ion-color-success-tint: #4a4a4a;
 
-    --ion-color-danger: #22ACE2;
-  --ion-color-danger-rgb: 34,172,226;
-  --ion-color-danger-contrast: #000000;
-  --ion-color-danger-contrast-rgb: 0,0,0;
-  --ion-color-danger-shade: #1e97c7;
-  --ion-color-danger-tint: #38b4e5;
+    --ion-color-danger: #7334E3;
+  --ion-color-danger-rgb: 115,52,227;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255,255,255;
+  --ion-color-danger-shade: #652ec8;
+  --ion-color-danger-tint: #8148e6;
 
     --ion-color-dark: #111111;
     --ion-color-dark-rgb: 17,17,17;

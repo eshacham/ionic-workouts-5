@@ -1,23 +1,24 @@
 ion-card {
-    --border-radius: 4px;
+    border-radius: 16px;
     --background: var(--ion-color-primary);
     margin-bottom: 4px;
     margin-top: 8px;
     margin-left: 8px;
     margin-right: 8px;
+
     ion-card-header {
-        color: var(--ion-color-light);
         padding-left: 20px;
         padding-right: 20px;
-        h4 {
-            margin-top: 10px;
-            font-weight: 400;
-        }
-        ion-input {
-            font-size: 20px;
-            font-weight: bold;
-            --padding-end: 0px;
-            --padding-start: 0px;
+
+        ion-card-title {
+            --color: var(--ion-color-light);
+
+            ion-input {
+                font-size: 20px;
+                font-weight: bold;
+                --padding-end: 0px;
+                --padding-start: 0px;
+            }
         }
     }
 
@@ -25,10 +26,13 @@ ion-card {
         padding-top: 0px;
         padding-left: 20px;
         padding-right: 20px;
+        padding-bottom: 20px;
+
         p {
             color: var(--ion-color-light);
             font-size: larger;
         }
+
         ion-textarea {
             color: var(--ion-color-light);
             font-size: larger;
@@ -36,32 +40,37 @@ ion-card {
             --padding-end: 8px;
             --margin-bottom: 8px;
         }
-        ion-list {
+
+        ion-grid {
             margin-top: 6px;
             padding: 0px;
-            ion-row {
-                background: var(--ion-color-tertiary);
-            }
-        }
-        ion-item {
-            --background: var(--ion-color-tertiary);
-            --detail-icon-color: var(--ion-color-warning);
-            ion-label {
-                --color: var(--ion-color-light);
-                max-width: none;
-            }
-        }
-        ion-button {
-            --color: var(--ion-color-danger);
-            --background: var(--ion-color-tertiary);
-            --detail-icon-color: var(--ion-color-warning);
-            ion-badge {
-                color: var(--ion-color-light);
-            }
-            ion-icon {
-                color: var(--ion-color-light);
-            }
 
+            ion-row {
+                background: var(--ion-color-secondary);
+
+                ion-item {
+                    --background: var(--ion-color-secondary);
+
+                    ion-label {
+                        --color: var(--ion-color-tertiary);
+                        max-width: none;
+                    }
+                }
+
+                ion-badge {
+                    color: var(--ion-color-tertiary);
+                }
+
+                ion-button {
+                    --color: var(--ion-color-tertiary);
+
+                    ion-icon {
+                        color: var(--ion-color-dark);
+                    }
+                }
+            }
         }
+
+
     }
 }

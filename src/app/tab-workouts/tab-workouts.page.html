@@ -11,25 +11,22 @@
       #fabEdit id="fabEdit" >
 
     <ion-fab-button size="small"
-      color="tertiary"
+
       (click)="editWorkouts()">
-      <ion-icon name="settings-sharp"></ion-icon>
+      <ion-icon name="settings-sharp" ></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-list side="bottom" class="animated fadeInDown">
+    <ion-fab-list side="bottom" class="animated fadeInRight">
       <ion-fab-button size="small"
-        (click)="addWorkout($event)"
-        color="warning" >
-        <ion-icon name="add-circle-sharp"></ion-icon>
+        (click)="addWorkout($event)" >
+        <ion-icon name="add-circle-sharp" ></ion-icon>
       </ion-fab-button>
 
       <ion-fab-button size="small"
-        (click)="importWorkout($event)"
-        color="warning" >
+        (click)="importWorkout($event)" >
         <ion-icon name="cloud-download-sharp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-
 
   </ion-fab>
 
