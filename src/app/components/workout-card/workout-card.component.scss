@@ -43,13 +43,12 @@ ion-card {
                 background: var(--ion-color-tertiary);
             }
         }
-        ion-item {
+        ion-button {
+            --color: var(--ion-color-danger);
             --background: var(--ion-color-tertiary);
             --detail-icon-color: var(--ion-color-warning);
-            ion-label {
-                color: var(--ion-color-light);
-            }
-            ion-badge {
+            
+            ion-icon {
                 color: var(--ion-color-light);
             }
 

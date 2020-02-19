@@ -33,12 +33,13 @@
           *ngFor="let day of workout.days; let i = index;">
         <ion-button fill="clear"
           (click)="goToWorkoutDay(day)">
-          <ion-badge slot="start">Day {{ i+1 }}</ion-badge>
+          <ion-icon slot="start" name="today-sharp"></ion-icon>
+          {{ i + 1 }}
         </ion-button>
       </ion-col>
       </ion-row>
       <ion-item *ngIf="IsEditMode">
-        <ion-badge slot="start">{{ daysCount }} Days</ion-badge>
+        <ion-badge slot="icon-only">{{ daysCount }} Days</ion-badge>
         <ion-button fill="clear" color="light" slot="end"
             (click)="deleteWorkout()">
             <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
