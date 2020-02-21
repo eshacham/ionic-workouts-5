@@ -32,11 +32,11 @@
 * {
     --ion-font-family: 'Rubik';
 }
-
+ion-slides {
+    --bullet-background-active: var(--ion-color-primary)!important;
+}
 .swiper-pagination {
-    color: var(--ion-color-light);
-    font-size: 14px;
-    bottom: 4px!important;
+    bottom: 6px!important;
 }
 ion-toolbar {
     --background: var(--ion-color-secondary);
@@ -50,7 +50,7 @@ ion-popover {
     --background: var(--ion-color-light)!important;
 }
 ion-alert {
-    --background: var(--ion-color-warning)!important;
+    --background: var(--ion-color-light)!important;
 }
 .editInputSec {
     --background: rgba(var(--ion-color-secondary-rgb), 0.125);
