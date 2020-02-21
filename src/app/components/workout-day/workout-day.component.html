@@ -10,11 +10,11 @@
       (change)="workoutDayChanged()">
     </ion-input>
   </ion-item>
+
   <ion-list lines="none">
     <ion-reorder-group [disabled]="IsDisplayOrWorkout || exerciseSets.length < 2"
       (ionItemReorder)="reorderItems($event)">
-      <ion-item *ngFor="let exerciseSet of exerciseSets; let i = index"
-          class="exercise-thumbnail-ion-item">
+      <ion-item *ngFor="let exerciseSet of exerciseSets; let i = index">
         <app-exercise-thumbnail #exerciseSetComponent
           [exerciseSetId]="exerciseSet"
           [dayId]=dayId
