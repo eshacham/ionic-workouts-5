@@ -1,18 +1,18 @@
 import { Store } from '@ngrx/store';
-import { IonFab, PopoverController, IonList } from '@ionic/angular';
+import { IonFab, IonList } from '@ionic/angular';
 import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { WorkoutBean } from '../models/Workout';
 import { DisplayMode } from '../models/enums';
 import { IAppState } from '../store/state/app.state';
-import { AddWorkout } from '../store/actions/workouts.actions';
+import { AddWorkout, ImportWorkout } from '../store/actions/workouts.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UpdateWorkouts } from '../store/actions/data.actions';
 import { getWorkouts } from '../store/selectors/workouts.selectors';
 import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
-import { WorkoutSelectionPopoverComponent } from '../components/workout-selection-popover/workout-selection-popover.component';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -34,7 +34,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   constructor(
     loggingService: LoggingService,
     private store: Store<IAppState>,
-    private popoverCtrl: PopoverController,
+    private alertController: AlertController,
   ) {
     this.logger = loggingService.getLogger('App.TabWorkoutsPage');
   }
@@ -88,24 +88,46 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
       const items = this.list.nativeElement.children;
       const newWorkout = items[this.workouts.length - 1];
       if (newWorkout) {
-         newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 1);
   }
 
-  async importWorkout(event: any) {
-    event.stopPropagation();
-    await this.presentPopover(event);
+  async importWorkout() {
+    await this.presentAlertPrompt();
   }
 
-  async presentPopover(event: Event) {
-    const popover = await this.popoverCtrl.create({
-      component: WorkoutSelectionPopoverComponent,
-      event,
-      componentProps: {
-        workouts: this.workouts
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      header: 'Import workout',
+      subHeader: 'Type the key of the workout to be imported',
+      inputs: [{
+        name: 'workoutId',
+        type: 'text',
+        placeholder: 'Workout Key'
+      },
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.logger.debug('presentAlertPrompt', 'import cancelled');
+        }
+      }, {
+        text: 'Import',
+        handler: (data) => {
+          if (data.workoutId) {
+            this.logger.debug('presentAlertPrompt', 'importing', data.workoutId);
+            this.store.dispatch(new ImportWorkout({ workoutId: data.workoutId }));
+          } else {
+            return false;
+          }
+        }
       }
+      ]
     });
-    popover.present();
+
+    await alert.present();
   }
 }
