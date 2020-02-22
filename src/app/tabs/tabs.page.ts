@@ -54,8 +54,10 @@ export class TabsPage implements OnInit, OnDestroy {
       .subscribe((error) => {
         if (error) {
           this.logger.debug('ngOnInit', 'etError:', error);
-          if (this.loading) { this.loadingController.dismiss(); }
-          this.toastService.presentToast(error, 'danger');
+          if (this.loading) {
+            this.loadingController.dismiss();
+          }
+          this.toastService.presentToast(error, true);
           this.store.dispatch(new ClearError());
         }
       });
@@ -66,10 +68,12 @@ export class TabsPage implements OnInit, OnDestroy {
         this.logger.debug('ngOnInit', 'getWorkoutExportInProgress', exportInProgress);
         if (this.exportHasStarted && !exportInProgress) {
           this.loadingController.dismiss();
-          this.toastService.presentToast('Export workout has completed!');
+          this.toastService.presentToast('Export workout has completed!', false);
         }
         this.exportHasStarted = exportInProgress;
-        if (this.exportHasStarted) { this.presentBusy('Exporting Workout...'); }
+        if (this.exportHasStarted) {
+          this.presentBusy('Exporting Workout...');
+        }
       });
 
     this.store.select(getWorkoutImportInProgress)
@@ -78,10 +82,12 @@ export class TabsPage implements OnInit, OnDestroy {
         this.logger.debug('ngOnInit', 'getWorkoutImportInProgress', importInProgress);
         if (this.importHasStarted && !importInProgress) {
           this.loadingController.dismiss();
-          this.toastService.presentToast('Import workout has completed!');
+          this.toastService.presentToast('Import workout has completed!', false);
         }
         this.importHasStarted = importInProgress;
-        if (this.importHasStarted) { this.presentBusy('Importing Workout...'); }
+        if (this.importHasStarted) {
+          this.presentBusy('Importing Workout...');
+        }
       });
   }
 

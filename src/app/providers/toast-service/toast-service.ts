@@ -8,13 +8,27 @@ export class ToastService {
 
   constructor(private toastController: ToastController) { }
 
-  async presentToast(text: string, color: string = 'warning') {
-    const toast = await this.toastController.create({
+  async presentToast(text: string, isError: boolean) {
+    let toast: HTMLIonToastElement;
+    if (!isError) {
+      toast = await this.toastController.create({
         message: text,
-        position: 'bottom',
+        position: 'middle',
         duration: 3000,
-        color,
-    });
+      })
+    } else {
+      toast = await this.toastController.create({
+        message: text,
+        position: 'middle',
+        buttons: [{
+            text: 'Ok',
+            role: 'cancel',
+            handler: () => {
+            }
+          }
+        ]
+      })
+    }
     toast.present();
   }
 }
