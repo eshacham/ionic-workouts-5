@@ -5,13 +5,12 @@
         </ion-buttons>
     <ion-title>Muscles</ion-title>
   </ion-toolbar>
+
   <ion-toolbar id="second" >
-      <ion-title *ngIf="isSettingMedia"
-        color="light" >
+      <ion-title *ngIf="isSettingMedia">
         {{mediaToSet}}
       </ion-title>
-      <ion-title *ngIf="!isSettingMedia"
-        color="light" >
+      <ion-title *ngIf="!isSettingMedia">
         Filter Exercises
       </ion-title>
   </ion-toolbar>
@@ -53,13 +52,14 @@
 </ion-content>
 
 <ion-footer>
-  <ion-row class="ion-text-center">
-  <ion-col *ngFor="let group of muscleGroups">
-    <ion-button color="primary"
-                [fill]="getButtonFill(group)" size="small"
-                (click)="toggleMuscle(group)">
-        <ion-label>{{group.name}}</ion-label>
-    </ion-button>
-  </ion-col>
-</ion-row>
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col *ngFor="let group of muscleGroups">
+        <ion-button [fill]="getButtonFill(group)" size="small"
+                    (click)="toggleMuscle(group)">
+            <ion-label>{{group.name}}</ion-label>
+        </ion-button>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
 </ion-footer>

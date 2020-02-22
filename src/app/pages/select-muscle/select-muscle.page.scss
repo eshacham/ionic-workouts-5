@@ -1,21 +1,26 @@
 
 ion-toolbar#second {
     --background: var(--ion-color-tertiary);
+    ion-title {
+        color: var(--ion-color-light);
+    }
 }
 
 ion-content {
-    --background: var(--ion-color-tertiary);
-    --padding-end: 8px;
-    --padding-start: 8px;
+    --background: var(--ion-color-primary);
 }
 
 ion-footer {
     background: var(--ion-color-tertiary);
+    ion-grid {
+        background: var(--ion-color-primary);
+
+    }
     ion-col {
-        background: var(--ion-color-tertiary);
         ion-button {
             margin: 0px;
             padding: 0px;
+            --border-color: var(--ion-color-tertiary);
             ion-label {
                 color: var(--ion-color-light);
             }

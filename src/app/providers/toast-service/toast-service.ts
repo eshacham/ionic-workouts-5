@@ -8,7 +8,7 @@ export class ToastService {
 
   constructor(private toastController: ToastController) { }
 
-  async presentToast(text: string, isError: boolean) {
+  async presentToast(text: string, isError: boolean = false) {
     let toast: HTMLIonToastElement;
     if (!isError) {
       toast = await this.toastController.create({
