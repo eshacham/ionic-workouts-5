@@ -31,6 +31,7 @@ interface SelectedExerciseMedia {
 })
 export class SelectExercisePage implements OnInit, OnDestroy {
   private logger: Logger;
+  isNameInEditMode = false;
 
   workoutId?: string;
   isSet = false;

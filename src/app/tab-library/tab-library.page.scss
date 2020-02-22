@@ -7,11 +7,15 @@ ion-toolbar#buttons {
         ion-toggle {
             padding-right: 4px;
         }
+        ion-label {
+            color: var(--ion-color-light);
+            font-size: large;
+        }
         ion-button {
             --background: var(--ion-color-tertiary);
             --color: var(--ion-color-primary);
             ion-label {
-                --color: var(--ion-color-light);
+                color: var(--ion-color-light);
             }
             ion-badge {
                 --padding-start: 4px;

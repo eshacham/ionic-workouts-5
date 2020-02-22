@@ -3,26 +3,31 @@
     <ion-title>Select Exercise</ion-title>
   </ion-toolbar>
 
-  <ion-toolbar id="second">
+  <ion-toolbar id="buttons">
 
-    <ion-buttons slot="start">
-      <ion-item lines="none">
-        <ion-label >Filter by Muscles</ion-label>
-        <ion-checkbox [(ngModel)]="useFilter" color="primary">
-        </ion-checkbox>
-      </ion-item>
-    </ion-buttons>
+    <ion-item lines="none" >
+      <ion-toggle [(ngModel)]="useFilter" slot="start" >
+      </ion-toggle>
 
-    <ion-buttons slot="end">
-      <ion-button [disabled]="!useFilter" fill="clear"
-        (click)="selectMuscle()" color="light">
-        <ion-icon slot="end" name="body-sharp"></ion-icon>
-        <ion-badge slot="end">{{filteredMusclesCount}}</ion-badge>
-        Select Muscles
-      </ion-button>
-    </ion-buttons>
+      <ion-button slot="start"
+        [disabled]="!useFilter" fill="clear"
+        (click)="selectMuscle()">
+        <ion-label slot="start">
+          Filter by
+        </ion-label>
+        <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
+        <ion-badge slot="start">
+          {{filteredMusclesCount}}
+        </ion-badge>
+        <ion-label slot="end">
+          Muscles
+        </ion-label>
+    </ion-button>
 
-  </ion-toolbar>
+    </ion-item>
+
+</ion-toolbar>
+
 </ion-header>
 
 <ion-content>
@@ -30,14 +35,20 @@
   <ion-list lines="none">
 
     <ion-item *ngFor="let img of getFilteredImages()">
-      <ion-grid>
+      <ion-grid class="ion-no-padding">
         <ion-row>
           <ion-col class="ion-text-center">
-            <ion-input type='text' class="ion-text-wrap editInputSec"
-              [ngModel]="img.media.name"
-              placeholder="Exercise Name"
-              (change)="setImageName($event.target.value, img)">
+            <ion-input *ngIf="!isNameInEditMode"
+              [ngModel]="img.newName || img.media.name" (ionFocus)="isNameInEditMode = true">
             </ion-input>
+            <ion-textarea *ngIf="isNameInEditMode" (ionBlur)="isNameInEditMode = false"
+              type="text" autoGrow="true" rows=1
+              required="true" maxlength="64"
+              [ngModel]="img.newName || img.media.name"
+              placeholder="Enter exercise name here..."
+              class="editInputSec ion-text-center"
+              (change)="setImageName($event.target.value, img)">
+            </ion-textarea>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -56,32 +67,29 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar id="second">
+  <ion-toolbar id="buttons">
 
-    <ion-buttons slot="start">
+    <ion-button fill="clear" expand="full" >
 
-      <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear"
-        (click)="addExercise()"
+      <ion-button *ngIf="!haveWorkoutsBeenReset" fill="clear" slot="start"
+        (click)="addExercise()" expand="full"
         [disabled]="isAddExerciseDisabled">
         <ion-icon slot="start" name="add-circle-sharp"></ion-icon>
-        Add Exercise(s)
+        <ion-label slot="start">Add Exercise(s)</ion-label>
       </ion-button>
 
-      <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear"
+      <ion-button *ngIf="haveWorkoutsBeenReset" fill="clear" slot="start"
         (click)="goBack()">
         <ion-icon slot="start" name="arrow-back-sharp"></ion-icon>
-        Back to Workouts
+        <ion-label slot="start">Back to Workouts</ion-label>
       </ion-button>
 
-    </ion-buttons>
+      <ion-toggle [(ngModel)]="isSet" slot="end" >
+      </ion-toggle>
+      <ion-label slot="start">Superset</ion-label>
 
-    <ion-buttons slot="end">
-      <ion-item lines="none">
-        <ion-label color="light">As a Superset</ion-label>
-        <ion-checkbox [(ngModel)]="isSet" color="primary">
-        </ion-checkbox>
-      </ion-item>
-    </ion-buttons>
+    </ion-button>
 
-  </ion-toolbar>
+</ion-toolbar>
+
 </ion-footer>

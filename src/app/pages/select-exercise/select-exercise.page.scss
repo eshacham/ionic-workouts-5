@@ -1,43 +1,105 @@
-ion-toolbar#second {
-    --background: var(--ion-color-tertiary);
-    ion-item {
-        padding-bottom: 0px;
-        ion-label {
-            padding-left: 4px;
-            color: var(--ion-color-light);
-        }
-        ion-checkbox {
-            --background: var(--ion-color-primary)
+ion-header {
+    ion-toolbar#buttons {
+        --background: var(--ion-color-tertiary);
+
+        ion-item {
+            --padding-start: 8px;
+            --ion-background-color: var(--ion-color-tertiary);
+
+            ion-toggle {
+                padding-right: 4px;
+            }
+
+            ion-label {
+                color: var(--ion-color-light);
+                font-size: large;
+            }
+
+            ion-button {
+                --background: var(--ion-color-tertiary);
+                --color: var(--ion-color-primary);
+
+                ion-label {
+                    color: var(--ion-color-light);
+                }
+
+                ion-badge {
+                    --padding-start: 4px;
+                    --padding-end: 4px;
+                    margin-left: 4px;
+                    margin-right: 4px;
+                    --background: var(--ion-color-primary);
+                }
+            }
         }
     }
 }
+
+ion-footer {
+    ion-toolbar#buttons {
+        --background: var(--ion-color-tertiary);
+
+        ion-button {
+            ion-label {
+                color: var(--ion-color-light);
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
 ion-list {
-    margin: 8px;
+    margin-top: 0px;
+    margin-right: 8px;
+    margin-bottom: 0px;
+    margin-left: 8px;
     background: var(--ion-color-tertiary);
-}
-ion-item {
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 12px;
-    --background: var(--ion-color-tertiary);
-    --inner-padding-end: 0px;
-    --padding-start: 0px;
-    ion-grid {
-        background: var(--ion-color-primary);
-        border-radius: 4px;
-        ion-row {
-            padding-left:20px;
-            padding-right:20px;
+
+    ion-item {
+        margin-top: 8px;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --inner-padding-end: 0px;
+        --ion-background-color: var(--ion-color-primary);
+        --border-width: 2px;
+        --border-radius: 10px;
+        --border-style: solid;
+        --border-color: var(--ion-color-tertiary);
+
+        ion-grid {
+            margin: 10px;
+            ion-row {
+                ion-item {
+                    width: 100%;
+                    --background: var(--ion-color-secondary);
+                    margin-top: 0px;
+                    img {
+                        width: auto;
+                        max-height: 80px;
+                        margin-top: 0px;
+                        margin-bottom: 0px;
+                    }
+                }
+            }
         }
     }
 }
+
 ion-input {
-    font-size: 14px;
     color: var(--ion-color-light);
+    text-align: center;
+    --padding-end: 0px;
+
+    input {
+        margin: 4px !important;
+    }
 }
-img {
-    height: 80px;
-    width: 80px;
-    margin: 0px;
+
+ion-textarea {
+    --color: var(--ion-color-light);
+    margin-bottom: 4px;
+    --padding-top: 4px;
+    --padding-bottom: 4px;
+    --padding-end: 4px;
+    --padding-start: 4px !important;
 }
