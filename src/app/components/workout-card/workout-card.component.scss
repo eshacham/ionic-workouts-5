@@ -47,7 +47,17 @@ ion-card {
 
             ion-row {
                 background: var(--ion-color-secondary);
-
+                &.allRound {
+                    border-radius: 8px;
+                }
+                &.topRound {
+                    border-top-left-radius: 8px;;
+                    border-top-right-radius: 8px;;
+                }
+                &.bottomRound {
+                    border-bottom-left-radius: 8px;;
+                    border-bottom-right-radius: 8px;;
+                }
                 ion-item {
                     --background: var(--ion-color-secondary);
 
@@ -62,8 +72,17 @@ ion-card {
                 }
 
                 ion-button {
-                    --color: var(--ion-color-tertiary);
-
+                    --background: var(--ion-color-secondary);
+                    --color: var(--ion-color-dark);
+                    &.tall {
+                        height: 36px;
+                        --border-color: var(--ion-color-tertiary);
+                        --color: var(--ion-color-light);
+                        --background: var(--ion-color-primary);
+                        ion-icon {
+                            color: var(--ion-color-light);
+                        }
+                    }
                     ion-icon {
                         color: var(--ion-color-dark);
                     }

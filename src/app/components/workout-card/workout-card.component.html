@@ -27,17 +27,17 @@
     </ion-textarea>
 
     <ion-grid *ngIf="daysCount">
-      <ion-row *ngIf="IsDisplayMode" >
+      <ion-row *ngIf="IsDisplayMode" class="allRound">
         <ion-col class="ion-text-center"
           *ngFor="let day of workout.days; let i = index;">
-          <ion-button fill="clear"
+          <ion-button fill="outline" class="tall"
             (click)="goToWorkoutDay(day)">
-            <ion-icon slot="start" name="today-sharp"></ion-icon>
+            <ion-icon slot="start" name="today-outline"></ion-icon>
               {{ i + 1 }}
           </ion-button>
       </ion-col>
       </ion-row>
-      <ion-row *ngIf="IsEditMode" class="ion-align-items-center">
+      <ion-row *ngIf="IsEditMode" class="ion-align-items-center topRound">
 
         <ion-col class="ion-text-center">
           <ion-badge>{{ daysCount }} Days</ion-badge>
@@ -60,9 +60,9 @@
         </ion-col>
 
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="IsEditMode" class="bottomRound">
         <ion-col>
-          <ion-item *ngIf="IsEditMode">
+          <ion-item>
             <ion-label><small>{{workoutId}}</small></ion-label>
             <ion-button *ngIf="dataService.isMobile"
               fill="clear" slot="end"
