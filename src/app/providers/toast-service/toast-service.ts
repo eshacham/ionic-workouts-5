@@ -13,13 +13,13 @@ export class ToastService {
     if (!isError) {
       toast = await this.toastController.create({
         message: text,
-        position: 'middle',
+        position: 'top',
         duration: 3000,
       })
     } else {
       toast = await this.toastController.create({
         message: text,
-        position: 'middle',
+        position: 'top',
         buttons: [{
             text: 'Ok',
             role: 'cancel',
