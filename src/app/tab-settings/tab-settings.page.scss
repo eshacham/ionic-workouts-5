@@ -1,34 +1,54 @@
 ion-toolbar#second {
     --background: var(--ion-color-tertiary);
 }
+
 ion-list {
     padding: 0px;
     margin-left: 10px;
     margin-top: 1px;
     margin-right: 10px;
     margin-bottom: 5px;
-}
-ion-radio-group {
-    ion-label {
-        color: var(--ion-color-light)!important;
+
+    ion-radio-group {
+        ion-label {
+            color: var(--ion-color-light) !important;
+        }
+    }
+
+    ion-item {
+        --background: var(--ion-color-primary);
+        --background-hover: var(--ion-color-danger);
+
+        ion-radio {
+            --color-checked: var(--ion-color-tertiary);
+            --color: var(--ion-color-light);
+        }
+        ion-button {
+            --color: var(--ion-color-light);
+            width: 100%;
+            ion-label {
+                font-size: medium;
+                margin: 10px;
+            }
+            ion-icon {
+                color: var(--ion-color-danger);
+            }
+        }
     }
 }
-ion-item {
-    --background: var(--ion-color-primary);
-    --background-hover: var(--ion-color-danger);
-}
-ion-radio {
-    --color-checked: var(--ion-color-dark);
-    --color: var(--ion-color-light);
-}
+
 img {
     max-height: 100%;
 }
-ion-segment {
-    background: var(--ion-color-primary);
-    ion-segment-button {
-        --background-checked: var(--ion-color-primary-tint);
-        --color: var(--ion-color-tertiary);
-        --color-checked: var(--ion-color-tertiary);
+
+ion-toolbar {
+    ion-segment {
+        background: var(--ion-color-primary);
+
+        ion-segment-button {
+            --background-checked: var(--ion-color-primary-tint);
+            --color: var(--ion-color-tertiary);
+            --color-checked: var(--ion-color-tertiary);
+        }
     }
 }
