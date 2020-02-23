@@ -27,49 +27,47 @@
     </ion-textarea>
 
     <ion-grid *ngIf="daysCount">
-      <ion-row *ngIf="IsDisplayMode" class="allRound">
-        <ion-col class="ion-text-center"
-          *ngFor="let day of workout.days; let i = index;">
-          <ion-button fill="outline" class="tall"
+      <ion-row *ngIf="IsDisplayMode" class="allRound ion-text-center">
+        <ion-col *ngFor="let day of workout.days; let i = index;">
+          <ion-button fill="outline" class="days"
             (click)="goToWorkoutDay(day)">
-            <ion-icon slot="start" name="today-outline"></ion-icon>
-              {{ i + 1 }}
+              DAY {{ i + 1 }}
           </ion-button>
       </ion-col>
       </ion-row>
-      <ion-row *ngIf="IsEditMode" class="ion-align-items-center topRound">
+      <ion-row *ngIf="IsEditMode"
+        class="ion-align-items-center topRound">
 
-        <ion-col class="ion-text-center">
-          <ion-badge>{{ daysCount }} Days</ion-badge>
+        <ion-col class="ion-text-start ion-align-items-center">
+          <ion-badge>{{ daysCount }} DAYS</ion-badge>
         </ion-col>
 
         <ion-col class="ion-text-center">
-          <ion-button fill="clear"
+          <ion-button fill="clear" class="noPadding"
             (click)="exportWorkout()">
             <ion-icon slot="icon-only" name="cloud-upload-sharp"></ion-icon>
         </ion-button>
 
         </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-button fill="clear"
+        <ion-col class="ion-text-end">
+          <ion-button fill="clear" class="noPadding"
             (click)="deleteWorkout()">
-            <ion-icon slot="icon-only"
-              name="trash-sharp" >
+            <ion-icon slot="icon-only" name="trash-sharp" >
             </ion-icon>
         </ion-button>
         </ion-col>
 
       </ion-row>
-      <ion-row *ngIf="IsEditMode" class="bottomRound">
-        <ion-col>
-          <ion-item>
-            <ion-label><small>{{workoutId}}</small></ion-label>
-            <ion-button *ngIf="dataService.isMobile"
-              fill="clear" slot="end"
-              (click)="copyWorkoutId()">
-              <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
-            </ion-button>
-          </ion-item>
+      <ion-row *ngIf="IsEditMode"
+        class="bottomRound ion-align-items-center">
+        <ion-col class="ion-text-start">
+          <ion-label><small>{{workoutId}}</small></ion-label>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-button class="noPadding"
+            fill="clear" (click)="copyWorkoutId()">
+            <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
 

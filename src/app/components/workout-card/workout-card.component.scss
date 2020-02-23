@@ -58,30 +58,33 @@ ion-card {
                     border-bottom-left-radius: 8px;;
                     border-bottom-right-radius: 8px;;
                 }
-                ion-item {
+                ion-col {
                     --background: var(--ion-color-secondary);
-
+                    padding-right: 10px;
+                    padding-left: 10px;
                     ion-label {
                         --color: var(--ion-color-tertiary);
                         max-width: none;
+                    }
+                    ion-button.noPadding {
+                        --padding-end: 0px;
+                        --padding-start: 0px;
                     }
                 }
 
                 ion-badge {
                     color: var(--ion-color-tertiary);
+                    margin-top: 4px;
                 }
 
                 ion-button {
                     --background: var(--ion-color-secondary);
                     --color: var(--ion-color-dark);
-                    &.tall {
-                        height: 36px;
+                    &.days {
                         --border-color: var(--ion-color-tertiary);
+                        --border-radius: 0px;
                         --color: var(--ion-color-light);
                         --background: var(--ion-color-primary);
-                        ion-icon {
-                            color: var(--ion-color-light);
-                        }
                     }
                     ion-icon {
                         color: var(--ion-color-dark);
