@@ -104,15 +104,12 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     }
   }
 
+
   workoutDayChanged() {
     this.store.dispatch(new UpdateWorkoutDay({
       dayId: this.dayId,
       name: this.name
     }));
-  }
-
-  async saveChanges() {
-    this.store.dispatch(new UpdateWorkouts());
   }
 
   reorderItems(event: CustomEvent<ItemReorderEventDetail>) {

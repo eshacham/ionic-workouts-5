@@ -23,6 +23,7 @@ import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { Guid } from 'guid-typescript';
 import { DisplayMode } from 'src/app/models/enums';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 
 @Component({
   selector: 'app-workout-days',
@@ -179,6 +180,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   private async addWorkoutDay(event: any) {
+    event.stopPropagation();
     const newId = Guid.raw();
     const newDay = new WorkoutDayBean({
       id: newId,
@@ -203,17 +205,17 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
         await this.slides.slideTo(this.days.length - 1);
       }
     }
-    event.stopPropagation();
+
   }
 
   async deleteWorkoutDay(event) {
+    event.stopPropagation();
     this.store.dispatch(new DeleteWorkoutDay({
       dayId: this.activeDayId,
     }));
     // this.cdr.detectChanges();
     await this.slides.update();
 
-    event.stopPropagation();
   }
 
   moveForwardWorkoutDay(event: any) {
@@ -230,12 +232,15 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     return this.days.findIndex(day => day === id);
   }
 
-  startWorkoutToggler() {
+  async startWorkoutToggler() {
     switch (this.DisplayMode) {
       case DisplayMode.Display:
       case DisplayMode.Edit:
+        if (this.DisplayMode === DisplayMode.Edit) {
+          this.store.dispatch(new UpdateWorkouts());
+        }
+        await this.fabEdit.close();
         this.DisplayMode = DisplayMode.Workout;
-        this.fabEdit.close();
         this.store.dispatch(new StartFirstExercise({
           id: this.activeDayId,
         }));
@@ -289,8 +294,8 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   selectExerciseToAdd(event: any) {
-    this.router.navigate(['select-exercise'], { relativeTo: this.route });
     event.stopPropagation();
+    this.router.navigate(['select-exercise'], { relativeTo: this.route });
   }
 
 }
