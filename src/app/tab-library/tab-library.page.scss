@@ -57,6 +57,11 @@ ion-list {
                 --padding-start: 0px;
                 --color: var(--ion-color-light);
 
+                p {
+                    font-size: medium;
+                    margin-top: 4px;
+                    margin-bottom: 4px;
+                }
                 ion-item {
                     width: 100%;
                     --background: var(--ion-color-secondary);
@@ -92,26 +97,6 @@ ion-list {
         }
     }
 }
-
-ion-input {
-    color: var(--ion-color-light);
-    text-align: center;
-    --padding-end: 0px;
-
-    input {
-        margin: 4px !important;
-    }
-}
-
-ion-textarea {
-    --color: var(--ion-color-light);
-    margin-bottom: 4px;
-    --padding-top: 4px;
-    --padding-bottom: 4px;
-    --padding-end: 4px;
-    --padding-start: 4px !important;
-}
-
 
 ion-toolbar#toolbarInFooter {
     --background: var(--ion-color-tertiary);

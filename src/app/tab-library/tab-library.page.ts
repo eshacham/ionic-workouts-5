@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, IonList } from '@ionic/angular';
+import { ActionSheetController, IonList, AlertController } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { ExerciseMediaBean } from '../models/ExerciseMedia';
@@ -41,7 +41,6 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  isNameInEditMode = false;
   exerciseMediaWithUsage: ExerciseMediaWithUsage[];
   get images(): ExerciseMediaWithUsage[] {
     return this.exerciseMediaWithUsage;
@@ -78,6 +77,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataServiceProvider,
+    private alertController: AlertController,
+
     private store: Store<IAppState>) {
     this.exerciseMediaWithUsage = [];
     this.logger = loggingService.getLogger('App.TabLibraryPage');
@@ -280,6 +281,46 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       return (intersection.length > 0);
     });
     return images;
+  }
+
+  editImageName(event: any, img: ExerciseMediaWithUsage) {
+    event.stopPropagation();
+    this.presentAlertPrompt(img);
+  }
+
+  async presentAlertPrompt(img: ExerciseMediaWithUsage) {
+    const alert = await this.alertController.create({
+      header: 'Edit Name',
+      inputs: [{
+        name: 'text',
+        id: 'text',
+        type: 'textarea',
+        value: img.media.name,
+        placeholder: 'Enter media name here...'
+      },
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.logger.debug('presentAlertPrompt', 'edit cancelled');
+        }
+      }, {
+        text: 'Save',
+        handler: (data) => {
+          if (data.text) {
+            this.logger.debug('presentAlertPrompt', 'saving text', data.text);
+            this.updateImage(data.text, img.media);
+          } else {
+            return false;
+          }
+        }
+      }
+      ]
+    });
+
+    alert.present();
   }
 
 }

@@ -36,19 +36,16 @@
 
     <ion-item *ngFor="let img of filteredImages">
       <ion-grid>
-        <ion-row>
+        <ion-row class="ion-align-items-center">
           <ion-col size="9">
-            <ion-input *ngIf="!isNameInEditMode"
-              [ngModel]="img.media.name" (ionFocus)="isNameInEditMode = true">
-            </ion-input>
-            <ion-textarea *ngIf="isNameInEditMode" (ionBlur)="isNameInEditMode = false"
-              type="text" autoGrow="true" rows=1
-              required="true" maxlength="64"
-              [ngModel]="img.media.name"
-              placeholder="Enter exercise name here..."
-              class="editInputSec ion-text-center"
-              (change)="updateImage($event.target.value, img.media)">
-            </ion-textarea>
+
+            <ion-button fill="outline" expand="full"
+              (click)="editImageName($event, img)">
+              <p class="ion-text-wrap">
+                {{img.media.name}}
+              </p>
+            </ion-button>
+
           </ion-col>
           <ion-col size="3">
             <ion-button fill="clear" (click)="setMuscle(img.media)">
