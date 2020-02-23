@@ -64,7 +64,7 @@
           <ion-label><small>{{workoutId}}</small></ion-label>
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-button class="noPadding"
+          <ion-button class="noPadding" [disabled]="!dataService.isMobile"
             fill="clear" (click)="copyWorkoutId()">
             <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
           </ion-button>

@@ -7,11 +7,9 @@
 <ion-content>
 
   <ion-fab slot="fixed" edge="true"
-    vertical="top" horizontal="end"
-      #fabEdit id="fabEdit" >
+    vertical="top" horizontal="end" >
 
     <ion-fab-button size="small"
-
       (click)="editWorkouts()">
       <ion-icon name="settings-sharp" ></ion-icon>
     </ion-fab-button>
@@ -23,7 +21,7 @@
       </ion-fab-button>
 
       <ion-fab-button size="small"
-        (click)="importWorkout()" >
+        (click)="importWorkout($event)" >
         <ion-icon name="cloud-download-sharp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

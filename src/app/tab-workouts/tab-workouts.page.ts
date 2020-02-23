@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { IonFab, IonList } from '@ionic/angular';
+import { IonList } from '@ionic/angular';
 import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { WorkoutBean } from '../models/Workout';
 import { DisplayMode } from '../models/enums';
@@ -22,7 +22,6 @@ import { AlertController } from '@ionic/angular';
 export class TabWorkoutsPage implements OnInit, OnDestroy {
   private logger: Logger;
 
-  @ViewChild('fabEdit', { static: true }) fabEdit: IonFab;
   @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
 
   workouts: WorkoutBean[];
@@ -77,7 +76,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     }
   }
 
-  async addWorkout(event: any) {
+  addWorkout(event: any) {
     event.stopPropagation();
     const newWorkoutId = Guid.raw();
     const newDayId = Guid.raw();
@@ -88,13 +87,14 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
       const items = this.list.nativeElement.children;
       const newWorkout = items[this.workouts.length - 1];
       if (newWorkout) {
-        newWorkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        newWorkout.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
     }, 1);
   }
 
-  async importWorkout() {
-    await this.presentAlertPrompt();
+  importWorkout(event: any) {
+    event.stopPropagation();
+    this.presentAlertPrompt();
   }
 
   async presentAlertPrompt() {
@@ -128,6 +128,6 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
       ]
     });
 
-    await alert.present();
+    alert.present();
   }
 }
