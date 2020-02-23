@@ -38,17 +38,14 @@
       <ion-grid class="ion-no-padding">
         <ion-row>
           <ion-col class="ion-text-center">
-            <ion-input *ngIf="!isNameInEditMode"
-              [ngModel]="img.newName || img.media.name" (ionFocus)="isNameInEditMode = true">
-            </ion-input>
-            <ion-textarea *ngIf="isNameInEditMode" (ionBlur)="isNameInEditMode = false"
-              type="text" autoGrow="true" rows=1
-              required="true" maxlength="64"
-              [ngModel]="img.newName || img.media.name"
-              placeholder="Enter exercise name here..."
-              class="editInputSec ion-text-center"
-              (change)="setImageName($event.target.value, img)">
-            </ion-textarea>
+
+            <ion-button fill="outline" expand="full"
+              (click)="editImageName($event, img)">
+              <p class="ion-text-wrap">
+                {{img.media.name}}
+              </p>
+            </ion-button>
+
           </ion-col>
         </ion-row>
         <ion-row>

@@ -17,10 +17,10 @@ import { AddExerciseSets } from 'src/app/store/actions/exerciseSets.actions';
 import { getExercisesMedias } from 'src/app/store/selectors/ExercisesMedia.selectors';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
+import { AlertController } from '@ionic/angular';
 
 interface SelectedExerciseMedia {
   isSelected: boolean;
-  newName?: string;
   media: ExerciseMediaBean;
 }
 
@@ -31,7 +31,6 @@ interface SelectedExerciseMedia {
 })
 export class SelectExercisePage implements OnInit, OnDestroy {
   private logger: Logger;
-  isNameInEditMode = false;
 
   workoutId?: string;
   isSet = false;
@@ -45,7 +44,10 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     private router: Router,
     private dataService: DataServiceProvider,
     private route: ActivatedRoute,
-    private store: Store<IAppState>) {
+    private store: Store<IAppState>,
+    private alertController: AlertController,
+
+    ) {
     this.logger = loggingService.getLogger('App.SelectExercisePage');
     this.selectedExerciseMedia = [];
   }
@@ -91,7 +93,8 @@ export class SelectExercisePage implements OnInit, OnDestroy {
         this.images = media.images.map((image: ExerciseMediaBean) => {
           return {
             isSelected: false,
-            media: image,
+            media: ExerciseMediaBean
+            .create(image.id, image.name, new Set(image.muscles)),
           };
         });
       });
@@ -144,7 +147,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
   }
 
   setImageName(value: string, image: SelectedExerciseMedia) {
-    image.newName = value;
+    image.media.name = value;
   }
 
   safeImage(media: ExerciseMediaBean): any {
@@ -193,7 +196,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
           this.lastSelectedWorkoutDayId,
           this.workoutId,
           image.media.id,
-          image.newName || image.media.name);
+          image.media.name);
       });
     return newExercises;
   }
@@ -222,4 +225,45 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     };
     this.router.navigate(['select-muscle'], extra);
   }
+
+  editImageName(event: any, img: SelectedExerciseMedia) {
+    event.stopPropagation();
+    this.presentAlertPrompt(img);
+  }
+
+  async presentAlertPrompt(img: SelectedExerciseMedia) {
+    const alert = await this.alertController.create({
+      header: 'Edit Name',
+      inputs: [{
+        name: 'text',
+        id: 'text',
+        type: 'textarea',
+        value: img.media.name,
+        placeholder: 'Enter exercise name here...'
+      },
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.logger.debug('presentAlertPrompt', 'edit cancelled');
+        }
+      }, {
+        text: 'Save',
+        handler: (data) => {
+          if (data.text) {
+            this.logger.debug('presentAlertPrompt', 'saving text', data.text);
+            this.setImageName(data.text, img);
+          } else {
+            return false;
+          }
+        }
+      }
+      ]
+    });
+
+    alert.present();
+  }
+
 }
