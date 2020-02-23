@@ -28,47 +28,46 @@ ion-card {
         padding-right: 20px;
         padding-bottom: 20px;
 
-        p {
-            color: var(--ion-color-light);
-            font-size: larger;
-        }
-
-        ion-textarea {
-            color: var(--ion-color-light);
-            font-size: larger;
-            --padding-start: 8px;
-            --padding-end: 8px;
-            --margin-bottom: 8px;
+        ion-button {
+            height: auto;
+            --padding-end: 0px;
+            --padding-start: 0px;
+            --border-color: var(--ion-color-tertiary);
+            p {
+                color: var(--ion-color-light);
+                font-size: larger;
+            }
         }
 
         ion-grid {
-            margin-top: 6px;
+            margin-top: 36px;
             padding: 0px;
 
             ion-row {
                 background: var(--ion-color-secondary);
+
                 &.allRound {
                     border-radius: 8px;
                 }
+
                 &.topRound {
-                    border-top-left-radius: 8px;;
-                    border-top-right-radius: 8px;;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
                 }
+
                 &.bottomRound {
-                    border-bottom-left-radius: 8px;;
-                    border-bottom-right-radius: 8px;;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
                 }
+
                 ion-col {
                     --background: var(--ion-color-secondary);
                     padding-right: 10px;
                     padding-left: 10px;
+
                     ion-label {
                         --color: var(--ion-color-tertiary);
                         max-width: none;
-                    }
-                    ion-button.noPadding {
-                        --padding-end: 0px;
-                        --padding-start: 0px;
                     }
                 }
 
@@ -80,19 +79,23 @@ ion-card {
                 ion-button {
                     --background: var(--ion-color-secondary);
                     --color: var(--ion-color-dark);
+
                     &.days {
                         --border-color: var(--ion-color-tertiary);
                         --border-radius: 0px;
                         --color: var(--ion-color-light);
                         --background: var(--ion-color-primary);
+                        --padding-top: 3px;
+                        --padding-bottom: 3px;
+                        --padding-start: 3px;
+                        --padding-end: 3px;
                     }
+
                     ion-icon {
                         color: var(--ion-color-dark);
                     }
                 }
             }
         }
-
-
     }
 }

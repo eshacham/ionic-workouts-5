@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators';
 import { DeleteWorkout, ExportWorkout, UpdateWorkout } from 'src/app/store/actions/workouts.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { SelectWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-workout-card',
@@ -34,6 +35,8 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
     private store: Store<IAppState>,
     private clipboard: Clipboard,
     private dataService: DataServiceProvider,
+    private alertController: AlertController,
+
     ) {
       this.logger = loggingService.getLogger('App.WorkoutCardComponent');
   }
@@ -95,6 +98,47 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
     if (this.dataService.isMobile) {
       this.clipboard.copy(this.workoutId);
     }
+  }
+
+  editDescription(event: any) {
+    event.stopPropagation();
+    this.presentAlertPrompt(this.description);
+  }
+
+  async presentAlertPrompt(inputText: string) {
+    const alert = await this.alertController.create({
+      header: 'Edit Description',
+      inputs: [{
+        name: 'text',
+        id: 'text',
+        type: 'textarea',
+        value: inputText,
+        placeholder: 'Enter workout description here...'
+      },
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.logger.debug('presentAlertPrompt', 'edit cancelled');
+        }
+      }, {
+        text: 'Save',
+        handler: (data) => {
+          if (data.text) {
+            this.logger.debug('presentAlertPrompt', 'saving text', data.text);
+            this.description = data.text;
+            this.workoutChanged();
+          } else {
+            return false;
+          }
+        }
+      }
+      ]
+    });
+
+    alert.present();
   }
 
 }

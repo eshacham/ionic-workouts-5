@@ -3,7 +3,6 @@
 
     <ion-card-title  class="ion-text-center">
       <ion-input [readonly]="IsDisplayMode" type="text"
-        [ngClass]="{ 'editInputSec': IsEditMode }"
         placeholder="Enter workout name here..."
         [(ngModel)]="name"
         (change)="workoutChanged()">
@@ -14,17 +13,13 @@
 
  <ion-card-content>
 
-    <p *ngIf="IsDisplayMode"
-      class="ion-text-wrap">
+  <ion-button [disabled]="IsDisplayMode"
+    fill="outline" expand="full"
+    (click)="editDescription($event)">
+    <p class="ion-text-wrap">
       {{description}}
     </p>
-    <ion-textarea *ngIf="IsEditMode" type="text"
-      class="ion-text-wrap editInputSec"
-      maxlength="256" autoGrow="true"
-      placeholder="Enter workout description here..."
-      [(ngModel)]="description"
-      (change)="workoutChanged()">
-    </ion-textarea>
+  </ion-button>
 
     <ion-grid *ngIf="daysCount">
       <ion-row *ngIf="IsDisplayMode" class="allRound ion-text-center">
@@ -43,14 +38,14 @@
         </ion-col>
 
         <ion-col class="ion-text-center">
-          <ion-button fill="clear" class="noPadding"
+          <ion-button fill="clear"
             (click)="exportWorkout()">
             <ion-icon slot="icon-only" name="cloud-upload-sharp"></ion-icon>
         </ion-button>
 
         </ion-col>
         <ion-col class="ion-text-end">
-          <ion-button fill="clear" class="noPadding"
+          <ion-button fill="clear"
             (click)="deleteWorkout()">
             <ion-icon slot="icon-only" name="trash-sharp" >
             </ion-icon>
