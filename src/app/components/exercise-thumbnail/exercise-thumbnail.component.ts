@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, AlertController} from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
 import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/models/enums';
 import { Rep } from 'src/app/models/Rep';
@@ -59,7 +59,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private expanded = false;
     private isInRunningMode = false;
     private isInEditMode = false;
-    isNameInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     private workoutId: string;
@@ -113,7 +112,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         private popoverCtrl: PopoverController,
         private store: Store<IAppState>,
         private router: Router,
-
+        private alertController: AlertController,
     ) {
         this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
     }
@@ -602,4 +601,45 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     safeImage(media: ExerciseMediaBean): any {
         return this.dataService.safeImage(media);
     }
+
+    editExerciseName(event: any, exe: ExerciseBean, index: number) {
+        event.stopPropagation();
+        this.presentAlertPrompt(exe, index);
+      }
+
+      async presentAlertPrompt(exe: ExerciseBean, index: number) {
+        const alert = await this.alertController.create({
+          header: 'Edit Name',
+          inputs: [{
+            name: 'text',
+            id: 'text',
+            type: 'textarea',
+            value: exe.name,
+            placeholder: 'Enter exercise name here...'
+          },
+          ],
+          buttons: [{
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              this.logger.debug('presentAlertPrompt', 'edit cancelled');
+            }
+          }, {
+            text: 'Save',
+            handler: (data) => {
+              if (data.text) {
+                this.logger.debug('presentAlertPrompt', 'saving text', data.text);
+                this.exerciseChanged(index, data.text, 'name');
+              } else {
+                return false;
+              }
+            }
+          }
+          ]
+        });
+
+        alert.present();
+      }
+
 }

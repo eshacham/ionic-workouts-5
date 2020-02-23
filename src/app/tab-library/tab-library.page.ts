@@ -78,7 +78,6 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dataService: DataServiceProvider,
     private alertController: AlertController,
-
     private store: Store<IAppState>) {
     this.exerciseMediaWithUsage = [];
     this.logger = loggingService.getLogger('App.TabLibraryPage');
