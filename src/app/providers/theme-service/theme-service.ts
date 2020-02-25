@@ -14,12 +14,12 @@ export class ThemeServiceProvider {
   renderer: Renderer2;
 
   themes: ITheme[] = [
-    { name: 'orange', image: '/assets/images/themes/orange' },
-    { name: 'violet', image: '/assets/images/themes/violet' },
-    { name: 'brown', image: '/assets/images/themes/brown' },
-    { name: 'green', image: '/assets/images/themes/green' },
-    { name: 'blue', image: '/assets/images/themes/blue' },
-    { name: 'red', image: '/assets/images/themes/red' },
+    { name: 'orange-theme', image: '/assets/images/themes/orange-theme' },
+    { name: 'pink-theme', image: '/assets/images/themes/pink-theme' },
+    { name: 'red-theme', image: '/assets/images/themes/red-theme' },
+    { name: 'green-theme', image: '/assets/images/themes/green-theme' },
+    { name: 'blue-theme', image: '/assets/images/themes/blue-theme' },
+    { name: 'yellow-theme', image: '/assets/images/themes/yellow-theme' },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {

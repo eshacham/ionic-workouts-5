@@ -2,7 +2,7 @@
 // http://ionicframework.com/docs/theming/
 @import './fonts.scss';
 :root {
-  .violet {
+  .pink-theme {
     --pri: #1d1123;
     --sec: #ebccc0;
     --ter: #d72991;
@@ -74,7 +74,7 @@
   --ion-color-light-shade: #dccfd6;
   --ion-color-light-tint: #fbedf4;
   }
-  .brown {
+  .red-theme {
     --pri: #013576; // suc
     --sec: #d7d7fc; // war
     --ter: #ca0343;
@@ -146,7 +146,7 @@
   --ion-color-light-shade: #d3d2e0;
   --ion-color-light-tint: #f2f1ff;
   }
-  .red {
+  .yellow-theme {
     --pri: #312c2b; // suc
     --sec: #d5b84a; // war
     --ter: #940906;
@@ -218,7 +218,7 @@
   --ion-color-light-shade: #c5c1b7;
   --ion-color-light-tint: #e3dfd5;
   }
-  .blue {
+  .blue-theme {
     --pri: #16233b; // suc
     --sec: #f8deda; // war
     --ter: #0e78ba;
@@ -291,7 +291,7 @@
   --ion-color-light-tint: #fdeee5;
 
   }
-  .green {
+  .green-theme {
     --pri: #3a502f; // suc
     --sec: #a8b1c6; // war
     --ter: #221c00;
@@ -363,7 +363,7 @@
   --ion-color-light-shade: #bbbbbb;
   --ion-color-light-tint: #d9d9d9;
   }
-  .orange {
+  .orange-theme {
     --pri: #363636; // suc
     --sec: #c1beb9; // war
     --ter: #E37334;
