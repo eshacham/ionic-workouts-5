@@ -23,12 +23,13 @@ export class ExerciseMediaBean implements Bean {
   static create(
     id: string,
     name: string,
-    muscles: Set<Muscles>
+    muscles: Set<Muscles>,
+    isDefault: boolean = true,
   ): ExerciseMediaBean {
     return new ExerciseMediaBean({
       id,
       name,
-      isDefault: true,
+      isDefault,
       muscles
     });
   }

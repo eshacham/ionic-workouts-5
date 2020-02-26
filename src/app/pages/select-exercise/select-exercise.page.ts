@@ -94,7 +94,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
           return {
             isSelected: false,
             media: ExerciseMediaBean
-            .create(image.id, image.name, new Set(image.muscles)),
+            .create(image.id, image.name, new Set(image.muscles), image.isDefault),
           };
         });
       });
@@ -131,7 +131,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  getFilteredImages(): SelectedExerciseMedia[] {
+  get filteredImages(): SelectedExerciseMedia[] {
     if (!this.useFilter) {
       return this.images;
     }
