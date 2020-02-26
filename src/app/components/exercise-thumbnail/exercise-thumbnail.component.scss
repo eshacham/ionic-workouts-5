@@ -134,7 +134,6 @@ ion-button {
     --padding-start: 0px;
     --padding-end: 0px;
     --color: var(--ion-color-tertiary);
-    height: 100%;
 
     &.img-btn {
         height: auto;
@@ -150,10 +149,14 @@ ion-button {
         }
     }
 
-    &.et-button {
+    &.workout-button {
         font-size: large;
         --color: var(--ion-color-tertiary);
         --background: var(--ion-color-secondary);
+    }
+    &.edit-button {
+        height: 100%;
+        min-width: 50px;
     }
 }
 
