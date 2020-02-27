@@ -1,8 +1,16 @@
 import { Injectable, RendererFactory2, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+export enum Themes {
+  Orange = 'orange-theme',
+  Pink = 'pink-theme',
+  Red = 'red-theme',
+  Green = 'green-theme',
+  Blue = 'blue-theme',
+  Yellow = 'yellow-theme'
+}
 export interface ITheme {
-  name: string;
+  name: Themes;
   image: string;
 }
 
@@ -10,16 +18,17 @@ export interface ITheme {
   providedIn: 'root'
 })
 export class ThemeServiceProvider {
-  public static defaultTheme = 'gray-orange-black';
+
+  public static defaultTheme: Themes = Themes.Orange;
   renderer: Renderer2;
 
   themes: ITheme[] = [
-    { name: 'orange-theme', image: '/assets/images/themes/orange-theme' },
-    { name: 'pink-theme', image: '/assets/images/themes/pink-theme' },
-    { name: 'red-theme', image: '/assets/images/themes/red-theme' },
-    { name: 'green-theme', image: '/assets/images/themes/green-theme' },
-    { name: 'blue-theme', image: '/assets/images/themes/blue-theme' },
-    { name: 'yellow-theme', image: '/assets/images/themes/yellow-theme' },
+    { name: Themes.Orange, image: '/assets/images/themes/orange-theme' },
+    { name: Themes.Pink, image: '/assets/images/themes/pink-theme' },
+    { name: Themes.Red, image: '/assets/images/themes/red-theme' },
+    { name: Themes.Green, image: '/assets/images/themes/green-theme' },
+    { name: Themes.Blue, image: '/assets/images/themes/blue-theme' },
+    { name: Themes.Yellow, image: '/assets/images/themes/yellow-theme' },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
