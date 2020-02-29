@@ -1,20 +1,21 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { IonicStorageModule } from '@ionic/storage';
-
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { HttpClientModule } from '@angular/common/http';
+import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import {
-  AmplifyAngularModule,
   AmplifyService,
   AmplifyModules
 } from 'aws-amplify-angular';
@@ -24,15 +25,12 @@ import Storage from '@aws-amplify/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { DataEffects } from './store/effects/data.effects';
 import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers/appReducers';
 
 import { ThemeServiceProvider } from './providers/theme-service/theme-service';
 import { DataServiceProvider } from './providers/data-service/data-service';
 
-import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { environment } from 'src/environments/environment';
 
 export function configureLogging(loggingService: LoggingService): () => void {
@@ -40,8 +38,11 @@ export function configureLogging(loggingService: LoggingService): () => void {
 }
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+  ],
+  entryComponents: [
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -57,7 +58,6 @@ export function configureLogging(loggingService: LoggingService): () => void {
     storeDevtoolsModule,
     EffectsModule.forRoot([DataEffects]),
     HttpClientModule,
-    AmplifyAngularModule,
     LoggingServiceModule,
   ],
   providers: [
@@ -84,6 +84,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
       useFactory: configureLogging
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

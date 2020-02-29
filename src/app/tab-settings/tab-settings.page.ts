@@ -8,7 +8,8 @@ import { getTheme } from '../store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
-
+import { ModalController } from '@ionic/angular';
+import { LoginComponent } from '../components/login/login.component';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -31,7 +32,8 @@ export class TabSettingsPage implements OnInit {
     private themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private router: Router,
-    public alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController
     ) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
       this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
@@ -97,6 +99,15 @@ export class TabSettingsPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentLoginModal() {
+    const modal = await this.modalController.create({
+      component: LoginComponent
+    });
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    this.logger.info('presentLoginModal', 'onWillDismiss', data);
   }
 
 }
