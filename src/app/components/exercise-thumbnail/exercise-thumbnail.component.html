@@ -91,7 +91,7 @@
                 </ion-row>
                 <ion-row *ngIf="isResting" class="ion-align-items-center buttons">
                     <ion-col class="ion-text-center ion-no-padding">
-                        <ion-button fill="outline" expand="block" class="workout-button"
+                        <ion-button expand="block" class="workout-button"
                             (click)="skipRest()">
                             Rest {{timedRestRemaining}} seconds or skip
                         </ion-button>
@@ -105,7 +105,7 @@
                         </ion-button>
                     </ion-col>
                     <ion-col size="6" class="ion-no-padding">
-                        <ion-button fill="outline" expand="block" class="workout-button"
+                        <ion-button expand="block" class="workout-button"
                             (click)="nextRep(true)">
                             Done!
                         </ion-button>
