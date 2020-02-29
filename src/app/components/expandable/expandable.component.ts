@@ -7,7 +7,7 @@ import { Component, AfterViewInit, Input, ViewChild,  ElementRef, Renderer2 } fr
 })
 export class ExpandableComponent implements AfterViewInit {
 
-  @ViewChild('expandWrapper', { read: ElementRef }) expandWrapper: ElementRef;
+  @ViewChild('expandWrapper', { read: ElementRef, static: false }) expandWrapper: ElementRef;
   @Input() expanded = false;
   @Input() expandHeight = '150px';
 

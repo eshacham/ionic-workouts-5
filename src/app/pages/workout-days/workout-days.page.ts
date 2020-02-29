@@ -39,9 +39,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   activeDayIndex = 0;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  @ViewChild('slider') slides?: Slides;
-  @ViewChild('fabWorkout') fabWorkout?: IonFab;
-  @ViewChild('fabEdit') fabEdit?: IonFab;
+  @ViewChild('slider', {static: false}) slides?: Slides;
+  @ViewChild('fabWorkout', {static: false}) fabWorkout?: IonFab;
+  @ViewChild('fabEdit', {static: false}) fabEdit?: IonFab;
 
   slideOpts = {
     autoHeight: false,

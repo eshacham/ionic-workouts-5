@@ -32,7 +32,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
   @Input() dayId: string;
   @Input() displayMode: DisplayMode;
-  @ViewChild(IonList, { read: ElementRef }) list: ElementRef;
+  @ViewChild(IonList, { read: ElementRef, static: false }) list: ElementRef;
 
   constructor(
     loggingService: LoggingService,

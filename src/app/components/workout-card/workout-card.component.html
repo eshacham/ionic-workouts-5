@@ -17,7 +17,7 @@
     fill="outline" expand="full"
     (click)="editDescription($event)">
     <p class="ion-text-wrap">
-      {{description}}
+      {{description || 'Enter description here'}}
     </p>
   </ion-button>
 
