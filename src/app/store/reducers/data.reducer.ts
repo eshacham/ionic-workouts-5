@@ -83,6 +83,12 @@ export const dataReducers =
                 workoutExportInProgress: false
             };
         }
+        case DataActionsTypes.SetSignedInUser: {
+            return  {
+                ...state,
+                signedInUser: action.payload
+            };
+        }
         default: {
             return state;
         }

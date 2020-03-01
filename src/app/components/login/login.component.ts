@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { ModalController } from '@ionic/angular';
+import { IAppState } from 'src/app/store/state/app.state';
+import { Store } from '@ngrx/store';
+import { SetSignedInUser } from 'src/app/store/actions/data.actions';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +38,8 @@ export class LoginComponent implements OnInit {
     private amplifyService: AmplifyService,
     private modalCtrl: ModalController,
     loggingService: LoggingService,
+    private store: Store<IAppState>,
+
   ) {
     this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
   }
@@ -43,7 +48,11 @@ export class LoginComponent implements OnInit {
     this.amplifyService.authStateChange$
       .subscribe(authState => {
         this.logger.info('ngOnInit', 'authStateChange', authState);
-        // this.store.dispatch(new AuthStateChange({});
+        if (authState.state === 'signedIn'){
+          this.store.dispatch(new SetSignedInUser(authState.user.username));
+        } else {
+          this.store.dispatch(new SetSignedInUser(null));
+        }
       });
   }
   dismiss(loggedIn: boolean) {
