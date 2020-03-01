@@ -63,3 +63,8 @@ export const getTheme = createSelector(
     dataState,
     (state: IDataState) => state.theme
 );
+
+export const getSignedInUser = createSelector(
+    dataState,
+    (state: IDataState) => state.signedInUser
+);

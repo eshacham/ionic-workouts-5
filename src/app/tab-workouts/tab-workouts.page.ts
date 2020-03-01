@@ -59,7 +59,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     if (this.mode !== val) {
       this.mode = val;
       if (this.DisplayMode === DisplayMode.Display) {
-        this.logger.debug('DisplayMode', this.workouts);
+        this.logger.debug('DisplayMode', 'Set', this.mode);
         this.store.dispatch(new UpdateWorkouts());
       }
     }
@@ -94,10 +94,10 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
 
   importWorkout(event: any) {
     event.stopPropagation();
-    this.presentAlertPrompt();
+    this.presentImportWorkoutAlertPrompt();
   }
 
-  async presentAlertPrompt() {
+  async presentImportWorkoutAlertPrompt() {
     const alert = await this.alertController.create({
       header: 'Import workout',
       subHeader: 'Type the key of the workout to be imported',

@@ -7,11 +7,13 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { IAppState } from 'src/app/store/state/app.state';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { getWorkout } from 'src/app/store/selectors/workouts.selectors';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { DeleteWorkout, ExportWorkout, UpdateWorkout } from 'src/app/store/actions/workouts.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { SelectWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
 import { AlertController } from '@ionic/angular';
+import { getSignedInUser } from 'src/app/store/selectors/data.selectors';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-workout-card',
@@ -25,8 +27,11 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   @Input() displayMode: DisplayMode;
 
   private workout: WorkoutBean;
+  private signedInUser: string;
   private name: string;
   private description: string;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
 
   constructor(
     loggingService: LoggingService,
@@ -52,10 +57,17 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
           this.description = this.workout.description;
         }
       });
+      this.store.select(getSignedInUser)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(signedInUser => {
+        this.signedInUser = signedInUser;
+      });
   }
 
   ngOnDestroy() {
     this.logger.debug('ngOnDestroy', this.workout);
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
@@ -82,9 +94,13 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   }
 
   exportWorkout() {
-    this.store.dispatch(new ExportWorkout({
-      workoutId: this.workoutId,
-    }));
+    if (this.signedInUser) {
+      this.store.dispatch(new ExportWorkout({
+        workoutId: this.workoutId, signedInUser: this.signedInUser
+      }));
+    } else {
+      this.presentSignInAlert();
+    }
   }
 
   workoutChanged() {
@@ -140,5 +156,32 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
 
     alert.present();
   }
+  async presentSignInAlert() {
+    const alert = await this.alertController.create({
+      header: 'Export Workout!',
+      message: `
+      You must be signed in to your account in order to export a workout.<br/>
+      The sign in link is on the Options (Account) tab.<br/>
+      Click Okay to go to the Account Sign In, or Cancel to close this dialog.
+      `,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            this.logger.info('Confirm canceled');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.router.navigateByUrl('/tabs/tab-settings');
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
 }

@@ -7,17 +7,20 @@ export class ExerciseMediaBean implements Bean {
   public name: string;
   public isDefault: boolean;
   public muscles: Array<Muscles>;
+  public exportedBy?: string;
 
-  constructor(option: {
+  constructor(options: {
     id: string,
     name: string,
     isDefault: boolean,
     muscles: Set<Muscles>,
+    exportedBy?: string,
   }) {
-    this.id = option.id;
-    this.name = option.name;
-    this.isDefault = option.isDefault;
-    this.muscles = Array.from(option.muscles.values());
+    this.id = options.id;
+    this.name = options.name;
+    this.isDefault = options.isDefault;
+    this.muscles = Array.from(options.muscles.values());
+    this.exportedBy = options.exportedBy;
   }
 
   static create(
@@ -25,12 +28,15 @@ export class ExerciseMediaBean implements Bean {
     name: string,
     muscles: Set<Muscles>,
     isDefault: boolean = true,
+    exportedBy: string = null,
+
   ): ExerciseMediaBean {
     return new ExerciseMediaBean({
       id,
       name,
       isDefault,
-      muscles
+      muscles,
+      exportedBy
     });
   }
 }

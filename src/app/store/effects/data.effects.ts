@@ -164,7 +164,8 @@ export class DataEffects {
     @Effect()
     exportWorkout$ = this.actions$.pipe(
         ofType(WorkoutsActionsTypes.ExportWorkout),
-        mergeMap((action: ExportWorkout) => from(this.dataService.exportWorkout(action.payload.workoutId)).pipe(
+        // tslint:disable-next-line: max-line-length
+        mergeMap((action: ExportWorkout) => from(this.dataService.exportWorkout(action.payload.workoutId, action.payload.signedInUser)).pipe(
             map((exportId: string) => (new ExportWorkoutSuccess())),
             catchError(err => {
                 this.logger.error('exportWorkout', err);

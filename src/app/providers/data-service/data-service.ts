@@ -191,7 +191,7 @@ export class DataServiceProvider {
     this.logger.info('displayAuthCreds', 'currentCredentials', this.credentials);
   }
 
-  async exportWorkout(workoutId: string): Promise<string> {
+  async exportWorkout(workoutId: string, sinedInUser: string): Promise<string> {
     try {
       const zip = new JSZip();
       const workoutsData = await this.getWorkoutsData();
@@ -218,6 +218,7 @@ export class DataServiceProvider {
         if (exercise.workoutId === workoutId) {
           exercisesById[exerciseId] = exercise;
           const imgEntry = imagesData.media.byId[exercise.mediaId];
+          imgEntry.exportedBy = sinedInUser;
           if (!imagesbyId[exercise.mediaId]) {
             imagesbyId[exercise.mediaId] = imgEntry;
           }

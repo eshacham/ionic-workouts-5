@@ -46,7 +46,7 @@ export class UpdateWorkout implements Action {
 
 export class ExportWorkout implements Action {
     readonly type = WorkoutsActionsTypes.ExportWorkout;
-    constructor(public payload: { workoutId: string }) { }
+    constructor(public payload: { workoutId: string, signedInUser: string }) { }
 }
 export class ExportWorkoutSuccess implements Action {
     readonly type = WorkoutsActionsTypes.ExportWorkoutSuccess;
