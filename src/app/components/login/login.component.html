@@ -1,19 +1,7 @@
-<ion-content padding>
+
   <amplify-authenticator
     [signUpConfig]="signUpConfig"
     [usernameAttributes]="usernameAttributes"
     framework="ionic">
   </amplify-authenticator>
-</ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-      <ion-button expand="full" (click)="dismiss(false)"
-        fill="clear">
-        <ion-icon slot="icon-only" name="close-circle-sharp"></ion-icon>
-        <ion-label>
-          Close
-        </ion-label>
-      </ion-button>
-  </ion-toolbar>
-</ion-footer>

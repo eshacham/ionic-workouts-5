@@ -26,16 +26,7 @@
 
 <ion-content [ngSwitch]="selectedSegment">
 
-  <ion-list *ngSwitchCase="segment.Account"
-    lines="none">
-    <ion-item button (click)="presentLoginModal()"
-      detail="false" class="buttonItem ion-text-center">
-        <ion-icon slot="icon-only" name="person-sharp"></ion-icon>
-        <ion-label>
-          Account
-        </ion-label>
-    </ion-item>
-  </ion-list>
+  <app-login *ngSwitchCase="segment.Account"></app-login>
 
   <ion-list *ngSwitchCase="segment.Workouts"
     lines="none">
