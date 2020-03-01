@@ -22,15 +22,14 @@
 
 <ion-content>
 
-<!-- <amplify-authenticator framework="ionic"></amplify-authenticator> -->
   <ion-list *ngIf="selectedSegment==='workouts'" lines="none">
 
     <ion-item>
       <ion-button expand="full" (click)="presentLoginModal()"
         fill="clear">
-        <ion-icon slot="icon-only" name="log-in-sharp"></ion-icon>
+        <ion-icon slot="icon-only" name="person-sharp"></ion-icon>
         <ion-label>
-          Login
+          Account
         </ion-label>
       </ion-button>
     </ion-item>

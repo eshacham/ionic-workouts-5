@@ -10,12 +10,32 @@ import { ModalController } from '@ionic/angular';
 })
 export class LoginComponent implements OnInit {
   private logger: Logger;
+  usernameAttributes = 'email';
+  signUpConfig = {
+    // header: 'My Customized Sign Up',
+    hideAllDefaults: true,
+    signUpFields: [
+      {
+        label: 'Password',
+        key: 'password',
+        required: true,
+        displayOrder: 2,
+        type: 'password'
+      }, {
+        label: 'Email',
+        key: 'email',
+        required: true,
+        displayOrder: 2,
+        type: 'string',
+      },
+    ]
+  }
 
   constructor(
     private amplifyService: AmplifyService,
     private modalCtrl: ModalController,
     loggingService: LoggingService,
-    ) {
+  ) {
     this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
   }
 
