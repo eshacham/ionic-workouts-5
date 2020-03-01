@@ -15,6 +15,11 @@ interface ISelectedTheme  {
   selected: boolean;
   theTheme: ITheme;
 }
+enum Segment {
+  Themes = 'themes',
+  Account = 'account',
+  Workouts = 'workouts'
+}
 
 @Component({
   selector: 'app-tab-settings',
@@ -24,7 +29,8 @@ interface ISelectedTheme  {
 export class TabSettingsPage implements OnInit {
   private logger: Logger;
   themes: ISelectedTheme[];
-  selectedSegment = 'themes';
+  selectedSegment: Segment = Segment.Account;
+  segment = Segment;
   selectedTheme: string;
 
   constructor(
@@ -66,7 +72,7 @@ export class TabSettingsPage implements OnInit {
     }
   }
 
-  segmentChanged(segment: string) {
+  segmentChanged(segment: Segment) {
     this.selectedSegment = segment;
     this.logger.debug('segmentChanged', this.selectedSegment);
   }

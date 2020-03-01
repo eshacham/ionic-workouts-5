@@ -23,16 +23,28 @@ ion-list {
             --color-checked: var(--ion-color-tertiary);
             --color: var(--ion-color-light);
         }
-        ion-button {
-            --color: var(--ion-color-light);
-            width: 100%;
-            ion-label {
-                font-size: medium;
-                margin: 10px;
+
+        &.buttonItem {
+            --background: var(--ion-color-tertiary);
+            button {
+                --color: var(--ion-color-light);
+                width: 100%;
+
+                ion-label {
+                    font-size: medium;
+                    margin: 10px;
+                }
+
+                ion-icon {
+                    color: var(--ion-color-danger);
+                }
             }
-            ion-icon {
-                color: var(--ion-color-danger);
-            }
+        }
+
+        &.itemGrid {
+            --padding-start: 0px;
+            --padding-end: 0px;
+            --inner-padding-end: 0px;
         }
     }
 }
