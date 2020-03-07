@@ -81,6 +81,7 @@
                             <h4 class="ion-text-center"
                                 [ngClass]="{'comlpeted': rep.isComplete}">
                                 {{getSecondsStateText(rep)}}
+                                <small>Sec</small>
                             </h4>
                             <ion-progress-bar *ngIf="rep.isActive"
                                 color="tertiary" reversed="true"
@@ -93,8 +94,12 @@
                     <ion-col class="ion-text-center ion-no-padding">
                         <ion-button expand="block" class="workout-button"
                             (click)="skipRest()">
-                            Rest {{timedRestRemaining}} seconds or skip
+                            Rest {{restSecondsStateText}} seconds or skip
                         </ion-button>
+                        <ion-progress-bar
+                                color="tertiary" reversed="true"
+                                [value]="getSecondsRestProgress()">
+                        </ion-progress-bar>
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="!isResting"  class="ion-align-items-center buttons">

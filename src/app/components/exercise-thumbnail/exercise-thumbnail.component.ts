@@ -216,9 +216,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.presentActionsPopover(event, exercise, index, false, true, rep);
     }
 
-    allowEdit() {
-
-    }
     goToImagesLibraryPage(exercise: ExerciseBean) {
         this.logger.info('goToImages', `going to image ${exercise.id}`);
         this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
@@ -285,12 +282,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
         return cls;
     }
-    getRepSecondsStyle(rep: Rep): any {
-        const animation = {
-            animation: `${rep.isActive ? rep.seconds : 0}s linear mymove`
-        };
-        return animation;
-    }
+    // getRepSecondsStyle(rep: Rep): any {
+    //     const animation = {
+    //         animation: `${rep.isActive ? rep.seconds : 0}s linear mymove`
+    //     };
+    //     return animation;
+    // }
     isRepConsideredActive(rep: Rep, index: number) {
         if (rep.isComplete) {
             return false;
@@ -310,7 +307,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             return `${rep.seconds}`;
         }
         if (rep.isActive) {
-            return `${this.timedRepRemaining.toFixed(0)}`;
+            return `${Math.ceil(this.timedRepRemaining)}`;
         }
         return `${rep.seconds}`;
     }
@@ -322,6 +319,17 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             return this.timedRepRemaining / rep.seconds;
         }
         return 1;
+    }
+    getSecondsRestProgress() {
+        if (!this.isResting) {
+            return 1;
+        }
+
+        return this.remainingTimedRestSec / this.secToRestAfterCurrentRep;
+    }
+
+    get restSecondsStateText() {
+        return `${Math.ceil(this.timedRestRemaining)}`;
     }
 
     startWorkout() {
@@ -358,7 +366,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
             this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec = this.remainingTimedRepSec - 0.1;
+                this.remainingTimedRepSec -= 0.1;
                 if (this.remainingTimedRepSec <= 0) {
                     this.stopRepTimer();
                     this.nextRep(true);
@@ -379,12 +387,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
         if (this.remainingTimedRestSec) {
             this.timedRestTimer = setInterval(() => {
-                this.remainingTimedRestSec--;
+                this.remainingTimedRestSec -= 0.1
                 if (this.remainingTimedRestSec <= 0) {
                     this.stopRestTimer();
                     callbackAction();
                 }
-            }, 1000);
+            }, 100);
         }
     }
     private stopRestTimer() {
