@@ -10,73 +10,6 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
  * and limitations under the License.
  */
-:root {
-
-  /* Colors */
-  --amazonOrange: #FF9900;
-  --lightAmazonOrange: #FFAC31;
-  --darkAmazonOrange: #E88B01;
-  --squidInk: #232F3E;
-  --lightSquidInk: #31465F;
-  --deepSquidInk: #152939;
-  --grey: #828282;
-  --lightGrey: #C4C4C4;
-  --silver: #E1E4EA;
-  --darkBlue: #31465F;
-  --red: #DD3F5B;
-  --white: var(--ion-color-light);
-  --light-blue: #00a1c9;
-
-
-  /* Theme */
-  --button-color: var(--ion-color-light);
-  --button-background-color: var(--amazonOrange);
-  --button-click: var(--darkAmazonOrange);
-  --link-color: var(--amazonOrange);
-  --form-color: var(--ion-color-light);
-  --input-color: var(--deepSquidInk);
-  --input-background-color: var(--ion-color-light);
-
-  --font-family: "Amazon Ember","Helvetica Neue Light","Helvetica Neue","Helvetica" ,"Arial","sans-serif";
-  --body-background: #F8F4F4;
-
-  /** Angular Theme **/
-  --component-width-desktop: 460px;
-  --component-width-mobile: 100%;
-
-  --color-primary: #FF9900;
-  --color-primary-accent: #232F3E;
-  --color-primary-highlight: #FFC46D;
-
-  --color-background:#232F3E;
-
-  --color-secondary: #152939;
-  --color-secondary-accent: #31465F;
-
-  --color-danger: #DD3F5B;
-  --color-error: #D0021B;
-
-  --color-accent-brown: #828282;
-  --color-accent-blue: #E1E4EA;
-
-  --gradient-blaze: linear-gradient(270deg, #FFC300 0%, #FF9000 100%);
-
-  --color-blue: #007EB9;
-  --color-purple: #527FFF;
-  --color-gray: #828282;
-  --color-white: #FFFFFF;
-
-  --input-border: 1px solid #C4C4C4;
-  --input-padding: 0.5em 0.5em 0.3em 1em;
-
-  --box-shadow: 1px 1px 4px 0 rgba(var(--ion-color-dark-rgb),0.15);
-  --button-height: 42px;
-
-  --interactions-conversation-height: 250px;
-
-  /* Ionic Theme */
-
-}
 
 .Anchor__a___1_Iz8 {
   color: var(--link-color);
@@ -557,7 +490,6 @@
   color: var(--ion-color-light);
   margin: 0 2px 20px 2px;
   font-size: 18px;
-  /* font-family: 'Amazon Ember'; */
 }
 
 .XR__loadingBar___2vcke {
