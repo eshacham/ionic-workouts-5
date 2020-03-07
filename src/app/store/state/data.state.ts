@@ -1,3 +1,8 @@
+export interface ISignedInUser {
+    username: string;
+    identityId: string;
+}
+
 export interface IDataState {
     hasDataBeenReset: boolean;
     hasDataBeenLoaded: boolean;
@@ -5,7 +10,7 @@ export interface IDataState {
     workoutExportInProgress: boolean;
     error: string;
     theme: string;
-    signedInUser: string;
+    signedInUser: ISignedInUser;
 }
 export const initialDataState: IDataState = {
     hasDataBeenReset: false,

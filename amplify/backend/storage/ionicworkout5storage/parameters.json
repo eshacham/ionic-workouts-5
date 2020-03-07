@@ -9,27 +9,27 @@
         "Ref": "UnauthRoleName"
     },
     "selectedGuestPermissions": [
-        "s3:PutObject",
         "s3:GetObject",
         "s3:ListBucket"
     ],
     "selectedAuthenticatedPermissions": [
         "s3:PutObject",
         "s3:GetObject",
-        "s3:ListBucket"
+        "s3:ListBucket",
+        "s3:DeleteObject"
     ],
-    "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject",
-    "s3PublicPolicy": "Public_policy_bd12e2e1",
+    "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+    "s3PublicPolicy": "Public_policy_a6576210",
     "s3PermissionsAuthenticatedUploads": "s3:PutObject",
-    "s3UploadsPolicy": "Uploads_policy_bd12e2e1",
-    "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject",
-    "s3ProtectedPolicy": "Protected_policy_e551e7ef",
-    "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject",
-    "s3PrivatePolicy": "Private_policy_e551e7ef",
+    "s3UploadsPolicy": "Uploads_policy_a6576210",
+    "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+    "s3ProtectedPolicy": "Protected_policy_d2749387",
+    "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+    "s3PrivatePolicy": "Private_policy_d2749387",
     "AuthenticatedAllowList": "ALLOW",
-    "s3ReadPolicy": "read_policy_bd12e2e1",
-    "s3PermissionsGuestPublic": "s3:PutObject,s3:GetObject",
-    "s3PermissionsGuestUploads": "s3:PutObject",
+    "s3ReadPolicy": "read_policy_a6576210",
+    "s3PermissionsGuestPublic": "s3:GetObject",
+    "s3PermissionsGuestUploads": "DISALLOW",
     "GuestAllowList": "ALLOW",
     "triggerFunction": "NONE"
 }

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { AllDataMaps } from 'src/app/models/interfaces';
+import { ISignedInUser } from '../state/data.state';
 
 export enum DataActionsTypes {
     LoadData = '[Data] Load app data',
@@ -115,7 +116,7 @@ export class ClearError implements Action {
 }
 export class SetSignedInUser implements Action {
     readonly type = DataActionsTypes.SetSignedInUser;
-    constructor(public payload: string) { }
+    constructor(public payload: ISignedInUser) { }
 }
 
 export type DataActions =

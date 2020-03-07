@@ -13,12 +13,12 @@ import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
-import Auth from '@aws-amplify/auth';
 import S3 from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ThemeServiceProvider } from '../theme-service/theme-service';
+import { ISignedInUser } from 'src/app/store/state/data.state';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -64,7 +64,6 @@ export class DataServiceProvider {
     let workoutsData: WorkoutsDataMaps;
 
     await this.displayPlatform();
-    await this.displayAuthCreds();
 
     imagesData = await this.getImagesData();
     workoutsData = await this.getWorkoutsData();
@@ -186,12 +185,9 @@ export class DataServiceProvider {
     const platformSource = await this.platform.ready();
     this.logger.info('displayPlatform', `this app runs on ${platformSource}`);
   }
-  async displayAuthCreds() {
-    this.credentials = await Auth.currentCredentials();
-    this.logger.info('displayAuthCreds', 'currentCredentials', this.credentials);
-  }
 
-  async exportWorkout(workoutId: string, sinedInUser: string): Promise<string> {
+
+  async exportWorkout(workoutId: string, sinedInUser: ISignedInUser): Promise<string> {
     try {
       const zip = new JSZip();
       const workoutsData = await this.getWorkoutsData();
@@ -240,7 +236,7 @@ export class DataServiceProvider {
       zip.file(IMAGES_STORAGE_KEY, JSON.stringify(imagesData), { binary: false });
       this.logger.info('exportWorkout', 'zip file', zip);
       const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 9 } });
-      const putResult = await S3.put(workoutId, blob, { contentType: 'application/zip' });
+      const putResult = await S3.put(workoutId, blob, { contentType: 'application/zip', level: 'protected' });
       this.logger.info('exportWorkout', 'workout has been exported to s3', putResult);
       return workoutId;
     } catch (err) {
@@ -248,8 +244,11 @@ export class DataServiceProvider {
     }
   }
 
-  async importWorkout(workoutId: string): Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    const getResult = await S3.get(workoutId, { download: true });
+  async importWorkout(workoutId: string, workoutOwnerId: string):
+    Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
+    // this import can only get its own workouts
+    // const getResult = await S3.get(workoutId, { download: true , level: 'protected' });
+    const getResult = await S3.get(workoutId, { download: true, identityId: workoutOwnerId, level: 'protected' });
     const zip = new JSZip();
     // tslint:disable-next-line: no-string-literal
     await zip.loadAsync(getResult['Body']);
@@ -299,8 +298,8 @@ export class DataServiceProvider {
   }
   safeImage(media: ExerciseMediaBean): SafeUrl {
     const imagePath = media.isDefault
-    ? this.getImageDefaultPath(media.id)
-    : this.getMobilePath(this.getImageNativePath(media.id));
+      ? this.getImageDefaultPath(media.id)
+      : this.getMobilePath(this.getImageNativePath(media.id));
 
     const url = this.domSanitizer.bypassSecurityTrustUrl(imagePath);
     return url;

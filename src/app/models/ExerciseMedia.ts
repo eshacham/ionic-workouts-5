@@ -1,5 +1,6 @@
 import { Muscles } from './enums';
 import { Bean } from './interfaces';
+import { ISignedInUser } from '../store/state/data.state';
 
 export class ExerciseMediaBean implements Bean {
 
@@ -7,14 +8,14 @@ export class ExerciseMediaBean implements Bean {
   public name: string;
   public isDefault: boolean;
   public muscles: Array<Muscles>;
-  public exportedBy?: string;
+  public exportedBy?: ISignedInUser;
 
   constructor(options: {
     id: string,
     name: string,
     isDefault: boolean,
     muscles: Set<Muscles>,
-    exportedBy?: string,
+    exportedBy?: ISignedInUser,
   }) {
     this.id = options.id;
     this.name = options.name;
@@ -28,7 +29,7 @@ export class ExerciseMediaBean implements Bean {
     name: string,
     muscles: Set<Muscles>,
     isDefault: boolean = true,
-    exportedBy: string = null,
+    exportedBy: ISignedInUser = null,
 
   ): ExerciseMediaBean {
     return new ExerciseMediaBean({

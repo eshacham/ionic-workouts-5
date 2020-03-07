@@ -14,6 +14,7 @@ import { SelectWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
 import { AlertController } from '@ionic/angular';
 import { getSignedInUser } from 'src/app/store/selectors/data.selectors';
 import { Subject } from 'rxjs';
+import { ISignedInUser } from 'src/app/store/state/data.state';
 
 @Component({
   selector: 'app-workout-card',
@@ -27,7 +28,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   @Input() displayMode: DisplayMode;
 
   private workout: WorkoutBean;
-  private signedInUser: string;
+  private signedInUser: ISignedInUser;
   private name: string;
   private description: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();

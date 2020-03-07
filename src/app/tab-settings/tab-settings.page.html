@@ -26,7 +26,8 @@
 
 <ion-content [ngSwitch]="selectedSegment">
 
-  <app-login *ngSwitchCase="segment.Account"></app-login>
+  <app-login *ngSwitchCase="segment.Account" [signedInUser]="signedInUser">
+  </app-login>
 
   <ion-list *ngSwitchCase="segment.Workouts"
     lines="none">

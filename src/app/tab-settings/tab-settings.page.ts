@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemeServiceProvider, ITheme } from '../providers/theme-service/theme-service';
 import { Router } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
-import { getTheme } from '../store/selectors/data.selectors';
-import { take } from 'rxjs/operators';
+import { getTheme, getSignedInUser } from '../store/selectors/data.selectors';
+import { take, takeUntil } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { LoginComponent } from '../components/login/login.component';
+import { Subject } from 'rxjs';
+import { ISignedInUser } from '../store/state/data.state';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -26,12 +28,15 @@ enum Segment {
   templateUrl: 'tab-settings.page.html',
   styleUrls: ['tab-settings.page.scss']
 })
-export class TabSettingsPage implements OnInit {
+export class TabSettingsPage implements OnInit, OnDestroy {
   private logger: Logger;
   themes: ISelectedTheme[];
   selectedSegment: Segment = Segment.Account;
   segment = Segment;
   selectedTheme: string;
+  signedInUser: ISignedInUser;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
 
   constructor(
     loggingService: LoggingService,
@@ -56,6 +61,16 @@ export class TabSettingsPage implements OnInit {
           this.themes.find(t => t.theTheme.name === theme).selected = true;
         }
       });
+      this.store.select(getSignedInUser)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(signedInUser => {
+        this.signedInUser = signedInUser;
+      });
+    }
+
+    ngOnDestroy() {
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
     }
 
    themeSelected(selectedTheme: string) {

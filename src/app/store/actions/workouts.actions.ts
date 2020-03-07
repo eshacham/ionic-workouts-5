@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { WorkoutBean } from 'src/app/models/Workout';
 import { WorkoutDayBean } from 'src/app/models/WorkoutDay';
 import { WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
+import { ISignedInUser } from '../state/data.state';
 
 export enum WorkoutsActionsTypes {
     SelectWorkout = '[Workouts] Select workout',
@@ -46,7 +47,7 @@ export class UpdateWorkout implements Action {
 
 export class ExportWorkout implements Action {
     readonly type = WorkoutsActionsTypes.ExportWorkout;
-    constructor(public payload: { workoutId: string, signedInUser: string }) { }
+    constructor(public payload: { workoutId: string, signedInUser: ISignedInUser }) { }
 }
 export class ExportWorkoutSuccess implements Action {
     readonly type = WorkoutsActionsTypes.ExportWorkoutSuccess;
@@ -55,7 +56,7 @@ export class ExportWorkoutSuccess implements Action {
 
 export class ImportWorkout implements Action {
     readonly type = WorkoutsActionsTypes.ImportWorkout;
-    constructor(public payload: { workoutId: string }) { }
+    constructor(public payload: { workoutId: string, ownerUserId: string }) { }
 }
 export class ImportWorkoutSuccess implements Action {
     readonly type = WorkoutsActionsTypes.ImportWorkoutSuccess;

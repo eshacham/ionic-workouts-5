@@ -1,6 +1,15 @@
 
-  <amplify-authenticator class="amplify-angular"
-    [signUpConfig]="signUpConfig"
-    [usernameAttributes]="usernameAttributes"
-    framework="ionic">
-  </amplify-authenticator>
+<amplify-authenticator class="amplify-angular"
+  [signUpConfig]="signUpConfig"
+  [usernameAttributes]="usernameAttributes"
+  framework="ionic">
+</amplify-authenticator>
+
+<ion-item>
+  <ion-label slot="start"><small>User Id</small></ion-label>
+  <ion-label slot="start"><small>{{signedInUser?.identityId}}</small></ion-label>
+  <ion-button slot="end" class="noPadding" [disabled]="!dataService.isMobile"
+    fill="clear" (click)="copyUserId()">
+    <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+  </ion-button>
+</ion-item>

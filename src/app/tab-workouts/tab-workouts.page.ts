@@ -13,6 +13,7 @@ import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
+import { ISignedInUser } from '../store/state/data.state';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -102,6 +103,11 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
       header: 'Import workout',
       subHeader: 'Type the key of the workout to be imported',
       inputs: [{
+        name: 'identityId',
+        type: 'text',
+        placeholder: 'Workout owner User Id'
+      },
+      {
         name: 'workoutId',
         type: 'text',
         placeholder: 'Workout Key'
@@ -119,7 +125,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
         handler: (data) => {
           if (data.workoutId) {
             this.logger.debug('presentAlertPrompt', 'importing', data.workoutId);
-            this.store.dispatch(new ImportWorkout({ workoutId: data.workoutId }));
+            this.store.dispatch(new ImportWorkout({ workoutId: data.workoutId, ownerUserId: data.identityId }));
           } else {
             return false;
           }

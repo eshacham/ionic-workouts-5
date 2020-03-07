@@ -177,7 +177,7 @@ export class DataEffects {
     @Effect()
     importWorkout$ = this.actions$.pipe(
         ofType(WorkoutsActionsTypes.ImportWorkout),
-        mergeMap((action: ImportWorkout) => from(this.dataService.importWorkout(action.payload.workoutId)).pipe(
+        mergeMap((action: ImportWorkout) => from(this.dataService.importWorkout(action.payload.workoutId, action.payload.ownerUserId)).pipe(
             map((data: { workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }) => (new ImportWorkoutSuccess(data))),
             catchError(err => {
                 this.logger.error('importWorkout', err);
