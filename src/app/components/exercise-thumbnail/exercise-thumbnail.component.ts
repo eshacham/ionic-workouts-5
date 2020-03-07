@@ -32,6 +32,7 @@ import { DataServiceProvider } from 'src/app/providers/data-service/data-service
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { Router } from '@angular/router';
 import { ScrollToExerciseMedia } from 'src/app/store/actions/exercisesMedia.actions';
+import { AudioServiceProvider } from 'src/app/providers/audio-service/audio-service';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -110,6 +111,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         loggingService: LoggingService,
         private dataService: DataServiceProvider,
         private popoverCtrl: PopoverController,
+        private audioService: AudioServiceProvider,
         private store: Store<IAppState>,
         private router: Router,
         private alertController: AlertController,
@@ -362,7 +364,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
 
     private startTimedRep() {
-        // this.audioService.playStartWorkout();
+        this.audioService.playStartWorkout();
         this.stopRepTimer();
         const interval = Math.max(100, this.activeRep.seconds);
         this.remainingTimedRepSec = this.activeRep.seconds;
@@ -384,7 +386,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     private startTimedRest(callbackAction: () => void) {
-        // audioService.playStartWorkout();
+        this.audioService.playStartWorkout();
         this.stopRestTimer();
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
         const interval = Math.max(100, this.secToRestAfterCurrentRep);

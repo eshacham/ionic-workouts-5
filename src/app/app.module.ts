@@ -30,6 +30,7 @@ import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers
 
 import { ThemeServiceProvider } from './providers/theme-service/theme-service';
 import { DataServiceProvider } from './providers/data-service/data-service';
+import { AudioServiceProvider } from './providers/audio-service/audio-service';
 
 import { environment } from 'src/environments/environment';
 
@@ -77,6 +78,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
     Clipboard,
     ThemeServiceProvider,
     DataServiceProvider,
+    AudioServiceProvider,
     {
       deps: [LoggingService],
       multi: true,
