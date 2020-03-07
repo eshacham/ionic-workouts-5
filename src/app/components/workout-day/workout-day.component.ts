@@ -14,9 +14,9 @@ import {
 } from 'src/app/store/actions/workoutDays.actions';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
-import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { IonList } from '@ionic/angular';
+import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 
 @Component({
   selector: 'app-workout-day',
@@ -36,7 +36,8 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
   constructor(
     loggingService: LoggingService,
-    private store: Store<IAppState>
+    private store: Store<IAppState>,
+    private dataService: DataServiceProvider,
   ) {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
@@ -64,7 +65,12 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const items = this.list.nativeElement.children[0].children;
       const set = items[scrollToExerciseSetIndex];
-      set.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (this.dataService.isIos) {
+        // aligned to end of view
+        set.scrollIntoView(false);
+      } else {
+        set.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
     }, 100);
   }
 

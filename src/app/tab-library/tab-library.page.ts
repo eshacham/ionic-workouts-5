@@ -188,7 +188,11 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     const items = this.list.nativeElement.children;
     const image = items[index];
     if (image) {
-      image.scrollIntoView({ behavior: 'auto', block: 'start' });
+      if (this.dataService.isIos) {
+        image.scrollIntoView(true);
+      } else {
+        image.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
     }
   }
 
@@ -226,7 +230,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SelectWorkoutDay(usage));
     setTimeout(() => {
-      const payload = { ...usage} ;
+      const payload = { ...usage };
       this.store.dispatch(new SetExerciseSetInWorkoutDay(payload));
       this.router.navigateByUrl('/tabs/tab-workouts/workout');
     }, 100);
