@@ -17,7 +17,7 @@
           <ion-icon name="play-sharp"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start" class="animated fadeInDown">
+        <ion-fab-list side="start" class="animated fadeInRight">
           <ion-fab-button size="small"
           (click)="stopWorkout()" >
             <ion-icon name="pause-sharp"></ion-icon>
@@ -34,8 +34,8 @@
           <ion-icon name="settings-sharp"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-list side="start" class="animated fadeInUp" >
-          
+        <ion-fab-list side="start" class="animated fadeInRight" >
+
           <ion-fab-button size="small" [disabled]="isLastDayActive"
           (click)="moveForwardWorkoutDay($event)" >
           <ion-icon name="arrow-forward-circle-sharp"></ion-icon>
@@ -44,6 +44,10 @@
             (click)="moveBackWorkoutDay($event)" >
             <ion-icon name="arrow-back-circle-sharp"></ion-icon>
           </ion-fab-button>
+
+        </ion-fab-list>
+
+        <ion-fab-list side="top" class="animated fadeInUp">
 
           <ion-fab-button [disabled]="isOneDayOnly"
               (click)="deleteWorkoutDay($event)" >
@@ -57,6 +61,7 @@
             (click)="selectExerciseToAdd($event)" >
             <ion-icon name="barbell-sharp"></ion-icon>
           </ion-fab-button>
+
         </ion-fab-list>
 
     </ion-fab>
