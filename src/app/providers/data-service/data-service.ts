@@ -218,7 +218,9 @@ export class DataServiceProvider {
         if (exercise.workoutId === workoutId) {
           exercisesById[exerciseId] = exercise;
           const imgEntry = imagesData.media.byId[exercise.mediaId];
-          imgEntry.exportedBy = sinedInUser;
+          if (!imgEntry.isDefault) {
+            imgEntry.exportedBy = imgEntry.exportedBy || sinedInUser;
+          }
           if (!imagesbyId[exercise.mediaId]) {
             imagesbyId[exercise.mediaId] = imgEntry;
           }
