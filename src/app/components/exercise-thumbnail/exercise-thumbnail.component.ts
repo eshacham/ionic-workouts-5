@@ -360,18 +360,19 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.store.dispatch(new SetInactiveReps({ exerciseId: exercise.id }));
     }
 
+
     private startTimedRep() {
         // this.audioService.playStartWorkout();
         this.stopRepTimer();
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
             this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec -= 0.1;
+                this.remainingTimedRepSec -= Math.min(100, this.activeRep.seconds)/1000;
                 if (this.remainingTimedRepSec <= 0) {
                     this.stopRepTimer();
                     this.nextRep(true);
                 }
-            }, 100);
+            }, Math.min(100, this.activeRep.seconds));
         }
     }
 
@@ -387,12 +388,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
         if (this.remainingTimedRestSec) {
             this.timedRestTimer = setInterval(() => {
-                this.remainingTimedRestSec -= 0.1
+                this.remainingTimedRestSec -= Math.min(100, this.secToRestAfterCurrentRep)/1000
                 if (this.remainingTimedRestSec <= 0) {
                     this.stopRestTimer();
                     callbackAction();
                 }
-            }, 100);
+            }, Math.min(100, this.secToRestAfterCurrentRep));
         }
     }
     private stopRestTimer() {
