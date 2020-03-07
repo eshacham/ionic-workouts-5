@@ -87,12 +87,36 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   }
 
   deleteWorkout() {
-    this.store.dispatch(new DeleteWorkout({
-      id: this.workoutId,
-      days: this.workout.days
-    }));
+    this.presentDeleteWorkoutConfirmAlert();
   }
 
+  async presentDeleteWorkoutConfirmAlert() {
+    const alert = await this.alertController.create({
+      header: 'Delete Workout!',
+      message: 'Are you sure you want to delete this workout?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            this.logger.info('Confirm canceled');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            console.log('Confirm Yes');
+            this.store.dispatch(new DeleteWorkout({
+              id: this.workoutId,
+              days: this.workout.days
+            }));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   exportWorkout() {
     if (this.signedInUser) {
       this.store.dispatch(new ExportWorkout({
