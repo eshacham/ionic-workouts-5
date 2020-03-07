@@ -364,15 +364,16 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private startTimedRep() {
         // this.audioService.playStartWorkout();
         this.stopRepTimer();
+        const interval = Math.max(100, this.activeRep.seconds);
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
             this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec -= Math.min(100, this.activeRep.seconds)/1000;
+                this.remainingTimedRepSec -= interval/1000;
                 if (this.remainingTimedRepSec <= 0) {
                     this.stopRepTimer();
                     this.nextRep(true);
                 }
-            }, Math.min(100, this.activeRep.seconds));
+            }, interval);
         }
     }
 
@@ -386,14 +387,15 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         // audioService.playStartWorkout();
         this.stopRestTimer();
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
+        const interval = Math.max(100, this.secToRestAfterCurrentRep);
         if (this.remainingTimedRestSec) {
             this.timedRestTimer = setInterval(() => {
-                this.remainingTimedRestSec -= Math.min(100, this.secToRestAfterCurrentRep)/1000
+                this.remainingTimedRestSec -= interval/1000;
                 if (this.remainingTimedRestSec <= 0) {
                     this.stopRestTimer();
                     callbackAction();
                 }
-            }, Math.min(100, this.secToRestAfterCurrentRep));
+            }, interval);
         }
     }
     private stopRestTimer() {
