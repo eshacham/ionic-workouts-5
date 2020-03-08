@@ -59,6 +59,12 @@ export enum ExerciseAction {
     SwapSets,
     GotoExercise,
 }
+
+export enum ExportWorkoutAction {
+    Upload,
+    SMS
+}
+
 export enum Muscles {
     Longus = 'Longus',
     Fingers = 'Fingers',

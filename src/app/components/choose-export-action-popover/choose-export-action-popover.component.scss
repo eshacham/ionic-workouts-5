@@ -1,0 +1,11 @@
+ion-button {
+    color: var(--ion-color-dark);
+}
+ion-list {
+    background: var(--ion-color-light);
+}
+ion-item {
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --background: var(--ion-color-light);
+}

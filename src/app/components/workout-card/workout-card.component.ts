@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { DisplayMode } from 'src/app/models/enums';
+import { DisplayMode, ExportWorkoutAction } from 'src/app/models/enums';
 import { WorkoutBean } from 'src/app/models/Workout';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,10 +11,12 @@ import { take, takeUntil } from 'rxjs/operators';
 import { DeleteWorkout, ExportWorkout, UpdateWorkout } from 'src/app/store/actions/workouts.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { SelectWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { getSignedInUser } from 'src/app/store/selectors/data.selectors';
 import { Subject } from 'rxjs';
 import { ISignedInUser } from 'src/app/store/state/data.state';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { ChooseExportActionPopoverComponent } from '../choose-export-action-popover/choose-export-action-popover.component';
 
 @Component({
   selector: 'app-workout-card',
@@ -42,9 +44,11 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private dataService: DataServiceProvider,
     private alertController: AlertController,
+    private socialSharing: SocialSharing,
+    private popoverCtrl: PopoverController,
 
-    ) {
-      this.logger = loggingService.getLogger('App.WorkoutCardComponent');
+  ) {
+    this.logger = loggingService.getLogger('App.WorkoutCardComponent');
   }
 
   ngOnInit() {
@@ -58,7 +62,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
           this.description = this.workout.description;
         }
       });
-      this.store.select(getSignedInUser)
+    this.store.select(getSignedInUser)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(signedInUser => {
         this.signedInUser = signedInUser;
@@ -75,12 +79,12 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
 
   async goToWorkoutDay(dayId: string) {
-    this.logger.info('goToWorkoutDay', this.workoutId , dayId);
+    this.logger.info('goToWorkoutDay', this.workoutId, dayId);
     this.store.dispatch(new SelectWorkoutDay({
-      workoutId:  this.workoutId,
+      workoutId: this.workoutId,
       dayId
     }));
-    this.router.navigate(['workout'], {relativeTo: this.route});
+    this.router.navigate(['workout'], { relativeTo: this.route });
   }
 
   get daysCount(): number {
@@ -118,14 +122,43 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
 
     await alert.present();
   }
-  exportWorkout() {
+
+  shareWorkout(event: Event) {
     if (this.signedInUser) {
-      this.store.dispatch(new ExportWorkout({
-        workoutId: this.workoutId, signedInUser: this.signedInUser
-      }));
+      this.presentExportActionsPopover(event);
     } else {
       this.presentSignInAlert();
     }
+  }
+
+  async presentExportActionsPopover(event: Event) {
+    const popover = await this.popoverCtrl.create({
+      component: ChooseExportActionPopoverComponent,
+      event,
+      componentProps: {
+      }
+    });
+    popover.present();
+    popover.onDidDismiss()
+      .then(result => {
+        this.logger.info('onDidDismiss', result.data as ExportWorkoutAction);
+        switch (result.data) {
+          case ExportWorkoutAction.Upload:
+            this.store.dispatch(new ExportWorkout({
+              workoutId: this.workoutId, signedInUser: this.signedInUser
+            }));
+            break;
+          case ExportWorkoutAction.SMS:
+            const payload = {
+              workoutId: this.workoutId,
+              owner: this.signedInUser
+            }
+            this.socialSharing.shareViaSMS(JSON.stringify(payload), '');
+            break;
+          default:
+            break;
+        }
+      });
   }
 
   workoutChanged() {

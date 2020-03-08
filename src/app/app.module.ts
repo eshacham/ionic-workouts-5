@@ -31,6 +31,8 @@ import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers
 import { ThemeServiceProvider } from './providers/theme-service/theme-service';
 import { DataServiceProvider } from './providers/data-service/data-service';
 import { AudioServiceProvider } from './providers/audio-service/audio-service';
+import {SocialSharing}  from '@ionic-native/social-sharing/ngx';
+
 
 import { environment } from 'src/environments/environment';
 
@@ -79,6 +81,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
     ThemeServiceProvider,
     DataServiceProvider,
     AudioServiceProvider,
+    SocialSharing,
     {
       deps: [LoggingService],
       multi: true,
