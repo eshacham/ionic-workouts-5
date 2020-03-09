@@ -58,12 +58,11 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button (click)="expandItem(img, $event)">
+            <ion-button (click)="selectMediaAction(img, $event)">
               <ion-item>
                 <img [src]="safeImage(img.media)" slot="start"/>
                 <app-expandable expandHeight="100px"
                   [expanded]="img.expanded" slot="start">
-
                   <ion-row class="ion-justify-content-start">
                     <ion-button fill="clear" [disabled]="img.usage.length > 0"
                     (click)="deleteImage(img.media)" color="danger">

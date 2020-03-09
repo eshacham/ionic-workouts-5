@@ -7,6 +7,7 @@ import { TabLibraryPage } from './tab-library.page';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { ExpandableComponentModule } from '../components/expandable/expandable.module';
+import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component'
 
 const routes: Routes = [
   {
@@ -27,10 +28,16 @@ const routes: Routes = [
     ExpandableComponentModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [TabLibraryPage],
+  declarations: [
+    TabLibraryPage,
+    ChooseMediaActionPopoverComponent,
+  ],
+  entryComponents: [
+    ChooseMediaActionPopoverComponent,
+  ],
   providers: [
     Camera,
-    FilePath
+    FilePath,
   ]
 })
 export class TabLibraryPageModule { }

@@ -64,6 +64,12 @@ export enum ExportWorkoutAction {
     Upload,
     SMS
 }
+export enum MediaAction {
+    ViewLarge,
+    ViewNext,
+    ViewPrev,
+    ShowUsage
+}
 
 export enum Muscles {
     Longus = 'Longus',

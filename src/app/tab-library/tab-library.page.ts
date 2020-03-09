@@ -2,12 +2,12 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, IonList, AlertController } from '@ionic/angular';
+import { ActionSheetController, IonList, AlertController, PopoverController } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { ExerciseMediaBean } from '../models/ExerciseMedia';
 import { ToastService } from '../providers/toast-service/toast-service';
-import { Muscles } from '../models/enums';
+import { Muscles, MediaAction } from '../models/enums';
 import { MuscleFilterFor } from '../pages/select-muscle/select-muscle.page';
 import { IAppState } from '../store/state/app.state';
 import { takeUntil, take } from 'rxjs/operators';
@@ -23,6 +23,7 @@ import {
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 import { SetExerciseSetInWorkoutDay, SelectWorkoutDay } from '../store/actions/workoutDays.actions';
+import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component';
 
 interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -78,6 +79,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dataService: DataServiceProvider,
     private alertController: AlertController,
+    private popoverCtrl: PopoverController,
     private store: Store<IAppState>) {
     this.exerciseMediaWithUsage = [];
     this.logger = loggingService.getLogger('App.TabLibraryPage');
@@ -201,11 +203,45 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  expandItem(item: ExerciseMediaWithUsage, event: any): void {
+  selectMediaAction(media: ExerciseMediaWithUsage, event: any) {
+    event.stopPropagation();
+    this.presentActionsPopover(event, media);
+  }
+  async presentActionsPopover(
+    event: Event,
+    media: ExerciseMediaWithUsage
+) {
+    const popover = await this.popoverCtrl.create({
+        component: ChooseMediaActionPopoverComponent,
+        event,
+        componentProps: {
+        }
+    });
+    popover.present();
+    popover.onDidDismiss()
+        .then(result => {
+            this.logger.info('onDidDismiss', result.data as MediaAction);
+            switch (result.data) {
+                case MediaAction.ShowUsage:
+                    this.expandItem(media);
+                    break;
+                case MediaAction.ViewLarge:
+                    break;
+                case MediaAction.ViewNext:
+                    break;
+                case MediaAction.ViewPrev:
+                    break;
+                default:
+                    break;
+            }
+        });
+}
+
+  expandItem(item: ExerciseMediaWithUsage): void {
     if (item.expanded) {
       item.expanded = false;
     } else {
-      this.refreshImageUsage(item, event);
+      this.refreshImageUsage(item);
       this.images.map(listItem => {
         if (item === listItem) {
           listItem.expanded = !listItem.expanded;
@@ -217,13 +253,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     }
   }
 
-  refreshImageUsage(image: ExerciseMediaWithUsage, event: any = null) {
+  refreshImageUsage(image: ExerciseMediaWithUsage) {
     this.store.select(getExerciseMediaUsage(image.media.id))
       .pipe(take(1))
       .subscribe(usage => {
         image.usage = usage;
       });
-    if (event) { event.stopPropagation(); }
   }
 
   goToWorkoutDay(usage: { workoutId: string, dayId: string, setId: string }, event: any) {
