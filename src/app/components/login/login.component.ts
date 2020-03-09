@@ -39,6 +39,9 @@ export class LoginComponent implements OnInit {
     ]
   }
 
+get identityIdText(): string {
+  return `Copy User IdentityId: ${this.signedInUser ? this.signedInUser.identityId : '(Not Signed In)'}`;
+}
   constructor(
     private amplifyService: AmplifyService,
     private modalCtrl: ModalController,
