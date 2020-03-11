@@ -152,22 +152,27 @@ export class DataServiceProvider {
     const newEntry: ExerciseMediaBean = new ExerciseMediaBean({
       id: newImageId,
       name: newImageName,
+      images: [newImageId],
       isDefault: false,
       muscles: new Set(),
     });
     return newEntry;
   }
 
-  async deleteImage(image: ExerciseMediaBean): Promise<string> {
+  async deleteMedia(media: ExerciseMediaBean): Promise<string> {
+    await Promise.all(media.images.map((image, index) => {
+      return this.deleteImage(media, index)
+    }));
+    return media.id;
+  }
+  async deleteImage(image: ExerciseMediaBean, index: number): Promise<void> {
     if (this.isMobile && !image.isDefault) {
       const path = this.mobileFile.dataDirectory;
-      const name = image.id;
+      const name = image.images[index];
       this.logger.info('deleteImage', `deleting image file ${path}/${name}`);
       await this.mobileFile.removeFile(path, name);
     }
-    return image.id;
   }
-
 
   get isAndriod(): boolean {
     return this.platform.is('android');
@@ -222,14 +227,14 @@ export class DataServiceProvider {
           }
         }
       });
-      const imagesFiles = await Promise.all(Object.keys(imagesbyId).map(async imageId => {
-        const file = await this.getImageFile(imagesbyId[imageId]);
-        return { name: imageId, file };
+      const imagesFiles = await Promise.all(Object.keys(imagesbyId).map(async mediaId => {
+        const files = await this.getImageFiles(imagesbyId[mediaId]);
+        return { names: imagesbyId[mediaId].images, files };
       }));
-      const images = await Promise.all(imagesFiles.map(imageFile => {
-        return this.readFileData(imageFile.name, imageFile.file);
+      const medias = await Promise.all(imagesFiles.map(mediaId => {
+        return this.readFilesData(mediaId.names, mediaId.files);
       }));
-      images.forEach(image => zip.file(`images/${image.name}`, image.data, { compression: 'STORE' }));
+      medias.forEach(media => zip.file(`images/${media.name}`, media.data, { compression: 'STORE' }));
       workoutsData.exercises.byId = exercisesById;
       imagesData.media.byId = imagesbyId;
       zip.file(WORKOUTS_STORAGE_KEY, JSON.stringify(workoutsData), { binary: false });
@@ -260,31 +265,36 @@ export class DataServiceProvider {
     if (this.isMobile) {
       await Promise.all(Object.keys(result.imagesData.media.byId).map(async (imageId) => {
         const image = result.imagesData.media.byId[imageId];
-        const blob = await zip.file(`images/${imageId}`).async('blob');
-        await this.updateAndCreateNewImage(image, blob);
+        await this.updateAndCreateNewImage(image, zip);
       }));
     }
     this.logger.info('importWorkout', 'imported and updated result', result);
     return result;
   }
-  async updateAndCreateNewImage(image: ExerciseMediaBean, blob: any) {
-    const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, image.id, blob, { replace: true });
-    this.logger.info('updateAndCreateNewImage', `image ${image.name} imported`, blob, file);
+  async updateAndCreateNewImage(image: ExerciseMediaBean, zip: JSZip) {
+    await Promise.all(image.images.map(async (imageId) => {
+      const blob = await zip.file(`images/${imageId}`).async('blob');
+      const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
+      this.logger.info('updateAndCreateNewImage', `image ${imageId} imported`, blob, file);
+    }));
   }
 
-  private getImageFile(image: ExerciseMediaBean): any {
-    return new Promise(async (resolve) => {
-      let imageName: string;
-      if (!image.isDefault) {
-        imageName = this.getImageNativePath(image.id);
-        const mobileFileEntry = (await this.mobileFile.resolveLocalFilesystemUrl(imageName)) as FileEntry;
-        mobileFileEntry.file((data) => resolve(data));
-      } else {
-        imageName = this.getImageDefaultPath(image.id);
-        this.http.get(imageName, { responseType: 'blob' })
-          .subscribe((data) => resolve(data));
-      }
-    });
+  private getImageFiles(image: ExerciseMediaBean): any {
+    return Promise.all(image.images.map(imageId => {
+      return new Promise(async (resolve) => {
+        let imageName: string;
+        if (!image.isDefault) {
+          imageName = this.getImageNativePath(imageId);
+          const mobileFileEntry = (await this.mobileFile.resolveLocalFilesystemUrl(imageName)) as FileEntry;
+          mobileFileEntry.file((data) => resolve(data));
+        } else {
+          imageName = this.getImageDefaultPath(imageId);
+          this.http.get(imageName, { responseType: 'blob' })
+            .subscribe((data) => resolve(data));
+        }
+      });
+    }));
+
   }
 
   private getImageNativePath(imageName: string): string {
@@ -296,22 +306,24 @@ export class DataServiceProvider {
   private getMobilePath(url: string) {
     return this.webview.convertFileSrc(url);
   }
-  safeImage(media: ExerciseMediaBean): SafeUrl {
+  safeImage(media: ExerciseMediaBean, index: number): SafeUrl {
     const imagePath = media.isDefault
-      ? this.getImageDefaultPath(media.id)
-      : this.getMobilePath(this.getImageNativePath(media.id));
+      ? this.getImageDefaultPath(media.images[index])
+      : this.getMobilePath(this.getImageNativePath(media.images[index]));
 
     const url = this.domSanitizer.bypassSecurityTrustUrl(imagePath);
     return url;
   }
 
-  private readFileData(fileName: string, file: Blob): Promise<{ name: string, data: any }> {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve({ name: fileName, data: reader.result });
-      };
-      reader.readAsArrayBuffer(file);
-    });
+  private readFilesData(fileNames: string[], files: Blob[]): any {
+    return Promise.all(files.map((file: Blob, index: number) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve({ name: fileNames[index], data: reader.result });
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }));
   }
 }

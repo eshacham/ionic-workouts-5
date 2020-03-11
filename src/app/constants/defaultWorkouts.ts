@@ -26,7 +26,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Wide Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressWideGrip.jpeg'),
+                                    mediaId: attachMedia2Exercise('BenchPressWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Wide,
@@ -67,7 +67,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Seated Rope Cable Row',
-                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow.png'),
+                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -98,7 +98,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Wrist Curl',
-                                    mediaId: attachMedia2Exercise('DumbbellWristCurl.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellWristCurl'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Normal,
@@ -134,7 +134,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Triceps Pushdown, Overhand Grip',
-                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand
                                     ),
@@ -173,7 +173,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Biceps Curl, Underhand Grip',
-                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand
                                     ),
@@ -212,7 +212,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Leg Raise Machine',
-                                    mediaId: attachMedia2Exercise('LegRaiseMachine.png'),
+                                    mediaId: attachMedia2Exercise('LegRaiseMachine'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -248,7 +248,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -284,7 +284,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Crossfit Situps',
-                                    mediaId: attachMedia2Exercise('CrossfitSitup.png'),
+                                    mediaId: attachMedia2Exercise('CrossfitSitup'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -309,7 +309,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -341,7 +341,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip.png'),
+                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Narrow
@@ -372,7 +372,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal
@@ -403,7 +403,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -439,7 +439,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Fly',
-                                    mediaId: attachMedia2Exercise('CableFly.png'),
+                                    mediaId: attachMedia2Exercise('CableFly'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -478,7 +478,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Fly',
-                                    mediaId: attachMedia2Exercise('DumbbellFly.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellFly'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                     ),
@@ -513,7 +513,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Horizontal Row, Inclined Prone',
-                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -549,7 +549,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Tricpes Extensions, Seated',
-                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -582,7 +582,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Inclined Pushup, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip.jpg'),
+                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     theGrip: new Grip(
                                         GripType.Neutral,
@@ -612,7 +612,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Reverse Cable Fly, On Flat Bench',
-                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench.png'),
+                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -647,7 +647,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps',
-                                    mediaId: attachMedia2Exercise('Situps.png'),
+                                    mediaId: attachMedia2Exercise('Situps'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -673,7 +673,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps with Weight Above Head',
-                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead.png'),
+                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -705,7 +705,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
-                                    mediaId: attachMedia2Exercise('RussianTwist.png'),
+                                    mediaId: attachMedia2Exercise('RussianTwist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -737,7 +737,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cabel Lat Pulldown, Behind Neck Wide Grip',
-                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip.png'),
+                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -773,7 +773,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Dumbbell Pullover',
-                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover.png'),
+                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -815,7 +815,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Arm Circles',
-                                    mediaId: attachMedia2Exercise('DumbbellArmCircles.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellArmCircles'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -851,7 +851,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Machine Row Medium Grip',
-                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip.png'),
+                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -883,7 +883,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dummbell Biceps Curl Standing Underhand Grip',
-                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -919,7 +919,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Shrug',
-                                    mediaId: attachMedia2Exercise('CableShrug.png'),
+                                    mediaId: attachMedia2Exercise('CableShrug'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -955,7 +955,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dragon Flags',
-                                    mediaId: attachMedia2Exercise('DragonFlags.png'),
+                                    mediaId: attachMedia2Exercise('DragonFlags'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -981,7 +981,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Situps',
-                                    mediaId: attachMedia2Exercise('DeclineSitups.png'),
+                                    mediaId: attachMedia2Exercise('DeclineSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -1008,7 +1008,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -1034,7 +1034,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Lying Scissors Kicks',
-                                    mediaId: attachMedia2Exercise('LyingScissorsKicks.png'),
+                                    mediaId: attachMedia2Exercise('LyingScissorsKicks'),
                                     theGrip: new Grip(),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
@@ -1068,7 +1068,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Walking Lunge with Side Weights',
-                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights.png'),
+                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -1101,7 +1101,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Abduction',
-                                    mediaId: attachMedia2Exercise('CableAbduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAbduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1127,7 +1127,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Adduction',
-                                    mediaId: attachMedia2Exercise('CableAdduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAdduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -1159,7 +1159,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1190,7 +1190,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Calf Raise',
-                                    mediaId: attachMedia2Exercise('CableCalfRaise.png'),
+                                    mediaId: attachMedia2Exercise('CableCalfRaise'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1221,7 +1221,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bodyweight Flutter Kicks',
-                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks.png'),
+                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1246,7 +1246,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Weighted Situps',
-                                    mediaId: attachMedia2Exercise('WeightedSitups.png'),
+                                    mediaId: attachMedia2Exercise('WeightedSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1277,7 +1277,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Plank',
-                                    mediaId: attachMedia2Exercise('Plank.png'),
+                                    mediaId: attachMedia2Exercise('Plank'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1302,7 +1302,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Twist',
-                                    mediaId: attachMedia2Exercise('Twist.png'),
+                                    mediaId: attachMedia2Exercise('Twist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1340,7 +1340,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Wide Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressWideGrip.jpeg'),
+                                    mediaId: attachMedia2Exercise('BenchPressWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Wide,
@@ -1382,7 +1382,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Seated Rope Cable Row',
-                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow.png'),
+                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -1414,7 +1414,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Wrist Curl',
-                                    mediaId: attachMedia2Exercise('DumbbellWristCurl.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellWristCurl'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Normal,
@@ -1451,7 +1451,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Triceps Pushdown, Overhand Grip',
-                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand
                                     ),
@@ -1491,7 +1491,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Biceps Curl, Underhand Grip',
-                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand
                                     ),
@@ -1531,7 +1531,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Leg Raise Machine',
-                                    mediaId: attachMedia2Exercise('LegRaiseMachine.png'),
+                                    mediaId: attachMedia2Exercise('LegRaiseMachine'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -1568,7 +1568,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -1604,7 +1604,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Crossfit Situps',
-                                    mediaId: attachMedia2Exercise('CrossfitSitup.png'),
+                                    mediaId: attachMedia2Exercise('CrossfitSitup'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -1630,7 +1630,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -1663,7 +1663,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip.png'),
+                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Narrow
@@ -1695,7 +1695,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal
@@ -1727,7 +1727,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -1764,7 +1764,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Fly',
-                                    mediaId: attachMedia2Exercise('CableFly.png'),
+                                    mediaId: attachMedia2Exercise('CableFly'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -1804,7 +1804,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Fly',
-                                    mediaId: attachMedia2Exercise('DumbbellFly.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellFly'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                     ),
@@ -1840,7 +1840,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Horizontal Row, Inclined Prone',
-                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -1876,7 +1876,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Tricpes Extensions, Seated',
-                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -1909,7 +1909,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Inclined Pushup, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip.jpg'),
+                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     theGrip: new Grip(
                                         GripType.Neutral,
@@ -1939,7 +1939,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Reverse Cable Fly, On Flat Bench',
-                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench.png'),
+                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -1974,7 +1974,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps',
-                                    mediaId: attachMedia2Exercise('Situps.png'),
+                                    mediaId: attachMedia2Exercise('Situps'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2000,7 +2000,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps with Weight Above Head',
-                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead.png'),
+                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2032,7 +2032,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
-                                    mediaId: attachMedia2Exercise('RussianTwist.png'),
+                                    mediaId: attachMedia2Exercise('RussianTwist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2064,7 +2064,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cabel Lat Pulldown, Behind Neck Wide Grip',
-                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip.png'),
+                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -2100,7 +2100,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Dumbbell Pullover',
-                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover.png'),
+                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -2142,7 +2142,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Arm Circles',
-                                    mediaId: attachMedia2Exercise('DumbbellArmCircles.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellArmCircles'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -2178,7 +2178,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Machine Row Medium Grip',
-                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip.png'),
+                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2210,7 +2210,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dummbell Biceps Curl Standing Underhand Grip',
-                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -2246,7 +2246,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Shrug',
-                                    mediaId: attachMedia2Exercise('CableShrug.png'),
+                                    mediaId: attachMedia2Exercise('CableShrug'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -2282,7 +2282,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dragon Flags',
-                                    mediaId: attachMedia2Exercise('DragonFlags.png'),
+                                    mediaId: attachMedia2Exercise('DragonFlags'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2308,7 +2308,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Situps',
-                                    mediaId: attachMedia2Exercise('DeclineSitups.png'),
+                                    mediaId: attachMedia2Exercise('DeclineSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -2335,7 +2335,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -2361,7 +2361,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Lying Scissors Kicks',
-                                    mediaId: attachMedia2Exercise('LyingScissorsKicks.png'),
+                                    mediaId: attachMedia2Exercise('LyingScissorsKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -2394,7 +2394,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Walking Lunge with Side Weights',
-                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights.png'),
+                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -2427,7 +2427,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Abduction',
-                                    mediaId: attachMedia2Exercise('CableAbduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAbduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2453,7 +2453,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Adduction',
-                                    mediaId: attachMedia2Exercise('CableAdduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAdduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2485,7 +2485,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2516,7 +2516,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Calf Raise',
-                                    mediaId: attachMedia2Exercise('CableCalfRaise.png'),
+                                    mediaId: attachMedia2Exercise('CableCalfRaise'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2547,7 +2547,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bodyweight Flutter Kicks',
-                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks.png'),
+                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2572,7 +2572,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Weighted Situps',
-                                    mediaId: attachMedia2Exercise('WeightedSitups.png'),
+                                    mediaId: attachMedia2Exercise('WeightedSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2603,7 +2603,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Plank',
-                                    mediaId: attachMedia2Exercise('Plank.png'),
+                                    mediaId: attachMedia2Exercise('Plank'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2629,7 +2629,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Twist',
-                                    mediaId: attachMedia2Exercise('Twist.png'),
+                                    mediaId: attachMedia2Exercise('Twist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2667,7 +2667,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Wide Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressWideGrip.jpeg'),
+                                    mediaId: attachMedia2Exercise('BenchPressWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Wide,
@@ -2709,7 +2709,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Seated Rope Cable Row',
-                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow.png'),
+                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2741,7 +2741,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Wrist Curl',
-                                    mediaId: attachMedia2Exercise('DumbbellWristCurl.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellWristCurl'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Normal,
@@ -2778,7 +2778,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Triceps Pushdown, Overhand Grip',
-                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand
                                     ),
@@ -2818,7 +2818,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Biceps Curl, Underhand Grip',
-                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand
                                     ),
@@ -2858,7 +2858,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Leg Raise Machine',
-                                    mediaId: attachMedia2Exercise('LegRaiseMachine.png'),
+                                    mediaId: attachMedia2Exercise('LegRaiseMachine'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2895,7 +2895,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -2931,7 +2931,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Crossfit Situps',
-                                    mediaId: attachMedia2Exercise('CrossfitSitup.png'),
+                                    mediaId: attachMedia2Exercise('CrossfitSitup'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -2957,7 +2957,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -2990,7 +2990,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip.png'),
+                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Narrow
@@ -3022,7 +3022,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal
@@ -3054,7 +3054,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -3091,7 +3091,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Fly',
-                                    mediaId: attachMedia2Exercise('CableFly.png'),
+                                    mediaId: attachMedia2Exercise('CableFly'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -3131,7 +3131,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Fly',
-                                    mediaId: attachMedia2Exercise('DumbbellFly.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellFly'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                     ),
@@ -3167,7 +3167,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Horizontal Row, Inclined Prone',
-                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -3203,7 +3203,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Tricpes Extensions, Seated',
-                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -3236,7 +3236,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Inclined Pushup, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip.jpg'),
+                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     theGrip: new Grip(
                                         GripType.Neutral,
@@ -3266,7 +3266,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Reverse Cable Fly, On Flat Bench',
-                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench.png'),
+                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -3301,7 +3301,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps',
-                                    mediaId: attachMedia2Exercise('Situps.png'),
+                                    mediaId: attachMedia2Exercise('Situps'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3327,7 +3327,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps with Weight Above Head',
-                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead.png'),
+                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3359,7 +3359,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
-                                    mediaId: attachMedia2Exercise('RussianTwist.png'),
+                                    mediaId: attachMedia2Exercise('RussianTwist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3391,7 +3391,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cabel Lat Pulldown, Behind Neck Wide Grip',
-                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip.png'),
+                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -3427,7 +3427,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Dumbbell Pullover',
-                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover.png'),
+                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -3469,7 +3469,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Arm Circles',
-                                    mediaId: attachMedia2Exercise('DumbbellArmCircles.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellArmCircles'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -3505,7 +3505,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Machine Row Medium Grip',
-                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip.png'),
+                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3537,7 +3537,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dummbell Biceps Curl Standing Underhand Grip',
-                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -3573,7 +3573,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Shrug',
-                                    mediaId: attachMedia2Exercise('CableShrug.png'),
+                                    mediaId: attachMedia2Exercise('CableShrug'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -3609,7 +3609,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dragon Flags',
-                                    mediaId: attachMedia2Exercise('DragonFlags.png'),
+                                    mediaId: attachMedia2Exercise('DragonFlags'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3635,7 +3635,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Situps',
-                                    mediaId: attachMedia2Exercise('DeclineSitups.png'),
+                                    mediaId: attachMedia2Exercise('DeclineSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -3662,7 +3662,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -3688,7 +3688,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Lying Scissors Kicks',
-                                    mediaId: attachMedia2Exercise('LyingScissorsKicks.png'),
+                                    mediaId: attachMedia2Exercise('LyingScissorsKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -3721,7 +3721,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Walking Lunge with Side Weights',
-                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights.png'),
+                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -3754,7 +3754,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Abduction',
-                                    mediaId: attachMedia2Exercise('CableAbduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAbduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3780,7 +3780,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Adduction',
-                                    mediaId: attachMedia2Exercise('CableAdduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAdduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3812,7 +3812,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3843,7 +3843,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Calf Raise',
-                                    mediaId: attachMedia2Exercise('CableCalfRaise.png'),
+                                    mediaId: attachMedia2Exercise('CableCalfRaise'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3874,7 +3874,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bodyweight Flutter Kicks',
-                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks.png'),
+                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3899,7 +3899,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Weighted Situps',
-                                    mediaId: attachMedia2Exercise('WeightedSitups.png'),
+                                    mediaId: attachMedia2Exercise('WeightedSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3930,7 +3930,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Plank',
-                                    mediaId: attachMedia2Exercise('Plank.png'),
+                                    mediaId: attachMedia2Exercise('Plank'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -3956,7 +3956,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Twist',
-                                    mediaId: attachMedia2Exercise('Twist.png'),
+                                    mediaId: attachMedia2Exercise('Twist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -3994,7 +3994,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Wide Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressWideGrip.jpeg'),
+                                    mediaId: attachMedia2Exercise('BenchPressWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Wide,
@@ -4036,7 +4036,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Seated Rope Cable Row',
-                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow.png'),
+                                    mediaId: attachMedia2Exercise('SeatedRopeCableRow'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4068,7 +4068,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Wrist Curl',
-                                    mediaId: attachMedia2Exercise('DumbbellWristCurl.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellWristCurl'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Normal,
@@ -4105,7 +4105,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Triceps Pushdown, Overhand Grip',
-                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableTricepsPushdownOverheadGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand
                                     ),
@@ -4145,7 +4145,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Biceps Curl, Underhand Grip',
-                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('CableBicepsCurlUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand
                                     ),
@@ -4185,7 +4185,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Leg Raise Machine',
-                                    mediaId: attachMedia2Exercise('LegRaiseMachine.png'),
+                                    mediaId: attachMedia2Exercise('LegRaiseMachine'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4222,7 +4222,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -4258,7 +4258,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Crossfit Situps',
-                                    mediaId: attachMedia2Exercise('CrossfitSitup.png'),
+                                    mediaId: attachMedia2Exercise('CrossfitSitup'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4284,7 +4284,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -4317,7 +4317,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bench Press, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip.png'),
+                                    mediaId: attachMedia2Exercise('BenchPressNarrowGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Narrow
@@ -4349,7 +4349,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal
@@ -4381,7 +4381,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Bench Press, Rotating Grip',
-                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellBenshPressRotatingGrip'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -4418,7 +4418,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Fly',
-                                    mediaId: attachMedia2Exercise('CableFly.png'),
+                                    mediaId: attachMedia2Exercise('CableFly'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -4458,7 +4458,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Fly',
-                                    mediaId: attachMedia2Exercise('DumbbellFly.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellFly'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                     ),
@@ -4494,7 +4494,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Horizontal Row, Inclined Prone',
-                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellHorizontalRowInclineProne'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -4530,7 +4530,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Tricpes Extensions, Seated',
-                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellTricepsExtensionSeated'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -4563,7 +4563,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Inclined Pushup, Narrow Grip',
-                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip.jpg'),
+                                    mediaId: attachMedia2Exercise('InclinePushupNarrowGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     theGrip: new Grip(
                                         GripType.Neutral,
@@ -4593,7 +4593,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Reverse Cable Fly, On Flat Bench',
-                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench.png'),
+                                    mediaId: attachMedia2Exercise('ReverseCableFlyOnFlatBench'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -4628,7 +4628,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps',
-                                    mediaId: attachMedia2Exercise('Situps.png'),
+                                    mediaId: attachMedia2Exercise('Situps'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4654,7 +4654,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Situps with Weight Above Head',
-                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead.png'),
+                                    mediaId: attachMedia2Exercise('SitupsWithWeightAboveHead'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4686,7 +4686,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
-                                    mediaId: attachMedia2Exercise('RussianTwist.png'),
+                                    mediaId: attachMedia2Exercise('RussianTwist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4718,7 +4718,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cabel Lat Pulldown, Behind Neck Wide Grip',
-                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip.png'),
+                                    mediaId: attachMedia2Exercise('CabelLatPulldownBehindNeckWideGrip'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -4754,7 +4754,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Dumbbell Pullover',
-                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover.png'),
+                                    mediaId: attachMedia2Exercise('DeclineDumbbellPullover'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                         GripWidth.Wide,
@@ -4796,7 +4796,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dumbbell Arm Circles',
-                                    mediaId: attachMedia2Exercise('DumbbellArmCircles.png'),
+                                    mediaId: attachMedia2Exercise('DumbbellArmCircles'),
                                     theGrip: new Grip(
                                         GripType.Overhand,
                                     ),
@@ -4832,7 +4832,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Machine Row Medium Grip',
-                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip.png'),
+                                    mediaId: attachMedia2Exercise('MachineRowMediumGrip'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -4864,7 +4864,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dummbell Biceps Curl Standing Underhand Grip',
-                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip.png'),
+                                    mediaId: attachMedia2Exercise('DummbellBicepsCurlStandingUnderhandGrip'),
                                     theGrip: new Grip(
                                         GripType.Underhand,
                                     ),
@@ -4900,7 +4900,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Shrug',
-                                    mediaId: attachMedia2Exercise('CableShrug.png'),
+                                    mediaId: attachMedia2Exercise('CableShrug'),
                                     theGrip: new Grip(
                                         GripType.Neutral,
                                         GripWidth.Normal,
@@ -4936,7 +4936,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Dragon Flags',
-                                    mediaId: attachMedia2Exercise('DragonFlags.png'),
+                                    mediaId: attachMedia2Exercise('DragonFlags'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -4961,7 +4961,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Decline Situps',
-                                    mediaId: attachMedia2Exercise('DeclineSitups.png'),
+                                    mediaId: attachMedia2Exercise('DeclineSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -4987,7 +4987,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cross Body Crunch',
-                                    mediaId: attachMedia2Exercise('CrossBodyCrunch.png'),
+                                    mediaId: attachMedia2Exercise('CrossBodyCrunch'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -5013,7 +5013,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Lying Scissors Kicks',
-                                    mediaId: attachMedia2Exercise('LyingScissorsKicks.png'),
+                                    mediaId: attachMedia2Exercise('LyingScissorsKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.NoWeight,
                                     isFavorite: false,
@@ -5045,7 +5045,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Walking Lunge with Side Weights',
-                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights.png'),
+                                    mediaId: attachMedia2Exercise('WalkingLungeWithSideWeights'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
@@ -5078,7 +5078,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Abduction',
-                                    mediaId: attachMedia2Exercise('CableAbduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAbduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -5104,7 +5104,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Adduction',
-                                    mediaId: attachMedia2Exercise('CableAdduction.png'),
+                                    mediaId: attachMedia2Exercise('CableAdduction'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -5136,7 +5136,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Leg Curl',
-                                    mediaId: attachMedia2Exercise('CableLegCurl.png'),
+                                    mediaId: attachMedia2Exercise('CableLegCurl'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -5167,7 +5167,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Cable Calf Raise',
-                                    mediaId: attachMedia2Exercise('CableCalfRaise.png'),
+                                    mediaId: attachMedia2Exercise('CableCalfRaise'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -5198,7 +5198,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Bodyweight Flutter Kicks',
-                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks.png'),
+                                    mediaId: attachMedia2Exercise('BodyweightFlutterKicks'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -5223,7 +5223,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Weighted Situps',
-                                    mediaId: attachMedia2Exercise('WeightedSitups.png'),
+                                    mediaId: attachMedia2Exercise('WeightedSitups'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [
@@ -5254,7 +5254,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Plank',
-                                    mediaId: attachMedia2Exercise('Plank.png'),
+                                    mediaId: attachMedia2Exercise('Plank'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
 
@@ -5280,7 +5280,7 @@ const buildDefaultWorkouts = () => {
                                 new Exercise({
                                     id: Guid.raw(),
                                     name: 'Twist',
-                                    mediaId: attachMedia2Exercise('Twist.png'),
+                                    mediaId: attachMedia2Exercise('Twist'),
                                     repSpeed: RepetitionSpeed.OneOne,
                                     isFavorite: false,
                                     reps: [

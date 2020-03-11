@@ -8,7 +8,7 @@
                         <ion-col size="3">
                             <ion-button class="img-btn"
                                 (click)="goToImagesLibraryPage(exercise)">
-                                <img [src]="safeImage(images[i])" />
+                                <img [src]="safeImage(images[i], 0)" />
                             </ion-button>
                         </ion-col>
                         <ion-col size="8">
@@ -44,7 +44,7 @@
                         class="ion-text-center">
                         <ion-button class="img-btn"
                             (click)="goToImagesLibraryPage(exercise)">
-                            <img [src]="safeImage(images[i])" />
+                            <img [src]="safeImage(images[i], 0)" />
                         </ion-button>
                     </ion-col>
                 </ion-row>
@@ -146,7 +146,7 @@
                     class="ion-no-padding ion-text-center">
                     <ion-button class="img-btn"
                         (click)="selectExerciseAction($event, exercise, i, last)">
-                        <img [src]="safeImage(images[i])" />
+                        <img [src]="safeImage(images[i], 0)" />
                     </ion-button>
                 </ion-col>
             </ion-row>
@@ -239,7 +239,7 @@
                     <ion-col size="3">
                         <ion-button class="img-btn"
                             (click)="goToImagesLibraryPage(exercise)">
-                            <img [src]="safeImage(images[i])"/>
+                            <img [src]="safeImage(images[i], 0)"/>
                         </ion-button>
                     </ion-col>
                     <ion-col size="9">

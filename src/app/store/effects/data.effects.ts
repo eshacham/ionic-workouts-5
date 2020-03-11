@@ -204,7 +204,7 @@ export class DataEffects {
     @Effect()
     deleteImage$ = this.actions$.pipe(
         ofType(ExerciseMediaActionsTypes.DeleteExerciseMedia),
-        mergeMap((action: DeleteExerciseMedia) => from(this.dataService.deleteImage(
+        mergeMap((action: DeleteExerciseMedia) => from(this.dataService.deleteMedia(
             action.payload.image)).pipe(
                 switchMap((imageId: string) => [
                     (new DeleteExerciseMediaSuccess({ imageId })),

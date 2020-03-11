@@ -277,8 +277,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File updated.');
   }
 
-  safeImage(media: ExerciseMediaBean): any {
-    return this.dataService.safeImage(media);
+  safeImage(media: ExerciseMediaBean, index: number): any {
+    return this.dataService.safeImage(media, index);
   }
 
   async setMuscle(imgEntry: ExerciseMediaBean) {
