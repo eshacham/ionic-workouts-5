@@ -203,39 +203,54 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  selectMediaAction(media: ExerciseMediaWithUsage, event: any) {
+  selectMediaAction(media: ExerciseMediaWithUsage, index: number, event: any) {
     event.stopPropagation();
-    this.presentActionsPopover(event, media);
+    this.presentActionsPopover(event, index, media);
   }
   async presentActionsPopover(
     event: Event,
+    index: number,
     media: ExerciseMediaWithUsage
-) {
+  ) {
     const popover = await this.popoverCtrl.create({
-        component: ChooseMediaActionPopoverComponent,
-        event,
-        componentProps: {
-        }
+      component: ChooseMediaActionPopoverComponent,
+      event,
+      componentProps: {
+        isExpanded: media.expanded
+      }
     });
     popover.present();
     popover.onDidDismiss()
-        .then(result => {
-            this.logger.info('onDidDismiss', result.data as MediaAction);
-            switch (result.data) {
-                case MediaAction.ShowUsage:
-                    this.expandItem(media);
-                    break;
-                case MediaAction.ViewLarge:
-                    break;
-                case MediaAction.ViewNext:
-                    break;
-                case MediaAction.ViewPrev:
-                    break;
-                default:
-                    break;
-            }
-        });
-}
+      .then(result => {
+        this.logger.info('onDidDismiss', result.data as MediaAction);
+        switch (result.data) {
+          case MediaAction.ShowUsage:
+          case MediaAction.HideUsage:
+            this.expandItem(media);
+            break;
+          case MediaAction.ViewLarge:
+            this.viewLarge(media, index);
+            break;
+          case MediaAction.ViewNext:
+            this.viewNext(media, index);
+            break;
+          case MediaAction.ViewPrev:
+            this.viewPrev(media, index);
+            break;
+          case MediaAction.InsertImage:
+            this.insertImage(media, index);
+            break;
+          case MediaAction.DeleteImage:
+            this.removeImage(media, index);
+            break;
+          case MediaAction.MoveAhead:
+            this.moveAhead(media, index);
+            break;
+          default:
+            break;
+        }
+      });
+  }
 
   expandItem(item: ExerciseMediaWithUsage): void {
     if (item.expanded) {
@@ -252,6 +267,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       });
     }
   }
+  viewLarge(item: ExerciseMediaWithUsage, index: number): void {}
+  viewNext(item: ExerciseMediaWithUsage, index: number): void {}
+  viewPrev(item: ExerciseMediaWithUsage, index: number): void {}
+  insertImage(item: ExerciseMediaWithUsage, index: number): void {}
+  removeImage(item: ExerciseMediaWithUsage, index: number): void {}
+  moveAhead(item: ExerciseMediaWithUsage, index: number): void {}
 
   refreshImageUsage(image: ExerciseMediaWithUsage) {
     this.store.select(getExerciseMediaUsage(image.media.id))

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaAction } from 'src/app/models/enums';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-choose-media-action-popover',
@@ -8,11 +8,16 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./choose-media-action-popover.component.scss'],
 })
 export class ChooseMediaActionPopoverComponent implements OnInit {
+  isExpanded: boolean;
+  constructor(
+    private popoverController: PopoverController,
+    private navParams: NavParams,
 
-  constructor(private popoverController: PopoverController,
-    ) { }
+  ) {
+    this.isExpanded = this.navParams.data.isExpanded;
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   close(action: MediaAction) {
     this.popoverController.dismiss(action);

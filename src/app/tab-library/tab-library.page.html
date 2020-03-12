@@ -34,7 +34,7 @@
 <ion-content>
   <ion-list lines="none">
 
-    <ion-item *ngFor="let img of filteredImages">
+    <ion-item *ngFor="let img of filteredImages; let i = index;">
       <ion-grid>
         <ion-row class="ion-align-items-center">
           <ion-col size="9">
@@ -58,7 +58,7 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button (click)="selectMediaAction(img, $event)">
+            <ion-button (click)="selectMediaAction(img, i, $event)">
               <ion-item>
                 <img [src]="safeImage(img.media, 0)" slot="start"/>
                 <app-expandable expandHeight="100px"

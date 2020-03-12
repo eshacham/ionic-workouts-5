@@ -1,18 +1,40 @@
 <ion-list>
-  <ion-item button (click)="showUsage()">
-      Show Usage in Workouts
-      <ion-icon slot="start" name="walk-sharp" color="primary"></ion-icon>
-  </ion-item>
-  <ion-item button (click)="viewPrev()">
-      View Previous image
-      <ion-icon slot="start" name="arrow-back-circle-sharp" color="primary"></ion-icon>
-  </ion-item>
-  <ion-item button (click)="viewLarge()">
-      View Larger
-      <ion-icon slot="start" name="expand-sharp" color="primary"></ion-icon>
-</ion-item>
-  <ion-item button (click)="viewNext()">
-      View Next image
-      <ion-icon slot="start" name="arrow-forward-circle-sharp" color="primary"></ion-icon>
-  </ion-item>
+    <ion-list-header>
+        <ion-label>Edit Action</ion-label>
+    </ion-list-header>
+    <ion-item button (click)="viewPrev()">
+        Insert New Image
+        <ion-icon slot="start" name="add-circle-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="viewLarge()">
+        Remove This Image
+        <ion-icon slot="start" name="remove-circle-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="viewNext()">
+        Move Image Forward
+        <ion-icon slot="start" name="chevron-forward-circle-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-list-header>
+        <ion-label>View Action</ion-label>
+    </ion-list-header>
+    <ion-item button (click)="showUsage()" *ngIf="!isExpanded">
+        Show Usage in Workouts
+        <ion-icon slot="start" name="walk-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="showUsage()" *ngIf="isExpanded">
+        Hide Usage in Workouts
+        <ion-icon slot="start" name="walk-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="viewPrev()">
+        View Previous image
+        <ion-icon slot="start" name="arrow-back-circle-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="viewLarge()">
+        View Larger
+        <ion-icon slot="start" name="expand-sharp" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item button (click)="viewNext()">
+        View Next image
+        <ion-icon slot="start" name="arrow-forward-circle-sharp" color="primary"></ion-icon>
+    </ion-item>
 </ion-list>
