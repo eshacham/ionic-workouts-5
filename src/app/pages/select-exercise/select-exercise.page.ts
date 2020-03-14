@@ -94,7 +94,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
           return {
             isSelected: false,
             media: ExerciseMediaBean
-            .create(image.id, image.name, new Set(image.muscles), image.isDefault),
+            .create(image.id, image.name, image.images, new Set(image.muscles), image.isDefault),
           };
         });
       });
@@ -150,8 +150,8 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     image.media.name = value;
   }
 
-  safeImage(media: ExerciseMediaBean): any {
-    return this.dataService.safeImage(media);
+  safeImage(media: ExerciseMediaBean, index: number): any {
+    return this.dataService.safeImage(media, index);
   }
   addExercise() {
     const { sets, exes } = this.getNewSets();

@@ -611,8 +611,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
 
-    safeImage(media: ExerciseMediaBean): any {
-        return this.dataService.safeImage(media);
+    safeImage(media: ExerciseMediaBean, index: number): any {
+        return this.dataService.safeImage(media, index);
     }
 
     editExerciseName(event: any, exe: ExerciseBean, index: number) {

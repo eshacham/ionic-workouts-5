@@ -68,7 +68,11 @@ export enum MediaAction {
     ViewLarge,
     ViewNext,
     ViewPrev,
-    ShowUsage
+    ShowUsage,
+    HideUsage,
+    InsertImage,
+    DeleteImage,
+    MoveAhead
 }
 
 export enum Muscles {

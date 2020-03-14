@@ -54,7 +54,7 @@
         <ion-row>
           <ion-col>
             <ion-item lines="none" >
-              <img [src]="safeImage(img.media)" slot="start"/>
+              <img [src]="safeImage(img.media, 0)" slot="start"/>
               <ion-checkbox slot="end" [(ngModel)]="img.isSelected"></ion-checkbox>
             </ion-item>
           </ion-col>

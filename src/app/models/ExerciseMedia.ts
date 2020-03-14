@@ -6,38 +6,43 @@ export class ExerciseMediaBean implements Bean {
 
   public id: string;
   public name: string;
-  public isDefault: boolean;
+  public images: string[];
   public muscles: Array<Muscles>;
+  public isDefault: boolean;
   public exportedBy?: ISignedInUser;
 
   constructor(options: {
     id: string,
     name: string,
-    isDefault: boolean,
+    images: string[],
     muscles: Set<Muscles>,
+    isDefault: boolean,
     exportedBy?: ISignedInUser,
+
   }) {
     this.id = options.id;
     this.name = options.name;
-    this.isDefault = options.isDefault;
+    this.images = options.images
     this.muscles = Array.from(options.muscles.values());
+    this.isDefault = options.isDefault;
     this.exportedBy = options.exportedBy;
   }
 
   static create(
     id: string,
     name: string,
+    images: string[],
     muscles: Set<Muscles>,
     isDefault: boolean = true,
     exportedBy: ISignedInUser = null,
-
   ): ExerciseMediaBean {
     return new ExerciseMediaBean({
       id,
       name,
-      isDefault,
+      images,
       muscles,
-      exportedBy
+      isDefault,
+      exportedBy,
     });
   }
 }
