@@ -217,7 +217,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       component: ChooseMediaActionPopoverComponent,
       event,
       componentProps: {
-        isExpanded: media.expanded
+        media
       }
     });
     popover.present();
@@ -272,10 +272,16 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger.debug('viewLarge', item.media.name, item.selectedIndex);
   }
   viewNext(item: ExerciseMediaWithUsage): void {
+    if (item.selectedIndex < item.media.images.length-1) {
+      item.selectedIndex++;
+    }
     this.logger.debug('viewNext', item.media.name, item.selectedIndex);
 
   }
   viewPrev(item: ExerciseMediaWithUsage): void {
+    if (item.selectedIndex !== 0) {
+      item.selectedIndex--;
+    }
     this.logger.debug('viewPrev', item.media.name, item.selectedIndex);
   }
   insertImage(item: ExerciseMediaWithUsage): void {
@@ -286,6 +292,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
   moveAhead(item: ExerciseMediaWithUsage): void {
     this.logger.debug('moveAhead', item.media.name, item.selectedIndex);
+    if (item.selectedIndex < item.media.images.length-1) {
+    }
   }
 
   refreshImageUsage(image: ExerciseMediaWithUsage) {

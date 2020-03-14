@@ -2,15 +2,15 @@
     <ion-list-header>
         <ion-label>Edit Action</ion-label>
     </ion-list-header>
-    <ion-item button (click)="viewPrev()">
+    <ion-item button (click)="insertImage()">
         Insert New Image
         <ion-icon slot="start" name="add-circle-sharp" color="primary"></ion-icon>
     </ion-item>
-    <ion-item button (click)="viewLarge()">
+    <ion-item button (click)="removeImage()">
         Remove This Image
         <ion-icon slot="start" name="remove-circle-sharp" color="primary"></ion-icon>
     </ion-item>
-    <ion-item button (click)="viewNext()">
+    <ion-item button (click)="moveAhead()" [disabled]="selectedIndex===imagesLength-1">
         Move Image Forward
         <ion-icon slot="start" name="chevron-forward-circle-sharp" color="primary"></ion-icon>
     </ion-item>
@@ -25,7 +25,7 @@
         Hide Usage in Workouts
         <ion-icon slot="start" name="walk-sharp" color="primary"></ion-icon>
     </ion-item>
-    <ion-item button (click)="viewPrev()">
+    <ion-item button (click)="viewPrev()" [disabled]="selectedIndex===0">
         View Previous image
         <ion-icon slot="start" name="arrow-back-circle-sharp" color="primary"></ion-icon>
     </ion-item>
@@ -33,7 +33,7 @@
         View Larger
         <ion-icon slot="start" name="expand-sharp" color="primary"></ion-icon>
     </ion-item>
-    <ion-item button (click)="viewNext()">
+    <ion-item button (click)="viewNext()" [disabled]="selectedIndex===imagesLength-1">
         View Next image
         <ion-icon slot="start" name="arrow-forward-circle-sharp" color="primary"></ion-icon>
     </ion-item>

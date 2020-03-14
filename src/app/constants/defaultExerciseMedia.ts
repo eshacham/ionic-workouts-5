@@ -9,7 +9,7 @@ const addMedia = (map: Map<string, ExerciseMediaBean>, id: string, images: strin
 
 const buildExercisesMediaMap = (): Map<string, ExerciseMediaBean> => {
     const exercises = new Map<string, ExerciseMediaBean>();
-    addMedia(exercises, 'BenchPressWideGrip', ['BenchPressWideGrip1.jpeg', 'BenchPressWideGrip2.jpeg'], [Muscles.Chest]);
+    addMedia(exercises, 'BenchPressWideGrip', ['BenchPressWideGrip1.jpeg', 'BenchPressWideGrip2.png'], [Muscles.Chest]);
     addMedia(exercises, 'BenchPressNarrowGrip', ['BenchPressNarrowGrip.png'], [Muscles.Chest]);
     addMedia(exercises, 'BodyweightFlutterKicks', ['BodyweightFlutterKicks.png'], [Muscles.Glutes, Muscles.Hamstrings]);
     addMedia(exercises, 'CabelLatPulldownBehindNeckWideGrip',
