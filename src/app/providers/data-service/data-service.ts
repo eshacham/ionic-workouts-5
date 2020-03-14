@@ -82,7 +82,15 @@ export class DataServiceProvider {
   private async getImagesData(): Promise<MediaDataMaps> {
     await this.storage.ready();
     const data: MediaDataMaps = await this.storage.get(IMAGES_STORAGE_KEY);
-    return data;
+    if (!data) return null;
+    Object.keys(data.media.byId).map(mediaId => {
+      const media = data.media.byId[mediaId];
+      if (!media.images || media.images.length === 0) {
+        media.images = [mediaId];
+      }
+    });
+
+    return Object.keys(data.media.byId).length > 0 ? data : null;
   }
   private async getTheme(): Promise<string> {
     await this.storage.ready();

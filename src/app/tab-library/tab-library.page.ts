@@ -320,9 +320,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     event.stopPropagation();
   }
   updateImage(image: ExerciseMediaBean, name?: string, images?: string[]) {
-    this.logger.debug('updateImage', `updating image name to ${name}`);
+    this.logger.debug('updateImage', name, images);
     this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name, images }));
-    this.presentToast('File updated.');
+    this.presentToast('Image updated.');
   }
 
   safeImage(media: ExerciseMediaBean, index: number): any {
