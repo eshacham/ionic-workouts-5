@@ -29,6 +29,7 @@ interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
   usage: { workoutId: string, dayId: string }[];
   expanded: boolean;
+  selectedIndex: number
 }
 
 @Component({
@@ -94,7 +95,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         this.images = media.images.map(m => ({
           media: m,
           usage: [],
-          expanded: false
+          expanded: false,
+          selectedIndex: 0,
         }));
       });
 
@@ -203,13 +205,12 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  selectMediaAction(media: ExerciseMediaWithUsage, index: number, event: any) {
+  selectMediaAction(media: ExerciseMediaWithUsage, event: any) {
     event.stopPropagation();
-    this.presentActionsPopover(event, index, media);
+    this.presentActionsPopover(event, media);
   }
   async presentActionsPopover(
     event: Event,
-    index: number,
     media: ExerciseMediaWithUsage
   ) {
     const popover = await this.popoverCtrl.create({
@@ -229,22 +230,22 @@ export class TabLibraryPage implements OnInit, OnDestroy {
             this.expandItem(media);
             break;
           case MediaAction.ViewLarge:
-            this.viewLarge(media, index);
+            this.viewLarge(media);
             break;
           case MediaAction.ViewNext:
-            this.viewNext(media, index);
+            this.viewNext(media);
             break;
           case MediaAction.ViewPrev:
-            this.viewPrev(media, index);
+            this.viewPrev(media);
             break;
           case MediaAction.InsertImage:
-            this.insertImage(media, index);
+            this.insertImage(media);
             break;
           case MediaAction.DeleteImage:
-            this.removeImage(media, index);
+            this.removeImage(media);
             break;
           case MediaAction.MoveAhead:
-            this.moveAhead(media, index);
+            this.moveAhead(media);
             break;
           default:
             break;
@@ -267,12 +268,25 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       });
     }
   }
-  viewLarge(item: ExerciseMediaWithUsage, index: number): void {}
-  viewNext(item: ExerciseMediaWithUsage, index: number): void {}
-  viewPrev(item: ExerciseMediaWithUsage, index: number): void {}
-  insertImage(item: ExerciseMediaWithUsage, index: number): void {}
-  removeImage(item: ExerciseMediaWithUsage, index: number): void {}
-  moveAhead(item: ExerciseMediaWithUsage, index: number): void {}
+  viewLarge(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('viewLarge', item.media.name, item.selectedIndex);
+  }
+  viewNext(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('viewNext', item.media.name, item.selectedIndex);
+
+  }
+  viewPrev(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('viewPrev', item.media.name, item.selectedIndex);
+  }
+  insertImage(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('insertImage', item.media.name, item.selectedIndex);
+  }
+  removeImage(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('removeImage', item.media.name, item.selectedIndex);
+  }
+  moveAhead(item: ExerciseMediaWithUsage): void {
+    this.logger.debug('moveAhead', item.media.name, item.selectedIndex);
+  }
 
   refreshImageUsage(image: ExerciseMediaWithUsage) {
     this.store.select(getExerciseMediaUsage(image.media.id))
