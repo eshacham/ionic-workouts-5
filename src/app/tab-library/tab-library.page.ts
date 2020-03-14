@@ -293,6 +293,11 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   moveAhead(item: ExerciseMediaWithUsage): void {
     this.logger.debug('moveAhead', item.media.name, item.selectedIndex);
     if (item.selectedIndex < item.media.images.length-1) {
+      const elements = [...item.media.images];
+      [elements[item.selectedIndex], elements[item.selectedIndex+1]] =
+      [elements[item.selectedIndex+1], elements[item.selectedIndex]];
+      this.logger.debug('moveAhead', elements);
+      this.updateImage(item.media, null, elements);
     }
   }
 
@@ -314,9 +319,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     }, 100);
     event.stopPropagation();
   }
-  updateImage(value: string, image: ExerciseMediaBean) {
-    this.logger.debug('updateImage', `updating image name to ${value}`);
-    this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name: value }));
+  updateImage(image: ExerciseMediaBean, name?: string, images?: string[]) {
+    this.logger.debug('updateImage', `updating image name to ${name}`);
+    this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name, images }));
     this.presentToast('File updated.');
   }
 
@@ -392,7 +397,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         handler: (data) => {
           if (data.text) {
             this.logger.debug('presentAlertPrompt', 'saving text', data.text);
-            this.updateImage(data.text, img.media);
+            this.updateImage(img.media, data.text);
           } else {
             return false;
           }

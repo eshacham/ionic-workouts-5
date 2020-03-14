@@ -59,6 +59,7 @@ export const exercisesMediaReducers = (
                     [mediaId]: {
                         ...state.byId[mediaId],
                         name: action.payload.name || state.byId[mediaId].name,
+                        images: action.payload.images || state.byId[mediaId].images,
                     }
                 }
             };
