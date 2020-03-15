@@ -98,6 +98,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
           expanded: false,
           selectedIndex: 0,
         }));
+        for (const img of this.images) {
+          this.refreshImageUsage(img);
+        }
       });
 
     this.store.select(getLibraryMusclesFilter)

@@ -70,7 +70,7 @@ ion-list {
                     margin-bottom: 0px;
 
                     ion-button {
-                        max-width: 70%;
+                        max-width: 55%;
                         height: auto;
 
                         p {
@@ -119,6 +119,9 @@ ion-list {
                         --padding-top: 5px;
                         --padding-bottom: 5px;
                         --color: var(--ion-color-dark)
+                    }
+                    ion-label {
+                        padding: 4px;
                     }
                 }
             }

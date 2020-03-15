@@ -46,6 +46,11 @@
                 </p>
               </ion-button>
 
+              <ion-button slot="end" fill="clear" [disabled]="!img.usage || img.usage.length > 0"
+                (click)="deleteImage(img.media)" color="danger">
+                <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+              </ion-button>
+
               <ion-button slot="end" fill="clear" (click)="setMuscle(img.media)">
                 <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
                 <ion-badge *ngIf="img.media.muscles.length">
@@ -68,15 +73,13 @@
         <ion-item *ngIf="img.expanded">
 
           <app-expandable expandHeight="100px" [expanded]="img.expanded">
-
-            <ion-button slot="start" fill="clear" [disabled]="img.usage.length > 0"
-              (click)="deleteImage(img.media)" color="danger">
-              <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-            </ion-button>
             <ion-button slot="end" *ngFor="let use of img.usage" size="small" fill="clear"
                 (click)="goToWorkoutDay(use, $event)">
               <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
-            </ion-button>
+            </ion-button >
+            <ion-label *ngIf="!img.usage || img.usage.length === 0">
+              Exercise not used in any workout!
+            </ion-label>
           </app-expandable>
 
         </ion-item>
