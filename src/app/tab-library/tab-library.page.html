@@ -35,51 +35,53 @@
   <ion-list lines="none">
 
     <ion-item *ngFor="let img of filteredImages">
-      <ion-grid>
-        <ion-row class="ion-align-items-center">
-          <ion-col size="9">
+      <div>
 
-            <ion-button fill="outline" expand="full"
-              (click)="editImageName($event, img)">
-              <p class="ion-text-wrap">
-                {{img.media.name}}
-              </p>
+        <ion-item id="titleBtn">
+
+              <ion-button slot="start" fill="outline" expand="full"
+                (click)="editImageName($event, img)">
+                <p class="ion-text-wrap">
+                  {{img.media.name}}
+                </p>
+              </ion-button>
+
+              <ion-button slot="end" fill="clear" (click)="setMuscle(img.media)">
+                <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
+                <ion-badge *ngIf="img.media.muscles.length">
+                  {{img.media.muscles.length}}
+                </ion-badge>
             </ion-button>
 
-          </ion-col>
-          <ion-col size="3">
-            <ion-button fill="clear" (click)="setMuscle(img.media)">
-              <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
-              <ion-badge *ngIf="img.media.muscles.length">
-                {{img.media.muscles.length}}
-              </ion-badge>
-          </ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button (click)="selectMediaAction(img, $event)">
-              <ion-item>
-                <img [src]="safeImage(img.media, img.selectedIndex)" slot="start"/>
-                <app-expandable expandHeight="100px"
-                  [expanded]="img.expanded" slot="start">
-                  <ion-row class="ion-justify-content-start">
-                    <ion-button fill="clear" [disabled]="img.usage.length > 0"
-                    (click)="deleteImage(img.media)" color="danger">
-                    <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-                    </ion-button>
-                    <ion-button *ngFor="let use of img.usage" size="small" fill="clear"
-                        (click)="goToWorkoutDay(use, $event)">
-                        <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
-                    </ion-button>
-                  </ion-row>
+        </ion-item>
 
-                </app-expandable>
-              </ion-item>
+        <ion-item >
+          <ion-row>
+            <ion-col class="ion-text-center" *ngFor="let image of img.media.images; let i = index;">
+                <ion-button class="img-btn" (click)="selectMediaAction(img, $event, i)">
+                    <img [src]="safeImage(img.media, i)" slot="end"/>
+                </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item *ngIf="img.expanded">
+
+          <app-expandable expandHeight="100px" [expanded]="img.expanded">
+
+            <ion-button slot="start" fill="clear" [disabled]="img.usage.length > 0"
+              (click)="deleteImage(img.media)" color="danger">
+              <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
             </ion-button>
-        </ion-col>
-        </ion-row>
-      </ion-grid>
+            <ion-button slot="end" *ngFor="let use of img.usage" size="small" fill="clear"
+                (click)="goToWorkoutDay(use, $event)">
+              <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
+            </ion-button>
+          </app-expandable>
+
+        </ion-item>
+
+      </div>
     </ion-item>
 
   </ion-list>
@@ -88,7 +90,7 @@
 <ion-footer *ngIf="IsMobile">
   <ion-toolbar id=toolbarInFooter>
     <ion-button fill="clear" expand="full"
-      (click)="selectImage()">
+      (click)="captureImage()">
       <ion-icon slot="start" name="camera-sharp"></ion-icon>
       Select Image</ion-button>
   </ion-toolbar>

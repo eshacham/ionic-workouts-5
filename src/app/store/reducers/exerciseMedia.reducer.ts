@@ -75,8 +75,8 @@ export const exercisesMediaReducers = (
             return {
                 ...state,
                 byId: {
-                    [newId]: action.payload.exerciseMedia,
                     ...state.byId,
+                    [newId]: action.payload.exerciseMedia,
                 }
             };
         }

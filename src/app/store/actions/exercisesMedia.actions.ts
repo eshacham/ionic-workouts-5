@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
+import { IAddImageOptions } from 'src/app/models/interfaces';
 
 export enum ExerciseMediaActionsTypes {
     AddExerciseMedia = '[ExerciseMedia] Add a new exercise media',
@@ -14,11 +15,7 @@ export enum ExerciseMediaActionsTypes {
 
 export class AddExerciseMedia implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMedia;
-    constructor(public payload: {
-        origPath: string,
-        origName: string,
-        newName: string,
-    }) { }
+    constructor(public payload: IAddImageOptions) { }
 }
 export class AddExerciseMediaSuccess implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMediaSuccess;

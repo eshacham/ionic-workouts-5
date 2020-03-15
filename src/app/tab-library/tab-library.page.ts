@@ -24,12 +24,12 @@ import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 import { SetExerciseSetInWorkoutDay, SelectWorkoutDay } from '../store/actions/workoutDays.actions';
 import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component';
+import { IAddImageOptions } from '../models/interfaces';
 
-interface ExerciseMediaWithUsage {
+export interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
   usage: { workoutId: string, dayId: string }[];
   expanded: boolean;
-  selectedIndex: number
 }
 
 @Component({
@@ -132,18 +132,18 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.toastService.presentToast(text);
   }
 
-  async selectImage() {
+  async captureImage(media: ExerciseMediaBean = null) {
     const options = {
       header: 'Select Image source',
       buttons: [{
         text: 'Load from Library',
         handler: () => {
-          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY, media);
         }
       }, {
         text: 'Use Camera',
         handler: () => {
-          this.takePicture(this.camera.PictureSourceType.CAMERA);
+          this.takePicture(this.camera.PictureSourceType.CAMERA, media);
         }
       }]
     };
@@ -153,7 +153,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     await actionSheet.present();
   }
 
-  private async takePicture(sourceType: PictureSourceType) {
+  private async takePicture(sourceType: PictureSourceType, media: ExerciseMediaBean = null) {
     const options: CameraOptions = {
       quality: 100,
       sourceType,
@@ -162,28 +162,29 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     };
     const imagePath = await this.camera.getPicture(options);
     this.logger.debug('takePicture', 'took picture as: ', imagePath);
-    let imageName: string;
-    let ImagePath: string;
+    let origImageName: string;
+    let origImagePath: string;
 
     if (this.dataService.isAndriod && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-      imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+      origImageName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
       const tempPath = await this.filePath.resolveNativePath(imagePath);
-      ImagePath = tempPath.substr(0, tempPath.lastIndexOf('/') + 1);
+      origImagePath = tempPath.substr(0, tempPath.lastIndexOf('/') + 1);
     } else {
-      imageName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-      ImagePath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      origImageName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+      origImagePath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
     }
     const newImageName = `${new Date().getTime()}.jpg`;
-    this.addNewImage(ImagePath, imageName, newImageName);
+    this.addNewImage({
+      origImagePath,
+      origImageName,
+      newImageName,
+      media,
+    });
   }
 
-  private addNewImage(imagePath: string, imageName: string, newImageName: string) {
-    this.store.dispatch(new AddExerciseMedia({
-      origPath: imagePath,
-      origName: imageName,
-      newName: newImageName
-    }));
-    setTimeout(() => this.scrollTo(0), 1);
+  private addNewImage(options: IAddImageOptions) {
+    this.store.dispatch(new AddExerciseMedia(options));
+    // setTimeout(() => this.scrollTo(this.filteredImages.length), 1);
   }
 
   private scrollTo(index: number) {
@@ -205,19 +206,21 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.presentToast('File removed.');
   }
 
-  selectMediaAction(media: ExerciseMediaWithUsage, event: any) {
+  selectMediaAction(media: ExerciseMediaWithUsage, event: any, selectedIndex: number) {
     event.stopPropagation();
-    this.presentActionsPopover(event, media);
+    this.presentActionsPopover(event, media, selectedIndex);
   }
   async presentActionsPopover(
     event: Event,
-    media: ExerciseMediaWithUsage
+    media: ExerciseMediaWithUsage,
+    selectedIndex: number
   ) {
     const popover = await this.popoverCtrl.create({
       component: ChooseMediaActionPopoverComponent,
       event,
       componentProps: {
-        media
+        media,
+        selectedIndex,
       }
     });
     popover.present();
@@ -230,22 +233,16 @@ export class TabLibraryPage implements OnInit, OnDestroy {
             this.expandItem(media);
             break;
           case MediaAction.ViewLarge:
-            this.viewLarge(media);
-            break;
-          case MediaAction.ViewNext:
-            this.viewNext(media);
-            break;
-          case MediaAction.ViewPrev:
-            this.viewPrev(media);
+            this.viewLarge(media, selectedIndex);
             break;
           case MediaAction.InsertImage:
             this.insertImage(media);
             break;
           case MediaAction.DeleteImage:
-            this.removeImage(media);
+            this.removeImage(media, selectedIndex);
             break;
           case MediaAction.MoveAhead:
-            this.moveAhead(media);
+            this.moveAhead(media, selectedIndex);
             break;
           default:
             break;
@@ -268,34 +265,24 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       });
     }
   }
-  viewLarge(item: ExerciseMediaWithUsage): void {
-    this.logger.debug('viewLarge', item.media.name, item.selectedIndex);
+  viewLarge(item: ExerciseMediaWithUsage, selectedIndex: number): void {
+    this.logger.debug('viewLarge', item.media.name, selectedIndex);
   }
-  viewNext(item: ExerciseMediaWithUsage): void {
-    if (item.selectedIndex < item.media.images.length-1) {
-      item.selectedIndex++;
-    }
-    this.logger.debug('viewNext', item.media.name, item.selectedIndex);
 
-  }
-  viewPrev(item: ExerciseMediaWithUsage): void {
-    if (item.selectedIndex !== 0) {
-      item.selectedIndex--;
-    }
-    this.logger.debug('viewPrev', item.media.name, item.selectedIndex);
-  }
   insertImage(item: ExerciseMediaWithUsage): void {
-    this.logger.debug('insertImage', item.media.name, item.selectedIndex);
+    this.logger.debug('insertImage', item.media.name);
+    this.captureImage(item.media);
+    // item.selectedIndex = item.media.images.length -1;
   }
-  removeImage(item: ExerciseMediaWithUsage): void {
-    this.logger.debug('removeImage', item.media.name, item.selectedIndex);
+  removeImage(item: ExerciseMediaWithUsage, selectedIndex: number): void {
+    this.logger.debug('removeImage', item.media.name, selectedIndex);
   }
-  moveAhead(item: ExerciseMediaWithUsage): void {
-    this.logger.debug('moveAhead', item.media.name, item.selectedIndex);
-    if (item.selectedIndex < item.media.images.length-1) {
+  moveAhead(item: ExerciseMediaWithUsage, selectedIndex: number): void {
+    this.logger.debug('moveAhead', item.media.name, selectedIndex);
+    if (selectedIndex < item.media.images.length - 1) {
       const elements = [...item.media.images];
-      [elements[item.selectedIndex], elements[item.selectedIndex+1]] =
-      [elements[item.selectedIndex+1], elements[item.selectedIndex]];
+      [elements[selectedIndex], elements[selectedIndex + 1]] =
+        [elements[selectedIndex + 1], elements[selectedIndex]];
       this.logger.debug('moveAhead', elements);
       this.updateImage(item.media, null, elements);
     }

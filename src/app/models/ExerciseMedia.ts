@@ -28,21 +28,14 @@ export class ExerciseMediaBean implements Bean {
     this.exportedBy = options.exportedBy;
   }
 
-  static create(
-    id: string,
-    name: string,
-    images: string[],
-    muscles: Set<Muscles>,
-    isDefault: boolean = true,
-    exportedBy: ISignedInUser = null,
-  ): ExerciseMediaBean {
+  static copy(bean: ExerciseMediaBean): ExerciseMediaBean {
     return new ExerciseMediaBean({
-      id,
-      name,
-      images,
-      muscles,
-      isDefault,
-      exportedBy,
+      id: bean.id,
+      name: bean.name,
+      images: [...bean.images],
+      muscles: new Set(bean.muscles),
+      isDefault: bean.isDefault,
+      exportedBy: bean.exportedBy,
     });
   }
 }

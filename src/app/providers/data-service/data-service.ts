@@ -7,7 +7,7 @@ import { ExerciseMediaBean } from '../../models/ExerciseMedia';
 import { Muscles } from '../../models/enums';
 import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
-import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
+import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
@@ -152,18 +152,23 @@ export class DataServiceProvider {
     }
   }
 
-  async addImage(origImagePath: string, origImageName: string, newImageName: string): Promise<ExerciseMediaBean> {
+  async addImage(options: IAddImageOptions): Promise<ExerciseMediaBean> {
     const newImageId = Guid.raw();
-    await this.mobileFile.copyFile(origImagePath, origImageName, this.mobileFile.dataDirectory, newImageId);
-    this.logger.info('addImage', `new image ${newImageName} copied`);
-
-    const newEntry: ExerciseMediaBean = new ExerciseMediaBean({
-      id: newImageId,
-      name: newImageName,
-      images: [newImageId],
-      isDefault: false,
-      muscles: new Set(),
-    });
+    await this.mobileFile.copyFile(options.origImagePath, options.origImageName, this.mobileFile.dataDirectory, newImageId);
+    this.logger.info('addImage', `new image ${options.newImageName} copied`);
+    let newEntry: ExerciseMediaBean;
+    if (options.media) {
+      newEntry = ExerciseMediaBean.copy(options.media);
+      newEntry.images.push(newImageId);
+    } else {
+      newEntry = new ExerciseMediaBean({
+        id: newImageId,
+        name: options.newImageName,
+        images: [newImageId],
+        isDefault: false,
+        muscles: new Set(),
+      })
+    };
     return newEntry;
   }
 

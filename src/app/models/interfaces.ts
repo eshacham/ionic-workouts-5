@@ -26,3 +26,9 @@ export interface MediaDataMaps {
 export interface Bean {
     id: string;
 }
+export interface IAddImageOptions {
+    origImagePath: string,
+    origImageName: string,
+    newImageName: string,
+    media: ExerciseMediaBean,
+  }

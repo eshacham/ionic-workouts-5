@@ -189,16 +189,15 @@ export class DataEffects {
     @Effect()
     addNewImage$ = this.actions$.pipe(
         ofType(ExerciseMediaActionsTypes.AddExerciseMedia),
-        mergeMap((action: AddExerciseMedia) => from(this.dataService.addImage(
-            action.payload.origPath, action.payload.origName, action.payload.newName)).pipe(
-                switchMap((newImage: ExerciseMediaBean) => [
-                    (new AddExerciseMediaSuccess({ exerciseMedia: newImage })),
-                    (new UpdateImages())]),
-                catchError(err => {
-                    this.logger.error('addNewImage', err);
-                    return of(new LoadDataError(err.message));
-                })
-            ))
+        mergeMap((action: AddExerciseMedia) => from(this.dataService.addImage(action.payload)).pipe(
+            switchMap((newImage: ExerciseMediaBean) => [
+                (new AddExerciseMediaSuccess({ exerciseMedia: newImage })),
+                (new UpdateImages())]),
+            catchError(err => {
+                this.logger.error('addNewImage', err);
+                return of(new LoadDataError(err.message));
+            })
+        ))
     );
 
     @Effect()
