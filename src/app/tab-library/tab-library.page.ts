@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, IonList, AlertController, PopoverController } from '@ionic/angular';
+import { ActionSheetController, IonList, AlertController, PopoverController, ModalController } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { ExerciseMediaBean } from '../models/ExerciseMedia';
@@ -27,6 +27,8 @@ import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
 import { SetExerciseSetInWorkoutDay, SelectWorkoutDay } from '../store/actions/workoutDays.actions';
 import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component';
 import { IAddImageOptions } from '../models/interfaces';
+import { ExerciseDetailModalComponent } from '../components/exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
+import { IonRouterOutlet } from '@ionic/angular';
 
 export interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -83,6 +85,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private dataService: DataServiceProvider,
     private alertController: AlertController,
     private popoverCtrl: PopoverController,
+    private modalController: ModalController,
+    private routerOutlet: IonRouterOutlet,
     private store: Store<IAppState>) {
     this.exerciseMediaWithUsage = [];
     this.logger = loggingService.getLogger('App.TabLibraryPage');
@@ -277,6 +281,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
   viewLarge(item: ExerciseMediaWithUsage, selectedIndex: number): void {
     this.logger.debug('viewLarge', item.media.name, selectedIndex);
+    this.presentDetailModal(item.media, selectedIndex);
   }
 
   insertImage(item: ExerciseMediaWithUsage): void {
@@ -408,6 +413,18 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     });
 
     alert.present();
+  }
+
+  async presentDetailModal(media: ExerciseMediaBean, selectedIndex) {
+    const modal = await this.modalController.create({
+      component: ExerciseDetailModalComponent,
+      componentProps: { media, selectedIndex },
+      swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl
+    });
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    this.logger.info('presentDetailModal', 'onWillDismiss', data);
   }
 
 }
