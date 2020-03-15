@@ -60,7 +60,7 @@
 
         </ion-item>
 
-        <ion-item >
+        <ion-item>
           <ion-row>
             <ion-col class="ion-text-center" *ngFor="let image of img.media.images; let i = index;">
                 <ion-button class="img-btn" (click)="selectMediaAction(img, $event, i)">
@@ -71,17 +71,20 @@
         </ion-item>
 
         <ion-item *ngIf="img.expanded">
-
-          <app-expandable expandHeight="100px" [expanded]="img.expanded">
-            <ion-button slot="end" *ngFor="let use of img.usage" size="small" fill="clear"
-                (click)="goToWorkoutDay(use, $event)">
-              <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
-            </ion-button >
-            <ion-label *ngIf="!img.usage || img.usage.length === 0">
-              Exercise not used in any workout!
-            </ion-label>
-          </app-expandable>
-
+          <ion-row>
+            <ion-col class="ion-text-center ion-no-padding">
+              <div class="usage">
+                <ion-button slot="end" *ngFor="let use of img.usage"
+                    size="small" fill="clear"
+                    (click)="goToWorkoutDay(use, $event)">
+                  <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
+                </ion-button >
+                <ion-label *ngIf="!img.usage || img.usage.length === 0">
+                  Exercise not used in any workout!
+                </ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
         </ion-item>
 
       </div>
@@ -95,6 +98,6 @@
     <ion-button fill="clear" expand="full"
       (click)="captureImage()">
       <ion-icon slot="start" name="camera-sharp"></ion-icon>
-      Select Image</ion-button>
+      Add Image</ion-button>
   </ion-toolbar>
 </ion-footer>

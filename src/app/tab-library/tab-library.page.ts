@@ -18,7 +18,9 @@ import {
   UpdateExerciseMedia,
   AddExerciseMedia,
   DeleteExerciseMedia,
-  ResetScrollToExerciseMedia
+  ResetScrollToExerciseMedia,
+  InsertImageToExerciseMedia,
+  RemoveImageFromExerciseMedia
 } from '../store/actions/exercisesMedia.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { getExerciseMediaUsage } from '../store/selectors/exercises.selectors';
@@ -186,8 +188,13 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
 
   private addNewImage(options: IAddImageOptions) {
-    this.store.dispatch(new AddExerciseMedia(options));
-    // setTimeout(() => this.scrollTo(this.filteredImages.length), 1);
+    if (options.media) {
+      this.store.dispatch(new InsertImageToExerciseMedia(options));
+      this.presentToast('Image inserted');
+    } else {
+      this.store.dispatch(new AddExerciseMedia(options));
+      setTimeout(() => this.scrollTo(0), 1);
+    }
   }
 
   private scrollTo(index: number) {
@@ -206,7 +213,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   async deleteImage(imgEntry: ExerciseMediaBean) {
     this.store.dispatch(new DeleteExerciseMedia({ image: imgEntry }));
-    this.presentToast('File removed.');
+    this.presentToast('Exercise deleted.');
   }
 
   selectMediaAction(media: ExerciseMediaWithUsage, event: any, selectedIndex: number) {
@@ -275,10 +282,15 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   insertImage(item: ExerciseMediaWithUsage): void {
     this.logger.debug('insertImage', item.media.name);
     this.captureImage(item.media);
-    // item.selectedIndex = item.media.images.length -1;
   }
+
   removeImage(item: ExerciseMediaWithUsage, selectedIndex: number): void {
     this.logger.debug('removeImage', item.media.name, selectedIndex);
+    this.store.dispatch(new RemoveImageFromExerciseMedia({
+      imageName: item.media.images[selectedIndex],
+      media: item.media,
+    }));
+    this.presentToast('Image removed');
   }
   moveAhead(item: ExerciseMediaWithUsage, selectedIndex: number): void {
     this.logger.debug('moveAhead', item.media.name, selectedIndex);
@@ -298,7 +310,6 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         image.usage = usage;
       });
   }
-
   goToWorkoutDay(usage: { workoutId: string, dayId: string, setId: string }, event: any) {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SelectWorkoutDay(usage));

@@ -34,6 +34,8 @@ import {
     DeleteExerciseMediaSuccess,
     UpdateExerciseMedia,
     UpdateExerciseMediaSuccess,
+    InsertImageToExerciseMedia,
+    RemoveImageFromExerciseMedia,
 } from '../actions/exercisesMedia.actions';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { ExerciseActionsTypes, DeleteExercise, DeleteExerciseInProgress } from '../actions/exercises.actions';
@@ -195,6 +197,34 @@ export class DataEffects {
                 (new UpdateImages())]),
             catchError(err => {
                 this.logger.error('addNewImage', err);
+                return of(new LoadDataError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    insertImage$ = this.actions$.pipe(
+        ofType(ExerciseMediaActionsTypes.InsertImageToExerciseMedia),
+        mergeMap((action: InsertImageToExerciseMedia) => from(this.dataService.addImage(action.payload)).pipe(
+            switchMap((newImage: ExerciseMediaBean) => [
+                (new UpdateExerciseMediaSuccess({ id: newImage.id, images: newImage.images })),
+                (new UpdateImages())]),
+            catchError(err => {
+                this.logger.error('insertImage', err);
+                return of(new LoadDataError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    removeImage$ = this.actions$.pipe(
+        ofType(ExerciseMediaActionsTypes.RemoveImageFromExerciseMedia),
+        mergeMap((action: RemoveImageFromExerciseMedia) => from(this.dataService.removeImage(action.payload)).pipe(
+            switchMap((newImage: ExerciseMediaBean) => [
+                (new UpdateExerciseMediaSuccess({ id: newImage.id, images: newImage.images })),
+                (new UpdateImages())]),
+            catchError(err => {
+                this.logger.error('removeImage', err);
                 return of(new LoadDataError(err.message));
             })
         ))

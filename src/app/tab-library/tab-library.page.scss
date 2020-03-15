@@ -89,6 +89,7 @@ ion-list {
 
                 ion-row {
                     width: 100%;
+
                     ion-button.img-btn {
                         height: auto;
                         max-width: 80px;
@@ -105,23 +106,24 @@ ion-list {
                             border-color: var(--ion-color-tertiary)
                         }
                     }
-                }
 
-                app-expandable {
-                    background: var(--ion-color-secondary);
-                    margin-left: 4px;
-                    margin-right: 4px;
-                    margin-bottom: 4px;
-                    border-radius: 8px;
-
-                    ion-button {
-                        width: 50px;
-                        --padding-top: 5px;
-                        --padding-bottom: 5px;
-                        --color: var(--ion-color-dark)
-                    }
-                    ion-label {
-                        padding: 4px;
+                    ion-col {
+                        div.usage {
+                            background: var(--ion-color-secondary);
+                            margin-left: 4px;
+                            margin-right: 4px;
+                            margin-bottom: 4px;
+                            margin-top: 4px;
+                            border-radius: 8px;
+                            width: unset;
+                            ion-button {
+                                width: 50px;
+                                --color: var(--ion-color-dark)
+                            }
+                            ion-label {
+                                padding: 4px;
+                            }
+                        }
                     }
                 }
             }

@@ -7,7 +7,7 @@ import { ExerciseMediaBean } from '../../models/ExerciseMedia';
 import { Muscles } from '../../models/enums';
 import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
-import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions } from 'src/app/models/interfaces';
+import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
@@ -172,9 +172,18 @@ export class DataServiceProvider {
     return newEntry;
   }
 
+  async removeImage(options: IRemoveImageOptions): Promise<ExerciseMediaBean> {
+    const index = options.media.images.indexOf(options.imageName);
+    this.logger.info('removeImage', `old image ${options.imageName} to be deleted`);
+    await this.deleteImage(options.media, index)
+    const newEntry = ExerciseMediaBean.copy(options.media);
+    newEntry.images.splice(index, 1);
+    return newEntry;
+  }
+
   async deleteMedia(media: ExerciseMediaBean): Promise<string> {
     await Promise.all(media.images.map((image, index) => {
-      return this.deleteImage(media, index)
+      this.deleteImage(media, index)
     }));
     return media.id;
   }

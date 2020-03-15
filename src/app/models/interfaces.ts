@@ -32,3 +32,7 @@ export interface IAddImageOptions {
     newImageName: string,
     media: ExerciseMediaBean,
   }
+  export interface IRemoveImageOptions {
+    imageName: string,
+    media: ExerciseMediaBean,
+  }
