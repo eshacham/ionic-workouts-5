@@ -66,8 +66,6 @@ export enum ExportWorkoutAction {
 }
 export enum MediaAction {
     ViewLarge,
-    ViewNext,
-    ViewPrev,
     ShowUsage,
     HideUsage,
     InsertImage,

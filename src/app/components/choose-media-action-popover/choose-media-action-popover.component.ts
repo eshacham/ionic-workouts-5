@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaAction } from 'src/app/models/enums';
 import { PopoverController, NavParams } from '@ionic/angular';
+import { ExerciseMediaWithUsage } from '../../tab-library/tab-library.page'
 
 @Component({
   selector: 'app-choose-media-action-popover',
@@ -9,6 +10,7 @@ import { PopoverController, NavParams } from '@ionic/angular';
 })
 export class ChooseMediaActionPopoverComponent implements OnInit {
   isExpanded: boolean;
+  isDefaultImage: boolean;
   selectedIndex: number;
   imagesLength: number;
   constructor(
@@ -16,9 +18,11 @@ export class ChooseMediaActionPopoverComponent implements OnInit {
     private navParams: NavParams,
 
   ) {
-    this.isExpanded = this.navParams.data.media.isExpanded;
-    this.selectedIndex = this.navParams.data.media.selectedIndex;
-    this.imagesLength = this.navParams.data.media.media.images.length
+    const media = this.navParams.data.media as ExerciseMediaWithUsage;
+    this.isExpanded = media.expanded;
+    this.imagesLength = media.media.images.length;
+    this.isDefaultImage = media.media.isDefault;
+    this.selectedIndex = this.navParams.data.selectedIndex;
   }
 
   ngOnInit() { }
@@ -32,12 +36,7 @@ export class ChooseMediaActionPopoverComponent implements OnInit {
   viewLarge() {
     this.close(MediaAction.ViewLarge);
   }
-  viewNext() {
-    this.close(MediaAction.ViewNext);
-  }
-  viewPrev() {
-    this.close(MediaAction.ViewPrev);
-  }
+
   insertImage() {
     this.close(MediaAction.InsertImage);
   }

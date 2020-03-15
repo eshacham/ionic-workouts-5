@@ -7,7 +7,7 @@ import { ExerciseMediaBean } from '../../models/ExerciseMedia';
 import { Muscles } from '../../models/enums';
 import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
-import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
+import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
@@ -82,7 +82,15 @@ export class DataServiceProvider {
   private async getImagesData(): Promise<MediaDataMaps> {
     await this.storage.ready();
     const data: MediaDataMaps = await this.storage.get(IMAGES_STORAGE_KEY);
-    return data;
+    if (!data) return null;
+    Object.keys(data.media.byId).map(mediaId => {
+      const media = data.media.byId[mediaId];
+      if (!media.images || media.images.length === 0) {
+        media.images = [mediaId];
+      }
+    });
+
+    return Object.keys(data.media.byId).length > 0 ? data : null;
   }
   private async getTheme(): Promise<string> {
     await this.storage.ready();
@@ -144,24 +152,38 @@ export class DataServiceProvider {
     }
   }
 
-  async addImage(origImagePath: string, origImageName: string, newImageName: string): Promise<ExerciseMediaBean> {
+  async addImage(options: IAddImageOptions): Promise<ExerciseMediaBean> {
     const newImageId = Guid.raw();
-    await this.mobileFile.copyFile(origImagePath, origImageName, this.mobileFile.dataDirectory, newImageId);
-    this.logger.info('addImage', `new image ${newImageName} copied`);
+    await this.mobileFile.copyFile(options.origImagePath, options.origImageName, this.mobileFile.dataDirectory, newImageId);
+    this.logger.info('addImage', `new image ${options.newImageName} copied`);
+    let newEntry: ExerciseMediaBean;
+    if (options.media) {
+      newEntry = ExerciseMediaBean.copy(options.media);
+      newEntry.images.push(newImageId);
+    } else {
+      newEntry = new ExerciseMediaBean({
+        id: newImageId,
+        name: options.newImageName,
+        images: [newImageId],
+        isDefault: false,
+        muscles: new Set(),
+      })
+    };
+    return newEntry;
+  }
 
-    const newEntry: ExerciseMediaBean = new ExerciseMediaBean({
-      id: newImageId,
-      name: newImageName,
-      images: [newImageId],
-      isDefault: false,
-      muscles: new Set(),
-    });
+  async removeImage(options: IRemoveImageOptions): Promise<ExerciseMediaBean> {
+    const index = options.media.images.indexOf(options.imageName);
+    this.logger.info('removeImage', `old image ${options.imageName} to be deleted`);
+    await this.deleteImage(options.media, index)
+    const newEntry = ExerciseMediaBean.copy(options.media);
+    newEntry.images.splice(index, 1);
     return newEntry;
   }
 
   async deleteMedia(media: ExerciseMediaBean): Promise<string> {
     await Promise.all(media.images.map((image, index) => {
-      return this.deleteImage(media, index)
+      this.deleteImage(media, index)
     }));
     return media.id;
   }

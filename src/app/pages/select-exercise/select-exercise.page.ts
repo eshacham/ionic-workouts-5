@@ -93,8 +93,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
         this.images = media.images.map((image: ExerciseMediaBean) => {
           return {
             isSelected: false,
-            media: ExerciseMediaBean
-            .create(image.id, image.name, image.images, new Set(image.muscles), image.isDefault),
+            media: ExerciseMediaBean.copy(image),
           };
         });
       });

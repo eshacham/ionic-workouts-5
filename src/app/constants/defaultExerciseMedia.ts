@@ -3,7 +3,13 @@ import { MediaDataMaps } from '../models/interfaces';
 import { Muscles } from '../models/enums';
 
 const addMedia = (map: Map<string, ExerciseMediaBean>, id: string, images: string[], muscles: Muscles[]) => {
-    const media = ExerciseMediaBean.create(id, id, images, new Set(muscles));
+    const media = new ExerciseMediaBean({
+        id,
+        name: id,
+        images,
+        muscles: new Set(muscles),
+        isDefault: true,
+    });
     map.set(media.id, media);
 };
 

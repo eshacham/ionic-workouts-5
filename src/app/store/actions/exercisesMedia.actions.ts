@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
+import { IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 
 export enum ExerciseMediaActionsTypes {
     AddExerciseMedia = '[ExerciseMedia] Add a new exercise media',
@@ -10,15 +11,21 @@ export enum ExerciseMediaActionsTypes {
     DeleteExerciseMediaSuccess = '[ExerciseMedia] Exercise media has been deleted',
     ScrollToExerciseMedia = '[ExerciseMedia] Scroll to Exercise media',
     ResetScrollToExerciseMedia = '[ExerciseMedia] Reset the scroll to Exercise media',
+    InsertImageToExerciseMedia = '[ExerciseMedia] Insert a an image to an exercise media',
+    RemoveImageFromExerciseMedia = '[ExerciseMedia] Remove a an image from an exercise media',
 }
 
 export class AddExerciseMedia implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMedia;
-    constructor(public payload: {
-        origPath: string,
-        origName: string,
-        newName: string,
-    }) { }
+    constructor(public payload: IAddImageOptions) { }
+}
+export class InsertImageToExerciseMedia implements Action {
+    readonly type = ExerciseMediaActionsTypes.InsertImageToExerciseMedia;
+    constructor(public payload: IAddImageOptions) { }
+}
+export class RemoveImageFromExerciseMedia implements Action {
+    readonly type = ExerciseMediaActionsTypes.RemoveImageFromExerciseMedia;
+    constructor(public payload: IRemoveImageOptions) { }
 }
 export class AddExerciseMediaSuccess implements Action {
     readonly type = ExerciseMediaActionsTypes.AddExerciseMediaSuccess;
@@ -74,5 +81,7 @@ export type ExerciseMediaActions =
     DeleteExerciseMedia |
     DeleteExerciseMediaSuccess |
     ScrollToExerciseMedia |
-    ResetScrollToExerciseMedia
+    ResetScrollToExerciseMedia |
+    InsertImageToExerciseMedia |
+    RemoveImageFromExerciseMedia
     ;
