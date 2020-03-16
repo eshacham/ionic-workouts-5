@@ -420,7 +420,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       component: ExerciseDetailModalComponent,
       componentProps: { media, selectedIndex },
       swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl
+      presentingElement: this.routerOutlet.nativeEl,
+      cssClass: 'detail-modal',
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();

@@ -1,2 +1,15 @@
-
-<img [src]="selectedImageUrl"/>
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="small">{{selectedImageName}}</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon name="close-sharp" slot="icon-only"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-row class="ion-justify-content-center ion-align-items-center">
+  <ion-col>
+    <img [src]="selectedImageUrl"/>
+  </ion-col>
+</ion-row>
