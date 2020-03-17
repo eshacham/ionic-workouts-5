@@ -256,7 +256,11 @@ export class DataServiceProvider {
       const medias = await Promise.all(imagesFiles.map(mediaId => {
         return this.readFilesData(mediaId.names, mediaId.files);
       }));
-      medias.forEach(media => zip.file(`images/${media.name}`, media.data, { compression: 'STORE' }));
+      medias.forEach((media) => {
+        media.forEach((image) => {
+          zip.file(`images/${image.name}`, image.data, { compression: 'STORE' });
+        });
+      });
       workoutsData.exercises.byId = exercisesById;
       imagesData.media.byId = imagesbyId;
       zip.file(WORKOUTS_STORAGE_KEY, JSON.stringify(workoutsData), { binary: false });
@@ -337,15 +341,20 @@ export class DataServiceProvider {
     return url;
   }
 
-  private readFilesData(fileNames: string[], files: Blob[]): any {
+  private readFilesData(fileNames: string[], files: Blob[]): Promise<{name: string, data: string|ArrayBuffer}[]> {
     return Promise.all(files.map((file: Blob, index: number) => {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve({ name: fileNames[index], data: reader.result });
-        };
-        reader.readAsArrayBuffer(file);
-      });
+      return this.readFileData(fileNames[index], file);
     }));
   }
+
+  private readFileData(fileName: string, blob: Blob): Promise<{name: string, data: string|ArrayBuffer}> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve({ name: fileName, data: reader.result });
+      };
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
 }
