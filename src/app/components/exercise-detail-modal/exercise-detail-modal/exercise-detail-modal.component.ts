@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { SafeUrl } from '@angular/platform-browser';
-
 
 @Component({
   selector: 'app-exercise-detail-modal',
@@ -11,6 +10,7 @@ import { SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./exercise-detail-modal.component.scss'],
 })
 export class ExerciseDetailModalComponent implements OnInit {
+
   media: ExerciseMediaBean;
   private selectedIndex: number;
   get selectedImageUrl(): SafeUrl {
@@ -30,5 +30,4 @@ export class ExerciseDetailModalComponent implements OnInit {
 
   ngOnInit() {}
   closeModal() { this.modalController.dismiss(); }
-
 }

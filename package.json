@@ -59,6 +59,7 @@
     "ionic-logging-service": "^8.0.0",
     "jszip": "^3.2.2",
     "ngrx-store-freeze": "^0.2.4",
+    "ngx-pinch-zoom": "^2.3.4",
     "npm": "^6.14.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",

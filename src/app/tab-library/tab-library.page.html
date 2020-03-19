@@ -61,13 +61,13 @@
         </ion-item>
 
         <ion-item>
-          <ion-row>
-            <ion-col class="ion-text-center" *ngFor="let image of img.media.images; let i = index;">
+          <ion-slides [options]="slideOpts">
+            <ion-slide *ngFor="let image of img.media.images; let i = index;">
                 <ion-button class="img-btn" (click)="selectMediaAction(img, $event, i)">
                     <img [src]="safeImage(img.media, i)" slot="end"/>
                 </ion-button>
-            </ion-col>
-          </ion-row>
+            </ion-slide>
+          </ion-slides>
         </ion-item>
 
         <ion-item *ngIf="img.expanded">

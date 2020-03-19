@@ -9,6 +9,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { ExpandableComponentModule } from '../components/expandable/expandable.module';
 import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component'
 import { ExerciseDetailModalComponent } from '../components/exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     FormsModule,
     ExpandableComponentModule,
     RouterModule.forChild(routes),
+    PinchZoomModule,
   ],
   declarations: [
     TabLibraryPage,

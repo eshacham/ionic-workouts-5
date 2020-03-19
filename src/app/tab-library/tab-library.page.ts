@@ -44,7 +44,10 @@ export interface ExerciseMediaWithUsage {
 export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
   @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
-
+  slideOpts = {
+    slidesPerView: 3,
+    zoom: false,
+  };
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseMediaWithUsage: ExerciseMediaWithUsage[];
@@ -420,8 +423,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       component: ExerciseDetailModalComponent,
       componentProps: { media, selectedIndex },
       swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl,
-      cssClass: 'detail-modal',
+      // presentingElement: this.routerOutlet.nativeEl,
+      cssClass: 'auto-height',
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
