@@ -62,7 +62,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
-    // private workoutId: string;
     @Input() workoutId: string;
     @Input() dayId: string;
     @Input() exerciseSetId: string;
@@ -125,7 +124,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(data => {
                 if (data.selectedDayId === this.dayId) {
-                    // this.workoutId = data.workout.id;
                     this.store.select(getExerciseSet(this.exerciseSetId))
                         .pipe(takeUntil(this.ngUnsubscribe))
                         .subscribe(exerciseSet => {
@@ -169,23 +167,17 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     handleWorkoutDayStateChange(day: WorkoutDayBean) {
         this.DisplayMode = day.displayMode;
-        let activeExerciseName: string;
-        if (this.activeExercise) {
-            activeExerciseName = this.activeExercise.name;
-        }
-        let state: string;
         if (day.runningState === RunningState.NA ||
             day.runningExerciseSetIndex !== this.exerciseSetIndex) {
-            state = 'stoping';
-            this.IsRunning = false;
-            this.stopRepTimer();
-            this.stopRestTimer();
+            if (this.exercises.length) {
+                this.stopWorkout();
+            }
         } else if (day.runningState === RunningState.Running &&
             day.runningExerciseSetIndex === this.exerciseSetIndex) {
-            state = 'starting';
-            this.startWorkout();
+            if (!this.IsRunning) {
+                this.startWorkout();
+            }
         }
-        this.logger.info('handleWorkoutDayStateChange', `${state} workout`, activeExerciseName);
     }
 
     runExercise() {
@@ -336,10 +328,19 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     startWorkout() {
+        this.logger.info('handleWorkoutDayStateChange', 'starting workout', this.activeExercise ? this.activeExercise.name : 'unknown');
         this.IsRunning = true;
         this.activeExerciseInSetIndex = 0;
         this.resetReps();
         this.startTimedRep();
+    }
+    stopWorkout() {
+        this.logger.info('handleWorkoutDayStateChange', 'stopping workout', this.activeExercise ? this.activeExercise.name : 'unknown');
+        this.IsRunning = false;
+        this.stopRepTimer();
+        this.stopRestTimer();
+        this.remainingTimedRestSec = 0;
+        this.remainingTimedRepSec = 0;
     }
 
     private resetReps() {
@@ -367,9 +368,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private startTimedRep() {
         this.audioService.playStartWorkout();
         this.stopRepTimer();
-        const interval = Math.max(100, this.activeRep.seconds);
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
+            const interval = Math.max(100, this.activeRep.seconds);
             this.timedRepTimer = setInterval(() => {
                 this.remainingTimedRepSec -= interval/1000;
                 if (this.remainingTimedRepSec <= 0) {
@@ -390,8 +391,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.audioService.playStartWorkout();
         this.stopRestTimer();
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
-        const interval = Math.max(100, this.secToRestAfterCurrentRep);
         if (this.remainingTimedRestSec) {
+            const interval = Math.max(100, this.secToRestAfterCurrentRep);
             this.timedRestTimer = setInterval(() => {
                 this.remainingTimedRestSec -= interval/1000;
                 if (this.remainingTimedRestSec <= 0) {
