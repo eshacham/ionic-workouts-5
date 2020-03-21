@@ -71,6 +71,7 @@
     (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let day of days">
         <app-workout-day
+          [workoutId]="workoutId"
           [dayId]="day"
           [displayMode]="DisplayMode" >
       </app-workout-day>

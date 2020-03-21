@@ -17,7 +17,8 @@
       <ion-item *ngFor="let exerciseSet of exerciseSets; let i = index">
         <app-exercise-thumbnail #exerciseSetComponent
           [exerciseSetId]="exerciseSet"
-          [dayId]=dayId
+          [workoutId]="workoutId"
+          [dayId]="dayId"
           [exerciseSetIndex]="i">
         </app-exercise-thumbnail>
         <ion-reorder slot="end"></ion-reorder>

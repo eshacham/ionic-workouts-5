@@ -27,9 +27,10 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   private logger: Logger;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  private exerciseSets: string[];
-  private name: string;
+  exerciseSets: string[];
+  name: string;
 
+  @Input() workoutId: string;
   @Input() dayId: string;
   @Input() displayMode: DisplayMode;
   @ViewChild(IonList, { read: ElementRef, static: false }) list: ElementRef;

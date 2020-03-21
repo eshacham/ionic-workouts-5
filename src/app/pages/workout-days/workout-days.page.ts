@@ -179,7 +179,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     return this.days && this.days.length === 1;
   }
 
-  private async addWorkoutDay(event: any) {
+  async addWorkoutDay(event: any) {
     event.stopPropagation();
     const newId = Guid.raw();
     const newDay = new WorkoutDayBean({

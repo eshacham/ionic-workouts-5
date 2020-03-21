@@ -62,7 +62,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
-    private workoutId: string;
+    // private workoutId: string;
+    @Input() workoutId: string;
     @Input() dayId: string;
     @Input() exerciseSetId: string;
     @Input() exerciseSetIndex: number;
@@ -124,7 +125,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(data => {
                 if (data.selectedDayId === this.dayId) {
-                    this.workoutId = data.workout.id;
+                    // this.workoutId = data.workout.id;
                     this.store.select(getExerciseSet(this.exerciseSetId))
                         .pipe(takeUntil(this.ngUnsubscribe))
                         .subscribe(exerciseSet => {
@@ -481,7 +482,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             this.exercises.forEach((exercise) => {
                 this.setRepsCompleteState(exercise.id, this.activeRepIndex);
             });
-            this.setRepsCompleteState(this.activeExercise.id, this.activeRepIndex);
+            // this.setRepsCompleteState(this.activeExercise.id, this.activeRepIndex);
             // if there are more reps, need to go to the next rep on the first exercise
             if (this.activeExercise.reps.length > this.activeRepIndex + 1) {
                 if (shouldRest) {
