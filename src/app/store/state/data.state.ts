@@ -11,6 +11,8 @@ export interface IDataState {
     error: string;
     theme: string;
     signedInUser: ISignedInUser;
+    scrollToExerciseMediaId?: string;
+
 }
 export const initialDataState: IDataState = {
     hasDataBeenReset: false,
@@ -20,4 +22,5 @@ export const initialDataState: IDataState = {
     error: null,
     theme: null,
     signedInUser: null,
+    scrollToExerciseMediaId: null
 };

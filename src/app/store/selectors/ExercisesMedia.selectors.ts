@@ -7,12 +7,10 @@ export const mediaState = (state: IAppState) => state.media;
 
 export const getExercisesMedias = createSelector(
   mediaState,
-  (mediaStateData: IExercisesMediaState): { images: ExerciseMediaBean[], scrollTo: number } => {
-    return {
-      images: Object.keys(mediaStateData.byId)
-        .map(id => mediaStateData.byId[id]),
-      scrollTo: mediaStateData.scrollToExerciseMediaIndex
-    };
+  (mediaStateData: IExercisesMediaState): ExerciseMediaBean[] => {
+    const imageKeys = Object.keys(mediaStateData.byId);
+    const images = imageKeys.map(id => mediaStateData.byId[id]);
+    return images;
   }
 );
 

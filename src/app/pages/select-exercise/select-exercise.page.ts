@@ -90,7 +90,7 @@ export class SelectExercisePage implements OnInit, OnDestroy {
     this.store.select(getExercisesMedias)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(media => {
-        this.images = media.images.map((image: ExerciseMediaBean) => {
+        this.images = media.map((image: ExerciseMediaBean) => {
           return {
             isSelected: false,
             media: ExerciseMediaBean.copy(image),

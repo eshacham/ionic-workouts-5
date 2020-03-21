@@ -89,19 +89,6 @@ export const exercisesMediaReducers = (
                 },
             };
         }
-        case ExerciseMediaActionsTypes.ScrollToExerciseMedia: {
-            const index = Object.keys(state.byId).indexOf(action.payload.imageId);
-            return {
-                ...state,
-                scrollToExerciseMediaIndex: index
-            };
-        }
-        case ExerciseMediaActionsTypes.ResetScrollToExerciseMedia: {
-            return {
-                ...state,
-                scrollToExerciseMediaIndex: undefined
-            };
-        }
         default: {
             return state;
         }

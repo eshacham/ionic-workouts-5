@@ -29,6 +29,7 @@ import { ChooseMediaActionPopoverComponent } from '../components/choose-media-ac
 import { IAddImageOptions } from '../models/interfaces';
 import { ExerciseDetailModalComponent } from '../components/exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
 import { IonRouterOutlet } from '@ionic/angular';
+import { getScrollToExerciseMediaId } from '../store/selectors/data.selectors';
 
 export interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -101,7 +102,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.store.select(getExercisesMedias)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(media => {
-        this.images = media.images.map(m => ({
+        this.images = media.map(m => ({
           media: m,
           usage: [],
           expanded: false,
@@ -124,13 +125,14 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.images.filter(i => i.expanded)
       .forEach(image => this.refreshImageUsage(image));
 
-    this.store.select(getExercisesMedias)
+    this.store.select(getScrollToExerciseMediaId)
       .pipe(take(1))
-      .subscribe(media => {
-        if (media.scrollTo >= 0) {
+      .subscribe(mediaId => {
+        if (mediaId && this.images.length > 0) {
+          const scrollTo = this.images.findIndex(i => i.media.id === mediaId)
           this.store.dispatch(new ResetScrollToExerciseMedia());
-          this.logger.info('ionViewDidEnter', 'need to scroll to media', media.scrollTo);
-          setTimeout(() => this.scrollTo(media.scrollTo), 1);
+          this.logger.info('ionViewDidEnter', 'need to scroll to media', scrollTo);
+          setTimeout(() => this.scrollTo(scrollTo), 1);
         }
       });
   }
