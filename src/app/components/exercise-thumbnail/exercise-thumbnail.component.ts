@@ -90,7 +90,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     get IsRunning(): boolean { return this.isInRunningMode; }
     set IsRunning(val: boolean) {
-        this.isInRunningMode = val;
+        if (this.isInRunningMode !== val) {
+            this.logger.info('handleWorkoutDayStateChange', `${val ? 'starting' : 'stopping'} exercise`,
+                this.activeExercise ? this.activeExercise.name : 'unknown');
+            this.isInRunningMode = val;
+        }
     }
 
     get IsEditing(): boolean { return this.isInEditMode; }
@@ -175,13 +179,13 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         } else if (day.runningState === RunningState.Running &&
             day.runningExerciseSetIndex === this.exerciseSetIndex) {
             if (!this.IsRunning) {
-                this.startWorkout();
+                this.startWorkout(false);
             }
         }
     }
 
     runExercise() {
-        this.startWorkout();
+        this.startWorkout(true);
         this.store.dispatch(new StartExercise({
             id: this.dayId,
             runningExerciseSetIndex: this.exerciseSetIndex,
@@ -277,12 +281,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
         return cls;
     }
-    // getRepSecondsStyle(rep: Rep): any {
-    //     const animation = {
-    //         animation: `${rep.isActive ? rep.seconds : 0}s linear mymove`
-    //     };
-    //     return animation;
-    // }
+
     isRepConsideredActive(rep: Rep, index: number) {
         if (rep.isComplete) {
             return false;
@@ -327,16 +326,17 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         return `${Math.ceil(this.timedRestRemaining)}`;
     }
 
-    startWorkout() {
-        this.logger.info('handleWorkoutDayStateChange', 'starting workout', this.activeExercise ? this.activeExercise.name : 'unknown');
+    startWorkout(resetReps: boolean = false) {
         this.IsRunning = true;
-        this.activeExerciseInSetIndex = 0;
-        this.resetReps();
-        this.startTimedRep();
+        if (resetReps) {
+            this.activeExerciseInSetIndex = 0;
+            this.resetReps();
+            this.startTimedRep();
+        }
     }
     stopWorkout() {
-        this.logger.info('handleWorkoutDayStateChange', 'stopping workout', this.activeExercise ? this.activeExercise.name : 'unknown');
         this.IsRunning = false;
+        this.resetReps();
         this.stopRepTimer();
         this.stopRestTimer();
         this.remainingTimedRestSec = 0;
