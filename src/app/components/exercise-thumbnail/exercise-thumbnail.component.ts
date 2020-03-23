@@ -57,7 +57,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     images: ExerciseMediaBean[];
     restBetweenReps = 0;
     restAfterExercise = 0;
-    private expanded = false;
+    expanded = false;
     private isInRunningMode = false;
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
@@ -91,7 +91,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     get IsRunning(): boolean { return this.isInRunningMode; }
     set IsRunning(val: boolean) {
         if (this.isInRunningMode !== val) {
-            this.logger.info('handleWorkoutDayStateChange', `${val ? 'starting' : 'stopping'} exercise`,
+            this.logger.info('IsRunningSetter', `${val ? 'starting' : 'stopping'} exercise`,
                 this.activeExercise ? this.activeExercise.name : 'unknown');
             this.isInRunningMode = val;
         }
@@ -331,8 +331,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         if (resetReps) {
             this.activeExerciseInSetIndex = 0;
             this.resetReps();
-            this.startTimedRep();
         }
+        this.startTimedRep();
     }
     stopWorkout() {
         this.IsRunning = false;
