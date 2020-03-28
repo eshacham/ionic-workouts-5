@@ -472,7 +472,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             this.hasIncompleteTimedRepInActiveRep) {
             this.setRepsCompleteState(this.activeExercise.id, this.activeRepIndex);
             // need to go to the next exercise with current rep
-            if (shouldRest) {
+            if (shouldRest && this.exercises.length === 1) {
                 this.secToRestAfterCurrentRep = this.activeExercise.restBetweenReps;
                 this.startTimedRest(() => this.activateNextExercise());
             } else {
