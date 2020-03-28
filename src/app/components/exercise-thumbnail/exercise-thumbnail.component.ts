@@ -43,31 +43,31 @@ const MINREPS = 1;
     styleUrls: ['./exercise-thumbnail.component.scss'],
 })
 export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
-    activeRepIndex = 0;
-    activeExerciseInSetIndex = 0;
-    remainingTimedRepSec = 0.0;
-    timedRepTimer = null;
-    secToRestAfterCurrentRep = 0;
-    remainingTimedRestSec = 0;
-    timedRestTimer = null;
-    displayMode = DisplayMode;
-    weightUnit = WeightUnit;
+    private activeRepIndex = 0;
+    private activeExerciseInSetIndex = 0;
+    private remainingTimedRepSec = 0.0;
+    private timedRepTimer = null;
+    private secToRestAfterCurrentRep = 0;
+    private remainingTimedRestSec = 0;
+    private timedRestTimer = null;
     private logger: Logger;
+    private isInRunningMode = false;
+    private isInEditMode = false;
+    private mode: DisplayMode = DisplayMode.Display;
+    private ngUnsubscribe: Subject<void> = new Subject<void>();
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
     restBetweenReps = 0;
     restAfterExercise = 0;
     expanded = false;
-    private isInRunningMode = false;
-    private isInEditMode = false;
-    private mode: DisplayMode = DisplayMode.Display;
-    private ngUnsubscribe: Subject<void> = new Subject<void>();
+    displayMode = DisplayMode;
+    weightUnit = WeightUnit;
     @Input() workoutId: string;
     @Input() dayId: string;
     @Input() exerciseSetId: string;
     @Input() exerciseSetIndex: number;
 
-    get activeExercise(): ExerciseBean {
+    private get activeExercise(): ExerciseBean {
         return this.exercises[this.activeExerciseInSetIndex];
     }
 
