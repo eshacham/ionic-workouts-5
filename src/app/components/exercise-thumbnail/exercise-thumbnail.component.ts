@@ -59,7 +59,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     images: ExerciseMediaBean[];
     restBetweenReps = 0;
     restAfterExercise = 0;
-    expanded = false;
+    isEditSetExpanded = false;
+    isViewSetExpanded = false;
     displayMode = DisplayMode;
     weightUnit = WeightUnit;
     @Input() workoutId: string;
@@ -85,7 +86,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     get timedRestRemaining(): number { return this.remainingTimedRestSec; }
 
     get ExpandedExercises(): ExerciseBean[] {
-        return this.expanded ? this.exercises : [];
+        return this.isEditSetExpanded ? this.exercises : [];
     }
 
     get IsRunning(): boolean { return this.isInRunningMode; }
@@ -158,7 +159,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     toggleExpandedExercise(): void {
-        this.expanded = !this.expanded;
+        this.isEditSetExpanded = !this.isEditSetExpanded;
     }
 
     handleWorkoutDayStateChange(day: WorkoutDayBean) {
@@ -533,7 +534,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     viewSet() {
-
+        this.isViewSetExpanded = true;
     }
     deleteRep(index: number) {
         if (!this.isMinReps) {
@@ -585,7 +586,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             event,
             componentProps: {
                 canSwap: !isLast,
-                isExpanded: this.expanded,
+                isExpanded: this.isEditSetExpanded,
                 rep,
                 isMinReps: this.isMinReps,
                 isMaxReps: this.isMaxReps,

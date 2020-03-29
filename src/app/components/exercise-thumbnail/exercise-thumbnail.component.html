@@ -27,6 +27,34 @@
                         </ion-col>
                     </ion-row>
                 </ion-item>
+                <ion-item *ngIf="isViewSetExpanded">
+                    <ion-row *ngFor="let exercise of exercises"
+                        class="ion-align-items-center ion-justify-content-center ion-no-margin editSets">
+                        <ion-col *ngFor="let rep of exercise.reps; let i = index"
+                            class="ion-text-center editSets ion-no-padding">
+                            <ion-button class="ion-no-margin ion-no-padding edit-button" fill="clear">
+                                <div class="editSets">
+                                    <h4 *ngIf='rep.weight' class="ion-text-center">
+                                        {{rep.weight}}
+                                        <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
+                                    </h4>
+                                    <h4 *ngIf='rep.times' class="ion-text-center">
+                                        {{rep.times}}
+                                        <small>Reps</small>
+                                    </h4>
+                                    <h4 *ngIf='rep.seconds' class="ion-text-center">
+                                        {{rep.seconds}}
+                                        <small>Sec</small>
+                                    </h4>
+                                    <h4 *ngIf='!rep.weight && !rep.times && !rep.seconds'
+                                        class="ion-text-center">
+                                        ...
+                                    </h4>
+                                </div>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
             </ion-list>
         </div>
         <div [hidden]="!IsRunning">
@@ -167,7 +195,7 @@
                     <ion-button fill="outline" class="edit-button"
                         (click)="toggleExpandedExercise()">
                         <ion-icon slot="icon-only"
-                            [name]="expanded ? 'caret-up-sharp' : 'caret-down-sharp'">
+                            [name]="isEditSetExpanded ? 'caret-up-sharp' : 'caret-down-sharp'">
                         </ion-icon>
                     </ion-button>
                 </ion-col>
@@ -199,7 +227,8 @@
                     </ion-button>
                 </ion-col>
             </ion-row>
-            <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="expanded">
+            <ion-row class="ion-justify-content-center ion-align-items-center"
+                *ngIf="isEditSetExpanded">
                 <ion-col>
                     <ion-list lines="none">
                         <ion-item>
