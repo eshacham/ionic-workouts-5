@@ -533,8 +533,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
     }
 
-    viewSet() {
-        this.isViewSetExpanded = true;
+    toggleViewSet() {
+        this.isViewSetExpanded = !this.isViewSetExpanded;
     }
     deleteRep(index: number) {
         if (!this.isMinReps) {
@@ -578,15 +578,15 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         exercise: ExerciseBean,
         index: number,
         actions: ExerciseAction[],
-        isLast: boolean = false,
-        rep: Rep = null,
+        isLast?: boolean,
+        rep?: Rep,
     ) {
         const popover = await this.popoverCtrl.create({
             component: ChooseExerciseActionPopoverComponent,
             event,
             componentProps: {
                 canSwap: !isLast,
-                isExpanded: this.isEditSetExpanded,
+                isViewSetExpanded: this.isViewSetExpanded,
                 rep,
                 isMinReps: this.isMinReps,
                 isMaxReps: this.isMaxReps,
@@ -617,7 +617,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                         this.deleteRep(index);
                         break;
                         case ExerciseAction.ViewSet:
-                        this.viewSet();
+                        this.toggleViewSet();
                         break;
                     default:
                         break;

@@ -37,8 +37,8 @@
   </ion-item>
 
   <ion-item button *ngIf="isActionAvailable(exerciseAction.ViewSet)"
-    (click)="close(exerciseAction.ViewSet)" >
-    View set
+    (click)="close(exerciseAction.ViewSet)">
+    {{isViewSetExpanded ? 'Close set view' : 'View set'}}
     <ion-icon slot="start" name="eye-sharp" color="danger"></ion-icon>
   </ion-item>
 

@@ -12,7 +12,7 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   actions: ExerciseAction[];
   exerciseAction = ExerciseAction;
   canSwap: boolean;
-  isExpanded: boolean;
+  isViewSetExpanded: boolean;
   rep: Rep;
   isMinReps: boolean;
   isMaxReps: boolean;
@@ -23,7 +23,7 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
 
   ngOnInit() {
     this.canSwap = this.navParams.data.canSwap;
-    this.isExpanded = this.navParams.data.isExpanded;
+    this.isViewSetExpanded = this.navParams.data.isViewSetExpanded;
     this.rep = this.navParams.data.rep;
     this.isMinReps = this.navParams.data.isMinReps;
     this.isMaxReps = this.navParams.data.isMaxReps;
