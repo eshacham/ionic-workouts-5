@@ -9,9 +9,10 @@ import { Rep } from 'src/app/models/Rep';
   styleUrls: ['./choose-exercise-action-popover.component.scss'],
 })
 export class ChooseExerciseActionPopoverComponent implements OnInit {
+  actions: ExerciseAction[];
+  exerciseAction = ExerciseAction;
   canSwap: boolean;
   isExpanded: boolean;
-  isSetActions: boolean;
   rep: Rep;
   isMinReps: boolean;
   isMaxReps: boolean;
@@ -23,33 +24,18 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   ngOnInit() {
     this.canSwap = this.navParams.data.canSwap;
     this.isExpanded = this.navParams.data.isExpanded;
-    this.isSetActions = this.navParams.data.isSetActions;
     this.rep = this.navParams.data.rep;
     this.isMinReps = this.navParams.data.isMinReps;
     this.isMaxReps = this.navParams.data.isMaxReps;
+    this.actions = this.navParams.data.actions;
+  }
+
+  isActionAvailable(action: ExerciseAction): boolean {
+    return this.actions.includes(action);
   }
 
   close(action: ExerciseAction) {
     this.popoverController.dismiss(action);
-  }
-
-  editSet() {
-    this.close(ExerciseAction.EditSet);
-  }
-  deleteExercise() {
-    this.close(ExerciseAction.DeleteExercise);
-  }
-  deleteSet() {
-    this.close(ExerciseAction.DeleteSet);
-  }
-  addSet() {
-    this.close(ExerciseAction.AddSet);
-  }
-  swapExercise() {
-    this.close(ExerciseAction.SwapSets);
-  }
-  viewExercise() {
-    this.close(ExerciseAction.GotoExercise);
   }
 
 }

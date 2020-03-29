@@ -7,7 +7,7 @@
                     <ion-row class="ion-align-items-center">
                         <ion-col size="3">
                             <ion-button class="img-btn"
-                                (click)="goToImagesLibraryPage(exercise)">
+                                (click)="selectExerciseViewAction($event, exercise, i)">
                                 <img [src]="safeImage(images[i], 0)" />
                             </ion-button>
                         </ion-col>

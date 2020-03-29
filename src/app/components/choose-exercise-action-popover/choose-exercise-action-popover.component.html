@@ -1,29 +1,45 @@
-<ion-list *ngIf="!isSetActions">
-  <ion-item button (click)="deleteExercise()">
-      Delete this exercise
-      <ion-icon slot="start" name="trash-sharp" color="danger"></ion-icon>
-  </ion-item>
-  <ion-item button *ngIf="canSwap" (click)="swapExercise()">
-      Swap exercise with next
-      <ion-icon slot="start" name="swap-horizontal-sharp" color="danger"></ion-icon>
-  </ion-item>
-  <ion-item button (click)="viewExercise()">
-      Locate in Exercises library
-      <ion-icon slot="start" name="barbell-sharp" color="danger"></ion-icon>
-  </ion-item>
-</ion-list>
+<ion-list>
 
-<ion-list *ngIf="isSetActions">
-  <ion-item button *ngIf="isSetActions" (click)="editSet()">
-      Edit this set
-      <ion-icon slot="start" name="create-sharp" color="danger"></ion-icon>
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.DeleteExercise)"
+    (click)="close(exerciseAction.DeleteExercise)">
+    Delete this exercise
+    <ion-icon slot="start" name="trash-sharp" color="danger"></ion-icon>
   </ion-item>
-  <ion-item button (click)="addSet()" [disabled]="isMaxReps">
-      Add a copied set
-      <ion-icon slot="start" name="add-circle-sharp" color="danger"></ion-icon>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.SwapSets) && canSwap"
+    (click)="close(exerciseAction.SwapSets)">
+    Swap exercise with next
+    <ion-icon slot="start" name="swap-horizontal-sharp" color="danger"></ion-icon>
   </ion-item>
-  <ion-item button (click)="deleteSet()" [disabled]="isMinReps">
-      Delete this set
-      <ion-icon slot="start" name="remove-circle-sharp" color="danger"></ion-icon>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.GotoExercise)"
+    (click)="close(exerciseAction.GotoExercise)">
+    Locate in Exercises library
+    <ion-icon slot="start" name="barbell-sharp" color="danger"></ion-icon>
   </ion-item>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.EditSet)"
+    (click)="close(exerciseAction.EditSet)">
+    Edit this set
+    <ion-icon slot="start" name="create-sharp" color="danger"></ion-icon>
+  </ion-item>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.AddSet)"
+    (click)="close(exerciseAction.AddSet)" [disabled]="isMaxReps">
+    Add a copied set
+    <ion-icon slot="start" name="add-circle-sharp" color="danger"></ion-icon>
+  </ion-item>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.DeleteSet)"
+    (click)="close(exerciseAction.DeleteSet)" [disabled]="isMinReps">
+    Delete this set
+    <ion-icon slot="start" name="remove-circle-sharp" color="danger"></ion-icon>
+  </ion-item>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.ViewSet)"
+    (click)="close(exerciseAction.ViewSet)" >
+    View set
+    <ion-icon slot="start" name="eye-sharp" color="danger"></ion-icon>
+  </ion-item>
+
 </ion-list>

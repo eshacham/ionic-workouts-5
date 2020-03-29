@@ -208,11 +208,25 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             deleteSet: this.exercises.length === 1
         }));
     }
-    selectExerciseAction(event: Event, exercise: ExerciseBean, index: number, last: boolean) {
-        this.presentActionsPopover(event, exercise, index, last);
+    selectExerciseAction(event: Event, exercise: ExerciseBean, index: number, islast: boolean) {
+        this.presentActionsPopover(event, exercise, index, [
+            ExerciseAction.DeleteExercise,
+            ExerciseAction.SwapSets,
+            ExerciseAction.GotoExercise
+        ], islast);
     }
     selectSetAction(event: Event, exercise: ExerciseBean, index: number, rep: Rep) {
-        this.presentActionsPopover(event, exercise, index, false, true, rep);
+        this.presentActionsPopover(event, exercise, index, [
+            ExerciseAction.EditSet,
+            ExerciseAction.AddSet,
+            ExerciseAction.DeleteSet,
+        ], false, rep);
+    }
+    selectExerciseViewAction(event: Event, exercise: ExerciseBean, index: number) {
+        this.presentActionsPopover(event, exercise, index, [
+            ExerciseAction.ViewSet,
+            ExerciseAction.GotoExercise,
+        ], false);
     }
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
@@ -567,20 +581,20 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         event: Event,
         exercise: ExerciseBean,
         index: number,
-        last: boolean = false,
-        isSetActions: boolean = false,
+        actions: ExerciseAction[],
+        isLast: boolean = false,
         rep: Rep = null,
     ) {
         const popover = await this.popoverCtrl.create({
             component: ChooseExerciseActionPopoverComponent,
             event,
             componentProps: {
-                canSwap: !last,
+                canSwap: !isLast,
                 isExpanded: this.expanded,
-                isSetActions,
                 rep,
                 isMinReps: this.isMinReps,
                 isMaxReps: this.isMaxReps,
+                actions,
             }
         });
         popover.present();
@@ -606,6 +620,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                     case ExerciseAction.DeleteSet:
                         this.deleteRep(index);
                         break;
+                        case ExerciseAction.ViewSet:
+                            // this.viewSet(index);
+                            break;
                     default:
                         break;
                 }
