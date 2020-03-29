@@ -41,6 +41,12 @@ export class DataServiceProvider {
     private http: HttpClient,
   ) {
     this.logger = loggingService.getLogger('App.DataServiceProvider');
+    this.init();
+  }
+
+  async init() {
+    await this.displayPlatform();
+    await this.getReleaseNotes();
   }
 
   async getThemeData(): Promise<string> {
@@ -62,8 +68,6 @@ export class DataServiceProvider {
 
     let imagesData: MediaDataMaps;
     let workoutsData: WorkoutsDataMaps;
-
-    await this.displayPlatform();
 
     imagesData = await this.getImagesData();
     workoutsData = await this.getWorkoutsData();
@@ -145,13 +149,6 @@ export class DataServiceProvider {
     this.logger.info('resetData', 'images and workouts have been reset');
   }
 
-  getExerciseMusclesFilterFromImage(name: string): Muscles[] {
-    const imageToSet = this.exerciseMediaBeans.filter(image => image.name === name)[0];
-    if (imageToSet) {
-      return imageToSet.muscles;
-    }
-  }
-
   async addImage(options: IAddImageOptions): Promise<ExerciseMediaBean> {
     const newImageId = Guid.raw();
     await this.mobileFile.copyFile(options.origImagePath, options.origImageName, this.mobileFile.dataDirectory, newImageId);
@@ -212,7 +209,6 @@ export class DataServiceProvider {
     const platformSource = await this.platform.ready();
     this.logger.info('displayPlatform', `this app runs on ${platformSource}`);
   }
-
 
   async exportWorkout(workoutId: string, sinedInUser: ISignedInUser): Promise<string> {
     try {
@@ -355,6 +351,12 @@ export class DataServiceProvider {
       };
       reader.readAsArrayBuffer(blob);
     });
+  }
+
+  async getReleaseNotes() {
+    const getResult = await S3.get('release-notes.json', { download: true, level: 'public' });
+    const data = JSON.parse(getResult['Body'].toString());
+    this.logger.info('getReleaseNotes', data);
   }
 
 }
