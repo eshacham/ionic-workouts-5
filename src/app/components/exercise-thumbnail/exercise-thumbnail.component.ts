@@ -158,14 +158,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     toggleExpandedExercise(): void {
-        if (!this.expanded) {
-            this.store.dispatch(new SetExerciseSetInWorkoutDay({
-                workoutId: this.workoutId,
-                dayId: this.dayId,
-                setId: this.exerciseSetId,
-                scroll: true
-            }));
-        }
         this.expanded = !this.expanded;
     }
 
@@ -540,6 +532,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
     }
 
+    viewSet() {
+
+    }
     deleteRep(index: number) {
         if (!this.isMinReps) {
             this.exercises.forEach(exe => {
@@ -621,8 +616,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                         this.deleteRep(index);
                         break;
                         case ExerciseAction.ViewSet:
-                            // this.viewSet(index);
-                            break;
+                        this.viewSet();
+                        break;
                     default:
                         break;
                 }
