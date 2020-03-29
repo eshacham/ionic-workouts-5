@@ -10,6 +10,35 @@ ion-list {
         ion-row {
             width: 100%;
         }
+        ion-grid {
+            ion-row {
+                width: 100%;
+                &#repsRow {
+                    margin-bottom: 2px;
+
+                    ion-col {
+                        margin-right: 2px;
+                        margin-left: 2px;
+
+                        div {
+                            &.divRep {
+                                h4 {
+                                    color: var(--ion-color-primary);
+                                }
+                            }
+
+                            &.divActive {
+                                background: var(--ion-color-primary);
+                            }
+
+                            &.divNonActive {
+                                background: var(--ion-color-secondary);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -57,7 +86,6 @@ ion-grid {
                 }
             }
         }
-
         &.editSets {
             margin-bottom: 2px;
             margin-top: 6px;

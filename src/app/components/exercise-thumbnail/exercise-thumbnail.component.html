@@ -28,32 +28,32 @@
                     </ion-row>
                 </ion-item>
                 <ion-item *ngIf="isViewSetExpanded">
-                    <ion-row *ngFor="let exercise of exercises"
-                        class="ion-align-items-center ion-justify-content-center ion-no-margin editSets">
+                    <ion-grid>
+                        <ion-row *ngFor="let exercise of exercises;"
+                            id=repsRow class="ion-align-items-center">
                         <ion-col *ngFor="let rep of exercise.reps; let i = index"
-                            class="ion-text-center editSets ion-no-padding">
-                            <ion-button class="ion-no-margin ion-no-padding edit-button" fill="clear">
-                                <div class="editSets">
-                                    <h4 *ngIf='rep.weight' class="ion-text-center">
-                                        {{rep.weight}}
-                                        <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
-                                    </h4>
-                                    <h4 *ngIf='rep.times' class="ion-text-center">
-                                        {{rep.times}}
-                                        <small>Reps</small>
-                                    </h4>
-                                    <h4 *ngIf='rep.seconds' class="ion-text-center">
-                                        {{rep.seconds}}
-                                        <small>Sec</small>
-                                    </h4>
-                                    <h4 *ngIf='!rep.weight && !rep.times && !rep.seconds'
-                                        class="ion-text-center">
-                                        ...
-                                    </h4>
-                                </div>
-                            </ion-button>
+                            class="ion-no-padding">
+                            <div *ngIf='rep.weight' class="divRep divNonActive">
+                                <h4 class="ion-text-center">
+                                    {{rep.weight}}
+                                    <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
+                                </h4>
+                            </div>
+                            <div *ngIf='rep.times' class="divRep divNonActive">
+                                <h4 class="ion-text-center">
+                                    {{rep.times}}
+                                    <small>Reps</small>
+                                </h4>
+                            </div>
+                            <div *ngIf="rep.seconds" class="divRep divNonActive">
+                                <h4 class="ion-text-center">
+                                    {{rep.seconds}}
+                                    <small>Sec</small>
+                                </h4>
+                            </div>
                         </ion-col>
-                    </ion-row>
+                        </ion-row>
+                    </ion-grid>
                 </ion-item>
             </ion-list>
         </div>
@@ -105,7 +105,7 @@
                                 <small>Reps</small>
                             </h4>
                         </div>
-                        <div *ngIf="rep.seconds" class="nonActiveRep">
+                        <div *ngIf="rep.seconds" [ngClass]="getRepClass(rep, i)">
                             <h4 class="ion-text-center"
                                 [ngClass]="{'comlpeted': rep.isComplete}">
                                 {{getSecondsStateText(rep)}}
