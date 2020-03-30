@@ -14,6 +14,14 @@ export const dataReducers =
                 error: null,
             };
         }
+        case DataActionsTypes.LoadReleaseNotesSuccess: {
+            return {
+                ...state,
+                releaseNotes: action.releaseNotes,
+                error: null,
+            };
+        }
+
         case DataActionsTypes.LoadThemeSuccess: {
             return {
                 ...state,
@@ -44,6 +52,7 @@ export const dataReducers =
             };
         }
         case DataActionsTypes.LoadDataError:
+        case DataActionsTypes.LoadReleaseNotesError:
         case DataActionsTypes.LoadThemeError:
         case DataActionsTypes.WorkoutsSavedError:
         case DataActionsTypes.ThemeSavedError:

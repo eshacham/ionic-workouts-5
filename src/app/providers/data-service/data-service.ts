@@ -4,12 +4,11 @@ import { Storage } from '@ionic/storage';
 import { File as MobileFile, FileEntry } from '@ionic-native/File/ngx';
 import { Platform } from '@ionic/angular';
 import { ExerciseMediaBean } from '../../models/ExerciseMedia';
-import { Muscles } from '../../models/enums';
 import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { LoadData, SetTheme } from 'src/app/store/actions/data.actions';
+import { LoadData, SetTheme, LoadReleaseNotes } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
@@ -19,6 +18,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ThemeServiceProvider } from '../theme-service/theme-service';
 import { ISignedInUser } from 'src/app/store/state/data.state';
+import { Version } from 'src/app/models/Version';
+import { Feature } from 'src/app/models/Feature';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -26,9 +27,7 @@ const THEME_STORAGE_KEY = 'my_theme';
 
 @Injectable()
 export class DataServiceProvider {
-  private exerciseMediaBeans: ExerciseMediaBean[];
   private logger: Logger;
-  private credentials: any;
 
   constructor(
     loggingService: LoggingService,
@@ -46,7 +45,7 @@ export class DataServiceProvider {
 
   async init() {
     await this.displayPlatform();
-    await this.getReleaseNotes();
+    this.store.dispatch(new LoadReleaseNotes());
   }
 
   async getThemeData(): Promise<string> {
@@ -357,6 +356,13 @@ export class DataServiceProvider {
     const getResult = await S3.get('release-notes.json', { download: true, level: 'public' });
     const data = JSON.parse(getResult['Body'].toString());
     this.logger.info('getReleaseNotes', data);
+    const releaseNotes: Record<string, Version> = {};
+    Object.keys(data).forEach(key => {
+      const version = data[key];
+      const features = version.features.map(f => new Feature(f.name, f.description, f.on));
+      releaseNotes[key] = new Version(key, features);
+    });
+    return releaseNotes;
   }
 
 }

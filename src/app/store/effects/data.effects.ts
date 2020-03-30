@@ -22,6 +22,9 @@ import {
     ResetData,
     ResetDataSuccess,
     ResetDataError,
+    LoadReleaseNotes,
+    LoadReleaseNotesSuccess,
+    LoadReleaseNotesError,
 } from '../actions/data.actions';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
@@ -71,6 +74,7 @@ import {
     ChangeDisplayMode
 } from '../actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { Version } from 'src/app/models/Version';
 
 @Injectable()
 export class DataEffects {
@@ -105,6 +109,18 @@ export class DataEffects {
             catchError(err => {
                 this.logger.error('getAllData', err);
                 return of(new LoadDataError(err.message));
+            })
+        ))
+    );
+
+    @Effect()
+    loadReleaseNotes$ = this.actions$.pipe(
+        ofType(DataActionsTypes.LoadReleaseNotes),
+        mergeMap((action: LoadReleaseNotes) => from(this.dataService.getReleaseNotes()).pipe(
+            map((notes: Record<string, Version>) => (new LoadReleaseNotesSuccess(notes))),
+            catchError(err => {
+                this.logger.error('loadReleaseNotes', err);
+                return of(new LoadReleaseNotesError(err.message));
             })
         ))
     );
@@ -166,8 +182,9 @@ export class DataEffects {
     @Effect()
     exportWorkout$ = this.actions$.pipe(
         ofType(WorkoutsActionsTypes.ExportWorkout),
-        // tslint:disable-next-line: max-line-length
-        mergeMap((action: ExportWorkout) => from(this.dataService.exportWorkout(action.payload.workoutId, action.payload.signedInUser)).pipe(
+        mergeMap((action: ExportWorkout) => from(this.dataService.exportWorkout(
+            action.payload.workoutId,
+            action.payload.signedInUser)).pipe(
             map((exportId: string) => (new ExportWorkoutSuccess())),
             catchError(err => {
                 this.logger.error('exportWorkout', err);

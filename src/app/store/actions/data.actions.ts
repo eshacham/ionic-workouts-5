@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { AllDataMaps } from 'src/app/models/interfaces';
 import { ISignedInUser } from '../state/data.state';
+import { Version } from 'src/app/models/Version';
 
 export enum DataActionsTypes {
     LoadData = '[Data] Load app data',
@@ -30,6 +31,10 @@ export enum DataActionsTypes {
     ClearError = '[Data] Clear the last error',
 
     SetSignedInUser = '[Data] Set SignedIn User',
+
+    LoadReleaseNotes = '[Data] Load release notes',
+    LoadReleaseNotesSuccess = '[Data] Get release notes success',
+    LoadReleaseNotesError = '[Data] Load release notes error',
 }
 export class LoadData implements Action {
     public readonly type = DataActionsTypes.LoadData;
@@ -119,6 +124,20 @@ export class SetSignedInUser implements Action {
     constructor(public payload: ISignedInUser) { }
 }
 
+export class LoadReleaseNotes implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotes;
+}
+
+export class LoadReleaseNotesSuccess implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotesSuccess;
+    constructor(public releaseNotes: Record<string, Version>) { }
+}
+export class LoadReleaseNotesError implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotesError;
+    constructor(public payload: string) { }
+}
+
+
 export type DataActions =
     LoadData |
     LoadDataSuccess |
@@ -138,5 +157,8 @@ export type DataActions =
     ThemeSavedSuccess |
     ThemeSavedError |
     ClearError |
-    SetSignedInUser
+    SetSignedInUser |
+    LoadReleaseNotes |
+    LoadReleaseNotesSuccess |
+    LoadReleaseNotesError
     ;

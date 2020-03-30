@@ -1,3 +1,5 @@
+import { Version } from "src/app/models/Version";
+
 export interface ISignedInUser {
     username: string;
     identityId: string;
@@ -12,7 +14,7 @@ export interface IDataState {
     theme: string;
     signedInUser: ISignedInUser;
     scrollToExerciseMediaId?: string;
-
+    releaseNotes: Record<string, Version>
 }
 export const initialDataState: IDataState = {
     hasDataBeenReset: false,
@@ -22,5 +24,6 @@ export const initialDataState: IDataState = {
     error: null,
     theme: null,
     signedInUser: null,
-    scrollToExerciseMediaId: null
+    scrollToExerciseMediaId: null,
+    releaseNotes: {},
 };
