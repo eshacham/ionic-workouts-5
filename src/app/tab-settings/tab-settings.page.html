@@ -20,6 +20,10 @@
         <ion-label>Workouts</ion-label>
         <ion-icon name="walk-sharp"></ion-icon>
       </ion-segment-button>
+      <ion-segment-button [value]="segment.Features" layout="icon-start">
+        <ion-label>Features</ion-label>
+        <ion-icon name="book-sharp"></ion-icon>
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -67,5 +71,18 @@
 
   </ion-list>
 
+  <ion-list *ngSwitchCase="segment.Features">
+    <ion-item *ngFor="let version of releaseNotes">
+      <ion-list>
+        <ion-list-header>
+          <ion-label>{{getVersionTitle(version)}}</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let feature of version.features">
+        <ion-label>{{getFeatureTitle(feature)}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+    </ion-item>
+  </ion-list>
 
 </ion-content>

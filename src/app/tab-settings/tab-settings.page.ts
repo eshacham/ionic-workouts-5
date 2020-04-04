@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
-import { getTheme, getSignedInUser } from '../store/selectors/data.selectors';
+import { getTheme, getSignedInUser, getReleaseNotes } from '../store/selectors/data.selectors';
 import { take, takeUntil } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
@@ -12,6 +12,8 @@ import { ModalController } from '@ionic/angular';
 import { LoginComponent } from '../components/login/login.component';
 import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
+import { Version } from '../models/Version';
+import { Feature } from '../models/Feature';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -20,7 +22,8 @@ interface ISelectedTheme  {
 enum Segment {
   Themes = 'themes',
   Account = 'account',
-  Workouts = 'workouts'
+  Workouts = 'workouts',
+  Features = 'features',
 }
 
 @Component({
@@ -31,12 +34,12 @@ enum Segment {
 export class TabSettingsPage implements OnInit, OnDestroy {
   private logger: Logger;
   themes: ISelectedTheme[];
-  selectedSegment: Segment = Segment.Account;
+  selectedSegment: Segment = Segment.Features;
   segment = Segment;
   selectedTheme: string;
   signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+  releaseNotes: Version[];
 
   constructor(
     loggingService: LoggingService,
@@ -65,6 +68,11 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(signedInUser => {
         this.signedInUser = signedInUser;
+      });
+      this.store.select(getReleaseNotes)
+      .pipe(take(1))
+      .subscribe(notes => {
+        this.releaseNotes = notes;
       });
     }
 
@@ -129,6 +137,18 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     this.logger.info('presentLoginModal', 'onWillDismiss', data);
+  }
+
+  getVersionTitle(version: Version): string {
+    return `${version.name} (${version.id})`;
+  }
+
+  getFeatureTitle(feature: Feature): string {
+    let enabled = false;
+    if (feature.on === undefined || feature.on) {
+      enabled = true;
+    }
+    return `${feature.name} (${enabled ? '' : 'not '} enabled)`;
   }
 
 }

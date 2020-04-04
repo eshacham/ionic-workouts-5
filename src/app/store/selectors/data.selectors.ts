@@ -11,6 +11,7 @@ import { exercisesState } from './exercises.selectors';
 import { daysState } from './workoutDays.selectors';
 import { setsState } from './exerciseSets.selectors';
 import { mediaState } from './ExercisesMedia.selectors';
+import { Version } from 'src/app/models/Version';
 
 const dataState = (state: IAppState) => state.data;
 
@@ -76,5 +77,5 @@ export const getSignedInUser = createSelector(
 
 export const getReleaseNotes = createSelector(
     dataState,
-    (state: IDataState) => state.releaseNotes
-)
+    (state: IDataState): Version[] => Object.values(state.releaseNotes)
+);
