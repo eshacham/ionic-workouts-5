@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
 import { Version } from '../models/Version';
 import { Feature } from '../models/Feature';
-import { DEFAULT_MIN_VERSION } from 'tls';
+import { DataServiceProvider } from '../providers/data-service/data-service';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -41,6 +41,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
   signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   releaseNotes: Version[];
+  appVersion: string;
 
   constructor(
     loggingService: LoggingService,
@@ -48,14 +49,15 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     private store: Store<IAppState>,
     private router: Router,
     private alertController: AlertController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private dataService: DataServiceProvider,
     ) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
       this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
       this.logger.entry('ctor', this.themes);
     }
 
-    ngOnInit() {
+    async ngOnInit() {
       this.store.select(getTheme)
       .pipe(take(1))
       .subscribe((theme) => {
@@ -74,11 +76,8 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(notes => {
         this.releaseNotes = notes;
-        for (let index = 0; index < 10; index++) {
-          const feture = new Feature('name', 'desc');
-          this.releaseNotes.push(new Version(`name${index}`, 'name', [feture]));
-        }
       });
+      this.appVersion = (await this.dataService.getAppVersion()).number;
     }
 
     ngOnDestroy() {
@@ -146,6 +145,9 @@ export class TabSettingsPage implements OnInit, OnDestroy {
 
   getVersionTitle(version: Version): string {
     return `${version.name} (${version.id})`;
+  }
+  isCurrentVersion(version): boolean {
+    return this.appVersion === version.id;
   }
 
   getFeatureTitle(feature: Feature): string {

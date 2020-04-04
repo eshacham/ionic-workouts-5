@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/File/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
@@ -76,6 +77,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
       }
     },
     File,
+    AppVersion,
     WebView,
     Clipboard,
     ThemeServiceProvider,

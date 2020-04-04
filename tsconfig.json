@@ -21,12 +21,13 @@
       "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
       ]
-    }
+    },
+    "resolveJsonModule": true
   },
   "importHelpers": true,
   "angularCompilerOptions": {
     // "fullTemplateTypeCheck": false,
     // "strictInjectionParameters": true,
-    "enableIvy": false,
+    "enableIvy": false
   }
 }
