@@ -27,5 +27,5 @@ export const initialDataState: IDataState = {
     signedInUser: null,
     scrollToExerciseMediaId: null,
     releaseNotes: {},
-    isOnline: undefined,
+    isOnline: false,
 };

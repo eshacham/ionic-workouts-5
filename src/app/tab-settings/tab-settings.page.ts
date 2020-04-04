@@ -73,7 +73,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
         this.signedInUser = signedInUser;
       });
       this.store.select(getReleaseNotes)
-      .pipe(take(1))
+      .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(notes => {
         this.releaseNotes = notes;
       });

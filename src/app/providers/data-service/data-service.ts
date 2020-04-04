@@ -23,6 +23,8 @@ import { Subscription, fromEvent } from 'rxjs';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
 import { environment } from 'src/environments/environment';
+import { getIsOnline } from 'src/app/store/selectors/data.selectors';
+import { take } from 'rxjs/operators';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -52,8 +54,43 @@ export class DataServiceProvider {
   async init() {
     this.setupNetworkWatcher();
     await this.displayPlatform();
-    /// todo only load the release notes if the app is online!
-    this.store.dispatch(new LoadReleaseNotes());
+
+    this.store.select(getIsOnline)
+      .pipe(take(1))
+      .subscribe((isOnline) => {
+        if (isOnline && navigator.onLine) {
+          this.store.dispatch(new LoadReleaseNotes());
+        }
+      });
+
+    setInterval(() => {
+      this.store.select(getIsOnline)
+        .pipe(take(1))
+        .subscribe((isOnline) => {
+          if (isOnline && navigator.onLine) {
+            this.store.dispatch(new LoadReleaseNotes());
+          }
+        });
+    }, 1000*60*60);
+  }
+
+  async displayPlatform() {
+    const platformSource = await this.platform.ready();
+    this.logger.info('displayPlatform', `this app runs on ${platformSource}`);
+  }
+
+  setupNetworkWatcher() {
+    if (navigator.onLine) {
+      this.store.dispatch(new AppOnline());
+    }
+    this.subsOffline = fromEvent(window, 'offline').subscribe(() => {
+      this.logger.info('window.offline');
+      this.store.dispatch(new AppOffline());
+    });
+    this.subsOnline = fromEvent(window, 'online').subscribe(() => {
+      this.logger.info('window.online');
+      this.store.dispatch(new AppOnline());
+    });
   }
 
   async getThemeData(): Promise<string> {
@@ -225,21 +262,6 @@ export class DataServiceProvider {
   }
   get isMobile() {
     return this.isIos || this.isAndriod;
-  }
-  async displayPlatform() {
-    const platformSource = await this.platform.ready();
-    this.logger.info('displayPlatform', `this app runs on ${platformSource}`);
-  }
-
-  setupNetworkWatcher() {
-      this.subsOffline = fromEvent(window, 'offline').subscribe(() => {
-      this.logger.info('window.offline');
-      this.store.dispatch(new AppOffline());
-    });
-      this.subsOnline = fromEvent(window, 'online').subscribe(() => {
-      this.logger.info('window.online');
-      this.store.dispatch(new AppOnline());
-    });
   }
 
   async exportWorkout(workoutId: string, sinedInUser: ISignedInUser): Promise<string> {

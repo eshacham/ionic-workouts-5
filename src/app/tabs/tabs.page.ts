@@ -90,16 +90,6 @@ export class TabsPage implements OnInit, OnDestroy {
           this.presentBusy('Importing Workout...');
         }
       });
-
-      this.store.select(getIsOnline)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((isOnline) => {
-        if (isOnline) {
-          this.toastService.presentToast('App is online!', false);
-        } else if (isOnline !== undefined && !isOnline){
-          this.toastService.presentToast('App is offline!', true);
-        }
-      });
   }
 
   private async presentBusy(message: string): Promise<void> {
