@@ -360,7 +360,7 @@ export class DataServiceProvider {
     Object.keys(data).forEach(key => {
       const version = data[key];
       const features = version.features.map(f => new Feature(f.name, f.description, f.on));
-      releaseNotes[key] = new Version(key, features);
+      releaseNotes[key] = new Version(key, version.name, features);
     });
     return releaseNotes;
   }

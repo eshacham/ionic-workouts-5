@@ -1,3 +1,6 @@
 export class Feature {
-    constructor (public name: string, public description: string, public on: boolean) {}
+    constructor (
+        public name: string,
+        public description: string,
+        public on?: boolean) {}
 }
