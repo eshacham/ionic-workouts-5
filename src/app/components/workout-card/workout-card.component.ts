@@ -217,7 +217,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
       header: 'Export Workout!',
       message: `
       You must be signed in to your account in order to export a workout.<br/>
-      The sign in link is on the Options (Account) tab.<br/>
+      The sign in link is on the Settings (Account) tab.<br/>
       Click Okay to go to the Account Sign In, or Cancel to close this dialog.
       `,
       buttons: [

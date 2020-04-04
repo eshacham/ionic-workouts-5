@@ -73,3 +73,8 @@ export const getSignedInUser = createSelector(
     dataState,
     (state: IDataState) => state.signedInUser
 );
+
+export const getReleaseNotes = createSelector(
+    dataState,
+    (state: IDataState) => state.releaseNotes
+)

@@ -20,6 +20,8 @@ import { ThemeServiceProvider } from '../theme-service/theme-service';
 import { ISignedInUser } from 'src/app/store/state/data.state';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
+import { getReleaseNotes } from 'src/app/store/selectors/data.selectors';
+import { take } from 'rxjs/operators';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -352,7 +354,7 @@ export class DataServiceProvider {
     });
   }
 
-  async getReleaseNotes() {
+  async getReleaseNotesFromS3(): Promise<Record<string, Version>> {
     const getResult = await S3.get('release-notes.json', { download: true, level: 'public' });
     const data = JSON.parse(getResult['Body'].toString());
     this.logger.info('getReleaseNotes', data);

@@ -116,7 +116,7 @@ export class DataEffects {
     @Effect()
     loadReleaseNotes$ = this.actions$.pipe(
         ofType(DataActionsTypes.LoadReleaseNotes),
-        mergeMap((action: LoadReleaseNotes) => from(this.dataService.getReleaseNotes()).pipe(
+        mergeMap((action: LoadReleaseNotes) => from(this.dataService.getReleaseNotesFromS3()).pipe(
             map((notes: Record<string, Version>) => (new LoadReleaseNotesSuccess(notes))),
             catchError(err => {
                 this.logger.error('loadReleaseNotes', err);
