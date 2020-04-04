@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
 import { Version } from '../models/Version';
 import { Feature } from '../models/Feature';
+import { DEFAULT_MIN_VERSION } from 'tls';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -73,6 +74,10 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(notes => {
         this.releaseNotes = notes;
+        for (let index = 0; index < 10; index++) {
+          const feture = new Feature('name', 'desc');
+          this.releaseNotes.push(new Version(`name${index}`, 'name', [feture]));
+        }
       });
     }
 
@@ -148,7 +153,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     if (feature.on === undefined || feature.on) {
       enabled = true;
     }
-    return `${feature.name} (${enabled ? '' : 'not '} enabled)`;
+    return `${feature.name} (${enabled ? 'enabled' : 'not enabled'})`;
   }
 
 }

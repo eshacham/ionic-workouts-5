@@ -9,16 +9,20 @@ ion-list {
     margin-right: 10px;
     margin-bottom: 5px;
 
-    ion-radio-group {
-        ion-label {
-            color: var(--ion-color-light) !important;
+    ion-list-header {
+        --background: var(--ion-color-primary);
+        ion-label.headerLabel {
+            margin-top: 6px;
+            color: var(--ion-color-secondary);
         }
     }
 
     ion-item {
         --background: var(--ion-color-primary);
         --background-hover: var(--ion-color-danger);
-
+        ion-label {
+            color: var(--ion-color-light);
+        }
         ion-radio {
             --color-checked: var(--ion-color-tertiary);
             --color: var(--ion-color-light);
@@ -41,7 +45,7 @@ ion-list {
             }
         }
 
-        &.itemGrid {
+        &.itemNoPadding {
             --padding-start: 0px;
             --padding-end: 0px;
             --inner-padding-end: 0px;

@@ -56,7 +56,7 @@
       </ion-item>
     </ion-radio-group>
 
-    <ion-item class="itemGrid ion-text-center">
+    <ion-item class="itemNoPadding ion-text-center">
       <ion-grid class="ion-no-padding">
         <ion-row>
           <ion-col class="ion-text-center">
@@ -71,14 +71,16 @@
 
   </ion-list>
 
-  <ion-list *ngSwitchCase="segment.Features">
-    <ion-item *ngFor="let version of releaseNotes">
+  <ion-list *ngSwitchCase="segment.Features"
+      class="ion-no-padding" lines="none">
+    <ion-item *ngFor="let version of releaseNotes" class="itemNoPadding">
+      
       <ion-list>
         <ion-list-header>
-          <ion-label>{{getVersionTitle(version)}}</ion-label>
+          <ion-label class="headerLabel">{{getVersionTitle(version)}}</ion-label>
         </ion-list-header>
         <ion-item *ngFor="let feature of version.features">
-        <ion-label>{{getFeatureTitle(feature)}}</ion-label>
+          <ion-label>{{getFeatureTitle(feature)}}</ion-label>
         </ion-item>
       </ion-list>
 
