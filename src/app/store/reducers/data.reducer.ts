@@ -111,6 +111,18 @@ export const dataReducers =
                 scrollToExerciseMediaId: undefined
             };
         }
+        case DataActionsTypes.AppOnline: {
+            return {
+                ...state,
+                isOnline: true
+            };
+        }
+        case DataActionsTypes.AppOffline: {
+            return {
+                ...state,
+                isOnline: false
+            };
+        }
         default: {
             return state;
         }

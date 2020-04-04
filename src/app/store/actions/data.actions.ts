@@ -35,7 +35,19 @@ export enum DataActionsTypes {
     LoadReleaseNotes = '[Data] Load release notes',
     LoadReleaseNotesSuccess = '[Data] Get release notes success',
     LoadReleaseNotesError = '[Data] Load release notes error',
+
+    AppOnline = '[Data] Application is Online',
+    AppOffline = '[Data] Application is Offline',
 }
+
+export class AppOnline implements Action {
+    public readonly type = DataActionsTypes.AppOnline;
+}
+
+export class AppOffline implements Action {
+    public readonly type = DataActionsTypes.AppOffline;
+}
+
 export class LoadData implements Action {
     public readonly type = DataActionsTypes.LoadData;
 }
@@ -160,5 +172,7 @@ export type DataActions =
     SetSignedInUser |
     LoadReleaseNotes |
     LoadReleaseNotesSuccess |
-    LoadReleaseNotesError
+    LoadReleaseNotesError |
+    AppOnline |
+    AppOffline
     ;

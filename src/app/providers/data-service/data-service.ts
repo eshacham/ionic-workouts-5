@@ -9,7 +9,7 @@ import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { LoadData, SetTheme, LoadReleaseNotes } from 'src/app/store/actions/data.actions';
+import { LoadData, SetTheme, LoadReleaseNotes, AppOffline, AppOnline } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import * as JSZip from 'jszip';
@@ -19,6 +19,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ThemeServiceProvider } from '../theme-service/theme-service';
 import { ISignedInUser } from 'src/app/store/state/data.state';
+import { Subscription, fromEvent } from 'rxjs';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
 import { environment } from 'src/environments/environment';
@@ -30,6 +31,8 @@ const THEME_STORAGE_KEY = 'my_theme';
 @Injectable()
 export class DataServiceProvider {
   private logger: Logger;
+  subsOnline: Subscription;
+  subsOffline: Subscription;
 
   constructor(
     loggingService: LoggingService,
@@ -40,14 +43,16 @@ export class DataServiceProvider {
     private storage: Storage,
     private store: Store<IAppState>,
     private http: HttpClient,
-    private appVersion: AppVersion
+    private appVersion: AppVersion,
   ) {
     this.logger = loggingService.getLogger('App.DataServiceProvider');
     this.init();
   }
 
   async init() {
+    this.setupNetworkWatcher();
     await this.displayPlatform();
+    /// todo only load the release notes if the app is online!
     this.store.dispatch(new LoadReleaseNotes());
   }
 
@@ -224,6 +229,17 @@ export class DataServiceProvider {
   async displayPlatform() {
     const platformSource = await this.platform.ready();
     this.logger.info('displayPlatform', `this app runs on ${platformSource}`);
+  }
+
+  setupNetworkWatcher() {
+      this.subsOffline = fromEvent(window, 'offline').subscribe(() => {
+      this.logger.info('window.offline');
+      this.store.dispatch(new AppOffline());
+    });
+      this.subsOnline = fromEvent(window, 'online').subscribe(() => {
+      this.logger.info('window.online');
+      this.store.dispatch(new AppOnline());
+    });
   }
 
   async exportWorkout(workoutId: string, sinedInUser: ISignedInUser): Promise<string> {

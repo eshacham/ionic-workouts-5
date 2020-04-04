@@ -79,3 +79,7 @@ export const getReleaseNotes = createSelector(
     dataState,
     (state: IDataState): Version[] => Object.values(state.releaseNotes)
 );
+export const getIsOnline = createSelector(
+    dataState,
+    (state: IDataState): boolean => state.isOnline
+);

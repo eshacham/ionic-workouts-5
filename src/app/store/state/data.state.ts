@@ -1,4 +1,4 @@
-import { Version } from "src/app/models/Version";
+import { Version } from 'src/app/models/Version';
 
 export interface ISignedInUser {
     username: string;
@@ -15,6 +15,7 @@ export interface IDataState {
     signedInUser: ISignedInUser;
     scrollToExerciseMediaId?: string;
     releaseNotes: Record<string, Version>
+    isOnline?: boolean
 }
 export const initialDataState: IDataState = {
     hasDataBeenReset: false,
@@ -26,4 +27,5 @@ export const initialDataState: IDataState = {
     signedInUser: null,
     scrollToExerciseMediaId: null,
     releaseNotes: {},
+    isOnline: undefined,
 };

@@ -4,7 +4,8 @@ import {
   getError,
   getWorkoutExportInProgress,
   getWorkoutImportInProgress,
-  getTheme
+  getTheme,
+  getIsOnline
 } from '../store/selectors/data.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { LoadData, ClearError } from '../store/actions/data.actions';
@@ -53,7 +54,7 @@ export class TabsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((error) => {
         if (error) {
-          this.logger.debug('ngOnInit', 'etError:', error);
+          this.logger.debug('ngOnInit', 'getError:', error);
           if (this.loading) {
             this.loadingController.dismiss();
           }
@@ -87,6 +88,16 @@ export class TabsPage implements OnInit, OnDestroy {
         this.importHasStarted = importInProgress;
         if (this.importHasStarted) {
           this.presentBusy('Importing Workout...');
+        }
+      });
+
+      this.store.select(getIsOnline)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((isOnline) => {
+        if (isOnline) {
+          this.toastService.presentToast('App is online!', false);
+        } else if (isOnline !== undefined && !isOnline){
+          this.toastService.presentToast('App is offline!', true);
         }
       });
   }
