@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
 import { ISignedInUser } from 'src/app/store/state/data.state';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ChooseExportActionPopoverComponent } from '../choose-export-action-popover/choose-export-action-popover.component';
+import { FeatureManagerService } from 'src/app/providers/feature-manager/feature-manager.service';
 
 @Component({
   selector: 'app-workout-card',
@@ -35,7 +36,6 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   private description: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-
   constructor(
     loggingService: LoggingService,
     private router: Router,
@@ -46,7 +46,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
     private alertController: AlertController,
     private socialSharing: SocialSharing,
     private popoverCtrl: PopoverController,
-
+    private featureService: FeatureManagerService,
   ) {
     this.logger = loggingService.getLogger('App.WorkoutCardComponent');
   }
@@ -124,11 +124,14 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   }
 
   shareWorkout(event: Event) {
-    if (this.signedInUser) {
-      this.presentExportActionsPopover(event);
-    } else {
-      this.presentSignInAlert();
-    }
+    this.featureService.runFeatureIfEnabled('exportWorkout',
+      () => {
+        if (this.signedInUser) {
+          this.presentExportActionsPopover(event);
+        } else {
+          this.presentSignInAlert();
+        }
+      });
   }
 
   async presentExportActionsPopover(event: Event) {

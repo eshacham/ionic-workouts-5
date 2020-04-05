@@ -2,7 +2,6 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { File as MobileFile, FileEntry } from '@ionic-native/File/ngx';
-import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Platform } from '@ionic/angular';
 import { ExerciseMediaBean } from '../../models/ExerciseMedia';
 import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
@@ -22,7 +21,6 @@ import { ISignedInUser } from 'src/app/store/state/data.state';
 import { Subscription, fromEvent } from 'rxjs';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
-import { environment } from 'src/environments/environment';
 import { getIsOnline } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 
@@ -45,7 +43,6 @@ export class DataServiceProvider {
     private storage: Storage,
     private store: Store<IAppState>,
     private http: HttpClient,
-    private appVersion: AppVersion,
   ) {
     this.logger = loggingService.getLogger('App.DataServiceProvider');
     this.init();
@@ -99,20 +96,6 @@ export class DataServiceProvider {
       this.store.dispatch(new SetTheme(ThemeServiceProvider.defaultTheme));
     }
     return theme;
-  }
-
-  async getAppVersion() {
-    const version = this.isMobile ? {
-      number: await this.appVersion.getVersionNumber(),
-      code: await this.appVersion.getVersionCode(),
-      package: await this.appVersion.getPackageName(),
-      name: await this.appVersion.getAppName(),
-    } :
-    {
-      number: environment.version,
-    };
-    this.logger.entry('getAppVersion', version);
-    return version;
   }
 
   async getAllData(): Promise<AllDataMaps> {

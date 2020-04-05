@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
 import { Version } from '../models/Version';
 import { Feature } from '../models/Feature';
-import { DataServiceProvider } from '../providers/data-service/data-service';
+import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -50,7 +50,8 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     private router: Router,
     private alertController: AlertController,
     private modalController: ModalController,
-    private dataService: DataServiceProvider,
+    private featureService: FeatureManagerService,
+
     ) {
       this.logger = loggingService.getLogger('App.TabSettingsPage');
       this.themes = this.themeService.themes.map(t => ({ selected: false, theTheme: t }));
@@ -77,7 +78,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .subscribe(notes => {
         this.releaseNotes = notes;
       });
-      this.appVersion = (await this.dataService.getAppVersion()).number;
+      this.appVersion = (await this.featureService.getAppVersion()).number;
     }
 
     ngOnDestroy() {

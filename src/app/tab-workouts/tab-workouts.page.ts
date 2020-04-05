@@ -5,7 +5,7 @@ import { WorkoutBean } from '../models/Workout';
 import { DisplayMode } from '../models/enums';
 import { IAppState } from '../store/state/app.state';
 import { AddWorkout, ImportWorkout } from '../store/actions/workouts.actions';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UpdateWorkouts } from '../store/actions/data.actions';
 import { getWorkouts } from '../store/selectors/workouts.selectors';
@@ -13,7 +13,8 @@ import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
-import { ISignedInUser } from '../store/state/data.state';
+import { getReleaseNotes } from '../store/selectors/data.selectors';
+import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -35,6 +36,8 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     loggingService: LoggingService,
     private store: Store<IAppState>,
     private alertController: AlertController,
+    private featureService: FeatureManagerService,
+
   ) {
     this.logger = loggingService.getLogger('App.TabWorkoutsPage');
   }
@@ -94,11 +97,13 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   }
 
   importWorkout(event: any) {
-    event.stopPropagation();
-    this.presentImportWorkoutAlertPrompt();
+    this.featureService.runFeatureIfEnabled('importWorkout',
+      () => {
+        this.presentImportWorkoutAlertPrompt(event);
+      });
   }
 
-  async presentImportWorkoutAlertPrompt() {
+  async presentImportWorkoutAlertPrompt(event) {
     const alert = await this.alertController.create({
       header: 'Import workout',
       subHeader: 'Type the key of the workout to be imported',
@@ -126,8 +131,6 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
           if (data.workoutId) {
             this.logger.debug('presentAlertPrompt', 'importing', data.workoutId);
             this.store.dispatch(new ImportWorkout({ workoutId: data.workoutId, ownerUserId: data.identityId }));
-          } else {
-            return false;
           }
         }
       }
@@ -135,5 +138,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     });
 
     alert.present();
+    event.stopPropagation();
+
   }
 }

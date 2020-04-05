@@ -30,9 +30,10 @@ import { DataEffects } from './store/effects/data.effects';
 import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers/appReducers';
 
 import { ThemeServiceProvider } from './providers/theme-service/theme-service';
+import { FeatureManagerService } from './providers/feature-manager/feature-manager.service';
 import { DataServiceProvider } from './providers/data-service/data-service';
 import { AudioServiceProvider } from './providers/audio-service/audio-service';
-import {SocialSharing}  from '@ionic-native/social-sharing/ngx';
+import { SocialSharing }  from '@ionic-native/social-sharing/ngx';
 
 
 import { environment } from 'src/environments/environment';
@@ -76,20 +77,21 @@ export function configureLogging(loggingService: LoggingService): () => void {
         });
       }
     },
-    File,
-    AppVersion,
-    WebView,
-    Clipboard,
-    ThemeServiceProvider,
-    DataServiceProvider,
-    AudioServiceProvider,
-    SocialSharing,
     {
       deps: [LoggingService],
       multi: true,
       provide: APP_INITIALIZER,
       useFactory: configureLogging
-    }
+    },
+    File,
+    AppVersion,
+    WebView,
+    Clipboard,
+    FeatureManagerService,
+    ThemeServiceProvider,
+    DataServiceProvider,
+    AudioServiceProvider,
+    SocialSharing,
   ],
   bootstrap: [AppComponent],
 
