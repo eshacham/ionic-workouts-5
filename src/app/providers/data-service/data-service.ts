@@ -353,7 +353,6 @@ export class DataServiceProvider {
         }
       });
     }));
-
   }
 
   private getImageNativePath(imageName: string): string {

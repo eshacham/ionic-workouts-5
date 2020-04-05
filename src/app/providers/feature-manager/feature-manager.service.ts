@@ -41,16 +41,16 @@ export class FeatureManagerService {
       .pipe(take(1))
       .subscribe(async (versions) => {
         if (!versions || !versions.length) {
-          return false;
+          return
         }
         const currentVersionId = (await this.getAppVersion()).number;
         const version = versions.find(v=>v.id === currentVersionId);
         if (!version) {
-          return false;
+          return;
         }
         const feature  = version.features.find(f=>f.name === featureName);
         if (!feature || !feature.on) {
-          return false;
+          return;
         }
         featureInvokation();
       });

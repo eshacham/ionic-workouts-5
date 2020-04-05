@@ -97,13 +97,14 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   }
 
   importWorkout(event: any) {
+    event.stopPropagation();
     this.featureService.runFeatureIfEnabled('importWorkout',
       () => {
-        this.presentImportWorkoutAlertPrompt(event);
+        this.presentImportWorkoutAlertPrompt();
       });
   }
 
-  async presentImportWorkoutAlertPrompt(event) {
+  async presentImportWorkoutAlertPrompt() {
     const alert = await this.alertController.create({
       header: 'Import workout',
       subHeader: 'Type the key of the workout to be imported',
@@ -138,7 +139,6 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     });
 
     alert.present();
-    event.stopPropagation();
 
   }
 }
