@@ -66,7 +66,8 @@ export class UpdateWorkoutDay implements Action {
     readonly type = WorkoutDaysActionsTypes.UpdateWorkoutDay;
     constructor(public payload: {
         dayId: string,
-        name: string
+        name: string,
+        repeatsCount: number,
     }) { }
 }
 

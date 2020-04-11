@@ -1,15 +1,19 @@
 <div id="workout-day-comp">
 
-  <ion-item class="ion-no-padding" lines="none" id="workout-day-header">
-    <ion-label [hidden]="IsEditMode" class="ion-no-margin">
+  <ion-item [hidden]="IsEditMode"
+    class="ion-no-padding" lines="none" id="workout-day-header">
+    <ion-label class="ion-no-margin">
       <h2 class="ion-text-center">{{ nameTitle }}</h2>
     </ion-label>
-    <ion-input [hidden]="IsDisplayOrWorkout"
-      type="text" class="ion-text-center"
-      [(ngModel)]="name"
-      (change)="workoutDayChanged()">
-    </ion-input>
   </ion-item>
+
+  <ion-button [hidden]="IsDisplayOrWorkout"
+    fill="clear" class="edit-button"
+      (click)="editWorkout($event)">
+      <p class="ion-text-wrap">
+          {{ nameTitle }}
+      </p>
+  </ion-button>
 
   <ion-list lines="none">
     <ion-reorder-group [disabled]="IsDisplayOrWorkout || exerciseSets.length < 2"

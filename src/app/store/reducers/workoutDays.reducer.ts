@@ -61,7 +61,8 @@ export const workoutDaysReducers = (
                     ...state.byId,
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
-                        name: action.payload.name
+                        name: action.payload.name,
+                        repeatsCount: action.payload.repeatsCount,
                     }
                 },
             };

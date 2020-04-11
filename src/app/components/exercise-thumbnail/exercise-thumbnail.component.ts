@@ -637,7 +637,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
       async presentAlertPrompt(exe: ExerciseBean, index: number) {
         const alert = await this.alertController.create({
-          header: 'Edit Name',
+          header: 'Execrcise Name',
           inputs: [{
             name: 'text',
             id: 'text',

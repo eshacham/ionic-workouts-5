@@ -17,7 +17,7 @@ import {
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { IonList } from '@ionic/angular';
+import { IonList, AlertController } from '@ionic/angular';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 
 @Component({
@@ -33,7 +33,9 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   name: string;
   repeatsCount: number;
   repeatsCompleted: number;
-
+  customPopoverOptions: any = {
+    header: 'Numner of times to repeat',
+  };
   @Input() workoutId: string;
   @Input() dayId: string;
   @Input() displayMode: DisplayMode;
@@ -43,6 +45,8 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     loggingService: LoggingService,
     private store: Store<IAppState>,
     private dataService: DataServiceProvider,
+    private alertController: AlertController,
+
   ) {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
@@ -76,6 +80,56 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.handleSelectedWorkoutDayStateChange(workoutDay);
         }
       });
+  }
+
+  editWorkout(event: any) {
+    event.stopPropagation();
+    this.presentAlertPrompt(this.name, this.repeatsCount);
+  }
+
+  async presentAlertPrompt(name: string, repeats: number) {
+    const alert = await this.alertController.create({
+      header: 'Workout Day',
+      subHeader: 'Edit name and repeat number',
+      inputs: [{
+        name: 'text',
+        id: 'text',
+        type: 'textarea',
+        value: name,
+        placeholder: 'Enter workout day name here...'
+      },
+      {
+        name: 'number',
+        id: 'number',
+        type: 'number',
+        value: repeats,
+        min:1, max:10,
+        placeholder: 'Enter number of times to repeat'
+      },
+      ],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.logger.debug('presentAlertPrompt', 'edit cancelled');
+        }
+      }, {
+        text: 'Save',
+        handler: (data) => {
+          if (data.text) {
+            this.logger.debug('presentAlertPrompt', 'saving text', data.text, data.number);
+            this.name = data.text, this.repeatsCount = data.number || 1;
+            this.workoutDayChanged();
+          } else {
+            return false;
+          }
+        }
+      }
+      ]
+    });
+
+    alert.present();
   }
 
   private scrollToExerciseSet(scrollToExerciseSetIndex: number) {
@@ -138,11 +192,11 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     }
   }
 
-
   workoutDayChanged() {
     this.store.dispatch(new UpdateWorkoutDay({
       dayId: this.dayId,
-      name: this.name
+      name: this.name,
+      repeatsCount: this.repeatsCount,
     }));
   }
 
