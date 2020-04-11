@@ -19,6 +19,7 @@ export enum WorkoutDaysActionsTypes {
 
     StartFirstExercise = '[WorkoutDays] Start first exercise',
     StartExercise = '[WorkoutDays] Start an exercise',
+    RepeatExercise = '[WorkoutDays] Repeat a workout day exercises',
     StopExercise = '[WorkoutDays] Exercise should stop',
     ExerciseCompleted = '[WorkoutDays] Exercise has completed',
     ChangeDisplayMode = '[WorkoutDays] Change workout day display mode',
@@ -90,6 +91,7 @@ export interface ChangeWorkoutDayState {
     id: string;
     runningExerciseSetIndex?: number;
     runningState?: RunningState;
+    repeatsCompleted?: number;
     exerciseSets?: string[];
     displayMode?: DisplayMode;
     name?: string;
@@ -99,6 +101,7 @@ export class StartFirstExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StartFirstExercise;
     constructor(public payload: ChangeWorkoutDayState) {
         payload.runningExerciseSetIndex = 0;
+        payload.repeatsCompleted = 0;
         payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
     }
@@ -110,6 +113,14 @@ export class StartExercise implements Action {
         payload.runningState = RunningState.Running;
     }
 }
+export class RepeatExercise implements Action {
+    readonly type = WorkoutDaysActionsTypes.RepeatExercise;
+    constructor(public payload: ChangeWorkoutDayState) {
+        payload.displayMode = DisplayMode.Workout;
+        payload.runningState = RunningState.Running;
+        payload.runningExerciseSetIndex = 0;
+    }
+}
 export class StopExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StopExercise;
     constructor(public payload: ChangeWorkoutDayState) {
@@ -119,7 +130,7 @@ export class StopExercise implements Action {
 }
 export class ExerciseCompleted implements Action {
     readonly type = WorkoutDaysActionsTypes.ExerciseCompleted;
-    constructor(public payload: WorkoutDayBean) {
+    constructor(public payload: Partial<WorkoutDayBean>) {
         payload.runningState = RunningState.Completed;
         payload.displayMode = DisplayMode.Workout;
     }
@@ -130,6 +141,7 @@ export class ChangeDisplayMode implements Action {
     constructor(public payload: ChangeWorkoutDayState) {
         payload.runningState = RunningState.NA;
         payload.runningExerciseSetIndex = null;
+        payload.repeatsCompleted = 0;
     }
 }
 export class ChangeDisplayModeSuccess implements Action {
@@ -175,6 +187,7 @@ export type WorkoutDaysActions =
     MoveWorkoutDaySuccess |
     UpdateWorkoutDay |
     StartExercise |
+    RepeatExercise |
     StopExercise |
     ExerciseCompleted |
     ChangeDisplayMode |

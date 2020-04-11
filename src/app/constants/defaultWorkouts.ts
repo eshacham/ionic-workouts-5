@@ -19,6 +19,7 @@ const buildDefaultWorkouts = () => {
                 new WorkoutDay({
                     id: Guid.raw(),
                     name: 'Full Body',
+                    repeatsCount: 2,
                     exerciseSets: [
                         new ExerciseSet({
                             id: Guid.raw(),

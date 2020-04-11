@@ -73,9 +73,25 @@ export const workoutDaysReducers = (
             };
         }
         case WorkoutDaysActionsTypes.StartFirstExercise:
-        case WorkoutDaysActionsTypes.StartExercise:
+        case WorkoutDaysActionsTypes.RepeatExercise: {
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [action.payload.id]: {
+                        ...state.byId[action.payload.id],
+                        runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+                        repeatsCompleted: action.payload.repeatsCompleted,
+                        displayMode: action.payload.displayMode,
+                        runningState: action.payload.runningState,
+                        scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
+                    }
+                },
+            };
+        }
         case WorkoutDaysActionsTypes.ExerciseCompleted:
-        case WorkoutDaysActionsTypes.ChangeDisplayModeSuccess: {
+        case WorkoutDaysActionsTypes.ChangeDisplayModeSuccess:
+        case WorkoutDaysActionsTypes.StartExercise: {
             return {
                 ...state,
                 byId: {

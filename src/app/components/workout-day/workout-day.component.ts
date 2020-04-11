@@ -11,6 +11,7 @@ import {
   ReorderExerciseSets,
   StopExercise,
   ResetExerciseSetScrollIntoView,
+  RepeatExercise,
 } from 'src/app/store/actions/workoutDays.actions';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
@@ -29,6 +30,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseSets: string[];
   name: string;
+  repeatsCount: number;
 
   @Input() workoutId: string;
   @Input() dayId: string;
@@ -56,6 +58,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.logger.debug('ngOnInit', `${this.dayId} getWorkoutDay`, workoutDay);
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
+          this.repeatsCount = workoutDay.repeatsCount;
           this.handleSelectedWorkoutDayStateChange(workoutDay);
         }
       });
@@ -99,6 +102,13 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
               runningExerciseSetIndex: workoutDay.runningExerciseSetIndex + 1,
             }));
             this.scrollToExerciseSet(workoutDay.runningExerciseSetIndex + 1);
+          } else if (this.repeatsCount > 1 && workoutDay.repeatsCompleted + 1 < this.repeatsCount) {
+            this.store.dispatch(new RepeatExercise({
+              id: workoutDay.id,
+              repeatsCompleted: workoutDay.repeatsCompleted + 1,
+
+            }));
+            this.scrollToExerciseSet(0);
           } else {
             this.store.dispatch(new StopExercise({
               id: this.dayId,

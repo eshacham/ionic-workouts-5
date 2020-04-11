@@ -18,14 +18,18 @@ export class WorkoutDayBase implements Bean {
 }
 export class WorkoutDay extends WorkoutDayBase {
     public exerciseSets: ExerciseSet[];
+    public repeatsCount: number;
 
     constructor(options: {
         id: string,
         name: string,
-        exerciseSets: ExerciseSet[]
+        exerciseSets: ExerciseSet[],
+        repeatsCount?: number;
+
     }) {
         super(options);
         this.exerciseSets = options.exerciseSets;
+        this.repeatsCount = options.repeatsCount || 1;
     }
     static toBean(day: WorkoutDay, workoutId: string): WorkoutDayBean {
         return {
@@ -41,6 +45,8 @@ export class WorkoutDay extends WorkoutDayBase {
 export class WorkoutDayBean extends WorkoutDayBase {
     public exerciseSets: string[];
     runningExerciseSetIndex?: number;
+    repeatsCount?: number;
+    repeatsCompleted?: number;
     displayMode: DisplayMode;
     runningState: RunningState;
     workoutId?: string;
@@ -53,6 +59,8 @@ export class WorkoutDayBean extends WorkoutDayBase {
         name: string,
         exerciseSets: string[],
         runningExerciseSetIndex?: number,
+        repeatsCount?: number,
+        repeatsCompleted?: number,
         displayMode?: DisplayMode,
         runningState?: RunningState,
         workoutId?: string,
@@ -64,6 +72,8 @@ export class WorkoutDayBean extends WorkoutDayBase {
         if (options.exerciseSets) {
             this.exerciseSets = options.exerciseSets;
         }
+        this.repeatsCount = options.repeatsCount;
+        this.repeatsCompleted = options.repeatsCompleted;
         this.runningExerciseSetIndex = options.runningExerciseSetIndex;
         this.scrollToExerciseSetIndex = options.scrollToExerciseSetIndex;
         this.scrollToExerciseSetId = options.scrollToExerciseSetId;
@@ -78,11 +88,12 @@ export class WorkoutDayBean extends WorkoutDayBase {
     static create(options: {
         id: string
         workoutId: string
-    }) {
+    }): WorkoutDayBean {
         return new WorkoutDayBean({
             id: options.id,
             name: 'new workout day',
             exerciseSets: [],
+            repeatsCount: 0,
             workoutId: options.workoutId,
         });
     }
