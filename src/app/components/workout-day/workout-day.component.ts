@@ -12,6 +12,7 @@ import {
   StopExercise,
   ResetExerciseSetScrollIntoView,
   RepeatExercise,
+  ChangeDisplayMode,
 } from 'src/app/store/actions/workoutDays.actions';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
@@ -31,6 +32,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   exerciseSets: string[];
   name: string;
   repeatsCount: number;
+  repeatsCompleted: number;
 
   @Input() workoutId: string;
   @Input() dayId: string;
@@ -45,6 +47,17 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
 
+  get nameTitle(): string {
+    if (this.repeatsCount > 1) {
+      if (this.IsWorkoutMode) {
+        return `${this.name} (${this.repeatsCompleted + 1}/${this.repeatsCount})`;
+      } else {
+        return `${this.name} (0/${this.repeatsCount})`;
+      }
+    } else {
+      return this.name;
+    }
+  }
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
   get IsWorkoutMode() { return this.displayMode === DisplayMode.Workout; }
@@ -59,6 +72,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.repeatsCount = workoutDay.repeatsCount;
+          this.repeatsCompleted = workoutDay.repeatsCompleted;
           this.handleSelectedWorkoutDayStateChange(workoutDay);
         }
       });
@@ -106,12 +120,15 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
             this.store.dispatch(new RepeatExercise({
               id: workoutDay.id,
               repeatsCompleted: workoutDay.repeatsCompleted + 1,
-
             }));
             this.scrollToExerciseSet(0);
           } else {
             this.store.dispatch(new StopExercise({
               id: this.dayId,
+            }));
+            this.store.dispatch(new ChangeDisplayMode({
+              id: this.dayId,
+              displayMode: DisplayMode.Display,
             }));
           }
         } else if (workoutDay.runningState === RunningState.Running) {

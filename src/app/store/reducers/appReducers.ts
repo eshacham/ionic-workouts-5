@@ -27,6 +27,6 @@ export const metaReducers: MetaReducer<IAppState>[] = !environment.production
 
 export const storeDevtoolsModule = StoreDevtoolsModule.instrument({
     name: 'ionic-workouts-5',
-    maxAge: 25,
+    maxAge: 50,
     logOnly: environment.production
   });

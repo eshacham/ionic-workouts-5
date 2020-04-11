@@ -99,8 +99,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
           } else {
             this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${selectedDay}`);
             this.store.select(getWorkoutDay(selectedDay))
-              .pipe(take(1))
-              .subscribe(async workoutDayState => {
+            /// TODO make sure this does not degragate performance a lot!
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(async workoutDayState => {
                 await new Promise(() => setTimeout(async () => {
                 this.adjustDisplayMode(workoutDayState);
                 }, 1));

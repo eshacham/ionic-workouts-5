@@ -116,6 +116,7 @@ export const workoutDaysReducers = (
                     [action.payload.id]: {
                         ...state.byId[action.payload.id],
                         runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+                        repeatsCompleted : 0,
                         displayMode: oldDisplayMode,
                         runningState: action.payload.runningState
                     }
