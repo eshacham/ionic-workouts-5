@@ -14,10 +14,11 @@ export const dataReducers =
                 error: null,
             };
         }
-        case DataActionsTypes.LoadReleaseNotesSuccess: {
+        case DataActionsTypes.LoadReleaseNotesAndTermsOfUseSuccess: {
             return {
                 ...state,
-                releaseNotes: action.releaseNotes,
+                releaseNotes: action.data.releaseNotes,
+                termsOfUse: action.data.termsOfUse,
                 error: null,
             };
         }
@@ -52,7 +53,7 @@ export const dataReducers =
             };
         }
         case DataActionsTypes.LoadDataError:
-        case DataActionsTypes.LoadReleaseNotesError:
+        case DataActionsTypes.LoadReleaseNotesAndTermsOfUseError:
         case DataActionsTypes.LoadThemeError:
         case DataActionsTypes.WorkoutsSavedError:
         case DataActionsTypes.ThemeSavedError:

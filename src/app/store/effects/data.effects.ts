@@ -22,9 +22,9 @@ import {
     ResetData,
     ResetDataSuccess,
     ResetDataError,
-    LoadReleaseNotes,
-    LoadReleaseNotesSuccess,
-    LoadReleaseNotesError,
+    LoadReleaseNotesAndTermsOfUse,
+    LoadReleaseNotesAndTermsOfUseSuccess,
+    LoadReleaseNotesAndTermsOfUseError,
 } from '../actions/data.actions';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
@@ -115,12 +115,13 @@ export class DataEffects {
 
     @Effect()
     loadReleaseNotes$ = this.actions$.pipe(
-        ofType(DataActionsTypes.LoadReleaseNotes),
-        mergeMap((action: LoadReleaseNotes) => from(this.dataService.getReleaseNotesFromS3()).pipe(
-            map((notes: Record<string, Version>) => (new LoadReleaseNotesSuccess(notes))),
+        ofType(DataActionsTypes.LoadReleaseNotesAndTermsOfUse),
+        mergeMap((action: LoadReleaseNotesAndTermsOfUse) => from(this.dataService.getReleaseNotesAndTermsOfUseFromS3()).pipe(
+            map((data: { releaseNotes: Record<string, Version>, termsOfUse: string }) =>
+                (new LoadReleaseNotesAndTermsOfUseSuccess(data))),
             catchError(err => {
-                this.logger.error('loadReleaseNotes', err);
-                return of(new LoadReleaseNotesError(err.message));
+                this.logger.error('loadReleaseNotesAndTermsOfUse', err);
+                return of(new LoadReleaseNotesAndTermsOfUseError(err.message));
             })
         ))
     );

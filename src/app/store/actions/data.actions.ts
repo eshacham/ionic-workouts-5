@@ -32,9 +32,9 @@ export enum DataActionsTypes {
 
     SetSignedInUser = '[Data] Set SignedIn User',
 
-    LoadReleaseNotes = '[Data] Load release notes',
-    LoadReleaseNotesSuccess = '[Data] Get release notes success',
-    LoadReleaseNotesError = '[Data] Load release notes error',
+    LoadReleaseNotesAndTermsOfUse = '[Data] Load release notes and terms of use',
+    LoadReleaseNotesAndTermsOfUseSuccess = '[Data] Get release notes and terms of use success',
+    LoadReleaseNotesAndTermsOfUseError = '[Data] Load release notes and terms of useerror',
 
     AppOnline = '[Data] Application is Online',
     AppOffline = '[Data] Application is Offline',
@@ -136,16 +136,16 @@ export class SetSignedInUser implements Action {
     constructor(public payload: ISignedInUser) { }
 }
 
-export class LoadReleaseNotes implements Action {
-    public readonly type = DataActionsTypes.LoadReleaseNotes;
+export class LoadReleaseNotesAndTermsOfUse implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotesAndTermsOfUse;
 }
 
-export class LoadReleaseNotesSuccess implements Action {
-    public readonly type = DataActionsTypes.LoadReleaseNotesSuccess;
-    constructor(public releaseNotes: Record<string, Version>) { }
+export class LoadReleaseNotesAndTermsOfUseSuccess implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotesAndTermsOfUseSuccess;
+    constructor(public data: { releaseNotes: Record<string, Version>, termsOfUse: string }) { }
 }
-export class LoadReleaseNotesError implements Action {
-    public readonly type = DataActionsTypes.LoadReleaseNotesError;
+export class LoadReleaseNotesAndTermsOfUseError implements Action {
+    public readonly type = DataActionsTypes.LoadReleaseNotesAndTermsOfUseError;
     constructor(public payload: string) { }
 }
 
@@ -170,9 +170,9 @@ export type DataActions =
     ThemeSavedError |
     ClearError |
     SetSignedInUser |
-    LoadReleaseNotes |
-    LoadReleaseNotesSuccess |
-    LoadReleaseNotesError |
+    LoadReleaseNotesAndTermsOfUse |
+    LoadReleaseNotesAndTermsOfUseSuccess |
+    LoadReleaseNotesAndTermsOfUseError |
     AppOnline |
     AppOffline
     ;

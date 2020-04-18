@@ -13,7 +13,7 @@ import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
-import { getReleaseNotes } from '../store/selectors/data.selectors';
+import { getReleaseNotesAndTermsOfUse } from '../store/selectors/data.selectors';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 
 @Component({

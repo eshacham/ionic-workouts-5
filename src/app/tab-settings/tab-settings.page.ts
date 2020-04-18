@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
-import { getTheme, getSignedInUser, getReleaseNotes } from '../store/selectors/data.selectors';
+import { getTheme, getSignedInUser, getReleaseNotesAndTermsOfUse } from '../store/selectors/data.selectors';
 import { take, takeUntil } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
@@ -39,6 +39,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
   signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   releaseNotes: Version[];
+  termsOfUse: string;
   appVersion: string;
 
   constructor(
@@ -71,10 +72,11 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .subscribe(signedInUser => {
         this.signedInUser = signedInUser;
       });
-      this.store.select(getReleaseNotes)
+      this.store.select(getReleaseNotesAndTermsOfUse)
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(notes => {
-        this.releaseNotes = notes;
+      .subscribe(data => {
+        this.releaseNotes = data.releaseNotes;
+        this.termsOfUse = data.termsOfUse;
       });
       this.appVersion = (await this.featureService.getAppVersion()).number;
     }

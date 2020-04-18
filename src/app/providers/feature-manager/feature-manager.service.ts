@@ -5,7 +5,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/state/app.state';
-import { getReleaseNotes } from 'src/app/store/selectors/data.selectors';
+import { getReleaseNotesAndTermsOfUse } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -37,14 +37,14 @@ export class FeatureManagerService {
   runFeatureIfEnabled(
     featureName: string,
     featureInvokation: () => void) {
-      this.store.select(getReleaseNotes)
+      this.store.select(getReleaseNotesAndTermsOfUse)
       .pipe(take(1))
-      .subscribe(async (versions) => {
-        if (!versions || !versions.length) {
+      .subscribe(async (data) => {
+        if (!data || !data.releaseNotes || !data.releaseNotes.length) {
           return
         }
         const currentVersionId = (await this.getAppVersion()).number;
-        const version = versions.find(v=>v.id === currentVersionId);
+        const version = data.releaseNotes.find(v=>v.id === currentVersionId);
         if (!version) {
           return;
         }

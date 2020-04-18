@@ -8,7 +8,7 @@ import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { LoadData, SetTheme, LoadReleaseNotes, AppOffline, AppOnline } from 'src/app/store/actions/data.actions';
+import { LoadData, SetTheme, LoadReleaseNotesAndTermsOfUse, AppOffline, AppOnline } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import S3 from '@aws-amplify/storage';
@@ -55,7 +55,7 @@ export class DataServiceProvider {
       .pipe(take(1))
       .subscribe((isOnline) => {
         if (isOnline && navigator.onLine) {
-          this.store.dispatch(new LoadReleaseNotes());
+          this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
         }
       });
 
@@ -64,7 +64,7 @@ export class DataServiceProvider {
         .pipe(take(1))
         .subscribe((isOnline) => {
           if (isOnline && navigator.onLine) {
-            this.store.dispatch(new LoadReleaseNotes());
+            this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
           }
         });
     }, 1000*60*60);
@@ -388,17 +388,19 @@ export class DataServiceProvider {
     });
   }
 
-  async getReleaseNotesFromS3(): Promise<Record<string, Version>> {
-    const getResult: { Body: any } = await S3.get('release-notes.json', { download: true, level: 'public' }) as { Body: any };
-    const data = getResult.Body;
-    this.logger.info('getReleaseNotes', data);
+  async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: string}> {
+    const releaseNotesFile: { Body: any } = await S3.get('release-notes.json', { download: true, level: 'public' }) as { Body: any };
+    this.logger.info('getReleaseNotes', releaseNotesFile.Body);
     const releaseNotes: Record<string, Version> = {};
-    Object.keys(data).forEach(key => {
-      const rnVersion = data[key];
+    Object.keys(releaseNotesFile.Body).forEach(key => {
+      const rnVersion = releaseNotesFile.Body[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    return releaseNotes;
+    const termsOfUseFile: { Body: any } = await S3.get('terms-of-use.json', { download: true, level: 'public' }) as { Body: any };
+    this.logger.info('getTermsOfUse', termsOfUseFile.Body);
+    const termsOfUse: string = termsOfUseFile.Body.terms;
+    return { releaseNotes, termsOfUse };
   }
 
 }

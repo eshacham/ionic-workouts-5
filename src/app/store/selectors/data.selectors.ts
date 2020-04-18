@@ -75,9 +75,10 @@ export const getSignedInUser = createSelector(
     (state: IDataState) => state.signedInUser
 );
 
-export const getReleaseNotes = createSelector(
+export const getReleaseNotesAndTermsOfUse = createSelector(
     dataState,
-    (state: IDataState): Version[] => Object.values(state.releaseNotes)
+    (state: IDataState): { releaseNotes: Version[], termsOfUse: string } =>
+        ({ releaseNotes: Object.values(state.releaseNotes), termsOfUse: state.termsOfUse })
 );
 export const getIsOnline = createSelector(
     dataState,

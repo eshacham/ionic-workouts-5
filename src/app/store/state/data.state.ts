@@ -14,7 +14,8 @@ export interface IDataState {
     theme: string;
     signedInUser: ISignedInUser;
     scrollToExerciseMediaId?: string;
-    releaseNotes: Record<string, Version>
+    releaseNotes: Record<string, Version>;
+    termsOfUse: string;
     isOnline?: boolean
 }
 export const initialDataState: IDataState = {
@@ -27,5 +28,6 @@ export const initialDataState: IDataState = {
     signedInUser: null,
     scrollToExerciseMediaId: null,
     releaseNotes: {},
+    termsOfUse: null,
     isOnline: false,
 };

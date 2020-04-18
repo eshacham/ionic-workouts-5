@@ -59,18 +59,22 @@
   <ion-list *ngSwitchCase="segment.Options"
       class="ion-no-padding" lines="none">
     <ion-item button (click)="resetData()"
-      detail="false" class="buttonItem ion-text-center">
-      <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-      <ion-label>
-        Reset Workout Data
-      </ion-label>
+        detail="false" class="buttonItem ion-text-center">
+        <ion-label>
+          Reset Workout Data
+        </ion-label>
     </ion-item>
     <ion-item button (click)="presentReleaseNotesModal()"
-      detail="false" class="buttonItem ion-text-center">
-      <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-      <ion-label>
-        Release Notes
-      </ion-label>
+        detail="false" class="buttonItem ion-text-center">
+        <ion-label>
+          Release Notes
+        </ion-label>
+    </ion-item>
+    <ion-item button (click)="presentReleaseNotesModal()"
+        detail="false" class="buttonItem ion-text-center">
+        <ion-label>
+          Terms of Use
+        </ion-label>
     </ion-item>
 
   </ion-list>
