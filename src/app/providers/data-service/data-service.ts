@@ -11,7 +11,6 @@ import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme, LoadReleaseNotes, AppOffline, AppOnline } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
-import * as JSZip from 'jszip';
 import S3 from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
@@ -249,7 +248,6 @@ export class DataServiceProvider {
 
   async exportWorkout(workoutId: string, sinedInUser: ISignedInUser): Promise<string> {
     try {
-      const zip = new JSZip();
       const workoutsData = await this.getWorkoutsData();
       const imagesData = await this.getImagesData();
       workoutsData.workouts.byId = { [workoutId]: workoutsData.workouts.byId[workoutId] };
@@ -289,52 +287,53 @@ export class DataServiceProvider {
       const medias = await Promise.all(imagesFiles.map(mediaId => {
         return this.readFilesData(mediaId.names, mediaId.files);
       }));
-      medias.forEach((media) => {
-        media.forEach((image) => {
-          zip.file(`images/${image.name}`, image.data, { compression: 'STORE' });
-        });
-      });
+      const flattenImages = [].concat(...medias);
+      this.logger.debug('exportWorkout', flattenImages);
+      await Promise.all(flattenImages.map(image => {
+        const parts = image.name.split('.');
+        const ext = parts[parts.length-1];
+        S3.put(`${workoutId}/images/${image.name}`, image.data, { contentType: `application/${ext}`, level: 'protected' });
+      }));
       workoutsData.exercises.byId = exercisesById;
       imagesData.media.byId = imagesbyId;
-      zip.file(WORKOUTS_STORAGE_KEY, JSON.stringify(workoutsData), { binary: false });
-      zip.file(IMAGES_STORAGE_KEY, JSON.stringify(imagesData), { binary: false });
-      this.logger.info('exportWorkout', 'zip file', zip);
-      const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 9 } });
-      const putResult = await S3.put(workoutId, blob, { contentType: 'application/zip', level: 'protected' });
-      this.logger.info('exportWorkout', 'workout has been exported to s3', putResult);
+      await S3.put(`${workoutId}/${WORKOUTS_STORAGE_KEY}`, JSON.stringify(workoutsData),
+        { contentType: `application/json`, level: 'protected' });
+      await S3.put(`${workoutId}/${IMAGES_STORAGE_KEY}`, JSON.stringify(imagesData),
+        { contentType: `application/json`, level: 'protected' });
+      this.logger.info('exportWorkout', 'workout has been exported to s3');
       return workoutId;
     } catch (err) {
-      this.logger.error('exportWorkout', 'reading or zipping file error', err);
+      this.logger.error('exportWorkout', 'uploadin files to s3 error', err);
     }
   }
 
   async importWorkout(workoutId: string, workoutOwnerId: string):
     Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    // this import can only get its own workouts
-    // const getResult = await S3.get(workoutId, { download: true , level: 'protected' });
-    const getResult = await S3.get(workoutId, { download: true, identityId: workoutOwnerId, level: 'protected' });
-    const zip = new JSZip();
-    // tslint:disable-next-line: no-string-literal
-    await zip.loadAsync(getResult['Body']);
-    this.logger.info('importWorkout', 'zip file', zip);
+    const myWorkoutGetResult: { Body: any } = await S3.get(`${workoutId}/${WORKOUTS_STORAGE_KEY}`,
+      { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
+    const myImagesGetResult: { Body: any } = await S3.get(`${workoutId}/${IMAGES_STORAGE_KEY}`,
+      { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
     const result = {
-      workoutsData: (JSON.parse(await zip.file(WORKOUTS_STORAGE_KEY).async('text'))) as WorkoutsDataMaps,
-      imagesData: (JSON.parse(await zip.file(IMAGES_STORAGE_KEY).async('text'))) as MediaDataMaps
+      workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
+      imagesData: myImagesGetResult.Body as MediaDataMaps,
     };
+
     if (this.isMobile) {
       await Promise.all(Object.keys(result.imagesData.media.byId).map(async (imageId) => {
         const image = result.imagesData.media.byId[imageId];
-        await this.updateAndCreateNewImage(image, zip);
+        this.updateAndCreateNewImage(image, workoutId, workoutOwnerId);
       }));
     }
     this.logger.info('importWorkout', 'imported and updated result', result);
     return result;
   }
-  async updateAndCreateNewImage(image: ExerciseMediaBean, zip: JSZip) {
+  async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const blob = await zip.file(`images/${imageId}`).async('blob');
+      const getResult: { Body: any } = await S3.get(`${workoutId}/images/${imageId}`,
+      {  identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
+      const blob = getResult.Body;
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
-      this.logger.info('updateAndCreateNewImage', `image ${imageId} imported`, blob, file);
+      this.logger.debug('updateAndCreateNewImage', `image ${imageId} imported`, file);
     }));
   }
 
@@ -390,8 +389,8 @@ export class DataServiceProvider {
   }
 
   async getReleaseNotesFromS3(): Promise<Record<string, Version>> {
-    const getResult = await S3.get('release-notes.json', { download: true, level: 'public' });
-    const data = JSON.parse(getResult['Body'].toString());
+    const getResult: { Body: any } = await S3.get('release-notes.json', { download: true, level: 'public' }) as { Body: any };
+    const data = getResult.Body;
     this.logger.info('getReleaseNotes', data);
     const releaseNotes: Record<string, Version> = {};
     Object.keys(data).forEach(key => {

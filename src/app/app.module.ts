@@ -16,12 +16,8 @@ import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import {
-  AmplifyService,
-  AmplifyModules
-} from 'aws-amplify-angular';
-import Auth from '@aws-amplify/auth';
-import Storage from '@aws-amplify/storage';
+import { AmplifyService, AmplifyModules } from 'aws-amplify-angular';
+import { Auth, Storage } from 'aws-amplify';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
