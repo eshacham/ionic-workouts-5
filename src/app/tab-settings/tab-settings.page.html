@@ -16,12 +16,8 @@
         <ion-label>Themes</ion-label>
         <ion-icon name="color-palette-sharp"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button [value]="segment.Workouts" layout="icon-start">
-        <ion-label>Workouts</ion-label>
-        <ion-icon name="walk-sharp"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button [value]="segment.Features" layout="icon-start">
-        <ion-label>Features</ion-label>
+      <ion-segment-button [value]="segment.Options" layout="icon-start">
+        <ion-label>Options</ion-label>
         <ion-icon name="book-sharp"></ion-icon>
       </ion-segment-button>
     </ion-segment>
@@ -32,17 +28,6 @@
 
   <app-login *ngSwitchCase="segment.Account" [signedInUser]="signedInUser">
   </app-login>
-
-  <ion-list *ngSwitchCase="segment.Workouts"
-    lines="none">
-    <ion-item button (click)="resetData()"
-      detail="false" class="buttonItem ion-text-center">
-        <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-        <ion-label>
-          Reset Workout Data
-        </ion-label>
-    </ion-item>
-  </ion-list>
 
   <ion-list *ngSwitchCase="segment.Themes"
       class="ion-no-padding">
@@ -71,23 +56,23 @@
 
   </ion-list>
 
-  <ion-list *ngSwitchCase="segment.Features"
+  <ion-list *ngSwitchCase="segment.Options"
       class="ion-no-padding" lines="none">
-    <ion-item *ngFor="let version of releaseNotes" class="itemNoPadding">
-
-      <ion-list>
-        <ion-list-header>
-          <ion-label class="headerLabel"
-           [ngClass]="{'currentVersion': isCurrentVersion(version)}">
-            {{getVersionTitle(version)}}
-          </ion-label>
-        </ion-list-header>
-        <ion-item *ngFor="let feature of version.features">
-          <ion-label>{{getFeatureTitle(feature)}}</ion-label>
-        </ion-item>
-      </ion-list>
-
+    <ion-item button (click)="resetData()"
+      detail="false" class="buttonItem ion-text-center">
+      <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+      <ion-label>
+        Reset Workout Data
+      </ion-label>
     </ion-item>
+    <ion-item button (click)="presentReleaseNotesModal()"
+      detail="false" class="buttonItem ion-text-center">
+      <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+      <ion-label>
+        Release Notes
+      </ion-label>
+    </ion-item>
+
   </ion-list>
 
 </ion-content>

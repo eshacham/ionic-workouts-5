@@ -9,11 +9,10 @@ import { take, takeUntil } from 'rxjs/operators';
 import { SetTheme, ResetData } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { LoginComponent } from '../components/login/login.component';
+import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
 import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
 import { Version } from '../models/Version';
-import { Feature } from '../models/Feature';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 
 interface ISelectedTheme  {
@@ -23,8 +22,7 @@ interface ISelectedTheme  {
 enum Segment {
   Themes = 'themes',
   Account = 'account',
-  Workouts = 'workouts',
-  Features = 'features',
+  Options = 'options',
 }
 
 @Component({
@@ -35,7 +33,7 @@ enum Segment {
 export class TabSettingsPage implements OnInit, OnDestroy {
   private logger: Logger;
   themes: ISelectedTheme[];
-  selectedSegment: Segment = Segment.Features;
+  selectedSegment: Segment = Segment.Options;
   segment = Segment;
   selectedTheme: string;
   signedInUser: ISignedInUser;
@@ -135,28 +133,19 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  async presentLoginModal() {
+  async presentReleaseNotesModal() {
     const modal = await this.modalController.create({
-      component: LoginComponent
+      component: ReleaseNotesComponent,
+      componentProps: {
+        releaseNotes: this.releaseNotes,
+        appVersion: this.appVersion,
+      },
+      swipeToClose: true,
+      cssClass: 'auto-height',
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    this.logger.info('presentLoginModal', 'onWillDismiss', data);
-  }
-
-  getVersionTitle(version: Version): string {
-    return `${version.name} (${version.id})`;
-  }
-  isCurrentVersion(version): boolean {
-    return this.appVersion === version.id;
-  }
-
-  getFeatureTitle(feature: Feature): string {
-    let enabled = false;
-    if (feature.on === undefined || feature.on) {
-      enabled = true;
-    }
-    return `${feature.name} (${enabled ? 'enabled' : 'not enabled'})`;
+    this.logger.info('presentReleaseNotesModal', 'onWillDismiss', data);
   }
 
 }

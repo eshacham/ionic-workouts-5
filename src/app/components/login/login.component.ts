@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { ModalController } from '@ionic/angular';
 import { IAppState } from 'src/app/store/state/app.state';
 import { Store } from '@ngrx/store';
 import { SetSignedInUser } from 'src/app/store/actions/data.actions';
@@ -44,11 +43,9 @@ get identityIdText(): string {
 }
   constructor(
     private amplifyService: AmplifyService,
-    private modalCtrl: ModalController,
     loggingService: LoggingService,
     private store: Store<IAppState>,
     private clipboard: Clipboard,
-
     private dataService: DataServiceProvider,
   ) {
     this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
@@ -68,13 +65,6 @@ get identityIdText(): string {
           this.store.dispatch(new SetSignedInUser(null));
         }
       });
-  }
-  dismiss(loggedIn: boolean) {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalCtrl.dismiss({
-      loggedIn
-    });
   }
 
   async displayAuthCreds() {

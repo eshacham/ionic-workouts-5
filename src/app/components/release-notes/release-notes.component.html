@@ -1,0 +1,30 @@
+<div class="inner-content">
+
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()">
+        <ion-label slot="start">
+          Close
+        </ion-label>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Release Notes</ion-title>
+  </ion-toolbar>
+
+  <ion-list class="ion-no-padding" lines="none">
+    <ion-item *ngFor="let version of releaseNotes" class="itemNoPadding">
+      <ion-list>
+        <ion-list-header>
+          <ion-label class="headerLabel"
+          [ngClass]="{'currentVersion': isCurrentVersion(version)}">
+            {{getVersionTitle(version)}}
+          </ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let feature of version.features">
+          <ion-label>{{getFeatureTitle(feature)}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+  </ion-list>
+
+</div>

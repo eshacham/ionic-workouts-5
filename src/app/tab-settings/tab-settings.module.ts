@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TabSettingsPage } from './tab-settings.page';
 import { LoginComponent } from '../components/login/login.component'
+import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
 import {
   AmplifyAngularModule,
   AmplifyIonicModule,
@@ -22,9 +23,11 @@ import {
   declarations: [
     TabSettingsPage,
     LoginComponent,
+    ReleaseNotesComponent,
   ],
   entryComponents: [
     LoginComponent,
+    ReleaseNotesComponent,
   ]
 })
 export class TabSettingsPageModule {}
