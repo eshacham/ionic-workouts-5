@@ -41,7 +41,10 @@ export class FeatureManagerService {
       .pipe(take(1))
       .subscribe(async (data) => {
         if (!data || !data.releaseNotes || !data.releaseNotes.length) {
-          return
+          return;
+        }
+        if (!data.termsOfUse || !data.termsOfUse.isAccepted) {
+          return;
         }
         const currentVersionId = (await this.getAppVersion()).number;
         const version = data.releaseNotes.find(v=>v.id === currentVersionId);
