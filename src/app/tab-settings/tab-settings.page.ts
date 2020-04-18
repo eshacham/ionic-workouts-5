@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
 import { getTheme, getSignedInUser, getReleaseNotesAndTermsOfUse } from '../store/selectors/data.selectors';
 import { take, takeUntil } from 'rxjs/operators';
-import { SetTheme, ResetData } from '../store/actions/data.actions';
+import { SetTheme, ResetData, TermsAccpeted, TermsNotAccpeted } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
@@ -14,6 +14,8 @@ import { Subject } from 'rxjs';
 import { ISignedInUser } from '../store/state/data.state';
 import { Version } from '../models/Version';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
+import { TermsOfUseComponent } from '../components/terms-of-use/terms-of-use.component';
+import { TermsOfUse } from '../models/TermsOfUse';
 
 interface ISelectedTheme  {
   selected: boolean;
@@ -39,7 +41,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
   signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   releaseNotes: Version[];
-  termsOfUse: string;
+  termsOfUse: TermsOfUse;
   appVersion: string;
 
   constructor(
@@ -148,6 +150,27 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     this.logger.info('presentReleaseNotesModal', 'onWillDismiss', data);
+  }
+  async presentTermsOfUseModal() {
+    const modal = await this.modalController.create({
+      component: TermsOfUseComponent,
+      componentProps: {
+        termsOfUse: {...this.termsOfUse  },
+      },
+      swipeToClose: false,
+      backdropDismiss: false,
+      keyboardClose: false,
+      cssClass: 'auto-height',
+    });
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    this.logger.info('presentTermsOfUseModal', 'onWillDismiss', data);
+    if (data) {
+      const { termsOfUse} = data;
+      if (this.termsOfUse.isAccepted !== termsOfUse.isAccepted) {
+        this.store.dispatch(termsOfUse.isAccepted ? new TermsAccpeted() : new TermsNotAccpeted());
+      }
+    }
   }
 
 }

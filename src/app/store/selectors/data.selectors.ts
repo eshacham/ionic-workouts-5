@@ -12,6 +12,7 @@ import { daysState } from './workoutDays.selectors';
 import { setsState } from './exerciseSets.selectors';
 import { mediaState } from './ExercisesMedia.selectors';
 import { Version } from 'src/app/models/Version';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 const dataState = (state: IAppState) => state.data;
 
@@ -77,8 +78,12 @@ export const getSignedInUser = createSelector(
 
 export const getReleaseNotesAndTermsOfUse = createSelector(
     dataState,
-    (state: IDataState): { releaseNotes: Version[], termsOfUse: string } =>
-        ({ releaseNotes: Object.values(state.releaseNotes), termsOfUse: state.termsOfUse })
+    (state: IDataState): {
+        releaseNotes: Version[],
+        termsOfUse: TermsOfUse } =>
+        ({ releaseNotes: Object.values(state.releaseNotes),
+            termsOfUse: state.termsOfUse,
+        })
 );
 export const getIsOnline = createSelector(
     dataState,

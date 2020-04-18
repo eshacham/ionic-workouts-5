@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TabSettingsPage } from './tab-settings.page';
 import { LoginComponent } from '../components/login/login.component'
 import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
+import { TermsOfUseComponent } from '../components/terms-of-use/terms-of-use.component'
 import {
   AmplifyAngularModule,
   AmplifyIonicModule,
@@ -24,10 +25,12 @@ import {
     TabSettingsPage,
     LoginComponent,
     ReleaseNotesComponent,
+    TermsOfUseComponent,
   ],
   entryComponents: [
     LoginComponent,
     ReleaseNotesComponent,
+    TermsOfUseComponent,
   ]
 })
 export class TabSettingsPageModule {}

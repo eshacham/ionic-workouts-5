@@ -1,4 +1,5 @@
 import { Version } from 'src/app/models/Version';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 export interface ISignedInUser {
     username: string;
@@ -15,7 +16,7 @@ export interface IDataState {
     signedInUser: ISignedInUser;
     scrollToExerciseMediaId?: string;
     releaseNotes: Record<string, Version>;
-    termsOfUse: string;
+    termsOfUse: TermsOfUse;
     isOnline?: boolean
 }
 export const initialDataState: IDataState = {

@@ -8,7 +8,7 @@ import { getDefaultWorkoutsMaps } from '../../constants/defaultWorkouts';
 import { getDefaultImages } from '../../constants/defaultExerciseMedia';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps, IAddImageOptions, IRemoveImageOptions } from 'src/app/models/interfaces';
 import { IAppState } from '../../store/state/app.state';
-import { LoadData, SetTheme, LoadReleaseNotesAndTermsOfUse, AppOffline, AppOnline } from 'src/app/store/actions/data.actions';
+import { LoadData, SetTheme, LoadReleaseNotesAndTermsOfUse, AppOffline, AppOnline, TermsNotAccpeted } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import S3 from '@aws-amplify/storage';
@@ -22,10 +22,12 @@ import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
 import { getIsOnline } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
 const THEME_STORAGE_KEY = 'my_theme';
+const TERMS_STORAGE_KEY = 'my_terms';
 
 @Injectable()
 export class DataServiceProvider {
@@ -142,6 +144,12 @@ export class DataServiceProvider {
     return theme;
   }
 
+  private async getTerms(): Promise<TermsOfUse> {
+    await this.storage.ready();
+    const terms: TermsOfUse = await this.storage.get(TERMS_STORAGE_KEY);
+    return terms;
+  }
+
   private async initDefaultImages(): Promise<MediaDataMaps> {
     const data: MediaDataMaps = getDefaultImages();
     this.logger.info('initDefaultImages',
@@ -174,7 +182,11 @@ export class DataServiceProvider {
     await this.storage.set(THEME_STORAGE_KEY, theme);
     this.logger.info('saveTheme', 'theme have been saved');
   }
-
+  async saveTerms(terms: TermsOfUse) {
+    await this.storage.ready();
+    await this.storage.set(TERMS_STORAGE_KEY, terms);
+    this.logger.info('saveTerms', 'terms have been saved');
+  }
   async saveWorkouts(workoutsDataMaps: WorkoutsDataMaps) {
     await this.storage.ready();
     await this.storage.set(WORKOUTS_STORAGE_KEY, workoutsDataMaps);
@@ -388,7 +400,7 @@ export class DataServiceProvider {
     });
   }
 
-  async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: string}> {
+  async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
     const releaseNotesFile: { Body: any } = await S3.get('release-notes.json', { download: true, level: 'public' }) as { Body: any };
     this.logger.info('getReleaseNotes', releaseNotesFile.Body);
     const releaseNotes: Record<string, Version> = {};
@@ -399,8 +411,17 @@ export class DataServiceProvider {
     });
     const termsOfUseFile: { Body: any } = await S3.get('terms-of-use.json', { download: true, level: 'public' }) as { Body: any };
     this.logger.info('getTermsOfUse', termsOfUseFile.Body);
-    const termsOfUse: string = termsOfUseFile.Body.terms;
-    return { releaseNotes, termsOfUse };
+    const termsOfUseConditions: string = termsOfUseFile.Body.terms;
+    let termsOfUse: TermsOfUse = await this.getTerms();
+    if (!termsOfUse || termsOfUse.conditions !== termsOfUseConditions) {
+      termsOfUse = {
+        conditions: termsOfUseConditions,
+        isAccepted: false,
+      };
+      this.saveTerms(termsOfUse);
+      this.store.dispatch(new TermsNotAccpeted());
+    }
+    return { releaseNotes, termsOfUse }
   }
 
 }

@@ -75,6 +75,7 @@ import {
 } from '../actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Version } from 'src/app/models/Version';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 @Injectable()
 export class DataEffects {
@@ -117,7 +118,7 @@ export class DataEffects {
     loadReleaseNotes$ = this.actions$.pipe(
         ofType(DataActionsTypes.LoadReleaseNotesAndTermsOfUse),
         mergeMap((action: LoadReleaseNotesAndTermsOfUse) => from(this.dataService.getReleaseNotesAndTermsOfUseFromS3()).pipe(
-            map((data: { releaseNotes: Record<string, Version>, termsOfUse: string }) =>
+            map((data: { releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse }) =>
                 (new LoadReleaseNotesAndTermsOfUseSuccess(data))),
             catchError(err => {
                 this.logger.error('loadReleaseNotesAndTermsOfUse', err);

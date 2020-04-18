@@ -1,0 +1,26 @@
+<div class="inner-content">
+
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()">
+        <ion-label slot="start">
+          Close
+        </ion-label>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Terms of Use</ion-title>
+  </ion-toolbar>
+
+  <ion-text color="secondary">
+    <p>{{ termsOfUse.conditions }}</p>
+  </ion-text>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-toggle [(ngModel)]="termsOfUse.isAccepted" slot="end" >
+      </ion-toggle>
+      <ion-label slot="start">I Accpet these terms of use</ion-label>
+    </ion-toolbar>
+  </ion-footer>
+
+</div>

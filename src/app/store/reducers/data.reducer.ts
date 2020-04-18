@@ -2,6 +2,7 @@ import { DataActions, DataActionsTypes } from '../actions/data.actions';
 import { IDataState, initialDataState } from '../state/data.state';
 import { WorkoutsActions, WorkoutsActionsTypes, } from '../actions/workouts.actions';
 import { ExerciseMediaActionsTypes, ExerciseMediaActions } from '../actions/exercisesMedia.actions';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 export const dataReducers =
 (state = initialDataState, action: DataActions | WorkoutsActions | ExerciseMediaActions)
@@ -122,6 +123,18 @@ export const dataReducers =
             return {
                 ...state,
                 isOnline: false
+            };
+        }
+        case DataActionsTypes.TermsAccpeted: {
+            return {
+                ...state,
+                termsOfUse: { ...state.termsOfUse, isAccepted: true },
+            };
+        }
+        case DataActionsTypes.TermsNotAccpeted: {
+            return {
+                ...state,
+                termsOfUse: { ...state.termsOfUse, isAccepted: false },
             };
         }
         default: {

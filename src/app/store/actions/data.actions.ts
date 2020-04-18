@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { AllDataMaps } from 'src/app/models/interfaces';
 import { ISignedInUser } from '../state/data.state';
 import { Version } from 'src/app/models/Version';
+import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
 export enum DataActionsTypes {
     LoadData = '[Data] Load app data',
@@ -38,6 +39,9 @@ export enum DataActionsTypes {
 
     AppOnline = '[Data] Application is Online',
     AppOffline = '[Data] Application is Offline',
+
+    TermsAccpeted = '[Data] Terms of Use has been accpeted',
+    TermsNotAccpeted = '[Data] Terms of Use has not been accpeted',
 }
 
 export class AppOnline implements Action {
@@ -47,7 +51,13 @@ export class AppOnline implements Action {
 export class AppOffline implements Action {
     public readonly type = DataActionsTypes.AppOffline;
 }
+export class TermsAccpeted implements Action {
+    public readonly type = DataActionsTypes.TermsAccpeted;
+}
 
+export class TermsNotAccpeted implements Action {
+    public readonly type = DataActionsTypes.TermsNotAccpeted;
+}
 export class LoadData implements Action {
     public readonly type = DataActionsTypes.LoadData;
 }
@@ -142,7 +152,7 @@ export class LoadReleaseNotesAndTermsOfUse implements Action {
 
 export class LoadReleaseNotesAndTermsOfUseSuccess implements Action {
     public readonly type = DataActionsTypes.LoadReleaseNotesAndTermsOfUseSuccess;
-    constructor(public data: { releaseNotes: Record<string, Version>, termsOfUse: string }) { }
+    constructor(public data: { releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse }) { }
 }
 export class LoadReleaseNotesAndTermsOfUseError implements Action {
     public readonly type = DataActionsTypes.LoadReleaseNotesAndTermsOfUseError;
@@ -174,5 +184,7 @@ export type DataActions =
     LoadReleaseNotesAndTermsOfUseSuccess |
     LoadReleaseNotesAndTermsOfUseError |
     AppOnline |
-    AppOffline
+    AppOffline |
+    TermsAccpeted |
+    TermsNotAccpeted
     ;
