@@ -28,6 +28,7 @@ const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
 const THEME_STORAGE_KEY = 'my_theme';
 const TERMS_STORAGE_KEY = 'my_terms';
+const IMAGES_EXERCISES_PATH = 'images/exercises/';
 
 @Injectable()
 export class DataServiceProvider {
@@ -304,7 +305,7 @@ export class DataServiceProvider {
       await Promise.all(flattenImages.map(image => {
         const parts = image.name.split('.');
         const ext = parts[parts.length-1];
-        S3.put(`${workoutId}/images/${image.name}`, image.data, { contentType: `application/${ext}`, level: 'protected' });
+        S3.put(`${workoutId}/${IMAGES_EXERCISES_PATH}${image.name}`, image.data, { contentType: `application/${ext}`, level: 'protected' });
       }));
       workoutsData.exercises.byId = exercisesById;
       imagesData.media.byId = imagesbyId;
@@ -341,7 +342,7 @@ export class DataServiceProvider {
   }
   async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const getResult: { Body: any } = await S3.get(`${workoutId}/images/${imageId}`,
+      const getResult: { Body: any } = await S3.get(`${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`,
       {  identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
       const blob = getResult.Body;
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
@@ -370,7 +371,7 @@ export class DataServiceProvider {
     return `${this.mobileFile.dataDirectory}${imageName}`;
   }
   private getImageDefaultPath(imageName: string): string {
-    return `assets/images/${imageName}`;
+    return `assets/${IMAGES_EXERCISES_PATH}${imageName}`;
   }
   private getMobilePath(url: string) {
     return this.webview.convertFileSrc(url);

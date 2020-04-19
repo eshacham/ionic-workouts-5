@@ -2,7 +2,7 @@ export enum WeightType {
     EzBar = 'Ez-Bar',
     Barbell = 'Barbell',
     Dumbbell = 'Dumbbell',
-    Kettleball = 'Kettlebell',
+    Kettlebell = 'Kettlebell',
     Plate = 'Plate',
     NoWeight = 'N/A'
 }
@@ -77,7 +77,6 @@ export enum MediaAction {
 export enum Muscles {
     Longus = 'Longus',
     Fingers = 'Fingers',
-    Anterior = 'Anterior',
     Chest = 'Chest',
     Triceps = 'Triceps',
     Shoulders = 'Shoulders',
@@ -93,8 +92,6 @@ export enum Muscles {
     Calves = 'Calves',
     Cardio = 'Cardio',
     Adductors = 'Adductors',
-    Abductors = 'Abductors',
     Back = 'Back',
-    Neck = 'Neck',
-    Core = 'Core',
+
 }

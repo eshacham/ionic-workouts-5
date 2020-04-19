@@ -12,47 +12,31 @@ const addMedia = (map: Map<string, ExerciseMediaBean>, id: string, images: strin
     });
     map.set(media.id, media);
 };
-
+// tslint:disable: max-line-length
 const buildExercisesMediaMap = (): Map<string, ExerciseMediaBean> => {
     const exercises = new Map<string, ExerciseMediaBean>();
-    addMedia(exercises, 'BenchPressWideGrip', ['BenchPressWideGrip1.jpeg', 'BenchPressWideGrip2.png'], [Muscles.Chest]);
-    addMedia(exercises, 'BenchPressNarrowGrip', ['BenchPressNarrowGrip.png'], [Muscles.Chest]);
-    addMedia(exercises, 'BodyweightFlutterKicks', ['BodyweightFlutterKicks.png'], [Muscles.Glutes, Muscles.Hamstrings]);
-    addMedia(exercises, 'CabelLatPulldownBehindNeckWideGrip',
-        ['CabelLatPulldownBehindNeckWideGrip.png'], [Muscles.Shoulders, Muscles.Forearms]);
-    addMedia(exercises, 'CableAbduction', ['CableAbduction.png'], [Muscles.Abductors]);
-    addMedia(exercises, 'CableAdduction', ['CableAdduction.png'], [Muscles.Adductors]);
-    addMedia(exercises, 'CableBicepsCurlUnderhandGrip', ['CableBicepsCurlUnderhandGrip.png'], [Muscles.Biceps, Muscles.Forearms]);
-    addMedia(exercises, 'CableCalfRaise', ['CableCalfRaise.png'], [Muscles.Calves]);
-    addMedia(exercises, 'CableFly', ['CableFly.png'], [Muscles.Chest]);
-    addMedia(exercises, 'CableLegCurl', ['CableLegCurl.png'], [Muscles.Hamstrings]);
-    addMedia(exercises, 'CableShrug', ['CableShrug.png'], [Muscles.Neck]);
-    addMedia(exercises, 'CableTricepsPushdownOverheadGrip', ['CableTricepsPushdownOverheadGrip.png'], [Muscles.Forearms, Muscles.Triceps]);
-    addMedia(exercises, 'CrossBodyCrunch', ['CrossBodyCrunch.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'DeclineDumbbellPullover', ['DeclineDumbbellPullover.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'CrossfitSitup', ['CrossfitSitup.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'DeclineSitups', ['DeclineSitups.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'DragonFlags', ['DragonFlags.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'DumbbellArmCircles', ['DumbbellArmCircles.png'], [Muscles.Shoulders]);
-    addMedia(exercises, 'DumbbellBenshPressRotatingGrip', ['DumbbellBenshPressRotatingGrip.png'], [Muscles.Chest]);
-    addMedia(exercises, 'DumbbellFly', ['DumbbellFly.png'], [Muscles.Chest]);
-    addMedia(exercises, 'DumbbellHorizontalRowInclineProne', ['DumbbellHorizontalRowInclineProne.png'], [Muscles.Chest]);
-    addMedia(exercises, 'DumbbellTricepsExtensionSeated', ['DumbbellTricepsExtensionSeated.png'], [Muscles.Triceps]);
-    addMedia(exercises, 'DumbbellWristCurl', ['DumbbellWristCurl.png'], [Muscles.Fingers]);
-    addMedia(exercises, 'DummbellBicepsCurlStandingUnderhandGrip', ['DummbellBicepsCurlStandingUnderhandGrip.png'], [Muscles.Biceps]);
-    addMedia(exercises, 'InclinePushupNarrowGrip', ['InclinePushupNarrowGrip.jpg'], [Muscles.Core, Muscles.Abs, Muscles.Chest]);
-    addMedia(exercises, 'LegRaiseMachine', ['LegRaiseMachine.png'], [Muscles.Quads]);
-    addMedia(exercises, 'LyingScissorsKicks', ['LyingScissorsKicks.png'], [Muscles.Glutes]);
-    addMedia(exercises, 'MachineRowMediumGrip', ['MachineRowMediumGrip.png'], [Muscles.Lats]);
-    addMedia(exercises, 'Plank', ['Plank.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'ReverseCableFlyOnFlatBench', ['ReverseCableFlyOnFlatBench.png'], [Muscles.Chest]);
-    addMedia(exercises, 'RussianTwist', ['RussianTwist.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'SeatedRopeCableRow', ['SeatedRopeCableRow.png'], [Muscles.Forearms, Muscles.Back]);
-    addMedia(exercises, 'Situps', ['Situps.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'SitupsWithWeightAboveHead', ['SitupsWithWeightAboveHead.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'Twist', ['Twist.png'], [Muscles.Core, Muscles.Abs]);
-    addMedia(exercises, 'WalkingLungeWithSideWeights', ['WalkingLungeWithSideWeights.png'], [Muscles.Quads, Muscles.Forearms]);
-    addMedia(exercises, 'WeightedSitups', ['WeightedSitups.png'], [Muscles.Core, Muscles.Abs]);
+    // Upper Body
+    addMedia(exercises, 'bent dumbbells lateral raise', ['bent dumbbells lateral raise.jpg'], [Muscles.Shoulders, Muscles.Forearms, Muscles.Traps, Muscles.Back]);
+    addMedia(exercises, 'lateral raises', ['dumbbells lateral raises.jpg'], [Muscles.Forearms, Muscles.Chest, Muscles.Obliques]);
+    addMedia(exercises, 'bent triceps extensions', ['bent triceps extension dumbbell 1.jpg', 'bent triceps extension dumbbell 2.jpg'], [Muscles.Triceps, Muscles.Forearms]);
+    addMedia(exercises, 'cable lat pulldown', ['cable lat pulldown.jpg'], [Muscles.Shoulders, Muscles.Forearms, Muscles.Traps]);
+    addMedia(exercises, 'upright row', ['dumbbell upright row.jpg'], [Muscles.Shoulders, Muscles.Forearms, Muscles.Traps, Muscles.Back]);
+    addMedia(exercises, 'seated shoulder press', ['seated shoulder press.jpg'], [Muscles.Shoulders, Muscles.Chest, Muscles.Forearms]);
+    addMedia(exercises, 'standing triceps extension', ['standing triceps extension dumbbell 1.jpg', 'standing triceps extension dumbbell 2.jpg'], [Muscles.Shoulders, Muscles.Triceps, Muscles.Forearms]);
+    // Lower Body
+    addMedia(exercises, 'braced squats', ['braced squats.jpg'], [Muscles.Quads, Muscles.Glutes, Muscles.Hamstrings, Muscles.Longus]);
+    addMedia(exercises, 'cable kickbacks', ['glutes cable kickbacks.jpg'], [Muscles.Glutes, Muscles.Hamstrings]);
+    addMedia(exercises, 'squat', ['dumbbell squat.jpg'], [Muscles.Quads, Muscles.Glutes, Muscles.Hamstrings, Muscles.Longus]);
+    addMedia(exercises, 'cable crossover', ['hip cable crossover.jpg'], [Muscles.Adductors, Muscles.Longus, Muscles.Obliques]);
+    addMedia(exercises, 'single leg squats', ['single leg squats.jpg'], [Muscles.Quads, Muscles.Longus, Muscles.Hamstrings]);
+    // cardio
+    addMedia(exercises, 'elliptical', ['elliptical.jpg'], [Muscles.Cardio, Muscles.Calves, Muscles.Longus, Muscles.Quads]);
+    // core
+    addMedia(exercises, 'fitball crunches', ['fitball crunches.jpg'], [Muscles.Abs, Muscles.Obliques]);
+    addMedia(exercises, 'russian twist', ['russian twist.jpg'], [Muscles.Abs, Muscles.Obliques]);
+    addMedia(exercises, 'plank', ['plank.jpg'], [Muscles.Forearms, Muscles.Abs, Muscles.Obliques, Muscles.Shoulders]);
+    addMedia(exercises, 'side plank hip raise', ['side plank hip raise.jpg'], [Muscles.Abs, Muscles.Obliques]);
+    addMedia(exercises, 'v up', ['v up.jpg'], [Muscles.Abs, Muscles.Obliques]);
 
     return exercises;
 };

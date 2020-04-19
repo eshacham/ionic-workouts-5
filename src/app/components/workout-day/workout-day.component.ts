@@ -137,6 +137,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const items = this.list.nativeElement.children[0].children;
       const set = items[scrollToExerciseSetIndex];
+      if (!set) { return; }
       if (this.dataService.isIos) {
         // aligned to end of view
         set.scrollIntoView(false);
