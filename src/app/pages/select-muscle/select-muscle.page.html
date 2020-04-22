@@ -36,7 +36,7 @@
         <g>
           <path *ngFor="let path of group.paths"
             [attr.id]="path.id"
-            fill="red" opacity="0" [attr.d]="path.data"/>
+            fill="red" [attr.opacity]="path.opacity || 0" [attr.d]="path.data" [attr.transform]="path.transform"/>
         </g>
       </a>
       <animate *ngFor="let path of selectedPaths"
