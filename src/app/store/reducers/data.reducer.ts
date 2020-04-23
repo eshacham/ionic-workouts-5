@@ -55,6 +55,8 @@ export const dataReducers =
         }
         case DataActionsTypes.LoadDataError:
         case DataActionsTypes.LoadReleaseNotesAndTermsOfUseError:
+        case DataActionsTypes.TermsAccpetedError:
+        case DataActionsTypes.TermsNotAccpetedError:
         case DataActionsTypes.LoadThemeError:
         case DataActionsTypes.WorkoutsSavedError:
         case DataActionsTypes.ThemeSavedError:
@@ -125,13 +127,13 @@ export const dataReducers =
                 isOnline: false
             };
         }
-        case DataActionsTypes.TermsAccpeted: {
+        case DataActionsTypes.TermsAccpetedSuccess: {
             return {
                 ...state,
                 termsOfUse: { ...state.termsOfUse, isAccepted: true },
             };
         }
-        case DataActionsTypes.TermsNotAccpeted: {
+        case DataActionsTypes.TermsNotAccpetedSuccess: {
             return {
                 ...state,
                 termsOfUse: { ...state.termsOfUse, isAccepted: false },

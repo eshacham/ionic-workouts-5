@@ -41,7 +41,12 @@ export enum DataActionsTypes {
     AppOffline = '[Data] Application is Offline',
 
     TermsAccpeted = '[Data] Terms of Use has been accpeted',
+    TermsAccpetedSuccess = '[Data] Terms of Use has been accpeted and saved',
+    TermsAccpetedError = '[Data] Terms of Use has been accpeted and erred saving',
+
     TermsNotAccpeted = '[Data] Terms of Use has not been accpeted',
+    TermsNotAccpetedSuccess = '[Data] Terms of Use has not been accpeted and saved',
+    TermsNotAccpetedError = '[Data] Terms of Use has not been accpeted and erred saving',
 }
 
 export class AppOnline implements Action {
@@ -53,10 +58,32 @@ export class AppOffline implements Action {
 }
 export class TermsAccpeted implements Action {
     public readonly type = DataActionsTypes.TermsAccpeted;
+    constructor(public payload: TermsOfUse) { }
 }
 
 export class TermsNotAccpeted implements Action {
     public readonly type = DataActionsTypes.TermsNotAccpeted;
+    constructor(public payload: TermsOfUse) { }
+}
+export class TermsAccpetedSuccess implements Action {
+    public readonly type = DataActionsTypes.TermsAccpetedSuccess;
+    constructor(public payload: TermsOfUse) { }
+}
+
+export class TermsNotAccpetedSuccess implements Action {
+    public readonly type = DataActionsTypes.TermsNotAccpetedSuccess;
+    constructor(public payload: TermsOfUse) { }
+
+}export class TermsAccpetedError implements Action {
+    public readonly type = DataActionsTypes.TermsAccpetedError;
+    constructor(public payload: string) { }
+
+}
+
+export class TermsNotAccpetedError implements Action {
+    public readonly type = DataActionsTypes.TermsNotAccpetedError;
+    constructor(public payload: string) { }
+
 }
 export class LoadData implements Action {
     public readonly type = DataActionsTypes.LoadData;
@@ -186,5 +213,9 @@ export type DataActions =
     AppOnline |
     AppOffline |
     TermsAccpeted |
-    TermsNotAccpeted
+    TermsNotAccpeted |
+    TermsAccpetedSuccess |
+    TermsNotAccpetedSuccess |
+    TermsAccpetedError |
+    TermsNotAccpetedError
     ;

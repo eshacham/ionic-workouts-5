@@ -25,6 +25,12 @@ import {
     LoadReleaseNotesAndTermsOfUse,
     LoadReleaseNotesAndTermsOfUseSuccess,
     LoadReleaseNotesAndTermsOfUseError,
+    TermsAccpeted,
+    TermsAccpetedSuccess,
+    TermsAccpetedError,
+    TermsNotAccpeted,
+    TermsNotAccpetedSuccess,
+    TermsNotAccpetedError,
 } from '../actions/data.actions';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { AllDataMaps, WorkoutsDataMaps, MediaDataMaps } from 'src/app/models/interfaces';
@@ -179,7 +185,30 @@ export class DataEffects {
         ))
     );
 
-
+    @Effect()
+    acceptTerms$ = this.actions$.pipe(
+        ofType(DataActionsTypes.TermsAccpeted),
+        map((action: TermsAccpeted) => action),
+        mergeMap((action) => from(this.dataService.saveTerms(action.payload)).pipe(
+            map(() => (new TermsAccpetedSuccess(action.payload))),
+            catchError(err => {
+                this.logger.error('TermsAccpeted', err);
+                return of(new TermsAccpetedError(err.message));
+            })
+        ))
+    );
+    @Effect()
+    notAcceptTerms$ = this.actions$.pipe(
+        ofType(DataActionsTypes.TermsNotAccpeted),
+        map((action: TermsNotAccpeted) => action),
+        mergeMap((action) => from(this.dataService.saveTerms(action.payload)).pipe(
+            map(() => (new TermsNotAccpetedSuccess(action.payload))),
+            catchError(err => {
+                this.logger.error('TermsAccpeted', err);
+                return of(new TermsNotAccpetedError(err.message));
+            })
+        ))
+    );
 
     @Effect()
     exportWorkout$ = this.actions$.pipe(

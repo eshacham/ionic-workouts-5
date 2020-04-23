@@ -419,8 +419,7 @@ export class DataServiceProvider {
         conditions: termsOfUseConditions,
         isAccepted: false,
       };
-      this.saveTerms(termsOfUse);
-      this.store.dispatch(new TermsNotAccpeted());
+      this.store.dispatch(new TermsNotAccpeted(termsOfUse));
     }
     return { releaseNotes, termsOfUse }
   }

@@ -168,7 +168,9 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     if (data) {
       const { termsOfUse} = data;
       if (this.termsOfUse.isAccepted !== termsOfUse.isAccepted) {
-        this.store.dispatch(termsOfUse.isAccepted ? new TermsAccpeted() : new TermsNotAccpeted());
+        this.store.dispatch(termsOfUse.isAccepted
+          ? new TermsAccpeted(termsOfUse)
+          : new TermsNotAccpeted(termsOfUse));
       }
     }
   }
