@@ -17,23 +17,46 @@ import { ISignedInUser } from 'src/app/store/state/data.state';
 export class LoginComponent implements OnInit {
   private logger: Logger;
   @Input() signedInUser: ISignedInUser;
-  usernameAttributes = 'email';
   signUpConfig = {
-    // header: 'My Customized Sign Up',
+    header: 'Create a new TrainMe account',
     hideAllDefaults: true,
     signUpFields: [
       {
-        label: 'Password',
-        key: 'password',
+        label: 'Username',
+        key: 'username',
         required: true,
-        displayOrder: 2,
-        type: 'password'
+        displayOrder: 1,
+        type: 'string',
       }, {
         label: 'Email',
         key: 'email',
         required: true,
         displayOrder: 2,
-        type: 'string',
+        type: 'email'
+      },{
+        label: 'Password',
+        key: 'password',
+        required: true,
+        displayOrder: 3,
+        type: 'password'
+      },{
+        label: 'Phone Number',
+        key: 'phone_number',
+        required: false,
+        displayOrder: 4,
+        type: 'string'
+      },{
+        label: 'PT Certifications',
+        key: 'custom:certs',
+        required: false,
+        displayOrder: 5,
+        type: 'string'
+      },{
+        label: 'Clubs/Gyms',
+        key: 'custom:clubs',
+        required: false,
+        displayOrder: 6,
+        type: 'string'
       },
     ]
   }
