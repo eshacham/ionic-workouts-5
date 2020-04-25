@@ -1,15 +1,15 @@
 {
-    "auth": {
-        "ionicworkouts55d7d9acf": {
-            "service": "Cognito",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": []
-        }
-    },
-    "storage": {
-        "ionicworkout5storage": {
-            "service": "S3",
-            "providerPlugin": "awscloudformation"
-        }
-    }
+	"auth": {
+		"trainMeAuth": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"storage": {
+		"trainMeStorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
 }

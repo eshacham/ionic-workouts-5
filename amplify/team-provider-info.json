@@ -1,19 +1,19 @@
 {
-    "test": {
+    "prod": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-ionic-workouts-5-test-175648-authRole",
-            "UnauthRoleArn": "arn:aws:iam::597896071728:role/amplify-ionic-workouts-5-test-175648-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::597896071728:role/amplify-ionic-workouts-5-test-175648-authRole",
+            "AuthRoleName": "amplify-trainme-prod-135150-authRole",
+            "UnauthRoleArn": "arn:aws:iam::597896071728:role/amplify-trainme-prod-135150-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::597896071728:role/amplify-trainme-prod-135150-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-ionic-workouts-5-test-175648-deployment",
-            "UnauthRoleName": "amplify-ionic-workouts-5-test-175648-unauthRole",
-            "StackName": "amplify-ionic-workouts-5-test-175648",
-            "StackId": "arn:aws:cloudformation:us-east-1:597896071728:stack/amplify-ionic-workouts-5-test-175648/b6aa73c0-29cd-11ea-acae-12713880e578",
-            "AmplifyAppId": "dhiehrcnz49ce"
+            "DeploymentBucketName": "amplify-trainme-prod-135150-deployment",
+            "UnauthRoleName": "amplify-trainme-prod-135150-unauthRole",
+            "StackName": "amplify-trainme-prod-135150",
+            "StackId": "arn:aws:cloudformation:us-east-1:597896071728:stack/amplify-trainme-prod-135150/d378caf0-8725-11ea-b72d-0e2470ba0d5b",
+            "AmplifyAppId": "d3nu2fvsfyb2hn"
         },
         "categories": {
             "auth": {
-                "ionicworkouts55d7d9acf": {}
+                "trainMeAuth": {}
             }
         }
     }

@@ -74,27 +74,33 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
             
-  resourceName:
+  useDefault:
     Type: String
               
   authSelections:
     Type: String
-                                      
-  useDefault:
+              
+  resourceName:
+    Type: String
+                
+  thirdPartyAuth:
+    Type: String
+              
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+            
+  triggers:
     Type: String
                 
   hostedUI:
     Type: String
                     
-  usernameAttributes:
-    Type: CommaDelimitedList
-      
-  triggers:
-    Type: String
-                      
   userPoolGroupList:
     Type: CommaDelimitedList
-            
+                                                
   parentStack:
     Type: String
                 
@@ -103,16 +109,7 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-        
-  userPoolGroups:
-    Type: String
-              
-  adminQueries:
-    Type: String
-              
-  thirdPartyAuth:
-    Type: String
-                      
+    
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -124,7 +121,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'ionicw5d7d9acf_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'trainMd637eaed_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -136,10 +133,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: ionicw5d7d9acf_role_external_id
+                sts:ExternalId: trainMd637eaed_role_external_id
       Policies: 
         - 
-          PolicyName: ionicw5d7d9acf-sns-policy
+          PolicyName: trainMd637eaed-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -180,14 +177,12 @@ Resources:
           RequireNumbers: false
           RequireSymbols: false
           RequireUppercase: false
-      
-      UsernameAttributes: !Ref usernameAttributes
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: ionicw5d7d9acf_role_external_id
+        ExternalId: trainMd637eaed_role_external_id
     
   
     
@@ -207,7 +202,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: ionicw5d7d9acf_app_clientWeb
+      ClientName: trainMd637eaed_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -217,7 +212,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: ionicw5d7d9acf_app_client
+      ClientName: trainMd637eaed_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -282,7 +277,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: ionicw5d7d9acf_userpoolclient_lambda_iam_policy
+      PolicyName: trainMd637eaed_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -299,7 +294,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: ionicw5d7d9acf_userpoolclient_lambda_log_policy
+      PolicyName: trainMd637eaed_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -339,7 +334,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'ionicworkouts55d7d9acf_identitypool_5d7d9acf', !Join ['',['ionicworkouts55d7d9acf_identitypool_5d7d9acf', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'trainMe_identitypool', !Join ['',['trainMe_identitypool', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

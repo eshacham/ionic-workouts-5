@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "ionicworkouts55d7d9acf_identitypool_5d7d9acf",
+    "identityPoolName": "trainMe_identitypool",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "ionicw5d7d9acf",
-    "userPoolName": "ionicworkouts55d7d9acf_userpool_5d7d9acf",
+    "resourceNameTruncated": "trainMd637eaed",
+    "userPoolName": "trainMe_userpool",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -12,7 +12,7 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "email verification",
+    "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -28,10 +28,17 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "ionicw5d7d9acf_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "trainMd637eaed_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "ionicworkouts55d7d9acf",
+    "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "trainMeAuth",
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -44,19 +51,9 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
-    "hostedUI": false,
-    "usernameAttributes": [
-        "email"
-    ],
-    "triggers": "{}",
-    "userPoolGroupList": [],
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": [],
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "thirdPartyAuth": false
+    "dependsOn": []
 }
