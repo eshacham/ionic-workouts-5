@@ -1,0 +1,36 @@
+{
+    "1.0.0": {
+      "name": "Initial Release",
+      "features": [ {
+        "name": "exportWorkout",
+        "description": "allow user the zip and upload a workout's data including it's images",
+        "on": true
+        }, {
+        "name": "importWorkout",
+        "description": "allow user to imoport a specific workout's data including it's images",
+        "on": true
+        }
+      ]
+    },
+    "0.9.0": {
+      "name": "Beta Release",
+      "features": [ {
+        "name": "exportWorkout",
+        "description": "allow user the zip and upload a workout's data including it's images",
+        "on": false
+        }, {
+        "name": "importWorkout",
+        "description": "allow user to imoport a specific workout's data including it's images",
+        "on": false
+        }
+      ]
+    },
+    "0.1.0": {
+      "name": "Alpha Release",
+      "features": [ {
+        "name": "All Fetures",
+        "description": "allow user/trainer to build, maintain and train with workouts"
+        }
+      ]
+    }
+  }
