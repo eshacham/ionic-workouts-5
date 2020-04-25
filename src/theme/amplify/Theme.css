@@ -41,7 +41,7 @@
 
   /** Angular Theme **/
   --component-width-desktop: 460px;
-  --component-width-mobile: 100%;
+  --component-width-mobile: 95%;
 
   --color-primary: #FF9900;
   --color-primary-accent: #232F3E;

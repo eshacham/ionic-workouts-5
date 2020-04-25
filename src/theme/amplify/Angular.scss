@@ -349,7 +349,7 @@
   }
 
   .amplify-ionic-grid-padding-left {
-    padding-left: 0
+    padding-left: 0px;
   }
 
   @media (min-width: 320px) and (max-width: 480px) {
@@ -453,8 +453,11 @@
   }
 
   .amplify-form-body {
-    padding: 8px;
-    margin: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    ion-item {
+      --padding-start: 0px!important;
+  }
   }
 
   .amplify-form-row {
@@ -524,7 +527,7 @@
     }
   }
 
-  /************************************
+/************************************
 ** Alert
 ************************************/
 
@@ -580,7 +583,7 @@
   }
 
 
-  /************************************
+/************************************
 ** Tooltip
 ************************************/
 *.amplify-angular {
@@ -607,11 +610,18 @@
     visibility: visible;
   }
 
-  /************************************
+/************************************
 ** Ionic
 ************************************/
 }
   .amplify-phone-ion-content {
     height: 100px;
     --background: var(--ion-color-light);
+    ion-grid {
+      ion-select {
+        margin-left: 7px;
+        --padding-start: 10px;
+        max-width: 100%;
+      }
+    }
   }
