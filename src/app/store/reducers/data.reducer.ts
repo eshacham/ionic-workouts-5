@@ -2,11 +2,13 @@ import { DataActions, DataActionsTypes } from '../actions/data.actions';
 import { IDataState, initialDataState } from '../state/data.state';
 import { WorkoutsActions, WorkoutsActionsTypes, } from '../actions/workouts.actions';
 import { ExerciseMediaActionsTypes, ExerciseMediaActions } from '../actions/exercisesMedia.actions';
-import { TermsOfUse } from 'src/app/models/TermsOfUse';
 
-export const dataReducers =
-(state = initialDataState, action: DataActions | WorkoutsActions | ExerciseMediaActions)
-: IDataState => {
+export function dataReducers (
+    state = initialDataState,
+    action: DataActions |
+            WorkoutsActions |
+            ExerciseMediaActions)
+: IDataState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {

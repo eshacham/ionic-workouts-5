@@ -4,10 +4,12 @@ import { WorkoutDaysActionsTypes, WorkoutDaysActions, Direction } from '../actio
 import { DataActionsTypes, DataActions } from '../actions/data.actions';
 import { removeItemFromMap, moveItemInArray } from './utils';
 
-export const workoutsReducers = (
+export function workoutsReducers (
     state = initialWorkoutsState,
-    action: WorkoutsActions | WorkoutDaysActions | DataActions)
-    : IWorkoutsState => {
+    action: WorkoutsActions |
+            WorkoutDaysActions |
+            DataActions)
+    : IWorkoutsState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {

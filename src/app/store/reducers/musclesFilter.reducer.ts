@@ -1,8 +1,10 @@
-import {MusclesFilterActions, MusclesFilterActionsTypes} from '../actions/musclesFilter.actions';
+import { MusclesFilterActions, MusclesFilterActionsTypes } from '../actions/musclesFilter.actions';
 import { IMusclesFilterState, initialMusclesFilterState } from '../state/musclesFilter.state';
 
-export const musclesFilterReducers = (state = initialMusclesFilterState, action: MusclesFilterActions)
-: IMusclesFilterState => {
+export function musclesFilterReducers (
+    state = initialMusclesFilterState,
+    action: MusclesFilterActions)
+: IMusclesFilterState {
     switch (action.type) {
         case MusclesFilterActionsTypes.SetExerciseMuscleFilter: {
             return {

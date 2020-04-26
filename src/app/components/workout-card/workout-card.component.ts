@@ -32,9 +32,9 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
 
   private workout: WorkoutBean;
   private signedInUser: ISignedInUser;
-  private name: string;
-  private description: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  description: string;
+  name: string;
 
   constructor(
     loggingService: LoggingService,

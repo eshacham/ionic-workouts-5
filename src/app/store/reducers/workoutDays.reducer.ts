@@ -6,13 +6,13 @@ import { ExerciseSetActions, ExerciseSetActionsTypes } from '../actions/exercise
 import { filterMapByIds, removeItemFromMap } from './utils';
 import { DisplayMode } from 'src/app/models/enums';
 
-export const workoutDaysReducers = (
+export function workoutDaysReducers (
     state = initialWorkoutDaysState,
     action: WorkoutDaysActions |
             WorkoutsActions |
             DataActions |
             ExerciseSetActions)
-    : IWorkoutDaysState => {
+    : IWorkoutDaysState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {

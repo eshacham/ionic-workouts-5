@@ -8,14 +8,14 @@ import { WorkoutsActions, WorkoutsActionsTypes } from '../actions/workouts.actio
 import { WorkoutDaysActionsTypes, WorkoutDaysActions } from '../actions/workoutDays.actions';
 import { createMapFromBeanArray, removeItemFromMap, filterMapByRecordPredicate } from './utils';
 
-export const exercisesReducers = (
+export function exercisesReducers (
     state = initialExercisesState,
     action: DataActions |
             ExerciseSetActions |
             ExerciseActions |
             WorkoutsActions |
             WorkoutDaysActions)
-    : IExercisesState => {
+    : IExercisesState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {

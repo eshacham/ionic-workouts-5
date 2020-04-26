@@ -6,7 +6,7 @@ import { ExerciseSetActions } from '../actions/exerciseSets.actions';
 import { removeItemFromMap } from './utils';
 import { WorkoutsActions, WorkoutsActionsTypes } from '../actions/workouts.actions';
 
-export const exercisesMediaReducers = (
+export function exercisesMediaReducers (
     state = initialExercisesMediaState,
     action:
         DataActions |
@@ -14,7 +14,7 @@ export const exercisesMediaReducers = (
         ExerciseMediaActions |
         ExerciseSetActions |
         WorkoutsActions)
-    : IExercisesMediaState => {
+    : IExercisesMediaState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {

@@ -7,14 +7,14 @@ import { ExerciseSetBean } from 'src/app/models/ExerciseSet';
 import { WorkoutsActionsTypes, WorkoutsActions } from '../actions/workouts.actions';
 import { removeItemFromMap, filterMapByRecordPredicate, createMapFromBeanArray } from './utils';
 
-export const exerciseSetsReducers = (
+export function exerciseSetsReducers (
     state = initialExerciseSetsState,
     action: DataActions |
             ExerciseSetActions |
             ExerciseActions |
             WorkoutDaysActions |
             WorkoutsActions )
-    : IExerciseSetsState => {
+    : IExerciseSetsState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
             return {
