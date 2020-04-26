@@ -16,8 +16,9 @@ import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { AmplifyService, AmplifyModules } from 'aws-amplify-angular';
-import { Auth, Storage } from 'aws-amplify';
+// import { AmplifyService, AmplifyModules } from 'aws-amplify-angular';
+import { AmplifyAngularModule, AmplifyIonicModule, AmplifyService } from 'aws-amplify-angular'
+// import { Auth, Storage } from 'aws-amplify';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,6 @@ import { FeatureManagerService } from './providers/feature-manager/feature-manag
 import { DataServiceProvider } from './providers/data-service/data-service';
 import { AudioServiceProvider } from './providers/audio-service/audio-service';
 import { SocialSharing }  from '@ionic-native/social-sharing/ngx';
-
 
 import { environment } from 'src/environments/environment';
 
@@ -60,19 +60,22 @@ export function configureLogging(loggingService: LoggingService): () => void {
     EffectsModule.forRoot([DataEffects]),
     HttpClientModule,
     LoggingServiceModule,
+    AmplifyAngularModule,
+    AmplifyIonicModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {
-      provide: AmplifyService, useFactory: () => {
-        return AmplifyModules({
-          Auth,
-          Storage
-        });
-      }
-    },
+    // {
+    //   provide: AmplifyService, useFactory: () => {
+    //     return AmplifyModules({
+    //       Auth,
+    //       Storage
+    //     });
+    //   }
+    // },
+    AmplifyService,
     {
       deps: [LoggingService],
       multi: true,

@@ -35,7 +35,7 @@ export enum DataActionsTypes {
 
     LoadReleaseNotesAndTermsOfUse = '[Data] Load release notes and terms of use',
     LoadReleaseNotesAndTermsOfUseSuccess = '[Data] Get release notes and terms of use success',
-    LoadReleaseNotesAndTermsOfUseError = '[Data] Load release notes and terms of useerror',
+    LoadReleaseNotesAndTermsOfUseError = '[Data] Load release notes and terms of use error',
 
     AppOnline = '[Data] Application is Online',
     AppOffline = '[Data] Application is Offline',

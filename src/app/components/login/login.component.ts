@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { IAppState } from 'src/app/store/state/app.state';
+import { AmplifyService } from 'aws-amplify-angular';
+import Auth from '@aws-amplify/auth';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { IAppState } from 'src/app/store/state/app.state';
 import { SetSignedInUser } from 'src/app/store/actions/data.actions';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
-import { Clipboard } from '@ionic-native/clipboard/ngx';
-import Auth from '@aws-amplify/auth';
 import { ISignedInUser } from 'src/app/store/state/data.state';
 
 @Component({
