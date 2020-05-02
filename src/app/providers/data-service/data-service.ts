@@ -410,9 +410,9 @@ export class DataServiceProvider {
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    const termsOfUseFile: { Body: any } = await S3.get('terms-of-use.json', { download: true, level: 'public' }) as { Body: any };
+    const termsOfUseFile: { Body: any } = await S3.get('terms-of-use.html', { download: true, level: 'public' }) as { Body: any };
     this.logger.info('getTermsOfUse', termsOfUseFile.Body);
-    const termsOfUseConditions: string = termsOfUseFile.Body.terms;
+    const termsOfUseConditions: string = termsOfUseFile.Body;
     let termsOfUse: TermsOfUse = await this.getTerms();
     if (!termsOfUse || termsOfUse.conditions !== termsOfUseConditions) {
       termsOfUse = {

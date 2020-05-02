@@ -11,9 +11,9 @@
     <ion-title>Terms of Use</ion-title>
   </ion-toolbar>
 
-  <ion-text color="secondary">
-    <p>{{ termsOfUse.conditions }}</p>
-  </ion-text>
+  <ion-content class="terms" color="secondary"
+    [innerHTML]="SafeTermsHtml">
+  </ion-content>
 
   <ion-footer>
     <ion-toolbar>

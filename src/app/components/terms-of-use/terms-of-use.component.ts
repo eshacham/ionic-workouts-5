@@ -9,9 +9,14 @@ import { TermsOfUse } from 'src/app/models/TermsOfUse';
 })
 export class TermsOfUseComponent implements OnInit {
   @Input() termsOfUse: TermsOfUse;
-  constructor(private modalCtrl: ModalController,
+  constructor(
+    private modalCtrl: ModalController,
+
     ) { }
 
+  get SafeTermsHtml() {
+    return this.termsOfUse.conditions;
+  }
   ngOnInit() {}
   dismiss() {
     // using the injected ModalController this page
