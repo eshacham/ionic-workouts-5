@@ -322,9 +322,9 @@ export class DataServiceProvider {
 
   async importWorkout(workoutId: string, workoutOwnerId: string):
     Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    const myWorkoutGetResult: { Body: any } = await S3.get(`${workoutId}/${WORKOUTS_STORAGE_KEY}`,
+    const myWorkoutGetResult: { Body: any } = await this.getS3File(`${workoutId}/${WORKOUTS_STORAGE_KEY}`,
       { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
-    const myImagesGetResult: { Body: any } = await S3.get(`${workoutId}/${IMAGES_STORAGE_KEY}`,
+    const myImagesGetResult: { Body: any } = await this.getS3File(`${workoutId}/${IMAGES_STORAGE_KEY}`,
       { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
     const result = {
       workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
@@ -342,7 +342,7 @@ export class DataServiceProvider {
   }
   async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const getResult: { Body: any } = await S3.get(`${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`,
+      const getResult: { Body: any } = await this.getS3File(`${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`,
       {  identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
       const blob = getResult.Body;
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
@@ -400,25 +400,30 @@ export class DataServiceProvider {
       reader.readAsArrayBuffer(blob);
     });
   }
+  private getS3File(path: string, options: object): Promise<{ Body: any }> { return S3.get(path, options) as Promise<{ Body: any }>; }
 
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
-    const releaseNotesFile: { Body: any } = await S3.get('release-notes.json', { download: true, level: 'public' }) as { Body: any };
-    this.logger.info('getReleaseNotes', releaseNotesFile.Body);
+    const RN = 'release-notes.json';
+    const TOU = 'terms-of-use.html';
+    const PP = 'privacy-policy.html';
+    const files = { [RN]: null, [TOU]: null, [PP]: null };
+    await Promise.all(Object.keys(files).map(async item => {
+      const file = await this.getS3File(item, { download: true, level: 'public' });
+      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
+      files[item] = file;
+  }));
+    const releaseNotesFile = files[RN];
     const releaseNotes: Record<string, Version> = {};
     Object.keys(releaseNotesFile.Body).forEach(key => {
       const rnVersion = releaseNotesFile.Body[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    const termsOfUseFile: { Body: any } = await S3.get('terms-of-use.html', { download: true, level: 'public' }) as { Body: any };
-    this.logger.info('getTermsOfUse', termsOfUseFile.Body);
-    const termsOfUseConditions: string = termsOfUseFile.Body;
+    const conditions: string = files[TOU].Body;
+    const privacyPolicy: string = files[PP].Body;
     let termsOfUse: TermsOfUse = await this.getTerms();
-    if (!termsOfUse || termsOfUse.conditions !== termsOfUseConditions) {
-      termsOfUse = {
-        conditions: termsOfUseConditions,
-        isAccepted: false,
-      };
+    if (!termsOfUse || termsOfUse.conditions !== conditions || termsOfUse.privacyPolicy !== privacyPolicy) {
+      termsOfUse = { conditions, privacyPolicy, isAccepted: false };
       this.store.dispatch(new TermsNotAccpeted(termsOfUse));
     }
     return { releaseNotes, termsOfUse }

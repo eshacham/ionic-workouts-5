@@ -15,8 +15,9 @@ export class TermsOfUseComponent implements OnInit {
     ) { }
 
   get SafeTermsHtml() {
-    return this.termsOfUse.conditions;
+    return `${this.termsOfUse.conditions}</br></br>${this.termsOfUse.privacyPolicy}`;
   }
+
   ngOnInit() {}
   dismiss() {
     // using the injected ModalController this page
