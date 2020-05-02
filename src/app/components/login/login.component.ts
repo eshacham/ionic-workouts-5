@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
 get identityIdText(): string {
-  return `Copy User IdentityId: ${this.signedInUser ? this.signedInUser.identityId : '(Not Signed In)'}`;
+  return `${this.signedInUser ? this.signedInUser.identityId : '(Not Signed In)'}`;
 }
   constructor(
     private amplifyService: AmplifyService,
@@ -89,6 +89,8 @@ get identityIdText(): string {
         }
       });
   }
+
+  get IsWebApp() { return this.dataService.isWebApp; }
 
   async displayAuthCreds() {
     const credentials = await Auth.currentCredentials();

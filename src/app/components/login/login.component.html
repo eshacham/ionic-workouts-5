@@ -4,7 +4,12 @@
   framework="ionic">
 </amplify-authenticator>
 
-<ion-item button (click)="copyUserId()">
-  <ion-icon slot="start" name="copy-sharp"></ion-icon>
-  <small slot="start">{{identityIdText}}</small>
+<ion-item>
+  <ion-label slot="start"><small>
+    {{identityIdText}}</small>
+  </ion-label>
+  <ion-button slot="end" class="noPadding" [disabled]="IsWebApp"
+    fill="clear" (click)="copyUserId()">
+    <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+  </ion-button>
 </ion-item>

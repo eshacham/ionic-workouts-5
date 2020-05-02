@@ -25,16 +25,16 @@ import { FeatureManagerService } from 'src/app/providers/feature-manager/feature
   styleUrls: ['./workout-card.component.scss'],
 })
 export class WorkoutCardComponent implements OnInit, OnDestroy {
-  private logger: Logger;
 
   @Input() workoutId: string;
   @Input() displayMode: DisplayMode;
-
-  private workout: WorkoutBean;
+  private logger: Logger;
   private signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  workout: WorkoutBean;
   description: string;
   name: string;
+
 
   constructor(
     loggingService: LoggingService,
@@ -77,7 +77,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
 
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
-
+  get IsWebApp() { return this.dataService.isWebApp; }
   async goToWorkoutDay(dayId: string) {
     this.logger.info('goToWorkoutDay', this.workoutId, dayId);
     this.store.dispatch(new SelectWorkoutDay({
