@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prep-ios": "ionic cordova prepare ios",
-    "run-and": "ionic cordova emulate android --livereload",
+    "run-and": "ionic cordova run android --livereload",
     "run-ios": "ionic cordova emulate ios --livereload"
   },
   "private": true,
@@ -63,7 +63,6 @@
     "ionic-logging-service": "^8.0.0",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-pinch-zoom": "^2.3.4",
-    "npm": "^6.14.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.2"
@@ -122,8 +121,8 @@
       "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
