@@ -21,7 +21,9 @@
           </ion-label>
         </ion-list-header>
         <ion-item *ngFor="let feature of version.features">
-          <ion-label>{{getFeatureTitle(feature)}}</ion-label>
+          <ion-label [ngClass]="{'striked': !isFeatureEnabled(feature)}">
+            {{getFeatureTitle(feature)}}
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-item>

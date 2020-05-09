@@ -24,11 +24,16 @@ export class ReleaseNotesComponent implements OnInit {
     return `${version.name} (${version.id})`;
   }
   getFeatureTitle(feature: Feature): string {
+    const enabled = this.isFeatureEnabled(feature);
+    return `${feature.name} (${enabled ? 'enabled' : 'disabled'})`;
+  }
+
+  isFeatureEnabled(feature): boolean {
     let enabled = false;
     if (feature.on === undefined || feature.on) {
       enabled = true;
     }
-    return `${feature.name} (${enabled ? 'enabled' : 'not enabled'})`;
+    return enabled;
   }
   dismiss() {
     // using the injected ModalController this page

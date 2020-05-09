@@ -1,6 +1,6 @@
 ion-list {
     padding: 0px;
-    
+
     ion-list-header {
         --background: var(--ion-color-primary);
         ion-label.headerLabel {
@@ -17,6 +17,9 @@ ion-list {
         --background-hover: var(--ion-color-danger);
         ion-label {
             color: var(--ion-color-light);
+            &.striked {
+                text-decoration: line-through;
+            }
         }
 
         &.itemNoPadding {
