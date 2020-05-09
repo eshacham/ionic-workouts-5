@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
 get identityIdText(): string {
-  return `${this.signedInUser ? this.signedInUser.identityId : '(Not Signed In)'}`;
+  return `${this.signedInUser ? this.signedInUser.identityId.split(':')[1] : '(Not Signed In)'}`;
 }
   constructor(
     private amplifyService: AmplifyService,

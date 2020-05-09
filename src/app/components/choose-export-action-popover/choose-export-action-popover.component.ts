@@ -9,7 +9,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class ChooseExportActionPopoverComponent implements OnInit {
 
-  constructor(    private popoverController: PopoverController,
+  constructor(private popoverController: PopoverController,
     ) { }
 
   ngOnInit() {}

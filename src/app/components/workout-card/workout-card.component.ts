@@ -152,7 +152,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
             }));
             break;
           case ExportWorkoutAction.SMS:
-            const payload = `workoutKey: ${this.workoutId}, ownerUserId: ${this.signedInUser.identityId}`;
+            const payload = `workoutKey: ${this.workoutId}, ownerUserId: ${this.signedInUser.identityId.split(':')[1]}`;
             this.logger.info('onDidDismiss ExportWorkoutAction.SMS', payload);
             this.socialSharing.shareViaSMS(JSON.stringify(payload), '');
             break;

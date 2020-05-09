@@ -29,6 +29,7 @@ const IMAGES_STORAGE_KEY = 'my_images';
 const THEME_STORAGE_KEY = 'my_theme';
 const TERMS_STORAGE_KEY = 'my_terms';
 const IMAGES_EXERCISES_PATH = 'images/exercises/';
+const AWS_REGION = 'us-east-1'
 
 @Injectable()
 export class DataServiceProvider {
@@ -322,10 +323,10 @@ export class DataServiceProvider {
 
   async importWorkout(workoutId: string, workoutOwnerId: string):
     Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    const myWorkoutGetResult: { Body: any } = await this.getS3File(`${workoutId}/${WORKOUTS_STORAGE_KEY}`,
-      { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
-    const myImagesGetResult: { Body: any } = await this.getS3File(`${workoutId}/${IMAGES_STORAGE_KEY}`,
-      { identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
+    const myWorkoutGetResult: { Body: any } = await this.getProtectedS3File(
+      `${workoutId}/${WORKOUTS_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
+    const myImagesGetResult: { Body: any } = await this.getProtectedS3File(
+      `${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
     const result = {
       workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
       imagesData: myImagesGetResult.Body as MediaDataMaps,
@@ -342,8 +343,8 @@ export class DataServiceProvider {
   }
   async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const getResult: { Body: any } = await this.getS3File(`${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`,
-      {  identityId: workoutOwnerId, download: true, level: 'protected' }) as { Body: any };
+      const getResult: { Body: any } = await this.getProtectedS3File(
+        `${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`, workoutOwnerId) as { Body: any };
       const blob = getResult.Body;
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
       this.logger.debug('updateAndCreateNewImage', `image ${imageId} imported`, file);
@@ -401,6 +402,9 @@ export class DataServiceProvider {
     });
   }
   private getS3File(path: string, options: object): Promise<{ Body: any }> { return S3.get(path, options) as Promise<{ Body: any }>; }
+  private getProtectedS3File(path: string, identityId: string): Promise<{ Body: any }> {
+    return S3.get(path, { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' }) as Promise<{ Body: any }>;
+  }
 
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
     const RN = 'release-notes.json';
