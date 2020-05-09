@@ -2,16 +2,12 @@ import { Injectable, RendererFactory2, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 export enum Themes {
-  Orange = 'orange-theme',
-  Pink = 'pink-theme',
-  Red = 'red-theme',
-  Green = 'green-theme',
-  Blue = 'blue-theme',
-  Yellow = 'yellow-theme'
-}
-export interface ITheme {
-  name: Themes;
-  image: string;
+  GrayOrange = 'Gray-Orange',
+  PinkPurple = 'Pink-Purple',
+  RedBlue = 'Red-Blue',
+  GreenBrown = 'Green-Brown',
+  Blue = 'Blue',
+  YellowRedBrown = 'Yellow-Red-Brown'
 }
 
 @Injectable({
@@ -19,16 +15,16 @@ export interface ITheme {
 })
 export class ThemeServiceProvider {
 
-  public static defaultTheme: Themes = Themes.Orange;
+  public static defaultTheme: Themes = Themes.GrayOrange;
   renderer: Renderer2;
 
-  themes: ITheme[] = [
-    { name: Themes.Orange, image: '/assets/images/themes/orange-theme' },
-    { name: Themes.Pink, image: '/assets/images/themes/pink-theme' },
-    { name: Themes.Red, image: '/assets/images/themes/red-theme' },
-    { name: Themes.Green, image: '/assets/images/themes/green-theme' },
-    { name: Themes.Blue, image: '/assets/images/themes/blue-theme' },
-    { name: Themes.Yellow, image: '/assets/images/themes/yellow-theme' },
+  themes: Themes[] = [
+    Themes.GrayOrange,
+    Themes.PinkPurple,
+    Themes.RedBlue,
+    Themes.GreenBrown,
+    Themes.Blue,
+    Themes.YellowRedBrown,
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
@@ -44,10 +40,10 @@ export class ThemeServiceProvider {
 
   setTheme(selectedtheme: string) {
     for (const theme of this.themes) {
-      if (theme.name !== selectedtheme) {
-        this.removeBodyClass(theme.name);
+      if (theme !== selectedtheme) {
+        this.removeBodyClass(theme);
       } else {
-        this.addBodyClass(theme.name);
+        this.addBodyClass(theme);
       }
     }
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ThemeServiceProvider, ITheme } from '../providers/theme-service/theme-service';
+import { ThemeServiceProvider, Themes } from '../providers/theme-service/theme-service';
 import { Router } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Store } from '@ngrx/store';
@@ -19,7 +19,7 @@ import { TermsOfUse } from '../models/TermsOfUse';
 
 interface ISelectedTheme  {
   selected: boolean;
-  theTheme: ITheme;
+  theTheme: Themes;
 }
 enum Segment {
   Themes = 'themes',
@@ -66,7 +66,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
         this.logger.info('ngOnInit', 'getTheme', theme);
         if (theme) {
           this.selectedTheme = theme;
-          this.themes.find(t => t.theTheme.name === theme).selected = true;
+          this.themes.find(t => t.theTheme === theme).selected = true;
         }
       });
       this.store.select(getSignedInUser)
@@ -90,16 +90,9 @@ export class TabSettingsPage implements OnInit, OnDestroy {
 
    themeSelected(selectedTheme: string) {
     this.selectedTheme = selectedTheme;
-    this.themes.forEach(t => t.selected = t.theTheme.name === this.selectedTheme);
+    this.themes.forEach(t => t.selected = t.theTheme === this.selectedTheme);
     this.logger.debug('theme selected: ', this.selectedTheme);
     this.store.dispatch(new SetTheme(this.selectedTheme));
-  }
-
-  getSelectedThemeImage(i: number): string {
-    const theme = this.themes.find(t => t.selected);
-    if (theme) {
-      return `${theme.theTheme.image}-${i}.png`;
-    }
   }
 
   segmentChanged(segment: Segment) {
