@@ -98,7 +98,7 @@ export class ExerciseBean extends Exercise {
             reps: [new Rep({
                 times: 1
             })],
-            repSpeed: RepetitionSpeed.OneOne,
+            repSpeed: RepetitionSpeed.Medium,
             isFavorite: false,
             restBetweenReps: 20,
             restAfterExercise: 20,

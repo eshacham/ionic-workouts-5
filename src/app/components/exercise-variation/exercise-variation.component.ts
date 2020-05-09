@@ -28,7 +28,7 @@ export class ExerciseVariationComponent {
   }
   getSpeedVariation = (): string => {
     if (this.exercise.repSpeed !== RepetitionSpeed.NA) {
-      return `${this.exercise.repSpeed}`;
+      return `Speed: ${this.exercise.repSpeed}`;
     }
   }
   getGripVariation = (): string => {

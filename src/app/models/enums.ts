@@ -19,9 +19,10 @@ export enum GripWidth {
     NoGrip = 'N/A'
 }
 export enum RepetitionSpeed {
-    OneOne = '1:1',
-    TwoTwo = '2:2',
-    TwoFour = '2:4',
+    Fast = 'Fast',
+    Medium = 'Medium',
+    Slow = 'Slow',
+    VerySlow = 'Very Slow',
     NA = 'N/A'
 }
 export enum WeightUnit {

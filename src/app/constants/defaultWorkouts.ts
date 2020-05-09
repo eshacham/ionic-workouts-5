@@ -28,7 +28,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Elliptical Warmups',
                                     mediaId: attachMedia2Exercise('elliptical'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -47,7 +47,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Bent Dumbbells Lateral Raise',
                                     mediaId: attachMedia2Exercise('bent dumbbells lateral raise'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
                                     reps: [
@@ -84,7 +84,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Dumbbells Lateral Raises',
                                     mediaId: attachMedia2Exercise('lateral raises'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -119,7 +119,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                         GripWidth.Normal,
                                     ),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
                                     reps: [
@@ -155,7 +155,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                         GripWidth.Wide,
                                     ),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -195,7 +195,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                     ),
                                     typeOfWeight: WeightType.Dumbbell,
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -235,7 +235,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                     ),
                                     typeOfWeight: WeightType.Dumbbell,
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -275,7 +275,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                     ),
                                     typeOfWeight: WeightType.Dumbbell,
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -311,7 +311,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Fitball Crunches',
                                     mediaId: attachMedia2Exercise('fitball crunches'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -339,7 +339,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
                                     mediaId: attachMedia2Exercise('russian twist'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -374,7 +374,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Elliptical Warmups',
                                     mediaId: attachMedia2Exercise('elliptical'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -393,7 +393,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Braced Single Dumbbell Squats',
                                     mediaId: attachMedia2Exercise('braced squats'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
                                     reps: [
@@ -430,7 +430,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Cable Kickbacks',
                                     mediaId: attachMedia2Exercise('cable kickbacks'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -465,7 +465,7 @@ const buildDefaultWorkouts = () => {
                                         GripType.Overhand,
                                         GripWidth.Normal,
                                     ),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
                                     reps: [
@@ -497,7 +497,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'cable crossover',
                                     mediaId: attachMedia2Exercise('cable crossover'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -533,7 +533,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Single Leg Squats',
                                     mediaId: attachMedia2Exercise('single leg squats'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -561,7 +561,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Plank',
                                     mediaId: attachMedia2Exercise('plank'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -583,7 +583,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Side Plank Hip Raise',
                                     mediaId: attachMedia2Exercise('side plank hip raise'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
@@ -608,7 +608,7 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'V Up',
                                     mediaId: attachMedia2Exercise('v up'),
-                                    repSpeed: RepetitionSpeed.OneOne,
+                                    repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
                                         new Rep({
