@@ -46,17 +46,17 @@
                 </p>
               </ion-button>
 
-              <ion-button slot="end" fill="clear" [disabled]="!img.usage || img.usage.length > 0"
-                (click)="deleteImage(img.media)" color="danger">
-                <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-              </ion-button>
-
               <ion-button slot="end" fill="clear" (click)="setMuscle(img.media)">
                 <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
                 <ion-badge *ngIf="img.media.muscles.length">
                   {{img.media.muscles.length}}
                 </ion-badge>
-            </ion-button>
+              </ion-button>
+
+              <ion-button slot="end" fill="clear" [disabled]="!img.usage || img.usage.length > 0"
+                (click)="deleteImage(img.media)" color="danger">
+                <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+              </ion-button>
 
         </ion-item>
 
