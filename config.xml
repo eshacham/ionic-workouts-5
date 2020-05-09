@@ -3,7 +3,7 @@
     <name>TrainMe</name>
     <description>Workouts builder and trainer</description>
     <author email="shacham@swbell.net" href="http://ionicframework.com/">Eyal Shacham</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -118,4 +118,5 @@
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-ionic-webview" spec="~4.2.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.2.0" />
+    <allow-navigation href="http://localhost:8101" sessionid="86e6d1f7" />
 </widget>

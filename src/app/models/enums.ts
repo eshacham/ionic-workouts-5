@@ -76,7 +76,7 @@ export enum MediaAction {
 
 export enum Muscles {
     Longus = 'Longus',
-    Fingers = 'Fingers',
+    Hands = 'Hands',
     Chest = 'Chest',
     Triceps = 'Triceps',
     Shoulders = 'Shoulders',
