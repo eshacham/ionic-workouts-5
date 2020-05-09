@@ -5,7 +5,7 @@ export enum Themes {
   GrayOrange = 'Gray-Orange',
   PinkPurple = 'Pink-Purple',
   RedBlue = 'Red-Blue',
-  GreenBrown = 'Green-Brown',
+  GreenBrown = 'Asparagus-Wheat-Eggplant',
   Blue = 'Blue',
   YellowRedBrown = 'Yellow-Red-Brown'
 }
