@@ -2,10 +2,10 @@ ion-list {
     padding: 0px;
 
     ion-list-header {
-        --background: var(--ion-color-primary);
+        --background: var(--ion-color-secondary);
         ion-label.headerLabel {
             margin-top: 6px;
-            color: var(--ion-color-secondary);
+            color: var(--ion-color-dark);
             &.currentVersion {
                 color: var(--ion-color-danger);
             }
@@ -13,10 +13,10 @@ ion-list {
     }
 
     ion-item {
-        --background: var(--ion-color-primary);
+        --background: var(--ion-color-secondary);
         --background-hover: var(--ion-color-danger);
         ion-label {
-            color: var(--ion-color-light);
+            color: var(--ion-color-dark);
             &.striked {
                 text-decoration: line-through;
             }
