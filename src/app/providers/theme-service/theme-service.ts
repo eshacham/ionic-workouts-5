@@ -2,11 +2,11 @@ import { Injectable, RendererFactory2, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 export enum Themes {
-  IndigoPlatinumBlue = 'Indigo-Platinum-Blue',
   OrangeSilverGunmetal = 'Orange-Silver-Gunmetal',
-  OliveChampagneCadet = 'Olive-Champagne-Cadet',
-  BlueMauvePurple = 'Blue-Mauve-Purple',
-  GreenWheatEggplant = 'Asparagus-Wheat-Eggplant',
+  OliveLiverCadet = 'Olive-Liver-Cadet',
+  IndigoPlatinumBlue = 'Indigo-Platinum-Blue',
+  PurpleSilkPink = 'Purple-Silk-Pink',
+  AsparagusWheatEggplant = 'Asparagus-Wheat-Eggplant',
   OxfordSteelBlue = 'Oxford-Steel-Blue',
   SmokyGoldRed = 'Smoky-Gold-Red'
 }
@@ -21,12 +21,12 @@ export class ThemeServiceProvider {
 
   themes: Themes[] = [
     Themes.OrangeSilverGunmetal,
-    Themes.OliveChampagneCadet,
-    Themes.BlueMauvePurple,
-    Themes.GreenWheatEggplant,
+    Themes.OliveLiverCadet,
+    Themes.IndigoPlatinumBlue,
+    Themes.PurpleSilkPink,
+    Themes.AsparagusWheatEggplant,
     Themes.OxfordSteelBlue,
     Themes.SmokyGoldRed,
-    Themes.IndigoPlatinumBlue,
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
