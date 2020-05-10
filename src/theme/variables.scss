@@ -2,16 +2,16 @@
 // http://ionicframework.com/docs/theming/
 @import './fonts.scss';
 :root {
-  .Pink-Purple {
-  --pri: #1d1123;
-  --sec: #ebccc0;
-  --ter: #d72991;
-  --dan: #a8dd15;
-  --dar: #420f29;
-  --med: #996781;
-  --lig: #faebf3;
+  .Purple-Silk-Pink {
+    --pri: #1d1123; // suc // purple
+    --sec: #ebccc0; // war // silk
+    --ter: #d72991; // pink
+    --dan: #df1a27; //
+    --dar: #111421; //
+    --med: #71937e; //
+    --lig: #FAF9E4; //
 
-  --ion-color-primary: #1d1123;
+    --ion-color-primary: #1d1123;
   --ion-color-primary-rgb: 29,17,35;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
@@ -46,33 +46,33 @@
   --ion-color-warning-shade: #cfb4a9;
   --ion-color-warning-tint: #edd1c6;
 
-  --ion-color-danger: #a8dd15;
-  --ion-color-danger-rgb: 168,221,21;
-  --ion-color-danger-contrast: #000000;
-  --ion-color-danger-contrast-rgb: 0,0,0;
-  --ion-color-danger-shade: #94c212;
-  --ion-color-danger-tint: #b1e02c;
+  --ion-color-danger: #df1a27;
+  --ion-color-danger-rgb: 223,26,39;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255,255,255;
+  --ion-color-danger-shade: #c41722;
+  --ion-color-danger-tint: #e2313d;
 
-  --ion-color-dark: #420f29;
-  --ion-color-dark-rgb: 66,15,41;
+  --ion-color-dark: #111421;
+  --ion-color-dark-rgb: 17,20,33;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255,255,255;
-  --ion-color-dark-shade: #3a0d24;
-  --ion-color-dark-tint: #55273e;
+  --ion-color-dark-shade: #0f121d;
+  --ion-color-dark-tint: #292c37;
 
-  --ion-color-medium: #996781;
-  --ion-color-medium-rgb: 153,103,129;
-  --ion-color-medium-contrast: #ffffff;
-  --ion-color-medium-contrast-rgb: 255,255,255;
-  --ion-color-medium-shade: #875b72;
-  --ion-color-medium-tint: #a3768e;
+  --ion-color-medium: #71937e;
+  --ion-color-medium-rgb: 113,147,126;
+  --ion-color-medium-contrast: #000000;
+  --ion-color-medium-contrast-rgb: 0,0,0;
+  --ion-color-medium-shade: #63816f;
+  --ion-color-medium-tint: #7f9e8b;
 
-  --ion-color-light: #faebf3;
-  --ion-color-light-rgb: 250,235,243;
+  --ion-color-light: #FAF9E4;
+  --ion-color-light-rgb: 250,249,228;
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0,0,0;
-  --ion-color-light-shade: #dccfd6;
-  --ion-color-light-tint: #fbedf4;
+  --ion-color-light-shade: #dcdbc9;
+  --ion-color-light-tint: #fbfae7;
   }
   .Blue-Mauve-Purple {
     --pri: #000754; // suc // blue
