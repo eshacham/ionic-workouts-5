@@ -4,10 +4,10 @@ import { DOCUMENT } from '@angular/common';
 export enum Themes {
   OrangeSilverGunmetal = 'Orange-Silver-Gunmetal',
   PinkPurple = 'Pink-Purple',
-  RedBlue = 'Red-Blue',
+  BlueMauvePurple = 'Blue-Mauve-Purple',
   GreenWheatEggplant = 'Asparagus-Wheat-Eggplant',
-  Blue = 'Blue',
-  YellowRedBrown = 'Yellow-Red-Brown'
+  OxfordSteelBlue = 'Oxford-Steel-Blue',
+  SmokyGoldRed = 'Smoky-Gold-Red'
 }
 
 @Injectable({
@@ -21,10 +21,10 @@ export class ThemeServiceProvider {
   themes: Themes[] = [
     Themes.OrangeSilverGunmetal,
     Themes.PinkPurple,
-    Themes.RedBlue,
+    Themes.BlueMauvePurple,
     Themes.GreenWheatEggplant,
-    Themes.Blue,
-    Themes.YellowRedBrown,
+    Themes.OxfordSteelBlue,
+    Themes.SmokyGoldRed,
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2) {
