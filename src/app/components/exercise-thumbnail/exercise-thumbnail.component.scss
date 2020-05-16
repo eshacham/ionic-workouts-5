@@ -118,10 +118,9 @@ ion-item {
         --knob-background: var(--ion-color-tertiary);
         --bar-background: var(--ion-color-light);
         --bar-background-active: var(--ion-color-secondary);
-        --pin-color: var(--ion-color-light)!important;
-        div.range-pin {
-            color: var(--ion-color-light)!important;
-        }
+        --pin-color: var(--ion-color-light);
+        --ion-text-color: var(--ion-color-light);
+        --pin-backgroun: var(--ion-color-light);
         ion-icon {
             color: var(--ion-color-light);
         }

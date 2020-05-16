@@ -237,7 +237,7 @@
                             </h3>
                         </ion-item>
                         <ion-item>
-                            <ion-range [(ngModel)]="restBetweenReps" debounce="100" pin="true"
+                            <ion-range [(ngModel)]="restBetweenReps" min="0" max="60" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restBetweenReps')">
                                 <ion-icon slot="start" size="small" name="stopwatch-sharp" ></ion-icon>
                                 <ion-icon slot="end" name="stopwatch-sharp"></ion-icon>
@@ -249,7 +249,7 @@
                             </h3>
                         </ion-item>
                         <ion-item>
-                            <ion-range [(ngModel)]="restAfterExercise" debounce="100" pin="true"
+                            <ion-range [(ngModel)]="restAfterExercise" min="0" max="60" debounce="100" pin="true"
                                 (ionChange)="exerciseChanged(0, $event.target.value, 'restAfterExercise')">
                                 <ion-icon slot="start" size="small" name="stopwatch-sharp"></ion-icon>
                                 <ion-icon slot="end" name="stopwatch"></ion-icon>
