@@ -2,12 +2,16 @@ import { DataActions, DataActionsTypes } from '../actions/data.actions';
 import { IDataState, initialDataState } from '../state/data.state';
 import { WorkoutsActions, WorkoutsActionsTypes, } from '../actions/workouts.actions';
 import { ExerciseMediaActionsTypes, ExerciseMediaActions } from '../actions/exercisesMedia.actions';
+import { WorkoutDaysActionsTypes, WorkoutDaysActions } from '../actions/workoutDays.actions';
+import { DisplayMode, RunningState } from 'src/app/models/enums';
 
 export function dataReducers (
     state = initialDataState,
     action: DataActions |
             WorkoutsActions |
-            ExerciseMediaActions)
+            ExerciseMediaActions |
+            WorkoutDaysActions
+)
 : IDataState {
     switch (action.type) {
         case DataActionsTypes.LoadDataSuccess: {
@@ -141,6 +145,66 @@ export function dataReducers (
                 termsOfUse: { ...state.termsOfUse, isAccepted: false },
             };
         }
+        // case WorkoutDaysActionsTypes.SelectWorkoutDay: {
+        //     return {
+        //         ...state,
+        //         runningWorkoutDayState: {
+        //             workoutId: action.payload.workoutId,
+        //             dayId: action.payload.dayId,
+        //         }
+        //     }
+        // }
+        case WorkoutDaysActionsTypes.StopExercise: {
+            // if (state.selectedWorkoutDayState.dayId === action.payload.dayId) {
+            return {
+                ...state,
+                runningWorkoutDayState: null
+            }
+            // }
+        }
+        case WorkoutDaysActionsTypes.RepeatExercise:
+        case WorkoutDaysActionsTypes.StartFirstExercise: {
+            return {
+                ...state,
+                runningWorkoutDayState: {
+                    // ...state.selectedWorkoutDayState,
+                    workoutId: action.payload.workoutId,
+                    dayId: action.payload.dayId,
+                    runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+                    runningState: action.payload.runningState,
+                    repeatsCompleted: action.payload.repeatsCompleted,
+                    // displayMode: action.payload.displayMode,
+                }
+            }
+        }
+        case WorkoutDaysActionsTypes.ExerciseCompleted:
+        // case WorkoutDaysActionsTypes.ChangeDisplayModeSuccess:
+        case WorkoutDaysActionsTypes.StartExercise: {
+            return {
+                ...state,
+                runningWorkoutDayState: {
+                    ...state.runningWorkoutDayState,
+                    runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+                    runningState: action.payload.runningState,
+                    repeatsCompleted: action.payload.repeatsCompleted,
+                    // displayMode: action.payload.displayMode,
+                    scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
+                }
+            }
+        }
+        case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
+            return {
+                ...state,
+                runningWorkoutDayState: {
+                    ...state.runningWorkoutDayState,
+                    scrollToExerciseSetIndex: undefined,
+                    scrollToExerciseSetId: undefined,
+                    scrollToExerciseSet: undefined
+                },
+            };
+        }
+        // case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
+        // }
         default: {
             return state;
         }

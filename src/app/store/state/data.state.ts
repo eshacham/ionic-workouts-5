@@ -1,9 +1,23 @@
 import { Version } from 'src/app/models/Version';
 import { TermsOfUse } from 'src/app/models/TermsOfUse';
+import { DisplayMode, RunningState } from 'src/app/models/enums';
 
 export interface ISignedInUser {
     username: string;
     identityId: string;
+}
+
+export interface IRunningWorkoutDayState {
+    workoutId: string;
+    dayId: string;
+    setId?: string
+    // displayMode?: DisplayMode;
+    runningState?: RunningState;
+    runningExerciseSetIndex?: number;
+    repeatsCompleted?: number;
+    scrollToExerciseSetIndex?: number;
+    scrollToExerciseSetId?: string;
+    scrollToExerciseSet?: boolean;
 }
 
 export interface IDataState {
@@ -17,7 +31,8 @@ export interface IDataState {
     scrollToExerciseMediaId?: string;
     releaseNotes: Record<string, Version>;
     termsOfUse: TermsOfUse;
-    isOnline?: boolean
+    isOnline?: boolean;
+    runningWorkoutDayState ?: IRunningWorkoutDayState;
 }
 export const initialDataState: IDataState = {
     hasDataBeenReset: false,
@@ -31,4 +46,5 @@ export const initialDataState: IDataState = {
     releaseNotes: {},
     termsOfUse: null,
     isOnline: false,
+    runningWorkoutDayState: null,
 };

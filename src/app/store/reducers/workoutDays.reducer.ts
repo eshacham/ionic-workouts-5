@@ -73,57 +73,57 @@ export function workoutDaysReducers (
                 byId: removeItemFromMap(action.payload.dayId, state)
             };
         }
-        case WorkoutDaysActionsTypes.StartFirstExercise:
-        case WorkoutDaysActionsTypes.RepeatExercise: {
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.id]: {
-                        ...state.byId[action.payload.id],
-                        runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
-                        repeatsCompleted: action.payload.repeatsCompleted,
-                        displayMode: action.payload.displayMode,
-                        runningState: action.payload.runningState,
-                        scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
-                    }
-                },
-            };
-        }
-        case WorkoutDaysActionsTypes.ExerciseCompleted:
-        case WorkoutDaysActionsTypes.ChangeDisplayModeSuccess:
-        case WorkoutDaysActionsTypes.StartExercise: {
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.id]: {
-                        ...state.byId[action.payload.id],
-                        runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
-                        displayMode: action.payload.displayMode,
-                        runningState: action.payload.runningState,
-                        scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
-                    }
-                },
-            };
-        }
-        case WorkoutDaysActionsTypes.StopExercise: {
-            let oldDisplayMode = state.byId[action.payload.id].displayMode || DisplayMode.Display;
-            oldDisplayMode = oldDisplayMode === DisplayMode.Workout ? DisplayMode.Display : oldDisplayMode;
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.id]: {
-                        ...state.byId[action.payload.id],
-                        runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
-                        repeatsCompleted : 0,
-                        displayMode: oldDisplayMode,
-                        runningState: action.payload.runningState
-                    }
-                },
-            };
-        }
+        // case WorkoutDaysActionsTypes.StartFirstExercise:
+        // case WorkoutDaysActionsTypes.RepeatExercise: {
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.dayId]: {
+        //                 ...state.byId[action.payload.dayId],
+        //                 // runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+        //                 // repeatsCompleted: action.payload.repeatsCompleted,
+        //                 // displayMode: action.payload.displayMode,
+        //                 // runningState: action.payload.runningState,
+        //                 // scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
+        //             }
+        //         },
+        //     };
+        // }
+        // case WorkoutDaysActionsTypes.ExerciseCompleted:
+        // case WorkoutDaysActionsTypes.ChangeDisplayModeSuccess:
+        // case WorkoutDaysActionsTypes.StartExercise: {
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.dayId]: {
+        //                 ...state.byId[action.payload.dayId],
+        //                 runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+        //                 displayMode: action.payload.displayMode,
+        //                 runningState: action.payload.runningState,
+        //                 scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
+        //             }
+        //         },
+        //     };
+        // }
+        // case WorkoutDaysActionsTypes.StopExercise: {
+        //     let oldDisplayMode = state.byId[action.payload.dayId].displayMode || DisplayMode.Display;
+        //     oldDisplayMode = oldDisplayMode === DisplayMode.Workout ? DisplayMode.Display : oldDisplayMode;
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.dayId]: {
+        //                 ...state.byId[action.payload.dayId],
+        //                 runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
+        //                 repeatsCompleted : 0,
+        //                 displayMode: oldDisplayMode,
+        //                 runningState: action.payload.runningState
+        //             }
+        //         },
+        //     };
+        // }
         case ExerciseSetActionsTypes.DeleteExerciseSet: {
             return {
                 ...state,
@@ -147,9 +147,9 @@ export function workoutDaysReducers (
                     [action.payload.dayId]: {
                         ...state.byId[action.payload.dayId],
                         exerciseSets: [...oldSets, ...newSets],
-                        scrollToExerciseSetIndex: oldSets.length + newSets.length - 1,
-                        scrollToExerciseSetId: newSets[0],
-                        scrollToExerciseSet: false
+                        // scrollToExerciseSetIndex: oldSets.length + newSets.length - 1,
+                        // scrollToExerciseSetId: newSets[0],
+                        // scrollToExerciseSet: false
                     }
                 },
             };
@@ -176,36 +176,36 @@ export function workoutDaysReducers (
                 },
             };
         }
-        case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.dayId]: {
-                        ...state.byId[action.payload.dayId],
-                        scrollToExerciseSetIndex: undefined,
-                        scrollToExerciseSetId: undefined,
-                        scrollToExerciseSet: undefined
-                    }
-                },
-            };
-        }
-        case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
-            const day = state.byId[action.payload.dayId];
-            const index = day.exerciseSets.indexOf(action.payload.setId);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.dayId]: {
-                        ...state.byId[action.payload.dayId],
-                        scrollToExerciseSetIndex: index,
-                        scrollToExerciseSetId: action.payload.setId,
-                        scrollToExerciseSet: action.payload.scroll,
-                    }
-                },
-            };
-        }
+        // case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.dayId]: {
+        //                 ...state.byId[action.payload.dayId],
+        //                 scrollToExerciseSetIndex: undefined,
+        //                 scrollToExerciseSetId: undefined,
+        //                 scrollToExerciseSet: undefined
+        //             }
+        //         },
+        //     };
+        // }
+        // case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
+        //     const day = state.byId[action.payload.dayId];
+        //     const index = day.exerciseSets.indexOf(action.payload.setId);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.dayId]: {
+        //                 ...state.byId[action.payload.dayId],
+        //                 scrollToExerciseSetIndex: index,
+        //                 scrollToExerciseSetId: action.payload.setId,
+        //                 scrollToExerciseSet: action.payload.scroll,
+        //             }
+        //         },
+        //     };
+        // }
         default: {
             return state;
         }

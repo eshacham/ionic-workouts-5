@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { IAppState } from '../state/app.state';
-import { IDataState } from '../state/data.state';
+import { IDataState, IRunningWorkoutDayState } from '../state/data.state';
 import { IWorkoutsState } from '../state/workouts.state';
 import { IWorkoutDaysState } from '../state/workoutDays.state';
 import { IExerciseSetsState } from '../state/ExerciseSets.state';
@@ -88,4 +88,8 @@ export const getReleaseNotesAndTermsOfUse = createSelector(
 export const getIsOnline = createSelector(
     dataState,
     (state: IDataState): boolean => state.isOnline
+);
+export const getRunningWorkoutDayState = createSelector(
+    dataState,
+    (state: IDataState): IRunningWorkoutDayState => state.runningWorkoutDayState
 );

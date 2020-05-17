@@ -7,19 +7,20 @@
 <ion-content>
 
   <ion-fab slot="fixed" edge="true"
-    vertical="top" horizontal="end" >
+    vertical="top" horizontal="start" >
 
     <ion-fab-button size="small"
       (click)="editWorkouts()">
       <ion-icon name="settings-sharp" ></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-list side="bottom" class="animated fadeInRight">
+    <ion-fab-list side="end" class="animated fadeInDown">
       <ion-fab-button size="small"
         (click)="addWorkout($event)" >
         <ion-icon name="add-circle-sharp" ></ion-icon>
       </ion-fab-button>
-
+    </ion-fab-list>
+      <ion-fab-list side="ebottomnd" class="animated fadeInLeft">
       <ion-fab-button size="small"
         (click)="importWorkout($event)" >
         <ion-icon name="cloud-download-sharp"></ion-icon>

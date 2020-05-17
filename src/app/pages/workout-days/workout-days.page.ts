@@ -11,19 +11,19 @@ import {
   SelectWorkoutDay,
   AddWorkoutDay,
   Direction,
-  StartFirstExercise,
-  ChangeDisplayMode,
+  // StartFirstExercise,
+  // ChangeDisplayMode,
   DeleteWorkoutDay,
   MoveWorkoutDay,
-  StopExercise,
-  SetExerciseSetInWorkoutDay
+  // StopExercise,
+  // SetExerciseSetInWorkoutDay
 } from 'src/app/store/actions/workoutDays.actions';
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
-import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
+// import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { Guid } from 'guid-typescript';
-import { DisplayMode } from 'src/app/models/enums';
+// import { DisplayMode } from 'src/app/models/enums';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
+// import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 
 @Component({
   selector: 'app-workout-days',
@@ -32,16 +32,14 @@ import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 })
 export class WorkoutDaysPage implements OnInit, OnDestroy {
   private logger: Logger;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   days: string[];
   name: string;
   workoutId: string;
   activeDayIndex = 0;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   @ViewChild('slider', {static: false}) slides?: Slides;
-  @ViewChild('fabWorkout', {static: false}) fabWorkout?: IonFab;
-  @ViewChild('fabEdit', {static: false}) fabEdit?: IonFab;
 
   slideOpts = {
     autoHeight: false,
@@ -54,7 +52,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     },
     noSwipingSelector: 'ion-range, ion-reorder, ion-fab, ion-button'
   };
-
+  @ViewChild('fabEdit', {static: true}) fabEdit?: IonFab;
   constructor(
     loggingService: LoggingService,
     private route: ActivatedRoute,
@@ -68,16 +66,16 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     return this.days ? this.days[this.activeDayIndex] : null;
   }
 
-  private mode: DisplayMode = DisplayMode.Display;
-  get DisplayMode(): DisplayMode {
-    return this.mode;
-  }
+  // private mode: DisplayMode = DisplayMode.Display;
+  // get DisplayMode(): DisplayMode {
+  //   return this.mode;
+  // }
 
-  set DisplayMode(val: DisplayMode) {
-    if (this.mode !== val) {
-      this.mode = val;
-    }
-  }
+  // set DisplayMode(val: DisplayMode) {
+  //   if (this.mode !== val) {
+  //     this.mode = val;
+  //   }
+  // }
 
   ngOnInit() {
     this.store.select(getCurrentWorkout)
@@ -98,14 +96,14 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
             }, 1));
           } else {
             this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${selectedDay}`);
-            this.store.select(getWorkoutDay(selectedDay))
-            /// TODO make sure this does not degragate performance a lot!
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(async workoutDayState => {
-                await new Promise(() => setTimeout(async () => {
-                this.adjustDisplayMode(workoutDayState);
-                }, 1));
-              });
+            // this.store.select(getWorkoutDay(selectedDay))
+            // /// TODO make sure this does not degragate performance a lot!
+            // .pipe(takeUntil(this.ngUnsubscribe))
+            // .subscribe(async workoutDayState => {
+            //     await new Promise(() => setTimeout(async () => {
+            //     // this.adjustDisplayMode(workoutDayState);
+            //     }, 1));
+            //   });
           }
         } else {
           this.logger.info('ngOnInit', `${this.workoutId} - not in state`, data);
@@ -114,22 +112,22 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       });
   }
 
-  ionViewDidEnter() {
-    this.logger.debug('ionViewDidEnter', 'current day id', this.activeDayId);
-    this.store.select(getWorkoutDay(this.activeDayId))
-      .pipe(take(1))
-      .subscribe(workoutDay => {
-        if (workoutDay && workoutDay.scrollToExerciseSetIndex) {
-          this.logger.debug('ionViewDidEnter', 'need to scrollToExerciseSetId', workoutDay.scrollToExerciseSetId);
-          this.store.dispatch(new SetExerciseSetInWorkoutDay({
-            workoutId: this.workoutId,
-            dayId: this.activeDayId,
-            setId: workoutDay.scrollToExerciseSetId,
-            scroll: true
-          }));
-        }
-      });
-  }
+  // ionViewDidEnter() {
+  //   this.logger.debug('ionViewDidEnter', 'current day id', this.activeDayId);
+  //   this.store.select(getWorkoutDay(this.activeDayId))
+  //     .pipe(take(1))
+  //     .subscribe(workoutDay => {
+  //       if (workoutDay && workoutDay.scrollToExerciseSetIndex) {
+  //         this.logger.debug('ionViewDidEnter', 'need to scrollToExerciseSetId', workoutDay.scrollToExerciseSetId);
+  //         this.store.dispatch(new SetExerciseSetInWorkoutDay({
+  //           workoutId: this.workoutId,
+  //           dayId: this.activeDayId,
+  //           setId: workoutDay.scrollToExerciseSetId,
+  //           scroll: true
+  //         }));
+  //       }
+  //     });
+  // }
 
   async slideChanged() {
     if (this.slides && this.days) {
@@ -143,25 +141,25 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     }
   }
 
-  private async adjustDisplayMode(workoutDayState: WorkoutDayBean) {
-    this.logger.debug('adjustDisplayMode', `${this.workoutId} adjusting Display mode to - ${DisplayMode[workoutDayState.displayMode]}`);
-    this.DisplayMode = workoutDayState.displayMode;
-    switch (this.DisplayMode) {
-      case DisplayMode.Display:
-        await this.fabEdit.close();
-        await this.fabWorkout.close();
-        break;
-      case DisplayMode.Edit:
-        this.fabEdit.activated = true;
-        await this.fabWorkout.close();
-        break;
-      case DisplayMode.Workout:
-        this.fabWorkout.activated = true;
-        await this.fabEdit.close();
-        break;
-    }
-    this.logger.exit('editWorkoutToggler', 'fabEdit.activated', this.fabEdit.activated);
-  }
+  // private async adjustDisplayMode(workoutDayState: WorkoutDayBean) {
+  //   this.logger.debug('adjustDisplayMode', `${this.workoutId} adjusting Display mode to - ${DisplayMode[workoutDayState.displayMode]}`);
+  //   this.DisplayMode = workoutDayState.displayMode;
+  //   switch (this.DisplayMode) {
+  //     case DisplayMode.Display:
+  //       await this.fabEdit.close();
+  //       await this.fabWorkout.close();
+  //       break;
+  //     case DisplayMode.Edit:
+  //       this.fabEdit.activated = true;
+  //       await this.fabWorkout.close();
+  //       break;
+  //     case DisplayMode.Workout:
+  //       this.fabWorkout.activated = true;
+  //       await this.fabEdit.close();
+  //       break;
+  //   }
+  //   this.logger.exit('editWorkoutToggler', 'fabEdit.activated', this.fabEdit.activated);
+  // }
 
   ngOnDestroy() {
     this.logger.debug('ngOnDestroy', this.workoutId);
@@ -170,15 +168,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     this.store.dispatch(new UnselectWorkout());
   }
 
-  get isLastDayActive(): boolean {
-    return this.days && this.activeDayIndex === this.days.length - 1;
-  }
-  get isFirstDayActive(): boolean {
-    return this.activeDayIndex === 0;
-  }
-  get isOneDayOnly(): boolean {
-    return this.days && this.days.length === 1;
-  }
+  get IsLastDayActive() { return this.days && this.activeDayIndex === this.days.length - 1; }
+  get IsFirstDayActive() { return this.activeDayIndex === 0; }
+  get IsOneDayOnly() { return this.days && this.days.length === 1; }
 
   async addWorkoutDay(event: any) {
     event.stopPropagation();
@@ -188,7 +180,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       name: 'new workout day',
       exerciseSets: [],
       workoutId: this.workoutId,
-      displayMode: DisplayMode.Edit,
+      // displayMode: DisplayMode.Edit,
     });
     const index = this.activeDayIndex;
     const islast = this.days.length - 1 === index;
@@ -233,70 +225,66 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     return this.days.findIndex(day => day === id);
   }
 
-  async startWorkoutToggler() {
-    switch (this.DisplayMode) {
-      case DisplayMode.Display:
-      case DisplayMode.Edit:
-        if (this.DisplayMode === DisplayMode.Edit) {
-          this.store.dispatch(new UpdateWorkouts());
-        }
-        await this.fabEdit.close();
-        this.DisplayMode = DisplayMode.Workout;
-        this.store.dispatch(new StartFirstExercise({
-          id: this.activeDayId,
-        }));
-        this.days.filter(dayId => dayId !== this.activeDayId)
-          .forEach(dayId => this.DispatchStopExercise(dayId));
-        break;
-      case DisplayMode.Workout:
-        this.DisplayMode = DisplayMode.Display;
-        this.DispatchChangeDisplayMode();
-        break;
-    }
-  }
+  // async startWorkoutToggler() {
+  //   switch (this.DisplayMode) {
+  //     case DisplayMode.Display:
+  //     case DisplayMode.Edit:
+  //       if (this.DisplayMode === DisplayMode.Edit) {
+  //         this.store.dispatch(new UpdateWorkouts());
+  //       }
+  //       await this.fabEdit.close();
+  //       this.DisplayMode = DisplayMode.Workout;
+  //       this.store.dispatch(new StartFirstExercise({
+  //         id: this.activeDayId,
+  //       }));
+  //       this.days.filter(dayId => dayId !== this.activeDayId)
+  //         .forEach(dayId => this.DispatchStopExercise(dayId));
+  //       break;
+  //     case DisplayMode.Workout:
+  //       this.DisplayMode = DisplayMode.Display;
+  //       this.DispatchChangeDisplayMode();
+  //       break;
+  //   }
+  // }
 
-  DispatchChangeDisplayMode(dayId: string = null) {
-    this.store.dispatch(new ChangeDisplayMode({
-      id: dayId || this.activeDayId,
-      displayMode: this.DisplayMode,
-    }));
-  }
+  // DispatchChangeDisplayMode(dayId: string = null) {
+  //   this.store.dispatch(new ChangeDisplayMode({
+  //     id: dayId || this.activeDayId,
+  //     displayMode: this.DisplayMode,
+  //   }));
+  // }
 
-  DispatchStopExercise(dayId: string) {
-    this.store.dispatch(new StopExercise({
-      id: dayId,
-    }));
-  }
+  // DispatchStopExercise(dayId: string) {
+  //   this.store.dispatch(new StopExercise({
+  //     id: dayId,
+  //   }));
+  // }
 
-  stopWorkout() {
-    switch (this.DisplayMode) {
-      case DisplayMode.Workout:
-        this.DisplayMode = DisplayMode.Display;
-        break;
-      case DisplayMode.Display:
-      case DisplayMode.Edit:
-        break;
-    }
-    this.DispatchChangeDisplayMode();
-  }
+  // stopWorkout() {
+  //   switch (this.DisplayMode) {
+  //     case DisplayMode.Workout:
+  //       this.DisplayMode = DisplayMode.Display;
+  //       break;
+  //     case DisplayMode.Display:
+  //     case DisplayMode.Edit:
+  //       break;
+  //   }
+  //   this.DispatchChangeDisplayMode();
+  // }
 
-  editWorkoutToggler() {
-    switch (this.DisplayMode) {
-      case DisplayMode.Workout:
-      case DisplayMode.Display:
-        this.fabWorkout.close();
-        this.DisplayMode = DisplayMode.Edit;
-        break;
-      case DisplayMode.Edit:
-        this.DisplayMode = DisplayMode.Display;
-        break;
-    }
-    this.DispatchChangeDisplayMode();
-  }
+  // editWorkoutToggler() {
+  //   switch (this.f) {
+  //     case DisplayMode.Workout:
+  //     case DisplayMode.Display:
+  //       this.fabWorkout.close();
+  //       this.DisplayMode = DisplayMode.Edit;
+  //       break;
+  //     case DisplayMode.Edit:
+  //       this.DisplayMode = DisplayMode.Display;
+  //       break;
+  //   }
+  //   // this.DispatchChangeDisplayMode();
+  // }
 
-  selectExerciseToAdd(event: any) {
-    event.stopPropagation();
-    this.router.navigate(['select-exercise'], { relativeTo: this.route });
-  }
 
 }

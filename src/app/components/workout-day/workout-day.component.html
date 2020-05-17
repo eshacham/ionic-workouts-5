@@ -1,3 +1,31 @@
+
+<ion-fab vertical="bottom" horizontal="end" #fabWorkout id="fabWorkout">
+<ion-fab-button size="small" [disabled]="IsEditMode"
+  (click)="startWorkoutToggler()" >
+  <ion-icon name="play-sharp"></ion-icon>
+</ion-fab-button>
+
+<ion-fab-list side="start" class="animated fadeInRight">
+  <ion-fab-button size="small"
+  (click)="stopRunning()" >
+    <ion-icon name="pause-sharp"></ion-icon>
+  </ion-fab-button>
+</ion-fab-list>
+</ion-fab>
+
+<ion-fab vertical="bottom" horizontal="start" #fabEdit id="fabEdit">
+<ion-fab-button size="small" [disabled]="IsWorkoutMode"
+  (click)="editWorkoutToggler()" >
+  <ion-icon name="settings-sharp"></ion-icon>
+</ion-fab-button>
+<ion-fab-list side="end" class="animated fadeInUp">
+  <ion-fab-button size="small"
+    (click)="selectExerciseToAdd($event)" >
+    <ion-icon name="barbell-sharp"></ion-icon>
+  </ion-fab-button>
+</ion-fab-list>
+</ion-fab>
+
 <div id="workout-day-comp">
 
   <ion-item [hidden]="IsEditMode"
@@ -7,7 +35,7 @@
     </ion-label>
   </ion-item>
 
-  <ion-button [hidden]="IsDisplayOrWorkout"
+  <ion-button [hidden]="!IsEditMode"
     fill="clear" class="edit-button"
       (click)="editWorkout($event)">
       <p class="ion-text-wrap">
@@ -16,15 +44,15 @@
   </ion-button>
 
   <ion-list lines="none">
-    <ion-reorder-group [disabled]="IsDisplayOrWorkout || exerciseSets.length < 2"
+    <ion-reorder-group [disabled]="!IsEditMode || exerciseSets.length < 2"
       (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let exerciseSet of exerciseSets; let i = index">
-        <app-exercise-thumbnail #exerciseSetComponent
+        <!-- <app-exercise-thumbnail #exerciseSetComponent
           [exerciseSetId]="exerciseSet"
           [workoutId]="workoutId"
           [dayId]="dayId"
           [exerciseSetIndex]="i">
-        </app-exercise-thumbnail>
+        </app-exercise-thumbnail> -->
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>
     </ion-reorder-group>

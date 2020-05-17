@@ -76,8 +76,8 @@ import {
     AddWorkoutDaySuccess,
     DeleteWorkoutDay,
     DeleteWorkoutDaySuccess,
-    ChangeDisplayModeSuccess,
-    ChangeDisplayMode
+    // ChangeDisplayModeSuccess,
+    // ChangeDisplayMode
 } from '../actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Version } from 'src/app/models/Version';
@@ -438,16 +438,16 @@ export class DataEffects {
         })
     );
 
-    @Effect()
-    changeDisplayMode$ = this.actions$.pipe(
-        ofType(WorkoutDaysActionsTypes.ChangeDisplayMode),
-        mergeMap((action: ChangeDisplayMode) => ([
-            new ChangeDisplayModeSuccess(action.payload),
-            new UpdateWorkouts()
-        ])),
-        catchError(err => {
-            this.logger.error('changeDisplayMode', err);
-            return of(new LoadDataError(err.message));
-        })
-    );
+    // @Effect()
+    // changeDisplayMode$ = this.actions$.pipe(
+    //     ofType(WorkoutDaysActionsTypes.ChangeDisplayMode),
+    //     mergeMap((action: ChangeDisplayMode) => ([
+    //         new ChangeDisplayModeSuccess(action.payload),
+    //         new UpdateWorkouts()
+    //     ])),
+    //     catchError(err => {
+    //         this.logger.error('changeDisplayMode', err);
+    //         return of(new LoadDataError(err.message));
+    //     })
+    // );
 }
