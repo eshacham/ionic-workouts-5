@@ -23,71 +23,71 @@ export function exercisesReducers (
                 byId: action.payload.exercises.byId,
             };
         }
-        case ExerciseActionsTypes.ResetReps: {
-            const newReps = Rep.copyRepsAndReset(state.byId[action.payload.exerciseId].reps);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.exerciseId]: {
-                        ...state.byId[action.payload.exerciseId],
-                        reps: newReps
-                    }
-                }
-            };
-        }
-        case ExerciseActionsTypes.SetRepsActiveState: {
-            const newReps = Rep.copyRepsAndSetToActive(state.byId[action.payload.exerciseId].reps, action.payload.activeIndex);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.exerciseId]: {
-                        ...state.byId[action.payload.exerciseId],
-                        reps: newReps
-                    }
-                }
-            };
-        }
-        case ExerciseActionsTypes.SetRepsCompleteState: {
-            const newReps = Rep.copyRepsAndSetToComplete(state.byId[action.payload.exerciseId].reps, action.payload.completeIndex);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.exerciseId]: {
-                        ...state.byId[action.payload.exerciseId],
-                        reps: newReps
-                    }
-                }
-            };
-        }
-        case ExerciseActionsTypes.SetRepsIncompleteState: {
-            const newReps = Rep.copyRepsAndSetToIncomplete(state.byId[action.payload.exerciseId].reps, action.payload.incompleteIndex);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.exerciseId]: {
-                        ...state.byId[action.payload.exerciseId],
-                        reps: newReps
-                    }
-                }
-            };
-        }
-        case ExerciseActionsTypes.SetInactiveReps: {
-            const newReps = Rep.copyRepsAndSetToInactive(state.byId[action.payload.exerciseId].reps);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [action.payload.exerciseId]: {
-                        ...state.byId[action.payload.exerciseId],
-                        reps: newReps
-                    }
-                }
-            };
-        }
+        // case ExerciseActionsTypes.ResetReps: {
+        //     const newReps = Rep.copyRunningRepsAndReset(state.byId[action.payload.exerciseId].reps);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
+        // }
+        // case ExerciseActionsTypes.SetRepsActiveState: {
+        //     const newReps = Rep.copyRunningRepsAndSetToActive(state.byId[action.payload.exerciseId].reps, action.payload.activeIndex);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
+        // }
+        // case ExerciseActionsTypes.SetRepsCompleteState: {
+        //     const newReps = Rep.copyRunningRepsAndSetToComplete(state.byId[action.payload.exerciseId].reps, action.payload.completeIndex);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
+        // }
+        // case ExerciseActionsTypes.SetRepsIncompleteState: {
+        //     const newReps = Rep.copyRunningRepsAndSetToIncomplete(state.byId[action.payload.exerciseId].reps, action.payload.incompleteIndex);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
+        // }
+        // case ExerciseActionsTypes.SetInactiveReps: {
+        //     const newReps = Rep.copyRunningRepsAndSetToInactive(state.byId[action.payload.exerciseId].reps);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
+        // }
         case ExerciseSetActionsTypes.AddExerciseSets: {
             return {
                 ...state,

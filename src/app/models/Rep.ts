@@ -5,8 +5,13 @@ export interface IRep {
     weightUnit?: WeightUnit;
     times?: number;
     seconds?: number;
-    isActive?: boolean;
-    isComplete?: boolean;
+    // isActive?: boolean;
+    // isComplete?: boolean;
+}
+export interface IRunningRep {
+    isComplete: boolean;
+    isActive: boolean;
+    seconds?: number
 }
 
 export class Rep {
@@ -14,56 +19,60 @@ export class Rep {
     public weightUnit?: WeightUnit;
     public times?: number;
     public seconds?: number;
-    public isActive?: boolean;
-    public isComplete?: boolean;
+    // public isActive?: boolean;
+    // public isComplete?: boolean;
 
     constructor(options: IRep) {
         this.weight = options.weight;
         this.weightUnit = options.weightUnit || WeightUnit.Lbs;
         this.times = options.times;
         this.seconds = options.seconds;
-        this.isActive = options.isActive || false;
-        this.isComplete = options.isComplete || false;
+        // this.isActive = options.isActive || false;
+        // this.isComplete = options.isComplete || false;
     }
 
-    public static copyRepsAndReset(reps: Rep[]): Rep[] {
-        return reps.map(rep => {
-            return Rep.copyRep(rep, {
-                isActive: false,
-                isComplete: false
-            });
-        });
-    }
+    // public static copyRunningRepsAndReset(reps: IRunningRep[]): IRunningRep[] {
+    //     return reps.map(rep => {
+    //         return  {
+    //             isActive: false,
+    //             isComplete: false
+    //         };
+    //     });
+    // }
 
-    static copyRepsAndSetToActive(reps: Rep[], activeRepIndex: number): Rep[] {
-        return reps.map((rep, index) => {
-            return Rep.copyRep(rep, {
-                isActive: index === activeRepIndex
-            });
-        });
-    }
+    // static copyRunningRepsAndSetToActive(reps: IRunningRep[], activeRepIndex: number): IRunningRep[] {
+    //     return reps.map((rep, index) => {
+    //         return {
+    //             isActive: index === activeRepIndex,
+    //             isComplete: rep.isComplete,
+    //         };
+    //     });
+    // }
 
-    static copyRepsAndSetToInactive(reps: Rep[]): Rep[] {
-        return reps.map(rep => {
-            return Rep.copyRep(rep, {
-                isActive: false
-            });
-        });
-    }
-    static copyRepsAndSetCompleteState(reps: Rep[], completeIndex: number, isCompleteState: boolean): Rep[] {
-        return reps.map((rep, index) => {
-            return Rep.copyRep(rep, {
-                isComplete: index === completeIndex ? isCompleteState : rep.isComplete
-            });
-        });
-    }
+    // static copyRunningRepsAndSetToInactive(reps: IRunningRep[]): IRunningRep[] {
+    //     return reps.map(rep => {
+    //         return {
+    //             isActive: false,
+    //             isComplete: rep.isComplete,
+    //         };
+    //     });
+    // }
+    // static copyRunningRepsAndSetCompleteState(reps: IRunningRep[], completeIndex: number, isCompleteState: boolean)
+    // : IRunningRep[] {
+    //     return reps.map((rep, index) => {
+    //         return {
+    //             isComplete: (index === completeIndex ? isCompleteState : rep.isComplete),
+    //             isActive: rep.isComplete,
+    //         };
+    //     });
+    // }
 
-    static copyRepsAndSetToComplete(reps: Rep[], completeIndex: number): Rep[] {
-        return Rep.copyRepsAndSetCompleteState(reps, completeIndex, true);
-    }
-    static copyRepsAndSetToIncomplete(reps: Rep[], completeIndex: number): Rep[] {
-        return Rep.copyRepsAndSetCompleteState(reps, completeIndex, false);
-    }
+    // static copyRunningRepsAndSetToComplete(reps: IRunningRep[], completeIndex: number): IRunningRep[] {
+    //     return Rep.copyRunningRepsAndSetCompleteState(reps, completeIndex, true);
+    // }
+    // static copyRunningRepsAndSetToIncomplete(reps: IRunningRep[], completeIndex: number): IRunningRep[] {
+    //     return Rep.copyRunningRepsAndSetCompleteState(reps, completeIndex, false);
+    // }
 
     static copyRep(sourceRep: Rep, options?: IRep): Rep {
         const newRep = new Rep({...sourceRep, ...options });

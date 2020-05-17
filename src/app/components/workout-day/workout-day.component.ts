@@ -213,7 +213,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
   private scrollToExerciseSet(scrollToExerciseSetIndex: number) {
     this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', scrollToExerciseSetIndex);
-    setTimeout(() => {
+    // setTimeout(() => {
       const items = this.list.nativeElement.children[0].children;
       const set = items[scrollToExerciseSetIndex];
       if (!set) { return; }
@@ -223,7 +223,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       } else {
         set.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
-    }, 100);
+    // }, 100);
   }
 
   ngOnDestroy() {
@@ -246,19 +246,19 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       // case DisplayMode.Workout:
         if (day.runningState === RunningState.Completed) {
           if (day.runningExerciseSetIndex + 1 < this.exerciseSets.length) {
+            this.scrollToExerciseSet(day.runningExerciseSetIndex + 1);
             this.store.dispatch(new StartExercise({
               workoutId: this.workoutId,
               dayId: this.dayId,
               runningExerciseSetIndex: day.runningExerciseSetIndex + 1,
             }));
-            this.scrollToExerciseSet(day.runningExerciseSetIndex + 1);
           } else if (this.repeatsCount > 1 && day.repeatsCompleted + 1 < this.repeatsCount) {
+            this.scrollToExerciseSet(0);
             this.store.dispatch(new RepeatExercise({
               workoutId: this.workoutId,
               dayId: this.dayId,
               repeatsCompleted: day.repeatsCompleted + 1,
             }));
-            this.scrollToExerciseSet(0);
           } else {
             // exeercise is done!
             this.dispatchStopExercise();

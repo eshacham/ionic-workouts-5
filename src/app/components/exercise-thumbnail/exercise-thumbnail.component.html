@@ -88,32 +88,33 @@
                     <ion-col *ngFor="let rep of exercise.reps; let i = index"
                         class="ion-no-padding">
                         <div *ngIf='rep.weight'
-                            [ngClass]="getRepClass(rep, i)"
-                            [ngStyle]="getRepTimesStyle(rep, i)">
+                            [ngClass]="getRepClass(i, exercise.id)"
+                            [ngStyle]="getRepTimesStyle(i, exercise.id)">
                             <h4 class="ion-text-center"
-                                [ngClass]="{'comlpeted': rep.isComplete}">
+                                [ngClass]="{'comlpeted': isRepComplete(i, exercise.id)}">
                                 {{rep.weight}}
                                 <small>{{' ' + weightUnit[rep.weightUnit]}}</small>
                             </h4>
                         </div>
                         <div *ngIf='rep.times'
-                            [ngClass]="getRepClass(rep, i)"
-                            [ngStyle]="getRepTimesStyle(rep, i)">
+                            [ngClass]="getRepClass(i, exercise.id)"
+                            [ngStyle]="getRepTimesStyle(i, exercise.id)">
                             <h4 class="ion-text-center"
-                                [ngClass]="{'comlpeted': rep.isComplete}">
+                                [ngClass]="{'comlpeted': isRepComplete(i, exercise.id)}">
                                 {{rep.times}}
                                 <small>Reps</small>
                             </h4>
                         </div>
-                        <div *ngIf="rep.seconds" [ngClass]="getRepClass(rep, i)">
+                        <div *ngIf="rep.seconds"
+                            [ngClass]="getRepClass(i, exercise.id)">
                             <h4 class="ion-text-center"
-                                [ngClass]="{'comlpeted': rep.isComplete}">
-                                {{getSecondsStateText(rep)}}
+                                [ngClass]="{'comlpeted': isRepComplete(i, exercise.id)}">
+                                {{getSecondsStateText(i, exercise.id)}}
                                 <small>Sec</small>
                             </h4>
-                            <ion-progress-bar *ngIf="rep.isActive"
+                            <ion-progress-bar *ngIf="isRepActive(i, exercise.id)"
                                 color="tertiary" reversed="true"
-                                [value]="getSecondsProgress(rep)">
+                                [value]="getSecondsProgress(i, exercise.id)">
                             </ion-progress-bar>
                         </div>
                     </ion-col>

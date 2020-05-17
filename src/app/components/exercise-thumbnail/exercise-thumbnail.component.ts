@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PopoverController, AlertController} from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
 import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/models/enums';
-import { Rep } from 'src/app/models/Rep';
+import { Rep, IRunningRep } from 'src/app/models/Rep';
 import { ExerciseThumbnailPopoverComponent } from '../exercise-thumbnail-popover/exercise-thumbnail-popover.component';
 import { ChooseExerciseActionPopoverComponent } from '../choose-exercise-action-popover/choose-exercise-action-popover.component';
 import { ExerciseVariationPopoverComponent } from '../exercise-variation-popover/exercise-variation-popover.component';
@@ -59,6 +59,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
+    runningExercises: Map<string, IRunningRep[]>;
     restBetweenReps = 0;
     restAfterExercise = 0;
     isEditSetExpanded = false;
@@ -114,6 +115,24 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
     }
 
+    get RunningExercises(): Map<string, IRunningRep[]> {
+        if (!this.runningExercises) {
+            this.runningExercises = this.createRunningExercisesMap(this.exercises);
+        }
+        return this.runningExercises;
+    }
+    set RunningExercises(map: Map<string, IRunningRep[]>) {
+        this.runningExercises = map;
+    }
+
+    createRunningExercisesMap(exercises: ExerciseBean[]): Map<string, IRunningRep[]> {
+        const map = new Map();
+        this.exercises.forEach(e => map.set(e.id, e.reps.map(r => (
+            { isActive: false, isComplete: false, seconds: r.seconds }
+        ))));
+        return map;
+    }
+
     constructor(
         loggingService: LoggingService,
         private dataService: DataServiceProvider,
@@ -124,17 +143,19 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         private alertController: AlertController,
     ) {
         this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
+        // this.runningExercises = new Map();
     }
 
     ngOnInit() {
-        this.store
-        .select(getCurrentWorkout)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(selectedDay => {
-            if (selectedDay.selectedDayId === this.dayId) {
+        // this.store
+        // .select(getCurrentWorkout)
+        // .pipe(takeUntil(this.ngUnsubscribe))
+        // .subscribe(selectedDay => {
+        //     if (selectedDay.selectedDayId === this.dayId) {
                 this.store
                 .select(getExerciseSet(this.exerciseSetId))
                 .pipe(takeUntil(this.ngUnsubscribe))
+                // .pipe(take(1))
                 .subscribe(exerciseSet => {
                     this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
                     this.exercises = exerciseSet.exercises;
@@ -143,17 +164,16 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                         this.restBetweenReps = this.exercises[0].restBetweenReps;
                         this.restAfterExercise = this.exercises[0].restAfterExercise;
                     }
+                    this.RunningExercises = this.createRunningExercisesMap(this.exercises);
                 });
-            }
-        });
+            // }
+        // });
         this.store
         .select(getRunningWorkoutDayState)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(runningDayState => {
-            this.logger.debug('ngOnInit', 'getWorkoutDay', runningDayState);
-            if (runningDayState.dayId === this.dayId) {
-                this.handleWorkoutDayStateChange(runningDayState)
-            }
+            this.logger.debug('ngOnInit', 'getRunningWorkoutDayState', runningDayState);
+            this.handleWorkoutDayRunningStateChange(runningDayState)
         });
     }
 
@@ -167,17 +187,33 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.isEditSetExpanded = !this.isEditSetExpanded;
     }
 
-    handleWorkoutDayStateChange(day: IRunningWorkoutDayState) {
-        this.DisplayMode = DisplayMode.Workout;
-        if (day.runningState === RunningState.NA ||
-            day.runningExerciseSetIndex !== this.exerciseSetIndex) {
-            if (this.exercises.length) {
+    handleWorkoutDayRunningStateChange(runningDayState: IRunningWorkoutDayState) {
+        if (!runningDayState) {
+            // nobody should be running
+            if (this.DisplayMode !== DisplayMode.Display) {
+                this.DisplayMode = DisplayMode.Display;
                 this.stopWorkout();
             }
-        } else if (day.runningState === RunningState.Running &&
-            day.runningExerciseSetIndex === this.exerciseSetIndex) {
-            if (!this.IsRunning) {
-                this.startWorkout(false);
+        } else if (runningDayState.dayId === this.dayId) {
+            this.DisplayMode = DisplayMode.Workout;
+            // not your exercise -> stop running
+            if (runningDayState.runningState === RunningState.NA ||
+                runningDayState.runningExerciseSetIndex !== this.exerciseSetIndex) {
+                if (this.IsRunning) {
+                    this.stopWorkout();
+                }
+            } else if (runningDayState.runningState === RunningState.Running &&
+                runningDayState.runningExerciseSetIndex === this.exerciseSetIndex) {
+                // this is your day and exercise -> start running
+                if (!this.IsRunning) {
+                    this.startWorkout(true);
+                }
+            }
+        } else {
+            // not your day -> stop running
+            if (this.DisplayMode !== DisplayMode.Display) {
+                this.DisplayMode = DisplayMode.Display;
+                this.stopWorkout();
             }
         }
     }
@@ -271,24 +307,36 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             });
         });
     }
+
+    getRunningExeRep(index: number, exerciseId: string): IRunningRep {
+        let rep: IRunningRep = { isActive: false, isComplete: false }
+        if (this.RunningExercises.has(exerciseId)) {
+            const reps = this.RunningExercises.get(exerciseId)
+            if (reps.length && reps.length > index) {
+                rep = reps[index];
+            }
+        }
+        return rep;
+    }
+
     get hasIncompleteTimedRepInActiveRep(): boolean {
         return this.exercises.some((exe) => {
-            const rep = exe.reps[this.activeRepIndex];
+            const rep = this.getRunningExeRep(this.activeRepIndex, exe.id);
             return rep.seconds > 0 && !rep.isComplete;
         });
     }
     get hasCompleteTimedRepInActiveRep(): boolean {
         return this.exercises.some((exe) => {
-            const rep = exe.reps[this.activeRepIndex];
+            const rep = this.getRunningExeRep(this.activeRepIndex, exe.id);
             return rep.seconds > 0 && rep.isComplete;
         });
     }
 
-    getRepClass(rep: Rep, index: number): string {
+    getRepClass(index: number, exerciseId: string): string {
         let cls = '';
         if (this.IsRunning) {
             cls = 'divRep';
-            if (this.isRepConsideredActive(rep, index)) {
+            if (this.isRepConsideredActive(index, exerciseId)) {
                 cls += ' divActive';
             }
             cls += ' divNonActive';
@@ -296,21 +344,30 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         return cls;
     }
 
-    isRepConsideredActive(rep: Rep, index: number) {
+    isRepComplete(index: number, exerciseId: string) {
+        return this.getRunningExeRep(index, exerciseId).isComplete;
+    }
+    isRepActive(index: number, exerciseId: string) {
+        return this.getRunningExeRep(index, exerciseId).isActive;
+    }
+
+    isRepConsideredActive(index: number, exerciseId: string) {
+        const rep = this.getRunningExeRep(index, exerciseId);
         if (rep.isComplete) {
             return false;
         }
         return (rep.isActive || (this.activeRepIndex === index && !this.activeRep.seconds));
     }
 
-    getRepTimesStyle(rep: Rep, index): any {
+    getRepTimesStyle(index: number, exerciseId: string): { animation: string} {
         const animation = {
-            animation: `${this.isRepConsideredActive(rep, index) ? 4 : 0}s linear infinite fadeinout`
+            animation: `${this.isRepConsideredActive(index, exerciseId) ? 4 : 0}s linear infinite fadeinout`
         };
         return animation;
     }
 
-    getSecondsStateText(rep: Rep) {
+    getSecondsStateText(index: number, exerciseId: string) {
+        const rep = this.getRunningExeRep(index, exerciseId);
         if (rep.isComplete) {
             return `${rep.seconds}`;
         }
@@ -319,7 +376,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
         return `${rep.seconds}`;
     }
-    getSecondsProgress(rep: Rep) {
+    getSecondsProgress(index: number, exerciseId: string) {
+        const rep = this.getRunningExeRep(index, exerciseId);
         if (rep.isComplete) {
             return 1;
         }
@@ -332,7 +390,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         if (!this.isResting) {
             return 1;
         }
-
         return this.remainingTimedRestSec / this.secToRestAfterCurrentRep;
     }
 
@@ -341,6 +398,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     startWorkout(resetReps: boolean = false) {
+        // this.runningExercises = new Map();
+        this.exercises.forEach(e => this.RunningExercises.set(e.id, e.reps.map(r => (
+            { isActive: false, isComplete: false, seconds: r.seconds }
+        ))))
+
         this.IsRunning = true;
         if (resetReps) {
             this.activeExerciseInSetIndex = 0;
@@ -349,12 +411,14 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.startTimedRep();
     }
     stopWorkout() {
-        this.IsRunning = false;
-        this.resetReps();
-        this.stopRepTimer();
-        this.stopRestTimer();
-        this.remainingTimedRestSec = 0;
-        this.remainingTimedRepSec = 0;
+        if (this.exercises && this.exercises.length) {
+            this.IsRunning = false;
+            this.resetReps();
+            this.stopRepTimer();
+            this.stopRestTimer();
+            this.remainingTimedRestSec = 0;
+            this.remainingTimedRepSec = 0;
+        }
     }
 
     private resetReps() {
@@ -364,20 +428,32 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     private resetRepsState(exercise: ExerciseBean) {
-        this.store.dispatch(new ResetReps({ exerciseId: exercise.id }));
+        // this.store.dispatch(new ResetReps({ exerciseId: exercise.id }));
+        const reps = this.RunningExercises.get(exercise.id);
+        reps.forEach(r => {
+            r.isActive = false;
+            r.isComplete = false;
+        });
     }
 
-    private setExecrciseRepsActiveState(exercise: ExerciseBean, index: number) {
-        this.store.dispatch(new SetRepsActiveState({
-            exerciseId: exercise.id,
-            activeIndex: index
-        }));
+    private setExecrciseRepsActiveState(exercise: ExerciseBean, activeRepIndex: number) {
+        const reps = this.RunningExercises.get(exercise.id);
+        reps.forEach((r, i) => {
+            r.isActive = i === activeRepIndex;
+        });
+        // this.store.dispatch(new SetRepsActiveState({
+        //     exerciseId: exercise.id,
+        //     activeIndex: index
+        // }));
     }
 
     private InactiveExerciseReps(exercise: ExerciseBean) {
-        this.store.dispatch(new SetInactiveReps({ exerciseId: exercise.id }));
+        // this.store.dispatch(new SetInactiveReps({ exerciseId: exercise.id }));
+        const reps = this.RunningExercises.get(exercise.id);
+        reps.forEach((r, i) => {
+            r.isActive = false;
+        });
     }
-
 
     private startTimedRep() {
         this.audioService.playStartWorkout();
@@ -385,11 +461,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
             const interval = Math.max(100, this.activeRep.seconds);
+            const intervalStep = interval/1000;
             this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec -= interval/1000;
+                this.remainingTimedRepSec -= intervalStep;
                 if (this.remainingTimedRepSec <= 0) {
                     this.stopRepTimer();
-                    this.nextRep(true);
+                    return new Promise(() => this.nextRep(true));
                 }
             }, interval);
         }
@@ -411,7 +488,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                 this.remainingTimedRestSec -= interval/1000;
                 if (this.remainingTimedRestSec <= 0) {
                     this.stopRestTimer();
-                    callbackAction();
+                    return new Promise(() => callbackAction());
                 }
             }, interval);
         }
@@ -440,12 +517,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         this.stopRestTimer();
         this.stopRepTimer();
         this.startTimedRep();
-    }
-    private setRepsIncompleteState(exerciseId: string, incompleteIndex: number) {
-        this.store.dispatch(new SetRepsIncompleteState({
-            exerciseId,
-            incompleteIndex
-        }));
     }
 
     skipRest() {
@@ -519,10 +590,28 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         }
     }
     private setRepsCompleteState(exerciseId: string, completeIndex: number) {
-        this.store.dispatch(new SetRepsCompleteState({
-            exerciseId,
-            completeIndex
-        }));
+        // this.store.dispatch(new ResetReps({ exerciseId: exercise.id }));
+        const reps = this.RunningExercises.get(exerciseId);
+        reps.forEach((r, i) => {
+            r.isActive = r.isComplete;
+            r.isComplete = (i === completeIndex ? true : r.isComplete);
+        });
+        // this.store.dispatch(new SetRepsCompleteState({
+        //     exerciseId,
+        //     completeIndex
+        // }));
+    }
+
+    private setRepsIncompleteState(exerciseId: string, incompleteIndex: number) {
+        const reps = this.RunningExercises.get(exerciseId);
+        reps.forEach((r, i) => {
+            r.isActive = r.isComplete;
+            r.isComplete = (i === incompleteIndex ? false : r.isComplete);
+        });
+        // this.store.dispatch(new SetRepsIncompleteState({
+        //     exerciseId,
+        //     incompleteIndex
+        // }));
     }
 
     get activeRep(): Rep {

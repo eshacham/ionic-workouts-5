@@ -4,13 +4,16 @@ import { WorkoutsActions, WorkoutsActionsTypes, } from '../actions/workouts.acti
 import { ExerciseMediaActionsTypes, ExerciseMediaActions } from '../actions/exercisesMedia.actions';
 import { WorkoutDaysActionsTypes, WorkoutDaysActions } from '../actions/workoutDays.actions';
 import { DisplayMode, RunningState } from 'src/app/models/enums';
+import { ExerciseActionsTypes, ExerciseActions } from '../actions/exercises.actions';
+import { Rep } from 'src/app/models/Rep';
 
 export function dataReducers (
     state = initialDataState,
     action: DataActions |
             WorkoutsActions |
             ExerciseMediaActions |
-            WorkoutDaysActions
+            WorkoutDaysActions |
+            ExerciseActions
 )
 : IDataState {
     switch (action.type) {
@@ -154,6 +157,7 @@ export function dataReducers (
         //         }
         //     }
         // }
+        case WorkoutsActionsTypes.UnselectWorkout:
         case WorkoutDaysActionsTypes.StopExercise: {
             // if (state.selectedWorkoutDayState.dayId === action.payload.dayId) {
             return {
@@ -204,6 +208,31 @@ export function dataReducers (
             };
         }
         // case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
+        // }
+        // case ExerciseActionsTypes.ResetReps: {
+        //     const newReps = Rep.copyRunningRepsAndReset(
+        //         state.runningExerciseState.runningReps[action.payload.exerciseId].reps);
+        //     return {
+        //         ...state,
+        //         runningExerciseState: {
+        //             ...state.runningExerciseState,
+        //             runningReps: newReps,
+        //         }
+        //     };
+        // }
+        // case ExerciseActionsTypes.SetRepsActiveState: {
+        //     const newReps = Rep.copyRunningRepsAndSetToActive(
+        //         state.runningExerciseState.runningReps[action.payload.exerciseId].reps, action.payload.activeIndex);
+        //     return {
+        //         ...state,
+        //         byId: {
+        //             ...state.byId,
+        //             [action.payload.exerciseId]: {
+        //                 ...state.byId[action.payload.exerciseId],
+        //                 reps: newReps
+        //             }
+        //         }
+        //     };
         // }
         default: {
             return state;
