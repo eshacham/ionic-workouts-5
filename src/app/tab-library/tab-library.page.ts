@@ -202,7 +202,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       this.presentToast('Image inserted');
     } else {
       this.store.dispatch(new AddExerciseMedia(options));
-      setTimeout(() => this.scrollToImage(0), 100);
+      setTimeout(() => this.scrollToImage(0), 300);
     }
   }
 

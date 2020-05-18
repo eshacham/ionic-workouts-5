@@ -86,7 +86,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     const workout = WorkoutBean.create({ id: newWorkoutId, dayId: newDayId });
     const day = WorkoutDayBean.create({ id: newDayId, workoutId: newWorkoutId });
     this.store.dispatch(new AddWorkout({ workout, day }));
-    setTimeout(() => this.scrollToLastWorkout(), 100);
+    setTimeout(() => this.scrollToLastWorkout(), 200);
   }
 
   scrollToLastWorkout() {
