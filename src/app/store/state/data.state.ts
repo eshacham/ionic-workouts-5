@@ -15,9 +15,9 @@ export interface IRunningWorkoutDayState {
     runningState?: RunningState;
     runningExerciseSetIndex?: number;
     repeatsCompleted?: number;
-    scrollToExerciseSetIndex?: number;
-    scrollToExerciseSetId?: string;
-    scrollToExerciseSet?: boolean;
+    // scrollToExerciseSetIndex?: number;
+    // scrollToExerciseSetId?: string;
+    // scrollToExerciseSet?: boolean;
 }
 
 // export interface IRunningExerciseState {
@@ -32,7 +32,7 @@ export interface IDataState {
     error: string;
     theme: string;
     signedInUser: ISignedInUser;
-    scrollToExerciseMediaId?: string;
+    // scrollToExerciseMediaId?: string;
     releaseNotes: Record<string, Version>;
     termsOfUse: TermsOfUse;
     isOnline?: boolean;
@@ -47,7 +47,7 @@ export const initialDataState: IDataState = {
     error: null,
     theme: null,
     signedInUser: null,
-    scrollToExerciseMediaId: null,
+    // scrollToExerciseMediaId: null,
     releaseNotes: {},
     termsOfUse: null,
     isOnline: false,

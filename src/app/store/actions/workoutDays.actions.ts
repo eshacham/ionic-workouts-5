@@ -27,8 +27,8 @@ export enum WorkoutDaysActionsTypes {
     ChangeDisplayModeSuccess = '[WorkoutDays] Workout day display mode has changed',
 
     ReorderExerciseSets = '[WorkoutDays] Reorder exercise sets',
-    SetExerciseSetInWorkoutDay = '[WorkoutDays] Set the exercise set scroll into view',
-    ResetExerciseSetScrollIntoView = '[WorkoutDays] Reset exercise set scroll into view',
+    // SetExerciseSetInWorkoutDay = '[WorkoutDays] Set the exercise set scroll into view',
+    // ResetExerciseSetScrollIntoView = '[WorkoutDays] Reset exercise set scroll into view',
 }
 
 export class MoveWorkoutDay implements Action {
@@ -160,24 +160,24 @@ export class ReorderExerciseSets implements Action {
         toIndex: number,
     }) { }
 }
-export class SetExerciseSetInWorkoutDay implements Action {
-    readonly type = WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay;
-    constructor(public payload: {
-        workoutId: string,
-        dayId: string,
-        setId?: string,
-        setIndex?: number,
-        scroll?: boolean
-    }) {
-        payload.scroll = payload.scroll || false;
-    }
-}
-export class ResetExerciseSetScrollIntoView implements Action {
-    readonly type = WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView;
-    constructor(public payload: {
-        dayId: string,
-    }) { }
-}
+// export class SetExerciseSetInWorkoutDay implements Action {
+//     readonly type = WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay;
+//     constructor(public payload: {
+//         workoutId: string,
+//         dayId: string,
+//         setId?: string,
+//         setIndex?: number,
+//         scroll?: boolean
+//     }) {
+//         payload.scroll = payload.scroll || false;
+//     }
+// // }
+// export class ResetExerciseSetScrollIntoView implements Action {
+//     readonly type = WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView;
+//     constructor(public payload: {
+//         dayId: string,
+//     }) { }
+// }
 
 export type WorkoutDaysActions =
     SelectWorkoutDay |
@@ -195,7 +195,7 @@ export type WorkoutDaysActions =
     ExerciseCompleted |
     ChangeDisplayMode |
     ChangeDisplayModeSuccess |
-    ReorderExerciseSets |
-    ResetExerciseSetScrollIntoView |
-    SetExerciseSetInWorkoutDay
+    ReorderExerciseSets
+    // ResetExerciseSetScrollIntoView |
+    // SetExerciseSetInWorkoutDay
     ;

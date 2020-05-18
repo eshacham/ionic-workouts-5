@@ -112,18 +112,18 @@ export function dataReducers (
                 signedInUser: action.payload
             };
         }
-        case ExerciseMediaActionsTypes.ScrollToExerciseMedia: {
-            return {
-                ...state,
-                scrollToExerciseMediaId: action.payload.imageId
-            };
-        }
-        case ExerciseMediaActionsTypes.ResetScrollToExerciseMedia: {
-            return {
-                ...state,
-                scrollToExerciseMediaId: undefined
-            };
-        }
+        // case ExerciseMediaActionsTypes.ScrollToExerciseMedia: {
+        //     return {
+        //         ...state,
+        //         scrollToExerciseMediaId: action.payload.imageId
+        //     };
+        // }
+        // case ExerciseMediaActionsTypes.ResetScrollToExerciseMedia: {
+        //     return {
+        //         ...state,
+        //         scrollToExerciseMediaId: undefined
+        //     };
+        // }
         case DataActionsTypes.AppOnline: {
             return {
                 ...state,
@@ -192,21 +192,21 @@ export function dataReducers (
                     runningState: action.payload.runningState,
                     repeatsCompleted: action.payload.repeatsCompleted,
                     // displayMode: action.payload.displayMode,
-                    scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
+                    // scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
                 }
             }
         }
-        case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
-            return {
-                ...state,
-                runningWorkoutDayState: {
-                    ...state.runningWorkoutDayState,
-                    scrollToExerciseSetIndex: undefined,
-                    scrollToExerciseSetId: undefined,
-                    scrollToExerciseSet: undefined
-                },
-            };
-        }
+        // case WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView: {
+        //     return {
+        //         ...state,
+        //         runningWorkoutDayState: {
+        //             ...state.runningWorkoutDayState,
+        //             scrollToExerciseSetIndex: undefined,
+        //             scrollToExerciseSetId: undefined,
+        //             scrollToExerciseSet: undefined
+        //         },
+        //     };
+        // }
         // case WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay: {
         // }
         // case ExerciseActionsTypes.ResetReps: {

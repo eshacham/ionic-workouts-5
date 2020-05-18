@@ -26,12 +26,12 @@ import {
     DeleteRep,
 } from 'src/app/store/actions/exercises.actions';
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
-import { StartExercise, ExerciseCompleted, SetExerciseSetInWorkoutDay } from 'src/app/store/actions/workoutDays.actions';
+import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
-import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
+// import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { Router } from '@angular/router';
-import { ScrollToExerciseMedia } from 'src/app/store/actions/exercisesMedia.actions';
+// import { ScrollToExerciseMedia } from 'src/app/store/actions/exercisesMedia.actions';
 import { AudioServiceProvider } from 'src/app/providers/audio-service/audio-service';
 import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selectors';
 import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
@@ -266,7 +266,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
         this.logger.info('goToImages', `going to image ${exercise.id}`);
-        this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
+        // this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
         this.router.navigateByUrl('/tabs/tab-library');
     }
 

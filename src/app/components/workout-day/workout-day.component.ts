@@ -10,7 +10,7 @@ import {
   UpdateWorkoutDay,
   ReorderExerciseSets,
   StopExercise,
-  ResetExerciseSetScrollIntoView,
+  // ResetExerciseSetScrollIntoView,
   RepeatExercise,
   // ChangeDisplayMode,
   StartFirstExercise,

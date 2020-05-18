@@ -5,7 +5,7 @@ import { WorkoutBean } from '../models/Workout';
 import { DisplayMode } from '../models/enums';
 import { IAppState } from '../store/state/app.state';
 import { AddWorkout, ImportWorkout } from '../store/actions/workouts.actions';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UpdateWorkouts } from '../store/actions/data.actions';
 import { getWorkouts } from '../store/selectors/workouts.selectors';
@@ -13,7 +13,6 @@ import { Guid } from 'guid-typescript';
 import { WorkoutDayBean } from '../models/WorkoutDay';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
-import { getReleaseNotesAndTermsOfUse } from '../store/selectors/data.selectors';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 
 @Component({
@@ -31,23 +30,21 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   displayMode = DisplayMode;
   private mode: DisplayMode = DisplayMode.Display;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-
   constructor(
     loggingService: LoggingService,
     private store: Store<IAppState>,
     private alertController: AlertController,
     private featureService: FeatureManagerService,
-
   ) {
     this.logger = loggingService.getLogger('App.TabWorkoutsPage');
   }
 
   ngOnInit() {
     this.store.select(getWorkouts)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(workouts => {
-        this.logger.debug('ngOnInit', 'getWorkouts', workouts);
-        this.workouts = workouts;
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(workouts => {
+      this.logger.debug('ngOnInit', 'getWorkouts', workouts);
+      this.workouts = workouts;
       });
   }
 
@@ -87,13 +84,16 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     const workout = WorkoutBean.create({ id: newWorkoutId, dayId: newDayId });
     const day = WorkoutDayBean.create({ id: newDayId, workoutId: newWorkoutId });
     this.store.dispatch(new AddWorkout({ workout, day }));
-    setTimeout(() => {
-      const items = this.list.nativeElement.children;
+    setTimeout(() => this.scrollToLastWorkout(), 100);
+  }
+
+  scrollToLastWorkout() {
+    this.logger.debug('scrollToLastWorkout')
+    const items = this.list.nativeElement.children;
       const newWorkout = items[this.workouts.length - 1];
       if (newWorkout) {
         newWorkout.scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
-    }, 1);
   }
 
   importWorkout(event: any) {
