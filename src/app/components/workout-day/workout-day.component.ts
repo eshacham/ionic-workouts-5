@@ -147,7 +147,8 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
         handler: (data) => {
           if (data.text) {
             this.logger.debug('presentAlertPrompt', 'saving text', data.text, data.number);
-            this.name = data.text, this.repeatsCount = data.number || 1;
+            this.name = data.text,
+            this.repeatsCount = +data.number || 1;
             this.workoutDayChanged();
           } else {
             return false;
@@ -168,6 +169,10 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
         this.store.dispatch(new StartFirstExercise({
           workoutId: this.workoutId,
           dayId: this.dayId,
+          runningExerciseSetIndex: 0,
+          runningState: RunningState.Running,
+          // repeatsCompleted: 0
+
         }));
         break;
       case DisplayMode.Workout:
@@ -195,6 +200,9 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     this.store.dispatch(new StopExercise({
       workoutId: this.workoutId,
       dayId: this.dayId,
+      repeatsCompleted: 0,
+      runningState: RunningState.NA,
+      runningExerciseSetIndex: 0,
     }));
   }
 
@@ -223,19 +231,10 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private scrollToExerciseSet(scrollToExerciseSetIndex: number) {
-    this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', scrollToExerciseSetIndex);
-    // setTimeout(() => {
+  private scrollToExerciseSet(index: number) {
+    this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', index);
       const items = this.list.nativeElement.children[0].children;
-      const set = items[scrollToExerciseSetIndex];
-      if (!set) { return; }
-      if (this.dataService.isIos) {
-        // aligned to end of view
-        set.scrollIntoView(false);
-      } else {
-        set.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }
-    // }, 100);
+      this.dataService.scrollToItem(items, index);
   }
 
   ngOnDestroy() {
@@ -245,47 +244,30 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   }
 
   handleRunningWorkoutDayStateChange(day: IRunningWorkoutDayState) {
-    this.repeatsCompleted = day.repeatsCompleted;
     this.logger.debug('handleSelectedWorkoutDayStateChange', day);
-    // switch (day.displayMode) {
-      // case DisplayMode.Edit:
-      // case DisplayMode.Display:
-        // if (day.scrollToExerciseSet && day.scrollToExerciseSetIndex >= 0) {
-        //   this.scrollToExerciseSet(day.scrollToExerciseSetIndex);
-        //   this.store.dispatch(new ResetExerciseSetScrollIntoView({ dayId: this.dayId }));
-        // }
-      //   break;
-      // case DisplayMode.Workout:
-        if (day.runningState === RunningState.Completed) {
-          if (day.runningExerciseSetIndex + 1 < this.exerciseSets.length) {
-            this.scrollToExerciseSet(day.runningExerciseSetIndex + 1);
-            this.store.dispatch(new StartExercise({
-              workoutId: this.workoutId,
-              dayId: this.dayId,
-              runningExerciseSetIndex: day.runningExerciseSetIndex + 1,
-            }));
-          } else if (this.repeatsCount > 1 && day.repeatsCompleted + 1 < this.repeatsCount) {
-            this.scrollToExerciseSet(0);
-            this.store.dispatch(new RepeatExercise({
-              workoutId: this.workoutId,
-              dayId: this.dayId,
-              repeatsCompleted: day.repeatsCompleted + 1,
-            }));
-          } else {
-            // exeercise is done!
-            this.dispatchStopExercise();
-            // this.store.dispatch(new ChangeDisplayMode({
-            //   workoutId: this.workoutId,
-            //   dayId: this.dayId,
-            //   displayMode: DisplayMode.Display,
-            // }));
-          }
+      if (day.runningState === RunningState.Completed) {
+        if (day.runningExerciseSetIndex + 1 < this.exerciseSets.length) {
+          this.store.dispatch(new StartExercise({
+            workoutId: this.workoutId,
+            dayId: this.dayId,
+            runningExerciseSetIndex: day.runningExerciseSetIndex + 1,
+            runningState: RunningState.Running,
+          }));
+          setTimeout(() => this.scrollToExerciseSet(day.runningExerciseSetIndex + 1), 100);
+        } else if (this.repeatsCount > 1 && day.repeatsCompleted + 1 < this.repeatsCount) {
+          this.store.dispatch(new RepeatExercise({
+            workoutId: this.workoutId,
+            dayId: this.dayId,
+            repeatsCompleted: day.repeatsCompleted + 1,
+            runningState: RunningState.Running,
+            runningExerciseSetIndex: 0,
+          }));
+          setTimeout(() => this.scrollToExerciseSet(0), 100);
+        } else {
+          // exeercise is done!
+          this.dispatchStopExercise();
         }
-        // else if (day.runningState === RunningState.Running) {
-        //   // this.scrollToExerciseSet(day.runningExerciseSetIndex);
-        // }
-        // break;
-    // }
+      }
   }
 
   workoutDayChanged() {

@@ -190,7 +190,7 @@ export function dataReducers (
                     ...state.runningWorkoutDayState,
                     runningExerciseSetIndex: action.payload.runningExerciseSetIndex,
                     runningState: action.payload.runningState,
-                    repeatsCompleted: action.payload.repeatsCompleted,
+                    // repeatsCompleted: action.payload.repeatsCompleted,
                     // displayMode: action.payload.displayMode,
                     // scrollToExerciseSetIndex: action.payload.runningExerciseSetIndex
                 }

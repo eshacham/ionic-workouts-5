@@ -224,6 +224,8 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             workoutId: this.workoutId,
             dayId: this.dayId,
             runningExerciseSetIndex: this.exerciseSetIndex,
+            runningState: RunningState.Running,
+            // repeatsCompleted: 0
         }));
     }
 

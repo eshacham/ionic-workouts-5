@@ -12,7 +12,7 @@ export interface IRunningWorkoutDayState {
     workoutId: string;
     dayId: string;
     setId?: string
-    runningState?: RunningState;
+    runningState: RunningState;
     runningExerciseSetIndex?: number;
     repeatsCompleted?: number;
     // scrollToExerciseSetIndex?: number;
