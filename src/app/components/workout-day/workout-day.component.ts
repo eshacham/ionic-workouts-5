@@ -85,6 +85,12 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.repeatsCount = workoutDay.repeatsCount;
+          // this.displayMode = workoutDay.displayMode;
+          // if (this.displayMode === DisplayMode.Edit) {
+          //   // this.fabEdit.activated = true;
+          // } else {
+          //   //this.fabEdit.close();
+          // }
           // this.repeatsCompleted = workoutDay.repeatsCompleted;
           // this.handleSelectedWorkoutDayStateChange(workoutDay);
         }

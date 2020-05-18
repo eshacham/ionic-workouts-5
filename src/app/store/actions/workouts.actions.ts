@@ -25,7 +25,7 @@ export class SelectWorkout implements Action {
 }
 export class UnselectWorkout implements Action {
     readonly type = WorkoutsActionsTypes.UnselectWorkout;
-    constructor() { }
+    constructor(public payload: {selectedDayId: string}) { }
 }
 
 export class DeleteWorkout implements Action {
