@@ -147,33 +147,33 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // this.store
-        // .select(getCurrentWorkout)
-        // .pipe(takeUntil(this.ngUnsubscribe))
-        // .subscribe(selectedDay => {
-        //     if (selectedDay.selectedDayId === this.dayId) {
-                this.store
-                .select(getExerciseSet(this.exerciseSetId))
-                .pipe(takeUntil(this.ngUnsubscribe))
-                // .pipe(take(1))
-                .subscribe(exerciseSet => {
-                    this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
-                    this.exercises = exerciseSet.exercises;
-                    this.images = exerciseSet.media;
-                    if (this.exercises[0]) {
-                        this.restBetweenReps = this.exercises[0].restBetweenReps;
-                        this.restAfterExercise = this.exercises[0].restAfterExercise;
-                    }
-                    this.RunningExercises = this.createRunningExercisesMap(this.exercises);
-                });
-            // }
-        // });
+        this.store
+        .select(getExerciseSet(this.exerciseSetId))
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(exerciseSet => {
+            this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
+            this.exercises = exerciseSet.exercises;
+            this.images = exerciseSet.media;
+            if (this.exercises[0]) {
+                this.restBetweenReps = this.exercises[0].restBetweenReps;
+                this.restAfterExercise = this.exercises[0].restAfterExercise;
+            }
+            this.RunningExercises = this.createRunningExercisesMap(this.exercises);
+        });
+
         this.store
         .select(getRunningWorkoutDayState)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(runningDayState => {
             this.logger.debug('ngOnInit', 'getRunningWorkoutDayState', runningDayState);
             this.handleWorkoutDayRunningStateChange(runningDayState)
+        });
+
+        this.store
+        .select(getWorkoutDay(this.dayId))
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(day => {
+            this.DisplayMode = day.displayMode || DisplayMode.Display;
         });
     }
 
@@ -288,10 +288,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             workoutId: this.workoutId,
             dayId: this.dayId,
             runningExerciseSetIndex: this.exerciseSetIndex,
-            displayMode: DisplayMode.Display,
+            // displayMode: DisplayMode.Display,
             runningState: RunningState.Completed,
-            exerciseSets: null,
-            name: null,
+            // exerciseSets: null,
+            // name: null,
             // workoutId: null
         }));
     }

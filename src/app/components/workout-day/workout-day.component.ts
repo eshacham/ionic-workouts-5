@@ -14,6 +14,7 @@ import {
   RepeatExercise,
   // ChangeDisplayMode,
   StartFirstExercise,
+  ChangeDisplayMode,
 } from 'src/app/store/actions/workoutDays.actions';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
@@ -170,11 +171,15 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     }
   }
   editWorkoutToggler() {
-    if (this.displayMode === DisplayMode.Display) {
+    switch (this.displayMode) {
+      case DisplayMode.Display:
         this.displayMode = DisplayMode.Edit;
-    } else {
-      this.displayMode = DisplayMode.Display;
+        break;
+      case DisplayMode.Edit:
+        this.displayMode = DisplayMode.Display;
+        break;
     }
+    this.DispatchChangeDisplayMode();
   }
   selectExerciseToAdd(event: any) {
     event.stopPropagation();
@@ -204,12 +209,13 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     this.dispatchStopExercise();
   }
 
-  //  DispatchChangeDisplayMode() {
-  //   this.store.dispatch(new ChangeDisplayMode({
-  //     dayId: this.dayId,
-  //     displayMode: this.displayMode,
-  //   }));
-  // }
+   DispatchChangeDisplayMode() {
+    this.store.dispatch(new ChangeDisplayMode({
+      workoutId: this.workoutId,
+      dayId: this.dayId,
+      displayMode: this.displayMode,
+    }));
+  }
 
   private scrollToExerciseSet(scrollToExerciseSetIndex: number) {
     this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', scrollToExerciseSetIndex);

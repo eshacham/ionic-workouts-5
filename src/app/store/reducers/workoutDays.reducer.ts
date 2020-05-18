@@ -50,7 +50,7 @@ export function workoutDaysReducers (
                 ...state,
                 byId: {
                     ...state.byId,
-                    [action.payload.day.id]: action.payload.day
+                    [action.payload.day.id]: action.payload.day,
                 }
             };
         }

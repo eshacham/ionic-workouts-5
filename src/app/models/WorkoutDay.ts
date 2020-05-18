@@ -36,7 +36,7 @@ export class WorkoutDay extends WorkoutDayBase {
             ...day,
             exerciseSets: day.exerciseSets.map(s => s.id),
             workoutId,
-            // displayMode: DisplayMode.Display,
+            displayMode: DisplayMode.Display,
             // runningState: RunningState.NA,
         };
     }
@@ -47,7 +47,7 @@ export class WorkoutDayBean extends WorkoutDayBase {
     // runningExerciseSetIndex?: number;
     repeatsCount?: number;
     // repeatsCompleted?: number;
-    // displayMode: DisplayMode;
+    displayMode: DisplayMode;
     // runningState: RunningState;
     workoutId?: string;
     // scrollToExerciseSetIndex?: number;
@@ -61,7 +61,7 @@ export class WorkoutDayBean extends WorkoutDayBase {
         // runningExerciseSetIndex?: number,
         repeatsCount?: number,
         // repeatsCompleted?: number,
-        // displayMode?: DisplayMode,
+        displayMode?: DisplayMode,
         // runningState?: RunningState,
         workoutId?: string,
         // scrollToExerciseSetIndex?: number
@@ -78,7 +78,7 @@ export class WorkoutDayBean extends WorkoutDayBase {
         // this.scrollToExerciseSetIndex = options.scrollToExerciseSetIndex;
         // this.scrollToExerciseSetId = options.scrollToExerciseSetId;
         // this.scrollToExerciseSet = options.scrollToExerciseSet || false;
-        // this.displayMode = options.displayMode || DisplayMode.Display;
+        this.displayMode = options.displayMode || DisplayMode.Display;
         // this.runningState = options.runningState || RunningState.NA;
         if (options.workoutId) {
             this.workoutId = options.workoutId;

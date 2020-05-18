@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { DisplayMode, RunningState } from 'src/app/models/enums';
 import { WorkoutDayBean } from 'src/app/models/WorkoutDay';
+import { IRunningWorkoutDayState } from '../state/data.state';
 
 export enum Direction {
     Forward = 1,
@@ -22,8 +23,8 @@ export enum WorkoutDaysActionsTypes {
     RepeatExercise = '[WorkoutDays] Repeat a workout day exercises',
     StopExercise = '[WorkoutDays] Exercise should stop',
     ExerciseCompleted = '[WorkoutDays] Exercise has completed',
-    // ChangeDisplayMode = '[WorkoutDays] Change workout day display mode',
-    // ChangeDisplayModeSuccess = '[WorkoutDays] Workout day display mode has changed',
+    ChangeDisplayMode = '[WorkoutDays] Change workout day display mode',
+    ChangeDisplayModeSuccess = '[WorkoutDays] Workout day display mode has changed',
 
     ReorderExerciseSets = '[WorkoutDays] Reorder exercise sets',
     SetExerciseSetInWorkoutDay = '[WorkoutDays] Set the exercise set scroll into view',
@@ -77,8 +78,11 @@ export class AddWorkoutDay implements Action {
         workoutId: string,
         day: WorkoutDayBean,
         index2AddFrom: number
-    }) { }
+    }) {
+        payload.day.displayMode = DisplayMode.Edit;
+    }
 }
+
 export class AddWorkoutDaySuccess implements Action {
     readonly type = WorkoutDaysActionsTypes.AddWorkoutDaySuccess;
     constructor(public payload: {
@@ -87,70 +91,67 @@ export class AddWorkoutDaySuccess implements Action {
         index2AddFrom: number
     }) { }
 }
-
 export interface ChangeWorkoutDayState {
     workoutId: string;
     dayId: string;
-    runningExerciseSetIndex?: number;
-    runningState?: RunningState;
-    repeatsCompleted?: number;
+    // runningExerciseSetIndex?: number;
+    // runningState?: RunningState;
+    // repeatsCompleted?: number;
     exerciseSets?: string[];
     displayMode?: DisplayMode;
     name?: string;
 }
-
 export class StartFirstExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StartFirstExercise;
-    constructor(public payload: ChangeWorkoutDayState) {
+    constructor(public payload: IRunningWorkoutDayState) {
         payload.runningExerciseSetIndex = 0;
         payload.repeatsCompleted = 0;
-        payload.displayMode = DisplayMode.Workout;
+        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
     }
 }
 export class StartExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StartExercise;
-    constructor(public payload: ChangeWorkoutDayState) {
-        payload.displayMode = DisplayMode.Workout;
+    constructor(public payload: IRunningWorkoutDayState) {
+        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
     }
 }
 export class RepeatExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.RepeatExercise;
-    constructor(public payload: ChangeWorkoutDayState) {
-        payload.displayMode = DisplayMode.Workout;
+    constructor(public payload: IRunningWorkoutDayState) {
+        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
         payload.runningExerciseSetIndex = 0;
     }
 }
 export class StopExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StopExercise;
-    constructor(public payload: ChangeWorkoutDayState) {
+    constructor(public payload: IRunningWorkoutDayState) {
         payload.runningState = RunningState.NA;
-        payload.displayMode = DisplayMode.Display;
+        // payload.displayMode = DisplayMode.Display;
     }
 }
 export class ExerciseCompleted implements Action {
     readonly type = WorkoutDaysActionsTypes.ExerciseCompleted;
-    constructor(public payload: Partial<ChangeWorkoutDayState>) {
+    constructor(public payload: Partial<IRunningWorkoutDayState>) {
         payload.runningState = RunningState.Completed;
-        payload.displayMode = DisplayMode.Workout;
+        // payload.displayMode = DisplayMode.Workout;
     }
 }
-// export class ChangeDisplayMode implements Action {
-//     readonly type = WorkoutDaysActionsTypes.ChangeDisplayMode;
+export class ChangeDisplayMode implements Action {
+    readonly type = WorkoutDaysActionsTypes.ChangeDisplayMode;
+    constructor(public payload: ChangeWorkoutDayState) {
+        // payload.runningState = RunningState.NA;
+        // payload.runningExerciseSetIndex = null;
+        // payload.repeatsCompleted = 0;
+    }
+}
+export class ChangeDisplayModeSuccess implements Action {
+    readonly type = WorkoutDaysActionsTypes.ChangeDisplayModeSuccess;
 
-//     constructor(public payload: ChangeWorkoutDayState) {
-//         payload.runningState = RunningState.NA;
-//         payload.runningExerciseSetIndex = null;
-//         payload.repeatsCompleted = 0;
-//     }
-// }
-// export class ChangeDisplayModeSuccess implements Action {
-//     readonly type = WorkoutDaysActionsTypes.ChangeDisplayModeSuccess;
-
-//     constructor(public payload: ChangeWorkoutDayState) { }
-// }
+    constructor(public payload: ChangeWorkoutDayState) { }
+}
 export class ReorderExerciseSets implements Action {
     readonly type = WorkoutDaysActionsTypes.ReorderExerciseSets;
     constructor(public payload: {
@@ -192,8 +193,8 @@ export type WorkoutDaysActions =
     RepeatExercise |
     StopExercise |
     ExerciseCompleted |
-    // ChangeDisplayMode |
-    // ChangeDisplayModeSuccess |
+    ChangeDisplayMode |
+    ChangeDisplayModeSuccess |
     ReorderExerciseSets |
     ResetExerciseSetScrollIntoView |
     SetExerciseSetInWorkoutDay

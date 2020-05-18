@@ -23,6 +23,7 @@ import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { Guid } from 'guid-typescript';
 // import { DisplayMode } from 'src/app/models/enums';
 import { Logger, LoggingService } from 'ionic-logging-service';
+import { DisplayMode } from 'src/app/models/enums';
 // import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 
 @Component({
@@ -88,6 +89,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
           this.name = data.workout.name;
           this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
           this.firstSelectedDayId = data.selectedDayId;
+          if (this.slides) {
+            this.MaybeSlideToSelectedDay();
+          }
         } else {
           this.logger.info('ngOnInit', `${this.workoutId} - not in state`, data);
           this.router.navigate(['']);
@@ -96,15 +100,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
-    this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
-    if (selectedDayIndex !== this.activeDayIndex) {
-      this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
-     // await new Promise(() => setTimeout(async () => {
-        this.slides.slideTo(selectedDayIndex, 0, false);
-     // }, 1));
-    } else {
-      this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
+    this.MaybeSlideToSelectedDay();
       // this.store.select(getWorkoutDay(selectedDay))
       // /// TODO make sure this does not degragate performance a lot!
       // .pipe(takeUntil(this.ngUnsubscribe))
@@ -113,7 +109,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       //     // this.adjustDisplayMode(workoutDayState);
       //     }, 1));
       //   });
-    }
   //   this.logger.debug('ionViewDidEnter', 'current day id', this.activeDayId);
   //   this.store.select(getWorkoutDay(this.activeDayId))
   //     .pipe(take(1))
@@ -128,6 +123,21 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   //         }));
   //       }
   //     });
+  }
+
+  private MaybeSlideToSelectedDay() {
+    const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
+    this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
+    if (selectedDayIndex !== this.activeDayIndex) {
+      this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
+      // await new Promise(() => setTimeout(async () => {
+      this.activeDayIndex = selectedDayIndex;
+      this.slides.slideTo(selectedDayIndex, 0, false);
+      // }, 1));
+    }
+    else {
+      this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
+    }
   }
 
   async slideChanged() {
@@ -181,7 +191,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
       name: 'new workout day',
       exerciseSets: [],
       workoutId: this.workoutId,
-      // displayMode: DisplayMode.Edit,
+      displayMode: DisplayMode.Edit,
     });
     const index = this.activeDayIndex;
     const islast = this.days.length - 1 === index;
