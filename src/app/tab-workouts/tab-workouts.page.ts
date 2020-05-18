@@ -14,6 +14,7 @@ import { WorkoutDayBean } from '../models/WorkoutDay';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
+import { DataServiceProvider } from '../providers/data-service/data-service';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -33,6 +34,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   constructor(
     loggingService: LoggingService,
     private store: Store<IAppState>,
+    private dataService: DataServiceProvider,
     private alertController: AlertController,
     private featureService: FeatureManagerService,
   ) {
@@ -90,10 +92,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   scrollToLastWorkout() {
     this.logger.debug('scrollToLastWorkout')
     const items = this.list.nativeElement.children;
-      const newWorkout = items[this.workouts.length - 1];
-      if (newWorkout) {
-        newWorkout.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }
+    this.dataService.scrollToItem(items, this.workouts.length - 1);
   }
 
   importWorkout(event: any) {

@@ -433,4 +433,11 @@ export class DataServiceProvider {
     return { releaseNotes, termsOfUse }
   }
 
+  scrollToItem(items: any[], index: number) {
+    const item = items[index];
+      if (item) {
+        item.scrollIntoView(this.isIos ? true: { behavior: 'smooth', block: 'end' });
+      }
+  }
+
 }

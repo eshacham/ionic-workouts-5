@@ -1,14 +1,3 @@
-ion-slides {
-    height: 100%;
-    --bullet-background-active: var(--ion-color-primary);
-
-    ion-slide {
-        app-workout-day {
-            height: 100%;
-            width: 100%;
-        }
-    }
-}
 ion-fab {
 
     ion-fab-button {
@@ -20,6 +9,18 @@ ion-fab {
 
         ion-icon {
             color: var(--ion-color-dark);
+        }
+    }
+}
+
+ion-slides {
+    height: 100%;
+    --bullet-background-active: var(--ion-color-primary);
+
+    ion-slide {
+        app-workout-day {
+            height: 100%;
+            width: 100%;
         }
     }
 }

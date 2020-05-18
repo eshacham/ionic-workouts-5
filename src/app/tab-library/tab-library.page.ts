@@ -202,22 +202,16 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       this.presentToast('Image inserted');
     } else {
       this.store.dispatch(new AddExerciseMedia(options));
-      setTimeout(() => this.scrollTo(0), 1);
+      setTimeout(() => this.scrollToImage(0), 100);
     }
   }
 
-  private scrollTo(index: number) {
+  private scrollToImage(index: number) {
+    // cancel filter so that we can seethe new image
     this.useFilter = false;
     this.logger.info('scrollTo', `need to scroll to image ${index}`, this.images[index]);
     const items = this.list.nativeElement.children;
-    const image = items[index];
-    if (image) {
-      if (this.dataService.isIos) {
-        image.scrollIntoView(true);
-      } else {
-        image.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }
-    }
+    this.dataService.scrollToItem(items, index);
   }
 
   async deleteImage(imgEntry: ExerciseMediaBean) {
