@@ -2,7 +2,6 @@ import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/core';
-import { WorkoutDayBean } from '../../models/WorkoutDay';
 import { DisplayMode, RunningState } from '../../models/enums';
 import { IAppState } from 'src/app/store/state/app.state';
 import {
@@ -10,9 +9,7 @@ import {
   UpdateWorkoutDay,
   ReorderExerciseSets,
   StopExercise,
-  // ResetExerciseSetScrollIntoView,
   RepeatExercise,
-  // ChangeDisplayMode,
   StartFirstExercise,
   ChangeDisplayMode,
 } from 'src/app/store/actions/workoutDays.actions';
@@ -32,7 +29,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class WorkoutDayComponent implements OnInit, OnDestroy {
   private logger: Logger;
-
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseSets: string[];
   name: string;
@@ -54,7 +50,6 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     private alertController: AlertController,
     private router: Router,
     private route: ActivatedRoute,
-
   ) {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
@@ -74,7 +69,6 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   get IsEditMode() { return this.displayMode === DisplayMode.Edit; }
   get IsWorkoutMode() { return this.displayMode === DisplayMode.Workout; }
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
-
 
   ngOnInit() {
     this.store.select(getWorkoutDay(this.dayId))
@@ -105,6 +99,19 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           }
       }
     });
+  }
+
+  ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      const setId = params.setId;
+      if (setId) {
+        const index = this.exerciseSets.findIndex(setId);
+        if (index) {
+          this.logger.debug('ionViewDidEnter', `scrolling to set id ${setId}`);
+          setTimeout(() => this.scrollToExerciseSet(index), 500);
+        }
+      }
+    }).unsubscribe();
   }
 
   editWorkout(event: any) {
@@ -226,7 +233,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.logger.debug('ngOnDestroy', `${this.dayId} onDestroy`);
+    this.logger.debug('ngOnDestroy', this.dayId);
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

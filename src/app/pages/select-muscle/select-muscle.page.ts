@@ -1,4 +1,4 @@
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -48,7 +48,6 @@ export enum MuscleFilterFor {
 })
 export class SelectMusclePage implements OnInit, OnDestroy {
   private logger: Logger;
-  subs: Subscription;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   muscleGroups: MuscleGroup[];
   muscleFilterUsage: MuscleFilterUsage = {
@@ -84,7 +83,7 @@ export class SelectMusclePage implements OnInit, OnDestroy {
       this.logger = loggingService.getLogger('App.SelectMusclePage');
       this.initMuscleGroups();
 
-      this.subs = this.route.queryParams.subscribe(params => {
+      this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.muscleFilterUsage = this.router.getCurrentNavigation().extras.state.muscleFilterUsage;
         if (this.isSettingMedia) {
@@ -97,7 +96,7 @@ export class SelectMusclePage implements OnInit, OnDestroy {
             });
         }
       }
-    });
+    }).unsubscribe();
   }
 
   ngOnInit() {
@@ -125,7 +124,6 @@ export class SelectMusclePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.logger.debug('ngOnDestroy');
-    this.subs.unsubscribe();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

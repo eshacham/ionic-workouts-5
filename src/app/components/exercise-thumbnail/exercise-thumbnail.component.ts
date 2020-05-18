@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PopoverController, AlertController} from '@ionic/angular';
@@ -12,14 +12,8 @@ import { ExerciseVariationPopoverComponent } from '../exercise-variation-popover
 import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { IAppState } from 'src/app/store/state/app.state';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
-import { WorkoutDayBean } from 'src/app/models/WorkoutDay';
 import { getExerciseSet } from 'src/app/store/selectors/exerciseSets.selectors';
 import {
-    ResetReps,
-    SetRepsActiveState,
-    SetInactiveReps,
-    SetRepsCompleteState,
-    SetRepsIncompleteState,
     DeleteExercise,
     UpdateExercise,
     AddRep,
@@ -29,9 +23,7 @@ import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
-// import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
-import { Router } from '@angular/router';
-// import { ScrollToExerciseMedia } from 'src/app/store/actions/exercisesMedia.actions';
+import { Router, NavigationExtras } from '@angular/router';
 import { AudioServiceProvider } from 'src/app/providers/audio-service/audio-service';
 import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selectors';
 import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
@@ -143,7 +135,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         private alertController: AlertController,
     ) {
         this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
-        // this.runningExercises = new Map();
     }
 
     ngOnInit() {
@@ -178,7 +169,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.logger.debug('ngOnDestroy');
+        this.logger.debug('ngOnDestroy', this.exerciseSetId);
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }
@@ -268,8 +259,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
         this.logger.info('goToImages', `going to image ${exercise.id}`);
-        // this.store.dispatch(new ScrollToExerciseMedia({ imageId: exercise.mediaId }));
-        this.router.navigateByUrl('/tabs/tab-library');
+        const extra: NavigationExtras = {
+            queryParams: { mediaId: exercise.mediaId }
+          };
+          this.router.navigate(['/tabs/tab-library'], extra);
     }
 
     exerciseChanged(index: number, value: string | number, prop: string) {

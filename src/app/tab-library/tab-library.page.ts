@@ -18,7 +18,6 @@ import {
   UpdateExerciseMedia,
   AddExerciseMedia,
   DeleteExerciseMedia,
-  // ResetScrollToExerciseMedia,
   InsertImageToExerciseMedia,
   RemoveImageFromExerciseMedia
 } from '../store/actions/exercisesMedia.actions';
@@ -28,8 +27,6 @@ import { SelectWorkoutDay } from '../store/actions/workoutDays.actions';
 import { ChooseMediaActionPopoverComponent } from '../components/choose-media-action-popover/choose-media-action-popover.component';
 import { IAddImageOptions } from '../models/interfaces';
 import { ExerciseDetailModalComponent } from '../components/exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
-import { IonRouterOutlet } from '@ionic/angular';
-// import { getScrollToExerciseMediaId } from '../store/selectors/data.selectors';
 
 export interface ExerciseMediaWithUsage {
   media: ExerciseMediaBean;
@@ -51,6 +48,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   };
   private musclesFilter: Muscles[];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private lastMediaIdToScroll: string;
   exerciseMediaWithUsage: ExerciseMediaWithUsage[];
   get images(): ExerciseMediaWithUsage[] {
     return this.exerciseMediaWithUsage;
@@ -90,7 +88,6 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private popoverCtrl: PopoverController,
     private modalController: ModalController,
-    private routerOutlet: IonRouterOutlet,
     private store: Store<IAppState>) {
     this.exerciseMediaWithUsage = [];
     this.logger = loggingService.getLogger('App.TabLibraryPage');
@@ -121,20 +118,24 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       });
   }
   ionViewDidEnter() {
-    this.logger.debug('ionViewDidEnter', 'getting getExercisesMedias');
+    this.route.queryParams.subscribe(params => {
+      const mediaId = params.mediaId;
+      if (mediaId) {
+        const index = this.images.findIndex(i => i.media.id === mediaId);
+        if (index) {
+          this.logger.debug('ionViewDidEnter', `scrolling to media id ${mediaId}`);
+          setTimeout(() => {
+            this.scrollToImage(index);
+            // cancel the query params by overrding the url
+            this.router.navigate(['/tabs/tab-library']);
+          }, 500);
+        }
+      }
+
+    }).unsubscribe();
+
     this.images.filter(i => i.expanded)
       .forEach(image => this.refreshImageUsage(image));
-
-    // this.store.select(getScrollToExerciseMediaId)
-    //   .pipe(take(1))
-    //   .subscribe(mediaId => {
-    //     if (mediaId && this.images.length > 0) {
-    //       const scrollTo = this.images.findIndex(i => i.media.id === mediaId)
-    //       this.store.dispatch(new ResetScrollToExerciseMedia());
-    //       this.logger.info('ionViewDidEnter', 'need to scroll to media', scrollTo);
-    //       setTimeout(() => this.scrollTo(scrollTo), 1);
-    //     }
-    //   });
   }
 
   ngOnDestroy() {
@@ -207,7 +208,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   }
 
   private scrollToImage(index: number) {
-    // cancel filter so that we can seethe new image
+    // cancel filter so that we can see the new image
     this.useFilter = false;
     this.logger.info('scrollTo', `need to scroll to image ${index}`, this.images[index]);
     const items = this.list.nativeElement.children;
@@ -318,10 +319,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger.info('goToWorkoutDay', `going to workout ${usage.workoutId}, day ${usage.dayId}`);
     this.store.dispatch(new SelectWorkoutDay(usage));
     setTimeout(() => {
-      const payload = { ...usage };
-      // this.store.dispatch(new SetExerciseSetInWorkoutDay(payload));
-      this.router.navigateByUrl('/tabs/tab-workouts/workout');
-    }, 100);
+      this.router.navigate(['/tabs/tab-workouts/workout'],
+        { queryParams: { setId: usage.setId }});
+    }, 300);
     event.stopPropagation();
   }
   updateImage(image: ExerciseMediaBean, name?: string, images?: string[]) {

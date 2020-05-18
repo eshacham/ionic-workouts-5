@@ -27,8 +27,6 @@ export enum WorkoutDaysActionsTypes {
     ChangeDisplayModeSuccess = '[WorkoutDays] Workout day display mode has changed',
 
     ReorderExerciseSets = '[WorkoutDays] Reorder exercise sets',
-    // SetExerciseSetInWorkoutDay = '[WorkoutDays] Set the exercise set scroll into view',
-    // ResetExerciseSetScrollIntoView = '[WorkoutDays] Reset exercise set scroll into view',
 }
 
 export class MoveWorkoutDay implements Action {
@@ -46,7 +44,7 @@ export class SelectWorkoutDay implements Action {
     constructor(public payload: {
         workoutId: string;
         dayId: string;
-        setId?: string;
+        // setId?: string;
     }) { }
 }
 
@@ -94,9 +92,6 @@ export class AddWorkoutDaySuccess implements Action {
 export interface ChangeWorkoutDayState {
     workoutId: string;
     dayId: string;
-    // runningExerciseSetIndex?: number;
-    // runningState?: RunningState;
-    // repeatsCompleted?: number;
     exerciseSets?: string[];
     displayMode?: DisplayMode;
     name?: string;
@@ -106,21 +101,18 @@ export class StartFirstExercise implements Action {
     constructor(public payload: IRunningWorkoutDayState) {
         payload.runningExerciseSetIndex = 0;
         payload.repeatsCompleted = 0;
-        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
     }
 }
 export class StartExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StartExercise;
     constructor(public payload: IRunningWorkoutDayState) {
-        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
     }
 }
 export class RepeatExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.RepeatExercise;
     constructor(public payload: IRunningWorkoutDayState) {
-        // payload.displayMode = DisplayMode.Workout;
         payload.runningState = RunningState.Running;
         payload.runningExerciseSetIndex = 0;
     }
@@ -129,22 +121,17 @@ export class StopExercise implements Action {
     readonly type = WorkoutDaysActionsTypes.StopExercise;
     constructor(public payload: IRunningWorkoutDayState) {
         payload.runningState = RunningState.NA;
-        // payload.displayMode = DisplayMode.Display;
     }
 }
 export class ExerciseCompleted implements Action {
     readonly type = WorkoutDaysActionsTypes.ExerciseCompleted;
     constructor(public payload: Partial<IRunningWorkoutDayState>) {
         payload.runningState = RunningState.Completed;
-        // payload.displayMode = DisplayMode.Workout;
     }
 }
 export class ChangeDisplayMode implements Action {
     readonly type = WorkoutDaysActionsTypes.ChangeDisplayMode;
     constructor(public payload: ChangeWorkoutDayState) {
-        // payload.runningState = RunningState.NA;
-        // payload.runningExerciseSetIndex = null;
-        // payload.repeatsCompleted = 0;
     }
 }
 export class ChangeDisplayModeSuccess implements Action {
@@ -160,24 +147,6 @@ export class ReorderExerciseSets implements Action {
         toIndex: number,
     }) { }
 }
-// export class SetExerciseSetInWorkoutDay implements Action {
-//     readonly type = WorkoutDaysActionsTypes.SetExerciseSetInWorkoutDay;
-//     constructor(public payload: {
-//         workoutId: string,
-//         dayId: string,
-//         setId?: string,
-//         setIndex?: number,
-//         scroll?: boolean
-//     }) {
-//         payload.scroll = payload.scroll || false;
-//     }
-// // }
-// export class ResetExerciseSetScrollIntoView implements Action {
-//     readonly type = WorkoutDaysActionsTypes.ResetExerciseSetScrollIntoView;
-//     constructor(public payload: {
-//         dayId: string,
-//     }) { }
-// }
 
 export type WorkoutDaysActions =
     SelectWorkoutDay |
@@ -196,6 +165,4 @@ export type WorkoutDaysActions =
     ChangeDisplayMode |
     ChangeDisplayModeSuccess |
     ReorderExerciseSets
-    // ResetExerciseSetScrollIntoView |
-    // SetExerciseSetInWorkoutDay
     ;

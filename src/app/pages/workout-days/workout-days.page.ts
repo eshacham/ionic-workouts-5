@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSlides as Slides, IonFab } from '@ionic/angular';
 import { IAppState } from 'src/app/store/state/app.state';
 import { WorkoutDayBean } from '../../models/WorkoutDay';
@@ -11,20 +11,13 @@ import {
   SelectWorkoutDay,
   AddWorkoutDay,
   Direction,
-  // StartFirstExercise,
-  // ChangeDisplayMode,
   DeleteWorkoutDay,
   MoveWorkoutDay,
-  // StopExercise,
-  // SetExerciseSetInWorkoutDay
 } from 'src/app/store/actions/workoutDays.actions';
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
-// import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { Guid } from 'guid-typescript';
-// import { DisplayMode } from 'src/app/models/enums';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DisplayMode } from 'src/app/models/enums';
-// import { UpdateWorkouts } from 'src/app/store/actions/data.actions';
 
 @Component({
   selector: 'app-workout-days',
@@ -54,9 +47,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   @ViewChild('fabEdit', {static: true}) fabEdit?: IonFab;
   constructor(
     loggingService: LoggingService,
-    // private route: ActivatedRoute,
     private router: Router,
-    // private cdr: ChangeDetectorRef,
     private store: Store<IAppState>) {
     this.logger = loggingService.getLogger('App.WorkoutDaysPage');
   }
@@ -85,31 +76,14 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
   ionViewDidEnter() {
     this.MaybeSlideToSelectedDay();
-
-  //   this.logger.debug('ionViewDidEnter', 'current day id', this.activeDayId);
-  //   this.store.select(getWorkoutDay(this.activeDayId))
-  //     .pipe(take(1))
-  //     .subscribe(workoutDay => {
-  //       if (workoutDay && workoutDay.scrollToExerciseSetIndex) {
-  //         this.logger.debug('ionViewDidEnter', 'need to scrollToExerciseSetId', workoutDay.scrollToExerciseSetId);
-  //         this.store.dispatch(new SetExerciseSetInWorkoutDay({
-  //           workoutId: this.workoutId,
-  //           dayId: this.activeDayId,
-  //           setId: workoutDay.scrollToExerciseSetId,
-  //           scroll: true
-  //         }));
-  //       }
-  //     });
   }
   private MaybeSlideToSelectedDay() {
     const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
     this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
     if (selectedDayIndex !== this.activeDayIndex) {
       this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
-      // await new Promise(() => setTimeout(async () => {
       this.activeDayIndex = selectedDayIndex;
       this.slides.slideTo(selectedDayIndex, 0, false);
-      // }, 1));
     }
     else {
       this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
@@ -171,7 +145,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
     this.store.dispatch(new DeleteWorkoutDay({
       dayId: this.activeDayId,
     }));
-    // this.cdr.detectChanges();
     await this.slides.update();
 
   }
