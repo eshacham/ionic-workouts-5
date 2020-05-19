@@ -81,6 +81,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.repeatsCount = workoutDay.repeatsCount;
+          this.setDisplayMode(workoutDay.displayMode);
           if (addedSet) {
             setTimeout(() => this.scrollToExerciseSet(this.exerciseSets.length - 1), 500);
           }
@@ -101,6 +102,35 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     });
   }
 
+  setDisplayMode(mode: DisplayMode) {
+    switch (mode) {
+      case DisplayMode.Display:
+        if (this.displayMode !== mode) {
+          this.logger.debug('setDisplayMode', `setting Display display mode to day ${this.dayId}`);
+          this.displayMode = mode;
+          this.fabWorkout.close();
+          this.fabEdit.close();
+        }
+        break;
+      case DisplayMode.Workout:
+        if (this.displayMode !== mode) {
+          this.logger.debug('setDisplayMode', `setting Workout display mode to day ${this.dayId}`);
+          this.displayMode = mode;
+          this.fabEdit.close();
+          this.fabWorkout.activated = true;
+        }
+        break;
+      case DisplayMode.Edit:
+        if (this.displayMode !== mode) {
+          this.logger.debug('setDisplayMode', `setting Edit display mode to day ${this.dayId}`);
+          this.displayMode = mode;
+          this.fabWorkout.close();
+          this.fabEdit.activated = true;
+        }
+        break;
+    }
+  }
+
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       const setId = params.setId;
@@ -118,7 +148,6 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.presentAlertPrompt(this.name, this.repeatsCount);
   }
-
   async presentAlertPrompt(name: string, repeats: number) {
     const alert = await this.alertController.create({
       header: 'Workout Day',
@@ -166,30 +195,39 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   }
 
   startWorkoutToggler() {
+    if (this.fabEdit.activated) {
+      return;
+    }
     switch (this.displayMode) {
       case DisplayMode.Display:
         this.displayMode = DisplayMode.Workout;
-        this.store.dispatch(new StartFirstExercise({
-          workoutId: this.workoutId,
-          dayId: this.dayId,
-          runningExerciseSetIndex: 0,
-          runningState: RunningState.Running,
-
-        }));
+        this.dispatchStartExercise();
         break;
       case DisplayMode.Workout:
         this.displayMode = DisplayMode.Display;
         this.dispatchStopExercise()
         break;
+      case DisplayMode.Edit:
+        // this should never happen
+        this.logger.error('startWorkoutToggler', 'should not be able to toggle workout while in edit mode');
+        // this.fabEdit.close();
+        break;
     }
   }
   editWorkoutToggler() {
+    if (this.fabWorkout.activated) {
+      return;
+    }
     switch (this.displayMode) {
       case DisplayMode.Display:
         this.displayMode = DisplayMode.Edit;
         break;
       case DisplayMode.Edit:
         this.displayMode = DisplayMode.Display;
+        break;
+      case DisplayMode.Workout:
+        this.logger.error('editWorkoutToggler', 'should not be able to toggle edit while in workout mode');
+        // this.fabWorkout.close();
         break;
     }
     this.DispatchChangeDisplayMode();
@@ -198,7 +236,29 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.router.navigate(['select-exercise'], { relativeTo: this.route });
   }
-   dispatchStopExercise() {
+
+  stopWorkout() {
+    if (this.displayMode === DisplayMode.Workout) {
+      this.displayMode = DisplayMode.Display;
+      this.fabWorkout.close();
+    }
+  }
+
+  stopRunning() {
+    this.displayMode = DisplayMode.Display;
+    this.dispatchStopExercise();
+  }
+
+  dispatchStartExercise() {
+    this.store.dispatch(new StartFirstExercise({
+      workoutId: this.workoutId,
+      dayId: this.dayId,
+      runningExerciseSetIndex: 0,
+      runningState: RunningState.Running,
+
+    }));
+  }
+  dispatchStopExercise() {
     this.store.dispatch(new StopExercise({
       workoutId: this.workoutId,
       dayId: this.dayId,
@@ -207,17 +267,6 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       runningExerciseSetIndex: 0,
     }));
   }
-
-  stopWorkout() {
-    this.displayMode = DisplayMode.Display;
-    this.fabWorkout.close();
-  }
-
-  stopRunning() {
-    this.displayMode = DisplayMode.Display;
-    this.dispatchStopExercise();
-  }
-
    DispatchChangeDisplayMode() {
     this.store.dispatch(new ChangeDisplayMode({
       workoutId: this.workoutId,
