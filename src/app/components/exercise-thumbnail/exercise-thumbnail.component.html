@@ -71,7 +71,7 @@
                     <ion-col *ngFor="let exercise of exercises; let i = index"
                         class="ion-text-center">
                         <ion-button class="img-btn"
-                            (click)="goToImagesLibraryPage(exercise)">
+                            (click)="selectExerciseViewAction($event, exercise, i)">
                             <img [src]="safeImage(images[i], 0)" />
                         </ion-button>
                     </ion-col>
