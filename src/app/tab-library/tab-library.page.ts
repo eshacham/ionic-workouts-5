@@ -414,7 +414,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     alert.present();
   }
 
-  async presentDetailModal(media: ExerciseMediaBean, selectedIndex) {
+  async presentDetailModal(media: ExerciseMediaBean, selectedIndex: number) {
     const modal = await this.modalController.create({
       component: ExerciseDetailModalComponent,
       componentProps: { media, selectedIndex },

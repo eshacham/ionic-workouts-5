@@ -24,7 +24,7 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [
     TabWorkoutsPage,

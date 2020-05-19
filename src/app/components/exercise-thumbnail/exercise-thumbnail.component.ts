@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { PopoverController, AlertController} from '@ionic/angular';
+import { PopoverController, AlertController, ModalController} from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
 import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/models/enums';
 import { Rep, IRunningRep } from 'src/app/models/Rep';
@@ -13,11 +13,7 @@ import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { IAppState } from 'src/app/store/state/app.state';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { getExerciseSet } from 'src/app/store/selectors/exerciseSets.selectors';
-import {
-    DeleteExercise,
-    UpdateExercise,
-    AddRep,
-    DeleteRep,
+import { DeleteExercise, UpdateExercise, AddRep, DeleteRep,
 } from 'src/app/store/actions/exercises.actions';
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
@@ -27,6 +23,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AudioServiceProvider } from 'src/app/providers/audio-service/audio-service';
 import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selectors';
 import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
+import { ExerciseDetailModalComponent } from '../exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
 
 const MAXREPS = 5;
 const MINREPS = 1;
@@ -133,6 +130,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         private store: Store<IAppState>,
         private router: Router,
         private alertController: AlertController,
+        private modalController: ModalController,
     ) {
         this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
     }
@@ -236,23 +234,24 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
             deleteSet: this.exercises.length === 1
         }));
     }
-    selectExerciseAction(event: Event, exercise: ExerciseBean, index: number, islast: boolean) {
-        this.presentActionsPopover(event, exercise, index, [
+    selectExerciseAction(event: Event, exercise: ExerciseBean, exerciseIndex: number, islast: boolean) {
+        this.presentActionsPopover(event, exercise, exerciseIndex, [
             ExerciseAction.DeleteExercise,
             ExerciseAction.SwapSets,
             ExerciseAction.GotoExercise
         ], islast);
     }
-    selectSetAction(event: Event, exercise: ExerciseBean, index: number, rep: Rep) {
-        this.presentActionsPopover(event, exercise, index, [
+    selectSetAction(event: Event, exercise: ExerciseBean, repIndex: number, rep: Rep) {
+        this.presentActionsPopover(event, exercise, repIndex, [
             ExerciseAction.EditSet,
             ExerciseAction.AddSet,
             ExerciseAction.DeleteSet,
         ], false, rep);
     }
-    selectExerciseViewAction(event: Event, exercise: ExerciseBean, index: number) {
-        this.presentActionsPopover(event, exercise, index, [
+    selectExerciseViewAction(event: Event, exercise: ExerciseBean, exerciseIndex: number) {
+        this.presentActionsPopover(event, exercise, exerciseIndex, [
             ExerciseAction.ViewSet,
+            ExerciseAction.ViewFirstMediaLarge,
             ExerciseAction.GotoExercise,
         ], false);
     }
@@ -707,8 +706,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
                     case ExerciseAction.DeleteSet:
                         this.deleteRep(index);
                         break;
-                        case ExerciseAction.ViewSet:
+                    case ExerciseAction.ViewSet:
                         this.toggleViewSet();
+                        break;
+                    case ExerciseAction.ViewFirstMediaLarge:
+                        this.viewLarge(this.images[index]);
                         break;
                     default:
                         break;
@@ -759,6 +761,23 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy {
         });
 
         alert.present();
+      }
+
+      viewLarge(item: ExerciseMediaBean): void {
+        this.logger.debug('viewLarge', item.name);
+        this.presentDetailModal(item);
+      }
+      async presentDetailModal(media: ExerciseMediaBean) {
+        const modal = await this.modalController.create({
+          component: ExerciseDetailModalComponent,
+          componentProps: { media, selectedIndex: 0 },
+          swipeToClose: true,
+          // presentingElement: this.routerOutlet.nativeEl,
+          cssClass: 'auto-height',
+        });
+        await modal.present();
+        const { data } = await modal.onWillDismiss();
+        this.logger.info('presentDetailModal', 'onWillDismiss', data);
       }
 
 }

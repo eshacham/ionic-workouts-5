@@ -60,6 +60,7 @@ export enum ExerciseAction {
     AddSet,
     DeleteSet,
     ViewSet,
+    ViewFirstMediaLarge,
 }
 
 export enum ExportWorkoutAction {

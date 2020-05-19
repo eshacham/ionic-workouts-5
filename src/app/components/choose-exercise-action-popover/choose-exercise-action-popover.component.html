@@ -12,12 +12,6 @@
     <ion-icon slot="start" name="swap-horizontal-sharp" color="danger"></ion-icon>
   </ion-item>
 
-  <ion-item button *ngIf="isActionAvailable(exerciseAction.GotoExercise)"
-    (click)="close(exerciseAction.GotoExercise)">
-    Find in Exercises
-    <ion-icon slot="start" name="barbell-sharp" color="danger"></ion-icon>
-  </ion-item>
-
   <ion-item button *ngIf="isActionAvailable(exerciseAction.EditSet)"
     (click)="close(exerciseAction.EditSet)">
     Edit this set
@@ -36,10 +30,16 @@
     <ion-icon slot="start" name="remove-circle-sharp" color="danger"></ion-icon>
   </ion-item>
 
-  <ion-item button *ngIf="isActionAvailable(exerciseAction.ViewSet)"
-    (click)="close(exerciseAction.ViewSet)">
-    {{isViewSetExpanded ? 'Hide set' : 'View set'}}
-    <ion-icon slot="start" name="eye-sharp" color="danger"></ion-icon>
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.ViewFirstMediaLarge)"
+    (click)="close(exerciseAction.ViewFirstMediaLarge)">
+    View Larger
+    <ion-icon slot="start" name="expand-sharp" color="danger"></ion-icon>
+  </ion-item>
+
+  <ion-item button *ngIf="isActionAvailable(exerciseAction.GotoExercise)"
+    (click)="close(exerciseAction.GotoExercise)">
+    Find in Exercises
+    <ion-icon slot="start" name="barbell-sharp" color="danger"></ion-icon>
   </ion-item>
 
 </ion-list>

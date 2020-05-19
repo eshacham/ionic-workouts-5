@@ -90,7 +90,9 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.MaybeSlideToSelectedDay();
+    if (this.days) {
+      this.MaybeSlideToSelectedDay();
+    }
   }
 
   private MaybeSlideToSelectedDay() {
