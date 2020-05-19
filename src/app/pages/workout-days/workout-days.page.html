@@ -25,14 +25,14 @@
         (click)="moveBackWorkoutDay($event)" >
         <ion-icon name="arrow-back-circle-sharp"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button [disabled]="IsOneDayOnly"
-        (click)="deleteWorkoutDay($event)" >
-        <ion-icon name="remove-circle-sharp"></ion-icon>
-      </ion-fab-button>
       <ion-fab-button size="small"
-        (click)="addWorkoutDay($event)" >
-        <ion-icon name="add-circle-sharp"></ion-icon>
-      </ion-fab-button>
+      (click)="addWorkoutDay($event)" >
+      <ion-icon name="add-circle-sharp"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button [disabled]="IsOneDayOnly"
+      (click)="deleteWorkoutDay($event)" >
+      <ion-icon name="remove-circle-sharp"></ion-icon>
+    </ion-fab-button>
 
     </ion-fab-list>
   </ion-fab>
