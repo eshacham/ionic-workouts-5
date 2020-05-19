@@ -82,44 +82,48 @@ export class SelectMusclePage implements OnInit, OnDestroy {
     private store: Store<IAppState>) {
       this.logger = loggingService.getLogger('App.SelectMusclePage');
       this.initMuscleGroups();
+  }
 
-      this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.muscleFilterUsage = this.router.getCurrentNavigation().extras.state.muscleFilterUsage;
-        if (this.isSettingMedia) {
-          this.store.select(getExerciseMedia(this.muscleFilterUsage.mediaId))
-            .pipe(take(1))
-            .subscribe(image => {
-              this.logger.debug('ctor', 'getExerciseMedia', image);
-              this.muscleFilterUsage.mediaName = image.name;
-              this.store.dispatch(new SetExerciseMuscleFilter(image.muscles));
-            });
-        }
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const stateParams = this.router.getCurrentNavigation().extras.state;
+      if (stateParams) {
+        this.muscleFilterUsage = stateParams.muscleFilterUsage;
       }
     }).unsubscribe();
   }
 
-  ngOnInit() {
-    /// todo: removing this empty method, messes up the sequence of events
-    /// and the exercise media muscles are not shown initialy!
-  }
-
   ionViewWillEnter() {
     if (this.isFilteringLibrary) {
-      this.store.select(getLibraryMusclesFilter)
+      this.listenForLibraryMusclesFilterChanges();
+    } else if (this.isSettingMedia) {
+      this.listenForExerciseMusclesFilterChanges();
+      this.store.select(getExerciseMedia(this.muscleFilterUsage.mediaId))
+          .pipe(take(1))
+          .subscribe(image => {
+            this.logger.debug('ionViewDidEnter', 'getExerciseMedia', image);
+            this.muscleFilterUsage.mediaName = image.name;
+            this.store.dispatch(new SetExerciseMuscleFilter(image.muscles));
+          });
+    }
+  }
+
+  listenForLibraryMusclesFilterChanges() {
+    this.store.select(getLibraryMusclesFilter)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((filter) => {
           this.logger.debug('ionViewWillEnter', 'getLibraryMusclesFilter', filter);
           this.setMuscleGroupsSelection(filter);
         });
-    } else {
-      this.store.select(getExerciseMusclesFilter)
+  }
+
+  listenForExerciseMusclesFilterChanges() {
+    this.store.select(getExerciseMusclesFilter)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((filter) => {
           this.logger.debug('ionViewWillEnter', 'getExerciseMusclesFilter', filter);
           this.setMuscleGroupsSelection(filter);
         });
-    }
   }
 
   ngOnDestroy() {

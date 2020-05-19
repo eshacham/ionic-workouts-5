@@ -24,31 +24,43 @@ export function exercisesMediaReducers (
         }
         case MusclesFilterActionsTypes.AddExerciseMuscleFilterSuccess: {
             const mediaId = action.payload.mediaId;
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [mediaId]: {
-                        ...state.byId[mediaId],
-                        muscles: [...state.byId[mediaId].muscles, action.payload.muscle]
+            if (mediaId) {
+                return {
+                    ...state,
+                    byId: {
+                        ...state.byId,
+                        [mediaId]: {
+                            ...state.byId[mediaId],
+                            muscles: [...state.byId[mediaId].muscles, action.payload.muscle]
+                        }
                     }
+                };
+            } else {
+                return {
+                    ...state,
                 }
-            };
+            }
         }
         case MusclesFilterActionsTypes.DeleteExerciseMuscleFilterSuccess: {
             const mediaId = action.payload.mediaId;
-            const oldMuscles = state.byId[mediaId].muscles;
-            const newMuscles = oldMuscles.filter(m => m !== action.payload.muscle);
-            return {
-                ...state,
-                byId: {
-                    ...state.byId,
-                    [mediaId]: {
-                        ...state.byId[mediaId],
-                        muscles: newMuscles
+            if (mediaId) {
+                const oldMuscles = state.byId[mediaId].muscles;
+                const newMuscles = oldMuscles.filter(m => m !== action.payload.muscle);
+                return {
+                    ...state,
+                    byId: {
+                        ...state.byId,
+                        [mediaId]: {
+                            ...state.byId[mediaId],
+                            muscles: newMuscles
+                        }
                     }
+                };
+            } else {
+                return {
+                    ...state,
                 }
-            };
+            }
         }
         case ExerciseMediaActionsTypes.UpdateExerciseMediaSuccess: {
             const mediaId = action.payload.id;
