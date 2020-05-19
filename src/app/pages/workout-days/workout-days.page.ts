@@ -17,7 +17,8 @@ import {
 import { getCurrentWorkout } from 'src/app/store/selectors/workouts.selectors';
 import { Guid } from 'guid-typescript';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { DisplayMode } from 'src/app/models/enums';
+import { DisplayMode, RunningState } from 'src/app/models/enums';
+import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selectors';
 
 @Component({
   selector: 'app-workout-days',
@@ -32,6 +33,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   workoutId: string;
   activeDayIndex = 0;
   firstSelectedDayId: string;
+  isActiveDayRunning: boolean;
   @ViewChild('slider', {static: false}) slides?: Slides;
   slideOpts = {
     autoHeight: false,
@@ -73,10 +75,24 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
           this.router.navigate(['']);
         }
       });
+
+      this.store.select(getRunningWorkoutDayState)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(async runningDayState => {
+          this.isActiveDayRunning =
+          runningDayState &&
+          (runningDayState.runningState === RunningState.Completed ||
+          runningDayState.runningState === RunningState.Running);
+          if (this.isActiveDayRunning) {
+            this.fabEdit.close();
+          }
+    });
   }
+
   ionViewDidEnter() {
     this.MaybeSlideToSelectedDay();
   }
+
   private MaybeSlideToSelectedDay() {
     const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
     this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);

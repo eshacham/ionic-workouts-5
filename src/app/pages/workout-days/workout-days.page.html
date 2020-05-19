@@ -11,7 +11,7 @@
 
   <ion-fab slot="fixed" edge="true"
     vertical="top" horizontal="end" #fabEdit id="fabEdit">
-    <ion-fab-button size="small" >
+    <ion-fab-button size="small" [disabled]="isActiveDayRunning">
       <ion-icon name="calendar-sharp"></ion-icon>
     </ion-fab-button>
 
