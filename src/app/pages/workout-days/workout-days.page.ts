@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides as Slides, IonFab } from '@ionic/angular';
 import { IAppState } from 'src/app/store/state/app.state';
@@ -25,7 +25,8 @@ import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selector
   templateUrl: './workout-days.page.html',
   styleUrls: ['./workout-days.page.scss'],
 })
-export class WorkoutDaysPage implements OnInit, OnDestroy {
+export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit
+ {
   private logger: Logger;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   days: string[];
@@ -58,6 +59,28 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.handleAnyRunningWorkoutChanges();
+    this.handleCurrentWorkoutChanges();
+  }
+
+  private handleAnyRunningWorkoutChanges() {
+    this.store.select(getRunningWorkoutDayState)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(async (runningDayState) => {
+        this.isActiveDayRunning =
+          runningDayState &&
+          (runningDayState.runningState === RunningState.Completed ||
+            runningDayState.runningState === RunningState.Running);
+        if (this.isActiveDayRunning) {
+          this.fabEdit.close();
+        }
+      });
+  }
+
+  private handleCurrentWorkoutChanges() {
     this.store.select(getCurrentWorkout)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(async (data) => {
@@ -65,28 +88,16 @@ export class WorkoutDaysPage implements OnInit, OnDestroy {
           this.workoutId = data.workout.id;
           this.days = data.workout.days;
           this.name = data.workout.name;
-          this.logger.debug('ngOnInit', `${this.workoutId} - getCurrentWorkout`, data);
+          this.logger.debug('ngOnIhandleCurrentWorkoutChangesnit', `${this.workoutId} - getCurrentWorkout`, data);
           this.firstSelectedDayId = data.selectedDayId;
           if (this.slides) {
             this.MaybeSlideToSelectedDay();
           }
         } else {
-          this.logger.info('ngOnInit', `${this.workoutId} - not in state`, data);
+          this.logger.info('handleCurrentWorkoutChanges', `${this.workoutId} - not in state`, data);
           this.router.navigate(['']);
         }
       });
-
-      this.store.select(getRunningWorkoutDayState)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(async runningDayState => {
-          this.isActiveDayRunning =
-          runningDayState &&
-          (runningDayState.runningState === RunningState.Completed ||
-          runningDayState.runningState === RunningState.Running);
-          if (this.isActiveDayRunning) {
-            this.fabEdit.close();
-          }
-    });
   }
 
   ionViewDidEnter() {

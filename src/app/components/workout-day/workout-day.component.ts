@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { DisplayMode, RunningState } from '../../models/enums';
 import { IAppState } from 'src/app/store/state/app.state';
@@ -27,7 +27,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './workout-day.component.html',
   styleUrls: ['./workout-day.component.scss'],
 })
-export class WorkoutDayComponent implements OnInit, OnDestroy {
+export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
   private logger: Logger;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseSets: string[];
@@ -71,6 +71,26 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
 
   ngOnInit() {
+    this.handleAnyRunningWorkoutChanges();
+  }
+
+  private handleAnyRunningWorkoutChanges() {
+    this.store.select(getRunningWorkoutDayState)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(async (runningDayState) => {
+        if (runningDayState) {
+          if (runningDayState.dayId === this.dayId) {
+            this.handleRunningWorkoutDayStateChange(runningDayState);
+          }
+          else {
+            // any other day should stop running
+            this.stopWorkout();
+          }
+        }
+      });
+  }
+
+  private handleThisWorkoutDayChanges() {
     this.store.select(getWorkoutDay(this.dayId))
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(workoutDay => {
@@ -87,19 +107,10 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
           }
         }
       });
+  }
 
-    this.store.select(getRunningWorkoutDayState)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(async runningDayState => {
-        if (runningDayState) {
-          if (runningDayState.dayId === this.dayId) {
-            this.handleRunningWorkoutDayStateChange(runningDayState);
-          } else {
-            // any other day should stop running
-            this.stopWorkout();
-          }
-      }
-    });
+  ngAfterViewInit(): void {
+    this.handleThisWorkoutDayChanges();
   }
 
   setDisplayMode(mode: DisplayMode) {
