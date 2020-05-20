@@ -7,16 +7,13 @@ import { Howl } from 'howler';
 export class AudioServiceProvider {
   private startWorkoutPlayer: Howl;
   constructor() {
-  }
-
-  public playStartWorkout() {
-    if (!this.startWorkoutPlayer) {
       this.startWorkoutPlayer = new Howl({
         src: ['assets/sounds/startWorkout.wav']
       });
-    } else {
-      this.startWorkoutPlayer.stop();
-    }
+  }
+
+  public playStartWorkout() {
+    this.startWorkoutPlayer.stop();
     this.startWorkoutPlayer.play();
   }
 

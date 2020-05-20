@@ -105,9 +105,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
           expanded: false,
           selectedIndex: 0,
         }));
-        for (const img of this.images) {
-          this.refreshImageUsage(img);
-        }
+        this.images.forEach(img => this.refreshImageUsage(img));
       });
 
     this.store.select(getLibraryMusclesFilter)
@@ -134,7 +132,8 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
     }).unsubscribe();
 
-    this.images.filter(i => i.expanded)
+    this.images
+      .filter(i => i.expanded)
       .forEach(image => this.refreshImageUsage(image));
   }
 
