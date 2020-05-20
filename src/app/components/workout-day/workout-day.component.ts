@@ -27,7 +27,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './workout-day.component.html',
   styleUrls: ['./workout-day.component.scss'],
 })
-export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
+export class WorkoutDayComponent implements OnInit, OnDestroy {
   private logger: Logger;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   exerciseSets: string[];
@@ -40,8 +40,8 @@ export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() workoutId: string;
   @Input() dayId: string;
   @ViewChild(IonList, { read: ElementRef, static: false }) list: ElementRef;
-  @ViewChild('fabWorkout', {static: true}) fabWorkout?: IonFab;
-  @ViewChild('fabEdit', {static: true}) fabEdit?: IonFab;
+  @ViewChild('fabWorkout', {static: false}) fabWorkout?: IonFab;
+  @ViewChild('fabEdit', {static: false}) fabEdit?: IonFab;
 
   constructor(
     loggingService: LoggingService,
@@ -71,6 +71,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
   get IsDisplayMode() { return this.displayMode === DisplayMode.Display; }
 
   ngOnInit() {
+    this.handleThisWorkoutDayChanges();
     this.handleAnyRunningWorkoutChanges();
   }
 
@@ -101,16 +102,12 @@ export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
           this.exerciseSets = workoutDay.exerciseSets;
           this.name = workoutDay.name;
           this.repeatsCount = workoutDay.repeatsCount;
-          this.setDisplayMode(workoutDay.displayMode);
+          setTimeout(() => this.setDisplayMode(workoutDay.displayMode), 0);
           if (addedSet) {
             setTimeout(() => this.scrollToExerciseSet(this.exerciseSets.length - 1), 500);
           }
         }
       });
-  }
-
-  ngAfterViewInit(): void {
-    this.handleThisWorkoutDayChanges();
   }
 
   setDisplayMode(mode: DisplayMode) {
@@ -250,6 +247,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   stopWorkout() {
     if (this.displayMode === DisplayMode.Workout) {
+      this.logger.debug('stopWorkout', 'setting display mode from workout to display');
       this.displayMode = DisplayMode.Display;
       this.fabWorkout.close();
     }
@@ -287,7 +285,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private scrollToExerciseSet(index: number) {
-    this.logger.debug('ngOnInit', 'need to scrollToExerciseSetIndex', index);
+    this.logger.debug('scrollToExerciseSet', 'need to scrollToExerciseSetIndex', index);
       const items = this.list.nativeElement.children[0].children;
       this.dataService.scrollToItem(items, index);
   }

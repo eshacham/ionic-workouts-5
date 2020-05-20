@@ -111,6 +111,11 @@ ion-grid {
         }
     }
 }
+div.progresssBar {
+    background-color: var(--ion-color-tertiary);
+    height: 10px;
+    transform-origin: top left;
+}
 
 ion-item {
 
