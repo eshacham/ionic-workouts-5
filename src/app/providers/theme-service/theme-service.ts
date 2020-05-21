@@ -2,7 +2,7 @@ import { Injectable, RendererFactory2, Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 export enum Themes {
-  OrangeSilverGunmetal = 'Orange-Silver-Gunmetal',
+  GunmetalSilverOrange = 'Gunmetal-Silver-Orange',
   OliveLiverCadet = 'Olive-Liver-Cadet',
   IndigoPlatinumGrass = 'Indigo-Platinum-Grass',
   PurpleSilkPink = 'Purple-Silk-Pink',
@@ -16,11 +16,11 @@ export enum Themes {
 })
 export class ThemeServiceProvider {
 
-  public static defaultTheme: Themes = Themes.OrangeSilverGunmetal;
+  public static defaultTheme: Themes = Themes.GunmetalSilverOrange;
   renderer: Renderer2;
 
   themes: Themes[] = [
-    Themes.OrangeSilverGunmetal,
+    Themes.GunmetalSilverOrange,
     Themes.OliveLiverCadet,
     Themes.IndigoPlatinumGrass,
     Themes.PurpleSilkPink,
