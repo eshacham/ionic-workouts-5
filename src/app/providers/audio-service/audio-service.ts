@@ -8,7 +8,7 @@ export class AudioServiceProvider {
   private startWorkoutPlayer: Howl;
   constructor() {
       this.startWorkoutPlayer = new Howl({
-        src: ['assets/sounds/startWorkout.wav']
+        src: ['assets/sounds/startWorkout.gong1.wav']
       });
   }
 
