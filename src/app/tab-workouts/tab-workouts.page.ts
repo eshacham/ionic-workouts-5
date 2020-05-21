@@ -15,6 +15,7 @@ import { Logger, LoggingService } from 'ionic-logging-service';
 import { AlertController } from '@ionic/angular';
 import { FeatureManagerService } from '../providers/feature-manager/feature-manager.service';
 import { DataServiceProvider } from '../providers/data-service/data-service';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab-workouts',
@@ -25,11 +26,13 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   private logger: Logger;
 
   @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
-
+  @ViewChild('fabAddWorkout', {static: false, read: ElementRef }) fabAddWorkout: ElementRef;
+  @ViewChild('fabImportWorkout', {static: false, read: ElementRef }) fabImportWorkout: ElementRef;
   workouts: WorkoutBean[];
 
   displayMode = DisplayMode;
   private mode: DisplayMode = DisplayMode.Display;
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
     loggingService: LoggingService,
@@ -37,6 +40,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     private dataService: DataServiceProvider,
     private alertController: AlertController,
     private featureService: FeatureManagerService,
+    private animationCtrl: AnimationController,
   ) {
     this.logger = loggingService.getLogger('App.TabWorkoutsPage');
   }
@@ -71,12 +75,33 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   editWorkouts() {
     switch (this.DisplayMode) {
       case DisplayMode.Display:
+        this.animateFab();
         this.DisplayMode = DisplayMode.Edit;
         break;
       case DisplayMode.Edit:
         this.DisplayMode = DisplayMode.Display;
         break;
     }
+  }
+
+  async animateFab() {
+    const animations = [
+      this.fabAddWorkout.nativeElement,
+      this.fabImportWorkout.nativeElement,
+    ].map(e => this.createFabAnimation(e));
+
+    const parent = this.animationCtrl.create()
+    .easing('ease-out')
+    .duration(300)
+    .addAnimation(animations)
+    parent.play();
+}
+
+  private createFabAnimation(e: Element) {
+    return this.animationCtrl
+      .create()
+      .addElement(e)
+      .fromTo('transform', 'scalex(0)', 'scalex(1)');
   }
 
   addWorkout(event: any) {

@@ -14,15 +14,15 @@
       <ion-icon name="settings-sharp" ></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-list side="end" class="animated fadeInDown">
+    <ion-fab-list side="end" #fabAddWorkout>
       <ion-fab-button size="small"
         (click)="addWorkout($event)" >
         <ion-icon name="add-circle-sharp" ></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-      <ion-fab-list side="ebottomnd" class="animated fadeInLeft">
+      <ion-fab-list side="bottom" #fabImportWorkout>
       <ion-fab-button size="small"
-        (click)="importWorkout($event)" >
+        (click)="importWorkout($event)">
         <ion-icon name="cloud-download-sharp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
