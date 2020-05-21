@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 export enum Themes {
   OrangeSilverGunmetal = 'Orange-Silver-Gunmetal',
   OliveLiverCadet = 'Olive-Liver-Cadet',
-  IndigoPlatinumBlue = 'Indigo-Platinum-Blue',
+  IndigoPlatinumGrass = 'Indigo-Platinum-Grass',
   PurpleSilkPink = 'Purple-Silk-Pink',
   AsparagusWheatEggplant = 'Asparagus-Wheat-Eggplant',
   OxfordSteelBlue = 'Oxford-Steel-Blue',
@@ -22,7 +22,7 @@ export class ThemeServiceProvider {
   themes: Themes[] = [
     Themes.OrangeSilverGunmetal,
     Themes.OliveLiverCadet,
-    Themes.IndigoPlatinumBlue,
+    Themes.IndigoPlatinumGrass,
     Themes.PurpleSilkPink,
     Themes.AsparagusWheatEggplant,
     Themes.OxfordSteelBlue,
