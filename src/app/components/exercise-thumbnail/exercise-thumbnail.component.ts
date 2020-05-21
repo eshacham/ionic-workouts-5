@@ -81,10 +81,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
 
     get timedRestRemaining(): number { return this.remainingTimedRestSec; }
 
-    get ExpandedExercises(): ExerciseBean[] {
-        return this.isEditSetExpanded ? this.exercises : [];
-    }
-
     get IsRunning(): boolean { return this.isInRunningMode; }
     set IsRunning(val: boolean) {
         if (this.isInRunningMode !== val) {
@@ -277,7 +273,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     exerciseChanged(index: number, value: string | number, prop: string) {
-        this.logger.debug('exerciseChanged', 'value, prop', value, prop);
+        if (this.exercises[index][prop] === value) {
+            return;
+        }
+        this.logger.debug('exerciseChanged', `${prop} to ${value}`);
         const newExe = ExerciseBean
             .copy(this.exercises[index], {
                 restBetweenReps: this.restBetweenReps,
