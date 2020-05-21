@@ -106,11 +106,11 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
   async presentImportWorkoutAlertPrompt() {
     const alert = await this.alertController.create({
       header: 'Import workout',
-      subHeader: 'Type the key of the workout to be imported',
+      subHeader: 'Enter the Workout Creator User Id and the Workout Key',
       inputs: [{
         name: 'identityId',
         type: 'text',
-        placeholder: 'Workout owner User Id'
+        placeholder: 'Workout Creator User Id'
       },
       {
         name: 'workoutId',
