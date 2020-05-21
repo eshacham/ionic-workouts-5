@@ -66,11 +66,6 @@ const buildDefaultWorkouts = () => {
                                             weightUnit: WeightUnit.Lbs,
                                             times: 12
                                         }),
-                                        new Rep({
-                                            weight: 10,
-                                            weightUnit: WeightUnit.Lbs,
-                                            times: 12
-                                        })
                                     ],
                                     restBetweenReps: 30,
                                     restAfterExercise: 30,
@@ -213,11 +208,6 @@ const buildDefaultWorkouts = () => {
                                             weightUnit: WeightUnit.Lbs,
                                             times: 12
                                         }),
-                                        new Rep({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            times: 12
-                                        })
                                     ],
                                     restBetweenReps: 20,
                                     restAfterExercise: 20
@@ -253,11 +243,6 @@ const buildDefaultWorkouts = () => {
                                             weightUnit: WeightUnit.Lbs,
                                             times: 12
                                         }),
-                                        new Rep({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            times: 12
-                                        })
                                     ],
                                     restBetweenReps: 20,
                                     restAfterExercise: 20
@@ -293,11 +278,6 @@ const buildDefaultWorkouts = () => {
                                             weightUnit: WeightUnit.Lbs,
                                             times: 12
                                         }),
-                                        new Rep({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            times: 12
-                                        })
                                     ],
                                     restBetweenReps: 30,
                                     restAfterExercise: 30
@@ -536,9 +516,6 @@ const buildDefaultWorkouts = () => {
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     reps: [
-                                        new Rep({
-                                            times: 8
-                                        }),
                                         new Rep({
                                             times: 8
                                         }),
