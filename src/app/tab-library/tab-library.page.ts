@@ -335,7 +335,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   async setMuscle(imgEntry: ExerciseMediaBean) {
     const extra: NavigationExtras = {
-      relativeTo: this.route,
+      relativeTo: this.route.root,
       state: {
         muscleFilterUsage: {
           for: MuscleFilterFor.SetExerciseMedia,
@@ -343,19 +343,19 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         }
       }
     };
-    this.router.navigate(['select-muscle'], extra);
+    this.router.navigate(['/tabs/tab-library/select-muscle'], extra);
   }
 
   async selectMuscle() {
     const extra: NavigationExtras = {
-      relativeTo: this.route,
+      relativeTo: this.route.root,
       state: {
         muscleFilterUsage: {
           for: MuscleFilterFor.FilterLibraryImages
         }
       }
     };
-    this.router.navigate(['select-muscle'], extra);
+    this.router.navigate(['/tabs/tab-library/select-muscle'], extra);
   }
 
   get filteredImages(): ExerciseMediaWithUsage[] {
