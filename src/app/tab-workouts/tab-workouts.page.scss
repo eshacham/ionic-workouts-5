@@ -16,12 +16,14 @@ ion-list {
 ion-fab {
 
   ion-fab-button {
-    --background: var(--ion-color-secondary);
-    --background-hover: var(--ion-color-danger);
+    --background: var(--ion-color-light);
+    --background-activated: var(--ion-color-danger);
+    --background-hover: var(--ion-color-dark);
     --background-hover-opacity: 0.25;
+    --background-focused: var(--ion-color-secondary);
+    --color: var(--ion-color-dark);
     --color-activated: var(--ion-color-secondary);
-    --color-hover: var(--ion-color-danger);
-
+    --color-hover: var(--ion-color-light);
     ion-icon {
       color: var(--ion-color-dark);
     }
