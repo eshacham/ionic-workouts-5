@@ -52,8 +52,12 @@ ion-content {
     --background: var(--ion-color-tertiary);
 }
 ion-popover {
-    --width: 325px!important;
+    --width: 300px!important;
     --background: var(--ion-color-light)!important;
+    div.popover-content {
+        left: 50% !important;
+        transform: translate(-50%) !important;
+  }
 }
 ion-alert {
     --background: var(--ion-color-light)!important;
