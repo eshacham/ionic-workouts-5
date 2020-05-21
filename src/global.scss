@@ -54,7 +54,7 @@ ion-content {
 ion-popover {
     --width: 300px!important;
     --background: var(--ion-color-light)!important;
-    div.popover-content {
+    div.popover-content.sc-ion-popover-ios  {
         left: 50% !important;
         transform: translate(-50%) !important;
   }
