@@ -3,7 +3,7 @@
     <name>TrainMe</name>
     <description>Workouts builder and trainer</description>
     <author email="shacham@swbell.net" href="http://ionicframework.com/">Eyal Shacham</author>
-    <content original-src="index.html" src="http://localhost:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

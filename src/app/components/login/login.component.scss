@@ -1,9 +1,16 @@
 amplify-authenticator {
-    --ion-item-background: var(--ion-color-light);
+    --ion-item-background: var(--ion-color-primary);
 }
 
 ion-item {
     margin: 10px;
     border-radius: 6px;
-    --background: var(--ion-color-light);
+    --background: var(--ion-color-primary);
+    --ion-item-border-color: var(--ion-color-primary);
+    ion-label {
+        color: var(--ion-color-tertiary);
+    }
+    ion-button {
+        --color: var(--ion-color-tertiary);
+    }
 }

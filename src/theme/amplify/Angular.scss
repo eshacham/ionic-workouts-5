@@ -54,7 +54,7 @@
     width: var(--component-width-desktop);
     margin: 0 auto;
     border-radius: 6px;
-    background-color: var(--ion-color-light);
+    background-color: var(--ion-color-primary);
     box-shadow: var(--box-shadow);
   }
 
@@ -323,6 +323,7 @@
     border: var(--input-border);
     border-radius: 3px 0 0 3px;
     background-color: transparent;
+    color: var(--ion-color-light);
   }
 
   /** Ionic styles for material design */
@@ -339,7 +340,7 @@
   .amplify-form-input-phone-ionic {
     height: 36px;
     min-width: 100%;
-    color: var(--color-accent-brown);
+    color: var(--ion-color-light);
     font-size: 14px;
     letter-spacing: 0.4px;
     line-height: 20px;
@@ -375,7 +376,7 @@
   }
 
   .amplify-form-header {
-    color: var(--color-primary-accent);
+    color: var(--ion-color-secondary);
     height: 28px;
     font-size: 18px;
     font-weight: bold;
@@ -387,7 +388,7 @@
   .amplify-form-text {
     height: 36px;
     width: 90%;
-    color: var(--color-accent-brown);
+    color: var(--ion-color-secondary);
     font-size: 14px;
     letter-spacing: 0.4px;
     line-height: 20px;
@@ -396,7 +397,7 @@
   .amplify-input-label {
     height: 18px;
     width: 367.92px;
-    color: var(--color-accent);
+    color: var(--ion-color-light)!important;
     font-family: var(--font-family);
     font-size: 14px;
     margin: 0.5em;
@@ -411,6 +412,7 @@
     letter-spacing: 0.4px;
     border: var(--input-border);
     border-radius: 3px;
+    color: var(--ion-color-dark)!important;
     background-color: var(--ion-color-light);
     padding: var(--input-padding);
     margin: 0.5em;
@@ -449,7 +451,7 @@
 
   .amplify-form-signup {
     margin-top: 1em;
-    color: var(--color-gray);
+    color: var(--ion-color-tertiary);
   }
 
   .amplify-form-body {
@@ -476,7 +478,7 @@
 
   .amplify-form-link {
     cursor: pointer;
-    color: var(--ion-color-primary);
+    color: var(--ion-color-secondary);
   }
 
   .amplify-form-link:hover {
@@ -503,6 +505,8 @@
     display: flex;
     padding: 1em;
     margin: 0 auto;
+    color: var(--ion-color-secondary);
+    align-items: center;
   }
 
   .amplify-greeting-flex-spacer {
@@ -511,6 +515,7 @@
 
   .amplify-greeting-sign-out {
     flex: auto;
+    --color: var(--ion-color-light);
   }
 
   .amplify-footer {
@@ -616,7 +621,7 @@
 }
   .amplify-phone-ion-content {
     height: 100px;
-    --background: var(--ion-color-light);
+    --background: var(--ion-color-primary);
     ion-grid {
       ion-select {
         margin-left: 7px;

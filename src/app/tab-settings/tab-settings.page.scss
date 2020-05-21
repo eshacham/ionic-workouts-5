@@ -8,7 +8,12 @@ ion-list {
     margin-top: 1px;
     margin-right: 10px;
     margin-bottom: 5px;
-
+    border-radius: 6px;
+    ion-list-header{
+        --background: var(--ion-color-primary);
+        --color:  var(--ion-color-tertiary);
+        text-align: center;
+    }
     ion-item {
         --background: var(--ion-color-primary);
         --background-hover: var(--ion-color-danger);
@@ -21,7 +26,6 @@ ion-list {
         }
 
         &.buttonItem {
-            --background: var(--ion-color-tertiary);
             button {
                 --color: var(--ion-color-light);
                 width: 100%;
