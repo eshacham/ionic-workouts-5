@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonSlides as Slides, IonFab } from '@ionic/angular';
+import { IonSlides as Slides, IonFab, AnimationController } from '@ionic/angular';
 import { IAppState } from 'src/app/store/state/app.state';
 import { WorkoutDayBean } from '../../models/WorkoutDay';
 import { UnselectWorkout } from 'src/app/store/actions/workouts.actions';
@@ -25,8 +25,7 @@ import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selector
   templateUrl: './workout-days.page.html',
   styleUrls: ['./workout-days.page.scss'],
 })
-export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit
- {
+export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
   private logger: Logger;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   days: string[];
@@ -48,10 +47,14 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit
     noSwipingSelector: 'ion-range, ion-reorder, ion-fab, ion-button'
   };
   @ViewChild('fabEdit', {static: true}) fabEdit?: IonFab;
+  @ViewChild('fabDaysActions', { read: ElementRef, static: false }) fabDaysActions: ElementRef;
+
   constructor(
     loggingService: LoggingService,
     private router: Router,
-    private store: Store<IAppState>) {
+    private store: Store<IAppState>,
+    private animationCtrl: AnimationController,
+    ) {
     this.logger = loggingService.getLogger('App.WorkoutDaysPage');
   }
   get activeDayId(): string {
@@ -141,6 +144,21 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit
   get IsLastDayActive() { return this.days && this.activeDayIndex === this.days.length - 1; }
   get IsFirstDayActive() { return this.activeDayIndex === 0; }
   get IsOneDayOnly() { return this.days && this.days.length === 1; }
+
+  activateDaysActions() {
+    this.animateFab(this.fabDaysActions.nativeElement);
+  }
+  animateFab(e: Element) {
+    this.createFabAnimation(e).play();
+  }
+  private createFabAnimation(e: Element) {
+    return this.animationCtrl
+    .create()
+    .addElement(e)
+    .fromTo('transform', 'scalex(0)', 'scalex(1)')
+    .easing('ease-out')
+    .duration(300);
+  }
   async addWorkoutDay(event: any) {
     event.stopPropagation();
     const newId = Guid.raw();

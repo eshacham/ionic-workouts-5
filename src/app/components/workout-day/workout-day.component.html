@@ -5,9 +5,9 @@
   <ion-icon name="play-sharp"></ion-icon>
 </ion-fab-button>
 
-<ion-fab-list side="start" class="animated fadeInRight">
+<ion-fab-list side="start" #fabStopRun>
   <ion-fab-button size="small"
-  (click)="stopRunning()" >
+    (click)="stopRunning()" >
     <ion-icon name="pause-sharp"></ion-icon>
   </ion-fab-button>
 </ion-fab-list>
@@ -18,8 +18,8 @@
   (click)="editWorkoutToggler()" >
   <ion-icon name="settings-sharp"></ion-icon>
 </ion-fab-button>
-<ion-fab-list side="end" class="animated fadeInUp">
-  <ion-fab-button size="small"
+<ion-fab-list side="end" >
+  <ion-fab-button size="small" #fabAddExercise
     (click)="selectExerciseToAdd($event)" >
     <ion-icon name="barbell-sharp"></ion-icon>
   </ion-fab-button>

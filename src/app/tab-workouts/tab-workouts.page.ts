@@ -84,7 +84,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
     }
   }
 
-  async animateFab() {
+  animateFab() {
     const animations = [
       this.fabAddWorkout.nativeElement,
       this.fabImportWorkout.nativeElement,

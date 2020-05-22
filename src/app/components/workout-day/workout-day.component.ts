@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { DisplayMode, RunningState } from '../../models/enums';
 import { IAppState } from 'src/app/store/state/app.state';
@@ -16,7 +16,7 @@ import {
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { Logger, LoggingService } from 'ionic-logging-service';
-import { IonList, AlertController, IonFab } from '@ionic/angular';
+import { IonList, AlertController, IonFab, AnimationController } from '@ionic/angular';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selectors';
 import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
@@ -42,6 +42,8 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   @ViewChild(IonList, { read: ElementRef, static: false }) list: ElementRef;
   @ViewChild('fabWorkout', {static: false}) fabWorkout?: IonFab;
   @ViewChild('fabEdit', {static: false}) fabEdit?: IonFab;
+  @ViewChild('fabStopRun', { read: ElementRef, static: false }) fabStopRun: ElementRef;
+  @ViewChild('fabAddExercise', { read: ElementRef, static: false }) fabAddExercise: ElementRef;
 
   constructor(
     loggingService: LoggingService,
@@ -50,6 +52,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     private alertController: AlertController,
     private router: Router,
     private route: ActivatedRoute,
+    private animationCtrl: AnimationController,
   ) {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
@@ -201,13 +204,24 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
 
     alert.present();
   }
-
+  animateFab(e: Element) {
+    this.createFabAnimation(e).play();
+  }
+  private createFabAnimation(e: Element) {
+    return this.animationCtrl
+    .create()
+    .addElement(e)
+    .fromTo('transform', 'scalex(0)', 'scalex(1)')
+    .easing('ease-out')
+    .duration(200);
+  }
   startWorkoutToggler() {
     if (this.fabEdit.activated) {
       return;
     }
     switch (this.displayMode) {
       case DisplayMode.Display:
+        this.animateFab(this.fabStopRun.nativeElement);
         this.displayMode = DisplayMode.Workout;
         this.dispatchStartExercise();
         break;
@@ -228,6 +242,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
     }
     switch (this.displayMode) {
       case DisplayMode.Display:
+        this.animateFab(this.fabAddExercise.nativeElement);
         this.displayMode = DisplayMode.Edit;
         break;
       case DisplayMode.Edit:
@@ -264,7 +279,6 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       dayId: this.dayId,
       runningExerciseSetIndex: 0,
       runningState: RunningState.Running,
-
     }));
   }
   dispatchStopExercise() {

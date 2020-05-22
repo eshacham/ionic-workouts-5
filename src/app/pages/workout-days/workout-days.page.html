@@ -11,11 +11,12 @@
 
   <ion-fab slot="fixed" edge="true"
     vertical="top" horizontal="end" #fabEdit id="fabEdit">
-    <ion-fab-button size="small" [disabled]="isActiveDayRunning">
+    <ion-fab-button size="small" (click)="activateDaysActions()"
+      [disabled]="isActiveDayRunning">
       <ion-icon name="calendar-sharp"></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-list side="bottom" class="animated fadeInRight" >
+    <ion-fab-list side="bottom" #fabDaysActions >
 
       <ion-fab-button size="small" [disabled]="IsLastDayActive"
         (click)="moveForwardWorkoutDay($event)" >

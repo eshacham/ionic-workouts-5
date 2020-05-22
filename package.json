@@ -42,7 +42,6 @@
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
-    "animate.css": "^3.7.2",
     "aws-amplify": "^3.0.7",
     "aws-amplify-angular": "^5.0.7",
     "cordova-android": "8.1.0",
