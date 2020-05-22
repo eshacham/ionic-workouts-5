@@ -435,7 +435,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     private startTimedRep() {
-        this.audioService.playStartWorkout();
         this.stopRepTimer();
         this.remainingTimedRepSec = this.activeRep.seconds;
         if (this.remainingTimedRepSec) {
@@ -459,6 +458,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         if (bar) {
             bar.stop();
         }
+        this.audioService.playStartWorkout();
     }
 
     animateProgressBar(remainingTimedRepSec: number, element) {
@@ -574,7 +574,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             this.exercises.forEach((exercise) => {
                 this.setRepsCompleteState(exercise.id, this.activeRepIndex);
             });
-            // this.setRepsCompleteState(this.activeExercise.id, this.activeRepIndex);
             // if there are more reps, need to go to the next rep on the first exercise
             if (this.activeExercise.reps.length > this.activeRepIndex + 1) {
                 if (shouldRest) {

@@ -5,16 +5,26 @@ import { Howl } from 'howler';
   providedIn: 'root'
 })
 export class AudioServiceProvider {
-  private startWorkoutPlayer: Howl;
+  private audio: Howl;
   constructor() {
-      this.startWorkoutPlayer = new Howl({
-        src: ['assets/sounds/startWorkout.gong1.wav']
-      });
+      this.audio = createAudio();
+  }
+
+  get Audio(): Howl {
+    if (!this.audio) {
+      this.audio = createAudio();
+    }
+    return this.audio
   }
 
   public playStartWorkout() {
-    this.startWorkoutPlayer.stop();
-    this.startWorkoutPlayer.play();
+    this.Audio.stop();
+    this.Audio.play();
   }
 
+}
+function createAudio(): Howl {
+  return new Howl({
+    src: ['assets/sounds/startWorkout.gong1.wav']
+  });
 }
