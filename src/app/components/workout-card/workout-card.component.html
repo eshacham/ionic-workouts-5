@@ -25,7 +25,7 @@
       <ion-row *ngIf="IsDisplayMode" class="allRound ion-text-center">
         <ion-col *ngFor="let day of workout.days; let i = index;">
           <ion-button fill="outline" class="days"
-            (click)="goToWorkoutDay(day)">
+            (click)="goToWorkoutDay(day)" size="large">
               DAY {{ i + 1 }}
           </ion-button>
       </ion-col>

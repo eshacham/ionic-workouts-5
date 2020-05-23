@@ -83,13 +83,13 @@ ion-card {
 
                     &.days {
                         --border-color: var(--ion-color-tertiary);
-                        --border-radius: 0px;
+                        --border-radius: 6px;
                         --color: var(--ion-color-light);
                         --background: var(--ion-color-primary);
-                        --padding-top: 3px;
-                        --padding-bottom: 3px;
-                        --padding-start: 3px;
-                        --padding-end: 3px;
+                        --padding-top: 5px;
+                        --padding-bottom: 5px;
+                        --padding-start: 5px;
+                        --padding-end: 5px;
                     }
 
                     ion-icon {
