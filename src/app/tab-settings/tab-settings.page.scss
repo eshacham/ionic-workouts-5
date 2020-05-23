@@ -1,44 +1,33 @@
 ion-toolbar#second {
     --background: var(--ion-color-tertiary);
 }
-
+app-login {
+    margin: 10px;
+}
 ion-list {
     padding: 0px;
     margin-left: 10px;
-    margin-top: 1px;
+    margin-top: 10px;
     margin-right: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-radius: 6px;
     ion-list-header{
         --background: var(--ion-color-primary);
         --color:  var(--ion-color-tertiary);
+        padding-left: 0px;
         text-align: center;
     }
     ion-item {
         --background: var(--ion-color-primary);
         --background-hover: var(--ion-color-danger);
+        --detail-icon-color: var(--ion-color-light);
+
         ion-label {
             color: var(--ion-color-light);
         }
         ion-radio {
             --color-checked: var(--ion-color-tertiary);
             --color: var(--ion-color-light);
-        }
-
-        &.buttonItem {
-            button {
-                --color: var(--ion-color-light);
-                width: 100%;
-
-                ion-label {
-                    font-size: medium;
-                    margin: 10px;
-                }
-
-                ion-icon {
-                    color: var(--ion-color-danger);
-                }
-            }
         }
 
         &.itemNoPadding {
