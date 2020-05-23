@@ -11,13 +11,21 @@ ion-card {
         padding-right: 20px;
 
         ion-card-title {
-            --color: var(--ion-color-light);
 
-            ion-input {
-                font-size: 20px;
-                font-weight: bold;
-                --padding-end: 0px;
-                --padding-start: 0px;
+            ion-row {
+                --background: var(--ion-color-primary);
+                --color: var(--ion-color-light);
+                ion-input {
+                    --color: var(--ion-color-light);
+                    font-size: 20px;
+                    font-weight: bold;
+                    --padding-end: 0px;
+                    --padding-start: 0px;
+                    margin:0px;
+                }
+                ion-icon {
+                    color: var(--ion-color-light);
+                }
             }
         }
     }
