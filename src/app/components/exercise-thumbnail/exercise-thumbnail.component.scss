@@ -52,12 +52,12 @@ ion-grid {
         }
         ion-col {
             ion-button {
-
+                --padding-top: 4px;
+                --padding-bottom: 4px;
                 p {
+                    margin: 0px;
                     color: var(--ion-color-light);
                     font-size: medium;
-                    margin-top: 4px;
-                    margin-bottom: 16px;
                 }
             }
 
@@ -165,6 +165,7 @@ h4 {
 ion-button {
     --padding-start: 0px;
     --padding-end: 0px;
+    width: 100%;
     --color: var(--ion-color-tertiary);
 
     &.img-btn {
@@ -185,29 +186,7 @@ ion-button {
         font-size: large;
     }
     &.edit-button {
-        height: 100%;
-        min-width: 50px;
-    }
-}
-
-@keyframes mymove {
-    from {
-        width: 0%;
-    }
-
-    to {
         width: 100%;
-    }
-}
-
-@keyframes fadeinout {
-
-    0%,
-    100% {
-        opacity: 0.25;
-    }
-
-    50% {
-        opacity: 1;
+        height: 100%;
     }
 }
