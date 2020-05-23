@@ -1,51 +1,53 @@
 
-<ion-fab vertical="bottom" horizontal="end" #fabWorkout id="fabWorkout">
-<ion-fab-button size="small" [disabled]="IsEditMode"
-  (click)="startWorkoutToggler()" >
-  <ion-icon name="play-sharp"></ion-icon>
-</ion-fab-button>
-
-<ion-fab-list side="start" #fabStopRun>
-  <ion-fab-button size="small"
-    (click)="stopRunning()" >
-    <ion-icon name="stop-sharp"></ion-icon>
+<ion-fab vertical="bottom" horizontal="end"
+  #fabWorkout id="fabWorkout">
+  <ion-fab-button size="small" [disabled]="IsEditMode"
+    (click)="startWorkoutToggler()" >
+    <ion-icon name="play-sharp"></ion-icon>
   </ion-fab-button>
-  <ion-fab-button size="small"
-  (click)="toggleVolume($event)" >
-  <ion-icon name="volume-mute-sharp" [ngClass]="{'stateOn' : isVolumeMuted}"></ion-icon>
-</ion-fab-button>
-</ion-fab-list>
+
+  <ion-fab-list side="start" #fabStopRun>
+    <ion-fab-button size="small"
+      (click)="stopRunning()" >
+      <ion-icon name="stop-sharp"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button size="small"
+    (click)="toggleVolume($event)" >
+    <ion-icon name="volume-mute-sharp" [ngClass]="{'stateOn' : isVolumeMuted}"></ion-icon>
+  </ion-fab-button>
+  </ion-fab-list>
 </ion-fab>
 
-<ion-fab vertical="bottom" horizontal="start" #fabEdit id="fabEdit">
-<ion-fab-button size="small" [disabled]="IsWorkoutMode"
-  (click)="editWorkoutToggler()" >
-  <ion-icon name="settings-sharp"></ion-icon>
-</ion-fab-button>
-<ion-fab-list side="end" >
-  <ion-fab-button size="small" #fabAddExercise
-    (click)="selectExerciseToAdd($event)" >
-    <ion-icon name="barbell-sharp"></ion-icon>
+<ion-fab vertical="bottom" horizontal="start"
+  #fabEdit id="fabEdit">
+  <ion-fab-button size="small" [disabled]="IsWorkoutMode"
+    (click)="editWorkoutToggler()" >
+    <ion-icon name="settings-sharp"></ion-icon>
   </ion-fab-button>
-</ion-fab-list>
+  <ion-fab-list side="end" >
+    <ion-fab-button size="small" #fabAddExercise
+      (click)="selectExerciseToAdd($event)" >
+      <ion-icon name="barbell-sharp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
 </ion-fab>
 
 <div id="workout-day-comp">
 
-  <ion-item [hidden]="IsEditMode"
-    class="ion-no-padding" lines="none" id="workout-day-header">
-    <ion-label class="ion-no-margin">
-      <h2 class="ion-text-center">{{ nameTitle }}</h2>
-    </ion-label>
-  </ion-item>
-
-  <ion-button [hidden]="!IsEditMode"
-    fill="clear" class="edit-button"
-      (click)="editWorkout($event)">
-      <p class="ion-text-wrap">
-          {{ nameTitle }}
-      </p>
-  </ion-button>
+  <ion-row class="ion-align-items-center workout-day-header">
+    <ion-col size="1" class="ion-no-padding">
+      <ion-icon name="pencil-sharp" size="small" color="light" *ngIf="IsEditMode">
+      </ion-icon>
+    </ion-col>
+    <ion-col size="10" class="ion-no-padding">
+      <ion-button fill="clear" class="workout-day-header"
+        (click)="editWorkout($event)" [disabled]="IsDisplayMode">
+        <p class="ion-text-wrap">
+            {{ nameTitle }}
+        </p>
+      </ion-button>
+  </ion-col>
+  </ion-row>
 
   <ion-list lines="none">
     <ion-reorder-group [disabled]="!IsEditMode || exerciseSets.length < 2"

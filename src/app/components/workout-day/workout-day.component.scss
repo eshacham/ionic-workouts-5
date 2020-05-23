@@ -19,29 +19,30 @@ ion-fab {
 div {
     height: 100%;
 
-    ion-item#workout-day-header {
-        --background: var(--ion-color-tertiary);
-        --color: var(--ion-color-light);
-
-        ion-label {
-            max-width: unset;
-            width: 100%;
-        }
-
-        ion-input {
-            margin-right: 8px;
-            margin-bottom: 0px;
-            margin-left: 8px;
+    ion-row.workout-day-header {
+        margin-left: 8px;
+        margin-right: 8px;
+        ion-button.workout-day-header {
+            --padding-start: 0px;
             --padding-end: 0px;
+            --padding-top: 0px;
+            --padding-bottom: 0px;
+            margin: 0px;
+            height: 44px;
+            --color: var(--ion-color-light);
+            p {
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
         }
     }
 
     ion-list.ios {
-        height: calc(100% - 112px);
+        height: calc(100% - 102px);
     }
 
     ion-list.md {
-        height: calc(100% - 116px);
+        height: calc(100% - 110px);
     }
 
     ion-list {
@@ -52,7 +53,7 @@ div {
         background: transparent;
 
         ion-item {
-            margin-top: 8px;
+            margin-bottom: 8px;
             --padding-start: 0px;
             --padding-end: 0px;
             --inner-padding-end: 0px;
@@ -70,20 +71,5 @@ div {
                 color: var(--ion-color-secondary);
             }
         }
-    }
-}
-
-ion-button.edit-button {
-    --padding-start: 0px;
-    --padding-end: 0px;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
-    margin: 0px;
-    --color: var(--ion-color-light);
-
-    p {
-        margin-top: 12px;
-        margin-bottom: 12px;
-        height: 20px;
     }
 }
