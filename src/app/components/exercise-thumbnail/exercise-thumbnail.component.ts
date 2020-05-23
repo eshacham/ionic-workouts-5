@@ -58,6 +58,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     weightUnit = WeightUnit;
     repProgressBar: Animation;
     restProgressBar: Animation;
+    @Input() isVolumeMuted: boolean;
     @Input() workoutId: string;
     @Input() dayId: string;
     @Input() exerciseSetId: string;
@@ -458,7 +459,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         if (bar) {
             bar.stop();
         }
-        this.audioService.playStartWorkout();
+        if (!this.isVolumeMuted) {
+            this.audioService.playStartWorkout();
+        }
     }
 
     animateProgressBar(remainingTimedRepSec: number, element) {
@@ -477,7 +480,6 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     private startTimedRest(callbackAction: () => void) {
-        this.audioService.playStartWorkout();
         this.stopRestTimer();
         this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
         if (this.remainingTimedRestSec) {

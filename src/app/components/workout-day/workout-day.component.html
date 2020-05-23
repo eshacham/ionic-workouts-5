@@ -10,6 +10,10 @@
     (click)="stopRunning()" >
     <ion-icon name="stop-sharp"></ion-icon>
   </ion-fab-button>
+  <ion-fab-button size="small"
+  (click)="toggleVolume($event)" >
+  <ion-icon name="volume-mute-sharp" [ngClass]="{'stateOn' : isVolumeMuted}"></ion-icon>
+</ion-fab-button>
 </ion-fab-list>
 </ion-fab>
 
@@ -51,7 +55,9 @@
           [exerciseSetId]="exerciseSet"
           [workoutId]="workoutId"
           [dayId]="dayId"
-          [exerciseSetIndex]="i">
+          [exerciseSetIndex]="i"
+          [isVolumeMuted]="isVolumeMuted"
+          >
         </app-exercise-thumbnail>
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>

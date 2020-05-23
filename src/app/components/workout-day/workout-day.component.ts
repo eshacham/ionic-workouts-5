@@ -56,7 +56,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   ) {
     this.logger = loggingService.getLogger('App.WorkoutDayComponent');
   }
-
+  isVolumeMuted = false;
   get nameTitle(): string {
     if (this.repeatsCount > 1) {
       if (this.IsWorkoutMode) {
@@ -271,6 +271,11 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
   stopRunning() {
     this.displayMode = DisplayMode.Display;
     this.dispatchStopExercise();
+  }
+
+  toggleVolume(event: any) {
+    event.stopPropagation();
+    this.isVolumeMuted = !this.isVolumeMuted;
   }
 
   dispatchStartExercise() {

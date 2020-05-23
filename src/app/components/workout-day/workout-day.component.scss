@@ -10,6 +10,9 @@ ion-fab {
       --color-hover: var(--ion-color-light);
       ion-icon {
         color: var(--ion-color-dark);
+        &.stateOn {
+            color: var(--ion-color-primary);
+        }
       }
     }
   }
