@@ -162,14 +162,16 @@
                     <ion-row class="ion-justify-content-center">
                     <ion-button fill="clear" expabd="full" class="edit-button"
                     (click)="editExerciseName($event, exercise, i)">
-                        <ion-col size="1" class="ion-no-padding">
+                        <ion-col [size]="exercises.length > 1 ? 1 : 2" class="ion-no-padding">
                             <ion-icon name="pencil-sharp" size="small" color="light">
                             </ion-icon>
                         </ion-col>
-                        <ion-col size="11" class="ion-no-padding">
+                        <ion-col [size]="exercises.length > 1 ? 11 : 8" class="ion-no-padding">
                             <p class="ion-text-wrap">
                                 {{exercise.name}}
                             </p>
+                        </ion-col>
+                        <ion-col *ngIf="exercises.length < 2" size="2" class="ion-no-padding">
                         </ion-col>
                     </ion-button>
                 </ion-row>

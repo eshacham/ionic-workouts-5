@@ -32,65 +32,72 @@
 
 </ion-header>
 <ion-content>
-  <ion-list lines="none">
 
-    <ion-item *ngFor="let img of filteredImages">
-      <div>
-
-        <ion-item id="titleBtn">
-
-              <ion-button slot="start" fill="outline" expand="full"
-                (click)="editImageName($event, img)">
-                <p class="ion-text-wrap">
-                  {{img.media.name}}
-                </p>
-              </ion-button>
-
-              <ion-button slot="end" fill="clear" (click)="setMuscle(img.media)">
-                <ion-icon slot="icon-only" name="body-sharp"></ion-icon>
-                <ion-badge *ngIf="img.media.muscles.length">
-                  {{img.media.muscles.length}}
-                </ion-badge>
-              </ion-button>
-
-              <ion-button slot="end" fill="clear" [disabled]="!img.usage || img.usage.length > 0"
-                (click)="deleteImage(img.media)" color="danger">
-                <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
-              </ion-button>
-
-        </ion-item>
-
-        <ion-item>
-          <ion-slides [options]="slideOpts">
-            <ion-slide *ngFor="let image of img.media.images; let i = index;">
-                <ion-button class="img-btn" (click)="selectMediaAction(img, $event, i)">
-                    <img [src]="safeImage(img.media, i)" slot="end"/>
-                </ion-button>
-            </ion-slide>
-          </ion-slides>
-        </ion-item>
-
-        <ion-item *ngIf="img.expanded">
-          <ion-row>
-            <ion-col class="ion-text-center ion-no-padding">
-              <div class="usage">
-                <ion-button slot="end" *ngFor="let use of img.usage"
-                    size="small" fill="clear"
-                    (click)="goToWorkoutDay(use, $event)">
-                  <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
-                </ion-button >
-                <ion-label *ngIf="!img.usage || img.usage.length === 0">
-                  Exercise not used in any workout!
-                </ion-label>
-              </div>
-            </ion-col>
+  <ion-grid class="ion-no-padding">
+    <ion-row *ngFor="let img of filteredImages"
+      class="ion-align-items-center">
+      <div class="title">
+        <ion-row >
+          <ion-col size="8">
+            <ion-row class="ion-justify-content-between">
+            <ion-button fill="clear" expabd="full" class="edit-button"
+            (click)="editImageName($event, img)">
+                <ion-col size="2" class="ion-no-padding">
+                    <ion-icon name="pencil-sharp" size="small" color="light">
+                    </ion-icon>
+                </ion-col>
+                <ion-col size="10" class="ion-no-padding">
+                    <p class="ion-text-wrap">
+                      {{img.media.name}}
+                    </p>
+                </ion-col>
+            </ion-button>
           </ion-row>
-        </ion-item>
-
+          </ion-col>
+          <ion-col size="2">
+            <ion-button fill="clear" (click)="setMuscle(img.media)">
+              <ion-icon slot="icon-only" name="body-sharp" size="small"></ion-icon>
+              <ion-badge *ngIf="img.media.muscles.length">
+                {{img.media.muscles.length}}
+              </ion-badge>
+            </ion-button>
+          </ion-col>
+          <ion-col size="2">
+          <ion-button fill="clear" [disabled]="!img.usage || img.usage.length > 0"
+            (click)="deleteImage(img.media)" color="danger">
+            <ion-icon slot="icon-only" name="trash-sharp" size="small"></ion-icon>
+          </ion-button>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-slides [options]="slideOpts">
+              <ion-slide *ngFor="let image of img.media.images; let i = index;">
+                  <ion-button class="img-btn" (click)="selectMediaAction(img, $event, i)">
+                      <img [src]="safeImage(img.media, i)" slot="end"/>
+                  </ion-button>
+              </ion-slide>
+            </ion-slides>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="img.expanded">
+          <ion-col *ngFor="let use of img.usage"
+            class="ion-text-center ion-no-padding">
+              <ion-button size="small" fill="clear"
+                  (click)="goToWorkoutDay(use, $event)">
+                <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
+              </ion-button >
+            </ion-col>
+            <ion-col>
+              <ion-label *ngIf="!img.usage || img.usage.length === 0" color="light">
+                Exercise not used in any workout!
+              </ion-label>
+            </ion-col>
+        </ion-row>
       </div>
-    </ion-item>
+   </ion-row>
+  </ion-grid>
 
-  </ion-list>
 </ion-content>
 
 <ion-footer *ngIf="IsMobile">

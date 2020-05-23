@@ -3,15 +3,15 @@
 
     <ion-card-title  class="ion-text-center">
       <ion-row class="ion-align-items-center">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        <ion-col size="2"></ion-col>
+        <ion-col size="8">
           <ion-input [readonly]="IsDisplayMode" type="text"
             placeholder="Enter name here..."
             [(ngModel)]="name"
             (change)="workoutChanged()">
           </ion-input>
         </ion-col>
-        <ion-col size="1" *ngIf="IsEditMode">
+        <ion-col size="2" *ngIf="IsEditMode">
           <ion-icon name="pencil-sharp" size="small"></ion-icon>
         </ion-col>
       </ion-row>
