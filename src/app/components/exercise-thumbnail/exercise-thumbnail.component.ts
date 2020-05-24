@@ -258,11 +258,14 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         ], false, rep);
     }
     selectExerciseViewAction(event: Event, exercise: ExerciseBean, exerciseIndex: number) {
-        this.presentActionsPopover(event, exercise, exerciseIndex, [
-            ExerciseAction.ViewSet,
+        const actions = [
             ExerciseAction.ViewFirstMediaLarge,
             ExerciseAction.GotoExercise,
-        ], false);
+        ];
+        if (!this.IsRunning) {
+            actions.push(ExerciseAction.ViewSet);
+        }
+        this.presentActionsPopover(event, exercise, exerciseIndex, actions, false);
     }
 
     goToImagesLibraryPage(exercise: ExerciseBean) {
