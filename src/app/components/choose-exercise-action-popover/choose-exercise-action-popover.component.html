@@ -20,13 +20,13 @@
 
   <ion-item button *ngIf="isActionAvailable(exerciseAction.AddSet)"
     (click)="close(exerciseAction.AddSet)" [disabled]="isMaxReps">
-    Add a copied set
+    {{ multiSet ? 'Add a copied multi-set' : 'Add a copied set' }}
     <ion-icon slot="start" name="add-circle-sharp" color="success"></ion-icon>
   </ion-item>
 
   <ion-item button *ngIf="isActionAvailable(exerciseAction.DeleteSet)"
     (click)="close(exerciseAction.DeleteSet)" [disabled]="isMinReps">
-    Delete this set
+    {{ multiSet ? 'Delete this multi-set' : 'Delete this set' }}
     <ion-icon slot="start" name="remove-circle-sharp" color="danger"></ion-icon>
   </ion-item>
 
@@ -38,7 +38,7 @@
 
   <ion-item button *ngIf="isActionAvailable(exerciseAction.ViewSet)"
       (click)="close(exerciseAction.ViewSet)">
-      {{ isViewSetExpanded ? 'Hide set' : 'View set' }}
+      {{ ShowHideSetLabel }}
     <ion-icon slot="start" [name]="isViewSetExpanded ? 'eye-off-sharp' : 'eye-sharp'" color="success">
     </ion-icon>
   </ion-item>

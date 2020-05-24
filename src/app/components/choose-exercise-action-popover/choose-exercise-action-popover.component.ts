@@ -13,6 +13,7 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   exerciseAction = ExerciseAction;
   canSwap: boolean;
   isViewSetExpanded: boolean;
+  multiSet: boolean;
   rep: Rep;
   isMinReps: boolean;
   isMaxReps: boolean;
@@ -28,6 +29,7 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
     this.isMinReps = this.navParams.data.isMinReps;
     this.isMaxReps = this.navParams.data.isMaxReps;
     this.actions = this.navParams.data.actions;
+    this.multiSet = this.navParams.data.multiSet
   }
 
   isActionAvailable(action: ExerciseAction): boolean {
@@ -36,6 +38,10 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
 
   close(action: ExerciseAction) {
     this.popoverController.dismiss(action);
+  }
+
+  get ShowHideSetLabel(): string {
+    return `${this.isViewSetExpanded ? 'Hide' : 'Show'} ${this.multiSet ? 'multi-set' : 'set'}`;
   }
 
 }

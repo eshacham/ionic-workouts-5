@@ -357,17 +357,17 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         return rep.isActive;
     }
 
-    isRepConsideredActive(index: number, exerciseId: string) {
-        const rep = this.getRunningExeRep(index, exerciseId);
+    private isRepConsideredActive(repIndex: number, exerciseId: string) {
+        const rep = this.getRunningExeRep(repIndex, exerciseId);
         if (rep.isComplete) {
             return false;
         }
-        return (rep.isActive || (this.activeRepIndex === index && !this.activeRep.seconds));
+        return (rep.isActive || (this.activeRepIndex === repIndex && !this.activeRep.seconds));
     }
 
-    getRepTimesStyle(index: number, exerciseId: string): { animation: string} {
+    getRepTimesStyle(repIndex: number, exerciseId: string): { animation: string} {
         const animation = {
-            animation: `${this.isRepConsideredActive(index, exerciseId) ? 4 : 0}s linear infinite fadeinout`
+            animation: `${this.isRepConsideredActive(repIndex, exerciseId) ? 4 : 0}s linear infinite fadeinout`
         };
         return animation;
     }
@@ -688,6 +688,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
                 isMinReps: this.isMinReps,
                 isMaxReps: this.isMaxReps,
                 actions,
+                multiSet: this.exercises.length > 1,
             }
         });
         popover.present();
