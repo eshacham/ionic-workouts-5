@@ -139,12 +139,13 @@
                     </ion-col>
                     <ion-col size="6" class="ion-no-padding">
                         <ion-button expand="full" class="workout-button"
-                            (click)="nextRep(true)">
+                            (click)="nextRep()">
                             Done!
                         </ion-button>
                     </ion-col>
                     <ion-col class="ion-text-center ion-no-padding">
-                        <ion-button expand="full" (click)="nextRep(false)">
+                        <ion-button expand="full"
+                            (click)="nextRep(false)">
                             <ion-icon slot="icon-only" name="play-skip-forward-circle-sharp"></ion-icon>
                         </ion-button>
                     </ion-col>
