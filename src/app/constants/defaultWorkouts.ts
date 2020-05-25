@@ -35,10 +35,10 @@ const buildDefaultWorkouts = () => {
                                             time: 300
                                         }),
                                     ],
-                                    restBetweenSets: 0,
-                                    restAfterExercise: 10
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 0,
+                            restAfterExercise: 10
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -67,10 +67,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30,
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30,
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -98,10 +98,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -134,10 +134,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 15
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -174,10 +174,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         })
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -209,10 +209,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -244,10 +244,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -279,10 +279,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -307,10 +307,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 15
                                         })
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -335,10 +335,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 15
                                         })
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                     ],
                 }),
@@ -361,10 +361,10 @@ const buildDefaultWorkouts = () => {
                                             time: 300
                                         }),
                                     ],
-                                    restBetweenSets: 0,
-                                    restAfterExercise: 10
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 0,
+                            restAfterExercise: 10
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -398,10 +398,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         })
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30,
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30,
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -429,10 +429,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         }),
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -465,10 +465,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 15
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -501,10 +501,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 12
                                         })
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -526,10 +526,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 8
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -548,10 +548,10 @@ const buildDefaultWorkouts = () => {
                                             time: 60
                                         }),
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -573,10 +573,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 10
                                         }),
                                     ],
-                                    restBetweenSets: 30,
-                                    restAfterExercise: 30
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -601,10 +601,10 @@ const buildDefaultWorkouts = () => {
                                             reps: 15
                                         })
                                     ],
-                                    restBetweenSets: 20,
-                                    restAfterExercise: 20
                                 })
-                            ]
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
                         }),
                     ],
                 }),

@@ -38,7 +38,7 @@ export enum DisplayMode {
 export enum RunningState {
     Running,
     Completed,
-    NA
+    NA,
 }
 
 export enum ExerciseSetAction {

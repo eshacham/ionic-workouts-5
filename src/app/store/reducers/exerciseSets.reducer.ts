@@ -51,6 +51,18 @@ export function exerciseSetsReducers (
                 byId: removeItemFromMap(action.payload.setId, state)
             };
         }
+        case ExerciseSetActionsTypes.UpdateExerciseSet: {
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [action.payload.exerciseSet.id]: {
+                        ...state.byId[action.payload.exerciseSet.id],
+                        ...action.payload.exerciseSet
+                    }
+                }
+            };
+        }
         case WorkoutDaysActionsTypes.DeleteWorkoutDaySuccess: {
             const dayId = action.payload.dayId;
             return {

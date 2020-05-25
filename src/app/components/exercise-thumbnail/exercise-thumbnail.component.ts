@@ -15,7 +15,7 @@ import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { getExerciseSet } from 'src/app/store/selectors/exerciseSets.selectors';
 import { DeleteExercise, UpdateExercise, AddSet, DeleteSet,
 } from 'src/app/store/actions/exercises.actions';
-import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
+import { SwitchExercisesInSet, UpdateExerciseSet } from 'src/app/store/actions/exerciseSets.actions';
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
@@ -25,6 +25,7 @@ import { getRunningWorkoutDayState } from 'src/app/store/selectors/data.selector
 import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
 import { ExerciseDetailModalComponent } from '../exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
 import { Animation, AnimationController } from '@ionic/angular';
+import { ExerciseSetBean } from 'src/app/models/ExerciseSet';
 
 const MAXSETS = 5;
 const MINSETS = 1;
@@ -47,6 +48,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     private isInEditMode = false;
     private mode: DisplayMode = DisplayMode.Display;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
+    private exerciseSet: ExerciseSetBean;
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
     runningExercises: Map<string, IRunningSet[]>;
@@ -135,13 +137,14 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         this.store
         .select(getExerciseSet(this.exerciseSetId))
         .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(exerciseSet => {
-            this.logger.debug('ngOnInit', 'getExerciseSet', exerciseSet);
-            this.exercises = exerciseSet.exercises;
-            this.images = exerciseSet.media;
+        .subscribe(data => {
+            this.logger.debug('ngOnInit', 'getExerciseSet', data);
+            this.exerciseSet = data.set;
+            this.exercises = data.exercises;
+            this.images = data.media;
             if (this.exercises[0]) {
-                this.restBetweenSets = this.exercises[0].restBetweenSets;
-                this.restAfterExercise = this.exercises[0].restAfterExercise;
+                this.restBetweenSets = data.set.restBetweenSets;
+                this.restAfterExercise = data.set.restAfterExercise;
             }
             this.RunningExercisesSets = this.createRunningExercisesMap();
         });
@@ -270,19 +273,26 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
           this.router.navigate(['/tabs/tab-library'], extra);
     }
 
-    exerciseChanged(index: number, value: string | number, prop: string) {
-        if (this.exercises[index][prop] === value) {
+    exerciseChanged(exeIndex: number, value: string, prop: string) {
+        if (this.exercises[exeIndex][prop] === value) {
             return;
         }
         this.logger.debug('exerciseChanged', `${prop} to ${value}`);
-        const newExe = ExerciseBean
-            .copy(this.exercises[index], {
-                restBetweenSets: this.restBetweenSets,
-                restAfterExercise: this.restAfterExercise
-            });
+        const newExe = ExerciseBean.copy(this.exercises[exeIndex]);
         newExe[prop] = value;
         this.store.dispatch(new UpdateExercise({
             exercise: newExe
+        }));
+    }
+    exerciseSetChanged(value: number, prop: string) {
+        this.logger.debug('exerciseSetChanged', `${prop} to ${value}`);
+        const newExeSet = ExerciseSetBean
+            .copy(this.exerciseSet, {
+                restBetweenSets: this.restBetweenSets,
+                restAfterExercise: this.restAfterExercise
+            });
+        this.store.dispatch(new UpdateExerciseSet({
+            exerciseSet: newExeSet
         }));
     }
 
@@ -494,7 +504,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             this.startTimedSet();
         } else {
             if (this.exercises[0].sets.length > this.activeSetIndex + 1) {
-                this.restTime = this.exercises[0].restBetweenSets;
+                this.restTime = this.restBetweenSets;
                 if (withRest) {
                     this.startTimedRest(() => {
                         this.activeSetIndex ++;
@@ -506,7 +516,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
                 }
             } else {
                 this.stopSetTimer();
-                this.restTime = this.exercises[0].restAfterExercise;
+                this.restTime = this.restAfterExercise;
                 if (withRest) {
                     this.startTimedRest(() => {
                         this.completeExercise()
@@ -673,12 +683,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         return this.dataService.safeImage(media, index);
     }
 
-    editExerciseName(event: any, exe: ExerciseBean, index: number) {
+    editExerciseName(event: any, exe: ExerciseBean, exeIndex: number) {
         event.stopPropagation();
-        this.presentAlertPrompt(exe, index);
+        this.presentAlertPrompt(exe, exeIndex);
     }
 
-    async presentAlertPrompt(exe: ExerciseBean, index: number) {
+    async presentAlertPrompt(exe: ExerciseBean, exeIndex: number) {
         const alert = await this.alertController.create({
           header: 'Execrcise Name',
           inputs: [{
@@ -701,7 +711,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             handler: (data) => {
               if (data.text) {
                 this.logger.debug('presentAlertPrompt', 'saving text', data.text);
-                this.exerciseChanged(index, data.text, 'name');
+                this.exerciseChanged(exeIndex, data.text, 'name');
               } else {
                 return false;
               }

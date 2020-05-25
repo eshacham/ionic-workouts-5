@@ -44,7 +44,6 @@ export class SelectWorkoutDay implements Action {
     constructor(public payload: {
         workoutId: string;
         dayId: string;
-        // setId?: string;
     }) { }
 }
 

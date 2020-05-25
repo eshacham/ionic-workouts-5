@@ -78,8 +78,6 @@ import {
     DeleteWorkoutDaySuccess,
     ChangeDisplayMode,
     ChangeDisplayModeSuccess,
-    // ChangeDisplayModeSuccess,
-    // ChangeDisplayMode
 } from '../actions/workoutDays.actions';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Version } from 'src/app/models/Version';

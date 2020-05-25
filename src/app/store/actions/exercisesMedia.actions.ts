@@ -9,8 +9,6 @@ export enum ExerciseMediaActionsTypes {
     UpdateExerciseMediaSuccess = '[ExerciseMedia] Exercise media has been updated',
     DeleteExerciseMedia = '[ExerciseMedia] Delete exercise media',
     DeleteExerciseMediaSuccess = '[ExerciseMedia] Exercise media has been deleted',
-    // ScrollToExerciseMedia = '[ExerciseMedia] Scroll to Exercise media',
-    // ResetScrollToExerciseMedia = '[ExerciseMedia] Reset the scroll to Exercise media',
     InsertImageToExerciseMedia = '[ExerciseMedia] Insert a an image to an exercise media',
     RemoveImageFromExerciseMedia = '[ExerciseMedia] Remove a an image from an exercise media',
 }
@@ -62,16 +60,6 @@ export class DeleteExerciseMediaSuccess implements Action {
         imageId: string,
     }) { }
 }
-// export class ScrollToExerciseMedia implements Action {
-//     readonly type = ExerciseMediaActionsTypes.ScrollToExerciseMedia;
-//     constructor(public payload: {
-//         imageId: string,
-//     }) { }
-// }
-// export class ResetScrollToExerciseMedia implements Action {
-//     readonly type = ExerciseMediaActionsTypes.ResetScrollToExerciseMedia;
-//     constructor() { }
-// }
 
 export type ExerciseMediaActions =
     AddExerciseMedia |
@@ -80,8 +68,6 @@ export type ExerciseMediaActions =
     UpdateExerciseMediaSuccess |
     DeleteExerciseMedia |
     DeleteExerciseMediaSuccess |
-    // ScrollToExerciseMedia |
-    // ResetScrollToExerciseMedia |
     InsertImageToExerciseMedia |
     RemoveImageFromExerciseMedia
     ;

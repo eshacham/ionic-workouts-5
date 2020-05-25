@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Version } from 'src/app/models/Version';
 import { DataServiceProvider } from '../data-service/data-service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { environment } from 'src/environments/environment';

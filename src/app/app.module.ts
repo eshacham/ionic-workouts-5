@@ -16,9 +16,7 @@ import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-// import { AmplifyService, AmplifyModules } from 'aws-amplify-angular';
 import { AmplifyAngularModule, AmplifyIonicModule, AmplifyService } from 'aws-amplify-angular'
-// import { Auth, Storage } from 'aws-amplify';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,14 +65,6 @@ export function configureLogging(loggingService: LoggingService): () => void {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // {
-    //   provide: AmplifyService, useFactory: () => {
-    //     return AmplifyModules({
-    //       Auth,
-    //       Storage
-    //     });
-    //   }
-    // },
     AmplifyService,
     {
       deps: [LoggingService],

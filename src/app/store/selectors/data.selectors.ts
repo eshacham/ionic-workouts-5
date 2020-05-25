@@ -56,10 +56,6 @@ export const getWorkoutImportInProgress = createSelector(
     (state: IDataState) => state.workoutImportInProgress
 );
 
-// export const getScrollToExerciseMediaId = createSelector(
-//     dataState,
-//     (state: IDataState) => state.scrollToExerciseMediaId
-// );
 
 export const getError = createSelector(
     dataState,

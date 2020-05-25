@@ -14,8 +14,6 @@ export class Exercise implements Bean {
     public typeOfWeight: WeightType;
     public isFavorite: boolean;
     public sets: Set[];
-    public restBetweenSets: number;
-    public restAfterExercise: number;
 
     constructor(options: {
         id: string,
@@ -26,8 +24,6 @@ export class Exercise implements Bean {
         typeOfWeight?: WeightType,
         isFavorite: boolean,
         sets: Set[],
-        restBetweenSets: number,
-        restAfterExercise: number,
     }) {
         this.id = options.id;
         this.name = options.name;
@@ -35,11 +31,8 @@ export class Exercise implements Bean {
         this.theGrip = options.theGrip || new Grip();
         this.repSpeed = options.repSpeed;
         this.typeOfWeight = options.typeOfWeight || WeightType.NoWeight;
-
         this.isFavorite = options.isFavorite;
         this.sets = options.sets;
-        this.restBetweenSets = options.restBetweenSets;
-        this.restAfterExercise = options.restAfterExercise;
     }
 
     static toBean(exe: Exercise, workoutId: string, dayId: string, setId: string)
@@ -70,8 +63,6 @@ export class ExerciseBean extends Exercise {
         typeOfWeight?: WeightType,
         isFavorite: boolean,
         sets: Set[],
-        restBetweenSets: number,
-        restAfterExercise: number
     }
     ) {
         super(options);
@@ -100,8 +91,6 @@ export class ExerciseBean extends Exercise {
             })],
             repSpeed: RepetitionSpeed.Medium,
             isFavorite: false,
-            restBetweenSets: 20,
-            restAfterExercise: 20,
         });
     }
 
@@ -112,8 +101,6 @@ export class ExerciseBean extends Exercise {
         repSpeed?: RepetitionSpeed,
         typeOfWeight?: WeightType,
         isFavorite?: boolean,
-        restBetweenSets?: number,
-        restAfterExercise?: number
     }): ExerciseBean {
         const newGrip = {...bean.theGrip};
         return new ExerciseBean({
