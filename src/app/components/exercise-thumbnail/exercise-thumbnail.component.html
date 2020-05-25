@@ -133,19 +133,19 @@
                 <ion-row *ngIf="!isResting"  class="ion-align-items-center buttons">
                     <ion-col class="ion-text-center ion-no-padding" >
                         <ion-button expand="full" [disabled]="!isPrevRepAvailable"
-                            (click)="prevRep()">
+                            (click)="runPrevRep()">
                             <ion-icon slot="icon-only" name="play-skip-back-circle-sharp"></ion-icon>
                         </ion-button>
                     </ion-col>
                     <ion-col size="6" class="ion-no-padding">
                         <ion-button expand="full" class="workout-button"
-                            (click)="nextRep()">
+                            (click)="runNextRep()">
                             Done!
                         </ion-button>
                     </ion-col>
                     <ion-col class="ion-text-center ion-no-padding">
                         <ion-button expand="full"
-                            (click)="nextRep(false)">
+                            (click)="runNextRep(false)">
                             <ion-icon slot="icon-only" name="play-skip-forward-circle-sharp"></ion-icon>
                         </ion-button>
                     </ion-col>
