@@ -1,19 +1,14 @@
 import { Action } from '@ngrx/store';
-import { Rep } from 'src/app/models/Rep';
+import { Set } from 'src/app/models/Set';
 import { ExerciseBean } from 'src/app/models/Exercise';
 
 export enum ExerciseActionsTypes {
     UpdateExercise = '[Exercise] update exercise',
     DeleteExercise = '[Exercise] Delete exercise',
     DeleteExerciseInProgress = '[Exercise] Delete exercise is in progress',
-    ResetReps = '[Exercise] Reset all reps',
-    SetRepsActiveState = '[Exercise] Set reps active state',
-    SetRepsCompleteState = '[Exercise] Set rep complete state',
-    SetRepsIncompleteState = '[Exercise] Set rep incomplete state',
-    SetInactiveReps = '[Exercise] Set reps to inactive state',
-    AddRep = '[Exercise] Add rep',
-    DeleteRep = '[Exercise] Delete rep',
-    UpdateRep = '[Exercise] Update rep',
+    AddSet = '[Exercise] Add set',
+    DeleteSet = '[Exercise] Delete set',
+    UpdateSet = '[Exercise] Update set',
 }
 
 export class DeleteExercise implements Action {
@@ -34,68 +29,35 @@ export class UpdateExercise implements Action {
         exercise: ExerciseBean
     }) { }
 }
-export class ResetReps implements Action {
-    readonly type = ExerciseActionsTypes.ResetReps;
-    constructor(public payload: { exerciseId: string }) { }
-}
-export class SetInactiveReps implements Action {
-    readonly type = ExerciseActionsTypes.SetInactiveReps;
-    constructor(public payload: { exerciseId: string }) { }
-}
-export class SetRepsActiveState implements Action {
-    readonly type = ExerciseActionsTypes.SetRepsActiveState;
-    constructor(public payload: {
-        exerciseId: string,
-        activeIndex: number
-    }) { }
-}
-export class SetRepsCompleteState implements Action {
-    readonly type = ExerciseActionsTypes.SetRepsCompleteState;
-    constructor(public payload: {
-        exerciseId: string,
-        completeIndex: number
-    }) { }
-}
-export class SetRepsIncompleteState implements Action {
-    readonly type = ExerciseActionsTypes.SetRepsIncompleteState;
-    constructor(public payload: {
-        exerciseId: string,
-        incompleteIndex: number
-    }) { }
-}
-export class AddRep implements Action {
-    readonly type = ExerciseActionsTypes.AddRep;
+
+export class AddSet implements Action {
+    readonly type = ExerciseActionsTypes.AddSet;
     constructor(public payload: {
         copyFromIndex: number,
         exerciseId: string,
     }) { }
 }
-export class DeleteRep implements Action {
-    readonly type = ExerciseActionsTypes.DeleteRep;
+export class DeleteSet implements Action {
+    readonly type = ExerciseActionsTypes.DeleteSet;
     constructor(public payload: {
         indexToDelete: number,
         exerciseId: string,
     }) { }
 }
-export class UpdateRep implements Action {
-    readonly type = ExerciseActionsTypes.UpdateRep;
+export class UpdateSet implements Action {
+    readonly type = ExerciseActionsTypes.UpdateSet;
     constructor(public payload: {
-        rep: Rep,
+        set: Set,
         exerciseId: string,
-        repIndex: number
+        setIndex: number
     }) { }
 }
 
 export type ExerciseActions =
-    ResetReps |
-    SetRepsActiveState |
-    SetRepsCompleteState |
-    SetRepsIncompleteState |
-    SetInactiveReps |
-    AddRep |
-    DeleteRep |
+    AddSet |
+    DeleteSet |
     DeleteExercise |
     DeleteExerciseInProgress |
     UpdateExercise |
-    UpdateRep
+    UpdateSet
     ;

@@ -5,7 +5,7 @@ import { Component, OnInit, Input, OnDestroy, ElementRef, ViewChild, AfterViewIn
 import { PopoverController, AlertController, ModalController} from '@ionic/angular';
 import { ExerciseBean } from 'src/app/models/Exercise';
 import { DisplayMode, WeightUnit, RunningState, ExerciseAction } from 'src/app/models/enums';
-import { Rep, IRunningRep } from 'src/app/models/Rep';
+import { Set, IRunningSet } from 'src/app/models/Set';
 import { ExerciseThumbnailPopoverComponent } from '../exercise-thumbnail-popover/exercise-thumbnail-popover.component';
 import { ChooseExerciseActionPopoverComponent } from '../choose-exercise-action-popover/choose-exercise-action-popover.component';
 import { ExerciseVariationPopoverComponent } from '../exercise-variation-popover/exercise-variation-popover.component';
@@ -13,7 +13,7 @@ import { ExerciseMediaBean } from 'src/app/models/ExerciseMedia';
 import { IAppState } from 'src/app/store/state/app.state';
 import { getWorkoutDay } from 'src/app/store/selectors/workoutDays.selectors';
 import { getExerciseSet } from 'src/app/store/selectors/exerciseSets.selectors';
-import { DeleteExercise, UpdateExercise, AddRep, DeleteRep,
+import { DeleteExercise, UpdateExercise, AddSet, DeleteSet,
 } from 'src/app/store/actions/exercises.actions';
 import { SwitchExercisesInSet } from 'src/app/store/actions/exerciseSets.actions';
 import { StartExercise, ExerciseCompleted } from 'src/app/store/actions/workoutDays.actions';
@@ -26,8 +26,8 @@ import { IRunningWorkoutDayState } from 'src/app/store/state/data.state';
 import { ExerciseDetailModalComponent } from '../exercise-detail-modal/exercise-detail-modal/exercise-detail-modal.component';
 import { Animation, AnimationController } from '@ionic/angular';
 
-const MAXREPS = 5;
-const MINREPS = 1;
+const MAXSETS = 5;
+const MINSETS = 1;
 
 @Component({
     selector: 'app-exercise-thumbnail',
@@ -35,13 +35,13 @@ const MINREPS = 1;
     styleUrls: ['./exercise-thumbnail.component.scss'],
 })
 export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewInit {
-    private activeRepIndex = 0;
+    private activeSetIndex = 0;
     private activeExerciseInSetIndex = 0;
-    private remainingTimedRepSec = 0.0;
-    private timedRepTimer = null;
-    private secToRestAfterCurrentRep = 0;
-    private remainingTimedRestSec = 0;
-    private timedRestTimer = null;
+    private remainingSetTime = 0.0;
+    private timedSetTimer = null;
+    private restTime = 0;
+    private remainingSetRestTime = 0;
+    private timedSetRestTimer = null;
     private logger: Logger;
     private isInRunningMode = false;
     private isInEditMode = false;
@@ -49,14 +49,14 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     exercises: ExerciseBean[];
     images: ExerciseMediaBean[];
-    runningExercises: Map<string, IRunningRep[]>;
+    runningExercises: Map<string, IRunningSet[]>;
     restBetweenSets = 0;
     restAfterExercise = 0;
     isEditSetExpanded = false;
     isViewSetExpanded = false;
     displayMode = DisplayMode;
     weightUnit = WeightUnit;
-    repProgressBar: Animation;
+    setProgressBar: Animation;
     restProgressBar: Animation;
     @Input() isVolumeMuted: boolean;
     @Input() workoutId: string;
@@ -71,14 +71,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
 
     get isPrevSetAvailable(): boolean {
         const isPrevAvail =
-            this.activeRepIndex > 0 ||
+            this.activeSetIndex > 0 ||
             this.lastCompletedMultiSetExerciseIndex > -1;
         return isPrevAvail;
     }
 
-    get timedRepRemaining(): number { return this.remainingTimedRepSec; }
-
-    get timedRestRemaining(): number { return this.remainingTimedRestSec; }
+    get timedRestRemaining(): number { return this.remainingSetRestTime; }
 
     get IsRunning(): boolean { return this.isInRunningMode; }
     set IsRunning(val: boolean) {
@@ -103,19 +101,19 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    get RunningExercises(): Map<string, IRunningRep[]> {
+    get RunningExercisesSets(): Map<string, IRunningSet[]> {
         if (!this.runningExercises) {
             this.runningExercises = this.createRunningExercisesMap();
         }
         return this.runningExercises;
     }
-    set RunningExercises(map: Map<string, IRunningRep[]>) {
+    set RunningExercisesSets(map: Map<string, IRunningSet[]>) {
         this.runningExercises = map;
     }
 
-    createRunningExercisesMap(): Map<string, IRunningRep[]> {
+    createRunningExercisesMap(): Map<string, IRunningSet[]> {
         const map = new Map();
-        this.resetReps(map);
+        this.resetSets(map);
         return map;
     }
 
@@ -142,10 +140,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             this.exercises = exerciseSet.exercises;
             this.images = exerciseSet.media;
             if (this.exercises[0]) {
-                this.restBetweenSets = this.exercises[0].restBetweenReps;
+                this.restBetweenSets = this.exercises[0].restBetweenSets;
                 this.restAfterExercise = this.exercises[0].restAfterExercise;
             }
-            this.RunningExercises = this.createRunningExercisesMap();
+            this.RunningExercisesSets = this.createRunningExercisesMap();
         });
 
         this.store
@@ -246,12 +244,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             ExerciseAction.GotoExercise
         ], islast);
     }
-    selectSetAction(event: Event, exercise: ExerciseBean, repIndex: number, rep: Rep) {
-        this.presentActionsPopover(event, exercise, repIndex, [
+    selectSetAction(event: Event, exercise: ExerciseBean, setIndex: number, set: Set) {
+        this.presentActionsPopover(event, exercise, setIndex, [
             ExerciseAction.EditSet,
             ExerciseAction.AddSet,
             ExerciseAction.DeleteSet,
-        ], false, rep);
+        ], false, set);
     }
     selectExerciseViewAction(event: Event, exercise: ExerciseBean, exerciseIndex: number) {
         const actions = [
@@ -279,7 +277,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         this.logger.debug('exerciseChanged', `${prop} to ${value}`);
         const newExe = ExerciseBean
             .copy(this.exercises[index], {
-                restBetweenReps: this.restBetweenSets,
+                restBetweenSets: this.restBetweenSets,
                 restAfterExercise: this.restAfterExercise
             });
         newExe[prop] = value;
@@ -298,25 +296,25 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     get isResting(): boolean {
-        return this.remainingTimedRestSec > 0 && this.IsRunning;
+        return this.remainingSetRestTime > 0 && this.IsRunning;
     }
 
-    getRunningExeRep(repIndex: number, exerciseId: string): IRunningRep {
-        let rep: IRunningRep = { isActive: false, isComplete: false }
-        if (this.RunningExercises.has(exerciseId)) {
-            const reps = this.RunningExercises.get(exerciseId)
-            if (reps.length && reps.length > repIndex) {
-                rep = reps[repIndex];
+    getRunningExerciseSet(setIndex: number, exerciseId: string): IRunningSet {
+        let set: IRunningSet = { isActive: false, isComplete: false }
+        if (this.RunningExercisesSets.has(exerciseId)) {
+            const sets = this.RunningExercisesSets.get(exerciseId)
+            if (sets.length && sets.length > setIndex) {
+                set = sets[setIndex];
             }
         }
-        return rep;
+        return set;
     }
 
-    isSetComplete(repIndex: number, exerciseId: string): boolean {
-        return this.getRunningExeRep(repIndex, exerciseId).isComplete;
+    isSetComplete(setIndex: number, exerciseId: string): boolean {
+        return this.getRunningExerciseSet(setIndex, exerciseId).isComplete;
     }
-    isSetActive(repIndex: number, exerciseId: string): boolean {
-        return this.getRunningExeRep(repIndex, exerciseId).isActive;
+    isSetActive(setIndex: number, exerciseId: string): boolean {
+        return this.getRunningExerciseSet(setIndex, exerciseId).isActive;
     }
 
     getSetClass(index: number, exerciseId: string): string {
@@ -331,65 +329,65 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         return cls;
     }
 
-    getTimedSetStyle(repIndex: number, exerciseId: string): { animation: string} {
+    getTimedSetStyle(setIndex: number, exerciseId: string): { animation: string} {
         const animation = {
-            animation: `${this.isSetActive(repIndex, exerciseId) ? 4 : 0}s linear infinite fadeinout`
+            animation: `${this.isSetActive(setIndex, exerciseId) ? 4 : 0}s linear infinite fadeinout`
         };
         return animation;
     }
 
-    getSecondsStateText(repIndex: number, exerciseId: string) {
-        const rep = this.getRunningExeRep(repIndex, exerciseId);
-        if (rep.isComplete) {
-            return `${rep.seconds}`;
+    getRunningSetTime(setIndex: number, exerciseId: string) {
+        const set = this.getRunningExerciseSet(setIndex, exerciseId);
+        if (set.isComplete) {
+            return `${set.time}`;
         }
-        if (rep.isActive) {
-            return `${Math.ceil(this.timedRepRemaining)}`;
+        if (set.isActive) {
+            return `${Math.ceil(this.remainingSetTime)}`;
         }
-        return `${rep.seconds}`;
+        return `${set.time}`;
     }
 
-    get restSecondsStateText() {
+    get RemainingTimedRest() {
         return `${Math.ceil(this.timedRestRemaining)}`;
     }
 
     startWorkout() {
         this.IsRunning = true;
         this.activeExerciseInSetIndex = 0;
-        this.resetReps(this.RunningExercises);
+        this.resetSets(this.RunningExercisesSets);
         this.runNextSet();
     }
     stopWorkout() {
         if (this.exercises && this.exercises.length) {
             this.IsRunning = false;
-            this.resetReps(this.RunningExercises);
-            this.stopRepTimer();
+            this.resetSets(this.RunningExercisesSets);
+            this.stopSetTimer();
             this.stopRestTimer();
-            this.remainingTimedRestSec = 0;
-            this.remainingTimedRepSec = 0;
+            this.remainingSetRestTime = 0;
+            this.remainingSetTime = 0;
         }
     }
 
-    private resetReps(map: Map<string, IRunningRep[]>) {
-        this.exercises.forEach(e => map.set(e.id, e.reps.map(r => (
-            { isActive: false, isComplete: false, seconds: r.seconds }
+    private resetSets(map: Map<string, IRunningSet[]>) {
+        this.exercises.forEach(e => map.set(e.id, e.sets.map(r => (
+            { isActive: false, isComplete: false, time: r.time }
         ))));
     }
 
-    private startTimedRep() {
-        this.stopRepTimer();
-        this.remainingTimedRepSec = this.ActiveRepTime;
-        if (this.remainingTimedRepSec) {
+    private startTimedSet() {
+        this.stopSetTimer();
+        this.remainingSetTime = this.ActiveSetTime;
+        if (this.remainingSetTime) {
             setTimeout(() => {
-                this.animateProgressBar(this.remainingTimedRepSec, this.activeSetProgresssBar.nativeElement);
+                this.animateProgressBar(this.remainingSetTime, this.activeSetProgresssBar.nativeElement);
             }, 0);
             const interval = 1000;
             const intervalStep = interval / 1000;
-            this.timedRepTimer = setInterval(() => {
-                this.remainingTimedRepSec -= intervalStep;
-                if (this.remainingTimedRepSec <= 0) {
-                    this.stopRepTimer();
-                    this.stopAnimatedProgressBar(this.repProgressBar);
+            this.timedSetTimer = setInterval(() => {
+                this.remainingSetTime -= intervalStep;
+                if (this.remainingSetTime <= 0) {
+                    this.stopSetTimer();
+                    this.stopAnimatedProgressBar(this.setProgressBar);
                     this.runNextSet();
                 }
             }, interval);
@@ -405,40 +403,40 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    animateProgressBar(remainingTimedRepSec: number, element) {
-        this.repProgressBar = this.animationCtrl.create()
+    animateProgressBar(remainingTimedSetTime: number, element) {
+        this.setProgressBar = this.animationCtrl.create()
         .addElement(element)
-        .duration(remainingTimedRepSec*1000)
+        .duration(remainingTimedSetTime*1000)
         .fromTo('transform', 'scalex(0)', 'scalex(1)')
-        this.repProgressBar.play();
+        this.setProgressBar.play();
     }
 
-    private stopRepTimer() {
-        if (this.timedRepTimer) {
-            clearInterval(this.timedRepTimer);
+    private stopSetTimer() {
+        if (this.timedSetTimer) {
+            clearInterval(this.timedSetTimer);
         }
-        this.remainingTimedRepSec = 0;
-        this.stopAnimatedProgressBar(this.repProgressBar);
+        this.remainingSetTime = 0;
+        this.stopAnimatedProgressBar(this.setProgressBar);
     }
     private stopRestTimer() {
-        if (this.timedRestTimer) {
-            clearInterval(this.timedRestTimer);
+        if (this.timedSetRestTimer) {
+            clearInterval(this.timedSetRestTimer);
         }
-        this.remainingTimedRestSec = 0;
+        this.remainingSetRestTime = 0;
         this.stopAnimatedProgressBar(this.restProgressBar);
     }
     private startTimedRest(callbackAction: () => void) {
         this.stopRestTimer();
-        this.remainingTimedRestSec = this.secToRestAfterCurrentRep;
-        if (this.remainingTimedRestSec) {
+        this.remainingSetRestTime = this.restTime;
+        if (this.remainingSetRestTime) {
             setTimeout(() => {
-                this.animateProgressBar(this.remainingTimedRestSec, this.activeRestProgresssBar.nativeElement);
+                this.animateProgressBar(this.remainingSetRestTime, this.activeRestProgresssBar.nativeElement);
             }, 0);
             const interval = 1000;
             const intervalStep = interval / 1000;
-            this.timedRestTimer = setInterval(() => {
-                this.remainingTimedRestSec -= intervalStep;
-                if (this.remainingTimedRestSec <= 0) {
+            this.timedSetRestTimer = setInterval(() => {
+                this.remainingSetRestTime -= intervalStep;
+                if (this.remainingSetRestTime <= 0) {
                     this.stopRestTimer();
                     this.stopAnimatedProgressBar(this.restProgressBar);
                     return new callbackAction();
@@ -448,67 +446,67 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     runPrevSet() {
-        this.stopRepTimer();
-        this.remainingTimedRepSec = 0;
-        this.inactivateExercisesCurrentRep();
-        this.incompleteExercisesCurrentRep();
-        this.startTimedRep();
+        this.stopSetTimer();
+        this.remainingSetTime = 0;
+        this.inactivateCurrentExercisesSet();
+        this.uncompleteCurrentExercisesSet();
+        this.startTimedSet();
     }
-    inactivateExercisesCurrentRep() {
+    inactivateCurrentExercisesSet() {
         const exerciseIds = this.exercises.map(exe=>exe.id).slice(this.lastCompletedMultiSetExerciseIndex + 1);
         exerciseIds.forEach(id => {
-            const rep = this.getRunningExeRep(this.activeRepIndex, id);
-            if (rep.isActive){
-                rep.isActive = false;
+            const set = this.getRunningExerciseSet(this.activeSetIndex, id);
+            if (set.isActive){
+                set.isActive = false;
             }
         });
     }
-    incompleteExercisesCurrentRep() {
+    uncompleteCurrentExercisesSet() {
         let skip = false;
         if (this.lastCompletedMultiSetExerciseIndex === -1) {
-            this.activeRepIndex--;
+            this.activeSetIndex--;
         }
         const exerciseIds = this.exercises.map(exe=>exe.id).slice(0, this.lastCompletedMultiSetExerciseIndex + 1).reverse();
         exerciseIds.forEach((id, index) => {
-            const rep = this.getRunningExeRep(this.activeRepIndex, id);
-            if ((index === 0 || !rep.seconds) && !skip) {
-                rep.isComplete = false;
-                rep.isActive = true;
+            const set = this.getRunningExerciseSet(this.activeSetIndex, id);
+            if ((index === 0 || !set.time) && !skip) {
+                set.isComplete = false;
+                set.isActive = true;
             }
-            skip = skip || !!rep.seconds;
+            skip = skip || !!set.time;
         });
     }
 
     skipRest() {
-        this.remainingTimedRestSec = 0;
-        this.remainingTimedRepSec = 0;
+        this.remainingSetRestTime = 0;
+        this.remainingSetTime = 0;
     }
 
     runNextSet(withRest = true) {
-        this.stopRepTimer();
-        this.remainingTimedRepSec = 0;
-        this.nextRep(withRest);
+        this.stopSetTimer();
+        this.remainingSetTime = 0;
+        this.nextSet(withRest);
     }
 
-    nextRep(withRest = true) {
-        this.completeCurrentMultiSetReps();
-        if (this.activateNextMultiSetReps()) {
-            this.startTimedRep();
+    nextSet(withRest = true) {
+        this.completeCurrentSets();
+        if (this.activateNextSets()) {
+            this.startTimedSet();
         } else {
-            if (this.exercises[0].reps.length > this.activeRepIndex + 1) {
-                this.secToRestAfterCurrentRep = this.exercises[0].restBetweenReps;
+            if (this.exercises[0].sets.length > this.activeSetIndex + 1) {
+                this.restTime = this.exercises[0].restBetweenSets;
                 if (withRest) {
                     this.startTimedRest(() => {
-                        this.activeRepIndex ++;
-                        this.nextRep();
+                        this.activeSetIndex ++;
+                        this.nextSet();
                     });
                 } else {
-                    this.activeRepIndex ++;
-                    this.nextRep();
+                    this.activeSetIndex ++;
+                    this.nextSet();
                 }
             } else {
-                this.stopRepTimer();
-                this.secToRestAfterCurrentRep = this.exercises[0].restAfterExercise;
+                this.stopSetTimer();
+                this.restTime = this.exercises[0].restAfterExercise;
                 if (withRest) {
                     this.startTimedRest(() => {
                         this.completeExercise()
@@ -520,36 +518,36 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    private completeCurrentMultiSetReps() {
+    private completeCurrentSets() {
         const exerciseIds = this.exercises.map(exe=>exe.id).slice(this.lastCompletedMultiSetExerciseIndex + 1);
         exerciseIds.forEach(id => {
-            const rep = this.getRunningExeRep(this.activeRepIndex, id);
-            if (rep.isActive) {
-                rep.isComplete = true;
-                rep.isActive = false;
+            const set = this.getRunningExerciseSet(this.activeSetIndex, id);
+            if (set.isActive) {
+                set.isComplete = true;
+                set.isActive = false;
             }
         });
     }
 
-    private activateNextMultiSetReps() {
+    private activateNextSets() {
         let activated = false;
         let skip = false;
         const exerciseIds = this.exercises.map(exe=>exe.id).slice(this.lastCompletedMultiSetExerciseIndex + 1);
         exerciseIds.forEach((id, index) => {
-            const rep = this.getRunningExeRep(this.activeRepIndex, id);
-            if ((index === 0 || !rep.seconds) && !skip) {
-                rep.isActive = true;
+            const set = this.getRunningExerciseSet(this.activeSetIndex, id);
+            if ((index === 0 || !set.time) && !skip) {
+                set.isActive = true;
                 activated = true;
             }
-            skip = skip || !!rep.seconds;
+            skip = skip || !!set.time;
         });
         return activated;
     }
 
     get lastCompletedMultiSetExerciseIndex(): number {
         let lastCompleted = this.exercises.map(exe=>exe.id).reverse().findIndex((id) => {
-            const rep = this.getRunningExeRep(this.activeRepIndex, id);
-            return rep.isComplete;
+            const set = this.getRunningExerciseSet(this.activeSetIndex, id);
+            return set.isComplete;
         });
         if (lastCompleted > -1) {
             lastCompleted = this.exercises.length - 1 - lastCompleted;
@@ -558,16 +556,16 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
 
-    get ActiveRepTime(): number {
+    get ActiveSetTime(): number {
         const exerciseIds = this.exercises.map(exe=>exe.id).slice(this.lastCompletedMultiSetExerciseIndex + 1);
-        const rep = this.getRunningExeRep(this.activeRepIndex, exerciseIds[0]);
-        return rep.seconds;
+        const set = this.getRunningExerciseSet(this.activeSetIndex, exerciseIds[0]);
+        return set.time;
     }
 
-    addRep(index: number) {
-        if (!this.isMaxReps) {
+    addSet(index: number) {
+        if (!this.isMaxSets) {
             this.exercises.forEach(exe => {
-                this.store.dispatch(new AddRep({
+                this.store.dispatch(new AddSet({
                     exerciseId: exe.id,
                     copyFromIndex: index
                 }));
@@ -578,10 +576,10 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
     toggleViewSet() {
         this.isViewSetExpanded = !this.isViewSetExpanded;
     }
-    deleteRep(index: number) {
-        if (!this.isMinReps) {
+    deleteSet(index: number) {
+        if (!this.isMinSets) {
             this.exercises.forEach(exe => {
-                this.store.dispatch(new DeleteRep({
+                this.store.dispatch(new DeleteSet({
                     exerciseId: exe.id,
                     indexToDelete: index
                 }));
@@ -589,12 +587,12 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    get isMaxReps(): boolean {
-        return this.exercises[0].reps.length === MAXREPS;
+    get isMaxSets(): boolean {
+        return this.exercises[0].sets.length === MAXSETS;
     }
 
-    get isMinReps(): boolean {
-        return this.exercises[0].reps.length === MINREPS;
+    get isMinSets(): boolean {
+        return this.exercises[0].sets.length === MINSETS;
     }
     async presentVariationPopover(event: Event, exercise: ExerciseBean) {
         const popover = await this.popoverCtrl.create({
@@ -607,11 +605,11 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         popover.present();
     }
 
-    async presentPopover(event: Event, rep: Rep, repIndex: number, exeId: string) {
+    async presentPopover(event: Event, set: Set, setIndex: number, exeId: string) {
         const popover = await this.popoverCtrl.create({
             component: ExerciseThumbnailPopoverComponent,
             event,
-            componentProps: { rep, exeId, repIndex }
+            componentProps: { set, exeId, setIndex }
         });
         popover.present();
     }
@@ -621,7 +619,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
         index: number,
         actions: ExerciseAction[],
         isLast?: boolean,
-        rep?: Rep,
+        set?: Set,
     ) {
         const popover = await this.popoverCtrl.create({
             component: ChooseExerciseActionPopoverComponent,
@@ -629,9 +627,9 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
             componentProps: {
                 canSwap: !isLast,
                 isViewSetExpanded: this.isViewSetExpanded,
-                rep,
-                isMinReps: this.isMinReps,
-                isMaxReps: this.isMaxReps,
+                set,
+                isMinSets: this.isMinSets,
+                isMaxSets: this.isMaxSets,
                 actions,
                 multiSet: this.exercises.length > 1,
             }
@@ -651,13 +649,13 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
                         this.switchExercises(index);
                         break;
                     case ExerciseAction.EditSet:
-                        this.presentPopover(event, rep, index, exercise.id);
+                        this.presentPopover(event, set, index, exercise.id);
                         break;
                     case ExerciseAction.AddSet:
-                        this.addRep(index);
+                        this.addSet(index);
                         break;
                     case ExerciseAction.DeleteSet:
-                        this.deleteRep(index);
+                        this.deleteSet(index);
                         break;
                     case ExerciseAction.ViewSet:
                         this.toggleViewSet();

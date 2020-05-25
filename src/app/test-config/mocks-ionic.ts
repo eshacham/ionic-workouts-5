@@ -84,7 +84,7 @@ export class SplashScreenMock extends SplashScreen {
 export class MockNavParams {
   data = {
      workout: defaultFirstWorkout,
-     rep: defaultFirstWorkout.days[0].exerciseSets[0].exercises[0].reps[0],
+     set: defaultFirstWorkout.days[0].exerciseSets[0].exercises[0].sets[0],
      exerciseSet: defaultFirstWorkout.days[0].exerciseSets[0].exercises[0],
   };
 

@@ -1,7 +1,7 @@
 
 import { RepetitionSpeed, WeightType } from './enums';
 import { Grip } from './Grip';
-import { Rep } from './Rep';
+import { Set } from './Set';
 import { ExerciseMediaBean } from './ExerciseMedia';
 import { Bean } from './interfaces';
 
@@ -13,8 +13,8 @@ export class Exercise implements Bean {
     public repSpeed: RepetitionSpeed;
     public typeOfWeight: WeightType;
     public isFavorite: boolean;
-    public reps: Rep[];
-    public restBetweenReps: number;
+    public sets: Set[];
+    public restBetweenSets: number;
     public restAfterExercise: number;
 
     constructor(options: {
@@ -25,8 +25,8 @@ export class Exercise implements Bean {
         repSpeed: RepetitionSpeed,
         typeOfWeight?: WeightType,
         isFavorite: boolean,
-        reps: Rep[],
-        restBetweenReps: number,
+        sets: Set[],
+        restBetweenSets: number,
         restAfterExercise: number,
     }) {
         this.id = options.id;
@@ -37,8 +37,8 @@ export class Exercise implements Bean {
         this.typeOfWeight = options.typeOfWeight || WeightType.NoWeight;
 
         this.isFavorite = options.isFavorite;
-        this.reps = options.reps;
-        this.restBetweenReps = options.restBetweenReps;
+        this.sets = options.sets;
+        this.restBetweenSets = options.restBetweenSets;
         this.restAfterExercise = options.restAfterExercise;
     }
 
@@ -69,8 +69,8 @@ export class ExerciseBean extends Exercise {
         repSpeed: RepetitionSpeed,
         typeOfWeight?: WeightType,
         isFavorite: boolean,
-        reps: Rep[],
-        restBetweenReps: number,
+        sets: Set[],
+        restBetweenSets: number,
         restAfterExercise: number
     }
     ) {
@@ -95,12 +95,12 @@ export class ExerciseBean extends Exercise {
             workoutId,
             name,
             mediaId,
-            reps: [new Rep({
-                times: 1
+            sets: [new Set({
+                reps: 10
             })],
             repSpeed: RepetitionSpeed.Medium,
             isFavorite: false,
-            restBetweenReps: 20,
+            restBetweenSets: 20,
             restAfterExercise: 20,
         });
     }
@@ -112,7 +112,7 @@ export class ExerciseBean extends Exercise {
         repSpeed?: RepetitionSpeed,
         typeOfWeight?: WeightType,
         isFavorite?: boolean,
-        restBetweenReps?: number,
+        restBetweenSets?: number,
         restAfterExercise?: number
     }): ExerciseBean {
         const newGrip = {...bean.theGrip};

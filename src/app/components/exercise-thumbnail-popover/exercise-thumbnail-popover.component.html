@@ -2,15 +2,15 @@
     <ion-item>
         <ion-label>Weight:</ion-label>
         <ion-input type="number" pattern="[0-9]*"
-            [(ngModel)]="rep.weight"
-            (change)="UpdateRep()"
+            [(ngModel)]="set.weight"
+            (change)="UpdateSet()"
         ></ion-input>
     </ion-item>
     <ion-item>
         <ion-label>Weight Unit:</ion-label>
         <ion-select interface="alert"
-            [(ngModel)]="rep.weightUnit"
-            (ionChange)="UpdateRep()">
+            [(ngModel)]="set.weightUnit"
+            (ionChange)="UpdateSet()">
             <ion-select-option *ngFor="let weightUnit of weightUnits"
                 value={{weightUnit}}>
                 {{weightUnit}}
@@ -18,17 +18,17 @@
         </ion-select>
     </ion-item>
     <ion-item>
-        <ion-label>Times:</ion-label>
+        <ion-label>Reps:</ion-label>
         <ion-input type="number" pattern="[0-9]*"
-            [(ngModel)]="rep.times"
-            (change)="UpdateRep()">
+            [(ngModel)]="set.reps"
+            (change)="UpdateSet()">
         </ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Seconds:</ion-label>
+        <ion-label>Time (seconds):</ion-label>
         <ion-input type="number" pattern="[0-9]*"
-            [(ngModel)]="rep.seconds"
-            (change)="UpdateRep()">
+            [(ngModel)]="set.time"
+            (change)="UpdateSet()">
         </ion-input>
     </ion-item>
 </ion-list>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Rep } from 'src/app/models/Rep';
+import { Set } from 'src/app/models/Set';
 import { NavParams } from '@ionic/angular';
 import { WeightUnit } from 'src/app/models/enums';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/state/app.state';
-import { UpdateRep } from 'src/app/store/actions/exercises.actions';
+import { UpdateSet } from 'src/app/store/actions/exercises.actions';
 
 @Component({
   selector: 'app-exercise-thumbnail-popover',
@@ -12,9 +12,9 @@ import { UpdateRep } from 'src/app/store/actions/exercises.actions';
   styleUrls: ['./exercise-thumbnail-popover.component.scss'],
 })
 export class ExerciseThumbnailPopoverComponent implements OnInit {
-  rep: Rep;
+  set: Set;
   exeId: string;
-  repIndex: number;
+  setIndex: number;
   weightUnits: string[];
 
   constructor(
@@ -23,17 +23,17 @@ export class ExerciseThumbnailPopoverComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rep = Rep.copyRep(this.navParams.data.rep);
+    this.set = Set.copySet(this.navParams.data.set);
     this.exeId = this.navParams.data.exeId;
-    this.repIndex = this.navParams.data.repIndex;
+    this.setIndex = this.navParams.data.setIndex;
     this.weightUnits = Object.keys(WeightUnit).map(key => WeightUnit[key]);
   }
 
-  UpdateRep() {
-    this.store.dispatch(new UpdateRep({
+  UpdateSet() {
+    this.store.dispatch(new UpdateSet({
       exerciseId: this.exeId,
-      rep: Rep.copyRep(this.rep),
-      repIndex: this.repIndex
+      set: Set.copySet(this.set),
+      setIndex: this.setIndex
     }));
   }
 

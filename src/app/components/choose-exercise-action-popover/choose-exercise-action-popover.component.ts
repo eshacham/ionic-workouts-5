@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
 import { ExerciseAction } from 'src/app/models/enums';
-import { Rep } from 'src/app/models/Rep';
+import { Set } from 'src/app/models/Set';
 
 @Component({
   selector: 'app-choose-exercise-action-popover',
@@ -14,9 +14,9 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   canSwap: boolean;
   isViewSetExpanded: boolean;
   multiSet: boolean;
-  rep: Rep;
-  isMinReps: boolean;
-  isMaxReps: boolean;
+  set: Set;
+  isMinSets: boolean;
+  isMaxSets: boolean;
   constructor(
     private navParams: NavParams,
     private popoverController: PopoverController,
@@ -25,9 +25,9 @@ export class ChooseExerciseActionPopoverComponent implements OnInit {
   ngOnInit() {
     this.canSwap = this.navParams.data.canSwap;
     this.isViewSetExpanded = this.navParams.data.isViewSetExpanded;
-    this.rep = this.navParams.data.rep;
-    this.isMinReps = this.navParams.data.isMinReps;
-    this.isMaxReps = this.navParams.data.isMaxReps;
+    this.set = this.navParams.data.set;
+    this.isMinSets = this.navParams.data.isMinSets;
+    this.isMaxSets = this.navParams.data.isMaxSets;
     this.actions = this.navParams.data.actions;
     this.multiSet = this.navParams.data.multiSet
   }

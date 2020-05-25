@@ -3,7 +3,7 @@ import { DataActionsTypes, DataActions } from '../actions/data.actions';
 import { ExerciseSetActionsTypes, ExerciseSetActions } from '../actions/exerciseSets.actions';
 import { ExerciseActionsTypes, ExerciseActions } from '../actions/exercises.actions';
 import { ExerciseBean } from 'src/app/models/Exercise';
-import { Rep } from 'src/app/models/Rep';
+import { Set } from 'src/app/models/Set';
 import { WorkoutsActions, WorkoutsActionsTypes } from '../actions/workouts.actions';
 import { WorkoutDaysActionsTypes, WorkoutDaysActions } from '../actions/workoutDays.actions';
 import { createMapFromBeanArray, removeItemFromMap, filterMapByRecordPredicate } from './utils';
@@ -23,71 +23,7 @@ export function exercisesReducers (
                 byId: action.payload.exercises.byId,
             };
         }
-        // case ExerciseActionsTypes.ResetReps: {
-        //     const newReps = Rep.copyRunningRepsAndReset(state.byId[action.payload.exerciseId].reps);
-        //     return {
-        //         ...state,
-        //         byId: {
-        //             ...state.byId,
-        //             [action.payload.exerciseId]: {
-        //                 ...state.byId[action.payload.exerciseId],
-        //                 reps: newReps
-        //             }
-        //         }
-        //     };
-        // }
-        // case ExerciseActionsTypes.SetRepsActiveState: {
-        //     const newReps = Rep.copyRunningRepsAndSetToActive(state.byId[action.payload.exerciseId].reps, action.payload.activeIndex);
-        //     return {
-        //         ...state,
-        //         byId: {
-        //             ...state.byId,
-        //             [action.payload.exerciseId]: {
-        //                 ...state.byId[action.payload.exerciseId],
-        //                 reps: newReps
-        //             }
-        //         }
-        //     };
-        // }
-        // case ExerciseActionsTypes.SetRepsCompleteState: {
-        //     const newReps = Rep.copyRunningRepsAndSetToComplete(state.byId[action.payload.exerciseId].reps, action.payload.completeIndex);
-        //     return {
-        //         ...state,
-        //         byId: {
-        //             ...state.byId,
-        //             [action.payload.exerciseId]: {
-        //                 ...state.byId[action.payload.exerciseId],
-        //                 reps: newReps
-        //             }
-        //         }
-        //     };
-        // }
-        // case ExerciseActionsTypes.SetRepsIncompleteState: {
-        //     const newReps = Rep.copyRunningRepsAndSetToIncomplete(state.byId[action.payload.exerciseId].reps, action.payload.incompleteIndex);
-        //     return {
-        //         ...state,
-        //         byId: {
-        //             ...state.byId,
-        //             [action.payload.exerciseId]: {
-        //                 ...state.byId[action.payload.exerciseId],
-        //                 reps: newReps
-        //             }
-        //         }
-        //     };
-        // }
-        // case ExerciseActionsTypes.SetInactiveReps: {
-        //     const newReps = Rep.copyRunningRepsAndSetToInactive(state.byId[action.payload.exerciseId].reps);
-        //     return {
-        //         ...state,
-        //         byId: {
-        //             ...state.byId,
-        //             [action.payload.exerciseId]: {
-        //                 ...state.byId[action.payload.exerciseId],
-        //                 reps: newReps
-        //             }
-        //         }
-        //     };
-        // }
+
         case ExerciseSetActionsTypes.AddExerciseSets: {
             return {
                 ...state,
@@ -103,32 +39,32 @@ export function exercisesReducers (
                 byId: removeItemFromMap(action.payload.exeId, state)
             };
         }
-        case ExerciseActionsTypes.AddRep: {
+        case ExerciseActionsTypes.AddSet: {
             const exeId = action.payload.exerciseId;
-            const newRep = Rep.copyRep(state.byId[exeId]
-                .reps[action.payload.copyFromIndex]);
+            const newSet = Set.copySet(state.byId[exeId]
+                .sets[action.payload.copyFromIndex]);
             return {
                 ...state,
                 byId: {
                     ...state.byId,
                     [exeId]: {
                         ...state.byId[exeId],
-                        reps: [...state.byId[exeId].reps, newRep]
+                        sets: [...state.byId[exeId].sets, newSet]
                     }
                 }
             };
         }
-        case ExerciseActionsTypes.DeleteRep: {
+        case ExerciseActionsTypes.DeleteSet: {
             const exeId = action.payload.exerciseId;
-            const newReps = [...state.byId[exeId].reps];
-            newReps.splice(action.payload.indexToDelete, 1);
+            const newSets = [...state.byId[exeId].sets];
+            newSets.splice(action.payload.indexToDelete, 1);
             return {
                 ...state,
                 byId: {
                     ...state.byId,
                     [exeId]: {
                         ...state.byId[exeId],
-                        reps: newReps
+                        sets: newSets
                     }
                 }
             };
@@ -145,17 +81,17 @@ export function exercisesReducers (
                 }
             };
         }
-        case ExerciseActionsTypes.UpdateRep: {
+        case ExerciseActionsTypes.UpdateSet: {
             const exeId = action.payload.exerciseId;
-            const newReps = [...state.byId[exeId].reps];
-            newReps[action.payload.repIndex] = action.payload.rep;
+            const newSets = [...state.byId[exeId].sets];
+            newSets[action.payload.setIndex] = action.payload.set;
             return {
                 ...state,
                 byId: {
                     ...state.byId,
                     [exeId]: {
                         ...state.byId[exeId],
-                        reps: newReps
+                        sets: newSets
                     }
                 }
             };

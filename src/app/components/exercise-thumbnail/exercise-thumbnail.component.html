@@ -31,7 +31,7 @@
                     <ion-grid>
                         <ion-row *ngFor="let exercise of exercises;"
                             id="setsRow" class="ion-align-items-center">
-                        <ion-col *ngFor="let set of exercise.reps; let i = index"
+                        <ion-col *ngFor="let set of exercise.sets; let i = index"
                             class="ion-no-padding">
                             <div *ngIf='set.weight' class="divSet divNonActive">
                                 <h4 class="ion-text-center">
@@ -39,15 +39,15 @@
                                     <small>{{' ' + weightUnit[set.weightUnit]}}</small>
                                 </h4>
                             </div>
-                            <div *ngIf='set.times' class="divSet divNonActive">
+                            <div *ngIf='set.reps' class="divSet divNonActive">
                                 <h4 class="ion-text-center">
-                                    {{set.times}}
+                                    {{set.reps}}
                                     <small>Reps</small>
                                 </h4>
                             </div>
-                            <div *ngIf="set.seconds" class="divSet divNonActive">
+                            <div *ngIf="set.time" class="divSet divNonActive">
                                 <h4 class="ion-text-center">
-                                    {{set.seconds}}
+                                    {{set.time}}
                                     <small>Sec</small>
                                 </h4>
                             </div>
@@ -85,7 +85,7 @@
                 </ion-row>
                 <ion-row *ngFor="let exercise of exercises;"
                     id="setsRow" class="ion-align-items-center">
-                    <ion-col *ngFor="let set of exercise.reps; let i = index"
+                    <ion-col *ngFor="let set of exercise.sets; let i = index"
                         class="ion-no-padding">
                         <div *ngIf='set.weight'
                             [ngClass]="getSetClass(i, exercise.id)"
@@ -96,20 +96,20 @@
                                 <small>{{' ' + weightUnit[set.weightUnit]}}</small>
                             </h4>
                         </div>
-                        <div *ngIf='set.times'
+                        <div *ngIf='set.reps'
                             [ngClass]="getSetClass(i, exercise.id)"
                             [ngStyle]="getTimedSetStyle(i, exercise.id)">
                             <h4 class="ion-text-center"
                                 [ngClass]="{'comlpeted': isSetComplete(i, exercise.id)}">
-                                {{set.times}}
+                                {{set.reps}}
                                 <small>Reps</small>
                             </h4>
                         </div>
-                        <div *ngIf="set.seconds"
+                        <div *ngIf="set.time"
                             [ngClass]="getSetClass(i, exercise.id)">
                             <h4 class="ion-text-center"
                                 [ngClass]="{'comlpeted': isSetComplete(i, exercise.id)}">
-                                {{getSecondsStateText(i, exercise.id)}}
+                                {{getRunningSetTime(i, exercise.id)}}
                                 <small>Sec</small>
                             </h4>
                             <div class="progresssBar" #activeSetProgresssBar
@@ -123,7 +123,7 @@
                     <ion-col class="ion-text-center ion-no-padding">
                         <ion-button expand="block" class="workout-button"
                             (click)="skipRest()">
-                            Rest {{restSecondsStateText}} seconds or skip
+                            Rest {{RemainingTimedRest}} seconds or skip
                         </ion-button>
                         <div class="progresssBar" #activeRestProgresssBar>
                         </div>
@@ -202,7 +202,7 @@
 
             <ion-row *ngFor="let exercise of exercises;"
                 class="ion-align-items-center ion-justify-content-center ion-no-margin editSets">
-                <ion-col *ngFor="let set of exercise.reps; let i = index"
+                <ion-col *ngFor="let set of exercise.sets; let i = index"
                     class="ion-text-center editSets ion-no-padding">
                     <ion-button class="ion-no-margin ion-no-padding edit-button" fill="clear"
                         (click)="selectSetAction($event, exercise, i, set)">
@@ -211,15 +211,15 @@
                                 {{set.weight}}
                                 <small>{{' ' + weightUnit[set.weightUnit]}}</small>
                             </h4>
-                            <h4 *ngIf='set.times' class="ion-text-center">
-                                {{set.times}}
+                            <h4 *ngIf='set.reps' class="ion-text-center">
+                                {{set.reps}}
                                 <small>Reps</small>
                             </h4>
-                            <h4 *ngIf='set.seconds' class="ion-text-center">
-                                {{set.seconds}}
+                            <h4 *ngIf='set.time' class="ion-text-center">
+                                {{set.time}}
                                 <small>Sec</small>
                             </h4>
-                            <h4 *ngIf='!set.weight && !set.times && !set.seconds'
+                            <h4 *ngIf='!set.weight && !set.reps && !set.time'
                                 class="ion-text-center">
                                 ...
                             </h4>

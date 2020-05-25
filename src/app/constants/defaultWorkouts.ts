@@ -6,7 +6,7 @@ import { WorkoutDay } from '../models/WorkoutDay';
 import { ExerciseSet } from '../models/ExerciseSet';
 import { Exercise } from '../models/Exercise';
 import { Grip } from '../models/Grip';
-import { Rep } from '../models/Rep';
+import { Set } from '../models/Set';
 import { attachMedia2Exercise } from './defaultExerciseMedia';
 
 const buildDefaultWorkouts = () => {
@@ -30,12 +30,12 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('elliptical'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            seconds: 300
+                                    sets: [
+                                        new Set({
+                                            time: 300
                                         }),
                                     ],
-                                    restBetweenReps: 0,
+                                    restBetweenSets: 0,
                                     restAfterExercise: 10
                                 })
                             ]
@@ -50,24 +50,24 @@ const buildDefaultWorkouts = () => {
                                     repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30,
                                 })
                             ]
@@ -81,24 +81,24 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('lateral raises'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 10,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30
                                 })
                             ]
@@ -117,24 +117,24 @@ const buildDefaultWorkouts = () => {
                                     repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -152,29 +152,29 @@ const buildDefaultWorkouts = () => {
                                     ),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 70,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 70,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 70,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 70,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         })
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -192,24 +192,24 @@ const buildDefaultWorkouts = () => {
                                     typeOfWeight: WeightType.Dumbbell,
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -227,24 +227,24 @@ const buildDefaultWorkouts = () => {
                                     typeOfWeight: WeightType.Dumbbell,
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -262,24 +262,24 @@ const buildDefaultWorkouts = () => {
                                     typeOfWeight: WeightType.Dumbbell,
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30
                                 })
                             ]
@@ -293,21 +293,21 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('fitball crunches'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            times: 15
+                                    sets: [
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         })
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -321,21 +321,21 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('russian twist'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            times: 15
+                                    sets: [
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         })
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -356,12 +356,12 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('elliptical'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            seconds: 300
+                                    sets: [
+                                        new Set({
+                                            time: 300
                                         }),
                                     ],
-                                    restBetweenReps: 0,
+                                    restBetweenSets: 0,
                                     restAfterExercise: 10
                                 })
                             ]
@@ -376,29 +376,29 @@ const buildDefaultWorkouts = () => {
                                     repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         })
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30,
                                 })
                             ]
@@ -412,24 +412,24 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('cable kickbacks'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 20,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 20,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 20,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30
                                 })
                             ]
@@ -448,24 +448,24 @@ const buildDefaultWorkouts = () => {
                                     repSpeed: RepetitionSpeed.Medium,
                                     typeOfWeight: WeightType.Dumbbell,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 15,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 15
+                                            reps: 15
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -479,29 +479,29 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('cable crossover'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
+                                    sets: [
+                                        new Set({
                                             weight: 30,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 30,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 30,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         }),
-                                        new Rep({
+                                        new Set({
                                             weight: 30,
                                             weightUnit: WeightUnit.Lbs,
-                                            times: 12
+                                            reps: 12
                                         })
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -515,18 +515,18 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('single leg squats'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            times: 8
+                                    sets: [
+                                        new Set({
+                                            reps: 8
                                         }),
-                                        new Rep({
-                                            times: 8
+                                        new Set({
+                                            reps: 8
                                         }),
-                                        new Rep({
-                                            times: 8
+                                        new Set({
+                                            reps: 8
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -540,15 +540,15 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('plank'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            seconds: 60
+                                    sets: [
+                                        new Set({
+                                            time: 60
                                         }),
-                                        new Rep({
-                                            seconds: 60
+                                        new Set({
+                                            time: 60
                                         }),
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
@@ -562,18 +562,18 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('side plank hip raise'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            times: 10
+                                    sets: [
+                                        new Set({
+                                            reps: 10
                                         }),
-                                        new Rep({
-                                            times: 10
+                                        new Set({
+                                            reps: 10
                                         }),
-                                        new Rep({
-                                            times: 10
+                                        new Set({
+                                            reps: 10
                                         }),
                                     ],
-                                    restBetweenReps: 30,
+                                    restBetweenSets: 30,
                                     restAfterExercise: 30
                                 })
                             ]
@@ -587,21 +587,21 @@ const buildDefaultWorkouts = () => {
                                     mediaId: attachMedia2Exercise('v up'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
-                                    reps: [
-                                        new Rep({
-                                            times: 15
+                                    sets: [
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         }),
-                                        new Rep({
-                                            times: 15
+                                        new Set({
+                                            reps: 15
                                         })
                                     ],
-                                    restBetweenReps: 20,
+                                    restBetweenSets: 20,
                                     restAfterExercise: 20
                                 })
                             ]
