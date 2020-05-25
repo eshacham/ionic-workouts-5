@@ -13,7 +13,7 @@ ion-list {
         ion-grid {
             ion-row {
                 width: 100%;
-                &#repsRow {
+                &#setsRow {
                     margin-bottom: 2px;
 
                     ion-col {
@@ -21,7 +21,7 @@ ion-list {
                         margin-left: 2px;
 
                         div {
-                            &.divRep {
+                            &.divSet {
                                 h4 {
                                     color: var(--ion-color-primary);
                                 }
@@ -62,7 +62,7 @@ ion-grid {
             }
 
         }
-        &#repsRow {
+        &#setsRow {
             margin-bottom: 2px;
 
             ion-col {
@@ -70,7 +70,7 @@ ion-grid {
                 margin-left: 2px;
 
                 div {
-                    &.divRep {
+                    &.divSet {
                         h4 {
                             color: var(--ion-color-primary);
                         }
