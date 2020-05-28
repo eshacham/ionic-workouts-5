@@ -178,6 +178,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     this.logger.debug('takePicture', 'took picture as: ', imagePath);
     let origImageName: string;
     let origImagePath: string;
+    const description = 'add description here'
 
     if (this.dataService.isAndriod && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
       origImageName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
@@ -193,6 +194,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       origImageName,
       newImageName,
       media,
+      description,
     });
   }
 

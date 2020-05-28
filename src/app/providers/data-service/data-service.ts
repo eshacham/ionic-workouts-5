@@ -215,6 +215,7 @@ export class DataServiceProvider {
       newEntry = new ExerciseMediaBean({
         id: newImageId,
         name: options.newImageName,
+        description: options.description,
         images: [newImageId],
         isDefault: false,
         muscles: new Set(),
