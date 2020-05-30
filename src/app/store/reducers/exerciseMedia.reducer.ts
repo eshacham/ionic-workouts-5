@@ -71,6 +71,7 @@ export function exercisesMediaReducers (
                     [mediaId]: {
                         ...state.byId[mediaId],
                         name: action.payload.name || state.byId[mediaId].name,
+                        description: action.payload.description || state.byId[mediaId].description,
                         images: action.payload.images || state.byId[mediaId].images,
                     }
                 }

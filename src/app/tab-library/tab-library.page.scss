@@ -90,6 +90,12 @@ ion-grid {
     }
 }
 
+p.description {
+    font-size: medium;
+    margin: 4px;
+    color: var(--ion-color-secondary);
+}
+
 ion-toolbar#toolbarInFooter {
     --background: var(--ion-color-tertiary);
 }

@@ -81,6 +81,11 @@
           </ion-col>
         </ion-row>
         <ion-row *ngIf="img.expanded">
+          <ion-col size="12">
+            <p class="ion-text-wrap description">
+              {{img.media.description}}
+            </p>
+          </ion-col>
           <ion-col *ngFor="let use of img.usage"
             class="ion-text-center ion-no-padding">
               <ion-button size="small" fill="clear"

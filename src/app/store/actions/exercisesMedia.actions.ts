@@ -36,6 +36,7 @@ export class UpdateExerciseMedia implements Action {
     constructor(public payload: {
         id: string,
         name?: string,
+        description?: string,
         images?: string[],
     }) { }
 }
@@ -44,6 +45,7 @@ export class UpdateExerciseMediaSuccess implements Action {
     constructor(public payload: {
         id: string,
         name?: string,
+        description?: string,
         images?: string[],
     }) { }
 }

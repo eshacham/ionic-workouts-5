@@ -166,7 +166,7 @@ export class WorkoutDayComponent implements OnInit, OnDestroy {
       inputs: [{
         name: 'text',
         id: 'text',
-        type: 'textarea',
+        type: 'text',
         value: name,
         placeholder: 'Enter workout day name here...'
       },

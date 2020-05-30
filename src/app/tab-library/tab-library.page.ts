@@ -307,7 +307,7 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       [elements[selectedIndex], elements[selectedIndex + 1]] =
         [elements[selectedIndex + 1], elements[selectedIndex]];
       this.logger.debug('moveAhead', elements);
-      this.updateImage(item.media, null, elements);
+      this.updateImage(item.media, null, null, elements);
     }
   }
 
@@ -327,9 +327,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
     }, 300);
     event.stopPropagation();
   }
-  updateImage(image: ExerciseMediaBean, name?: string, images?: string[]) {
+  updateImage(image: ExerciseMediaBean, name?: string, description?: string, images?: string[]) {
     this.logger.debug('updateImage', name, images);
-    this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name, images }));
+    this.store.dispatch(new UpdateExerciseMedia({ id: image.id, name, description, images }));
     this.presentToast('Image updated.');
   }
 
@@ -384,34 +384,38 @@ export class TabLibraryPage implements OnInit, OnDestroy {
 
   async presentAlertPrompt(img: ExerciseMediaWithUsage) {
     const alert = await this.alertController.create({
-      header: 'Edit Name',
+      header: 'Edit Name & Description',
       inputs: [{
         name: 'text',
         id: 'text',
-        type: 'textarea',
+        type: 'text',
         value: img.media.name,
         placeholder: 'Enter media name here...'
-      },
-      ],
+      },{
+        name: 'desc',
+        id: 'desc',
+        type: 'textarea',
+        value: img.media.description,
+        placeholder: 'Enter exercise description here...'
+      }],
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
-        cssClass: 'secondary',
         handler: () => {
-          this.logger.debug('presentAlertPrompt', 'edit cancelled');
-        }
-      }, {
+            this.logger.debug('presentAlertPrompt', 'edit cancelled');
+          }
+        }, {
         text: 'Save',
         handler: (data) => {
           if (data.text) {
-            this.logger.debug('presentAlertPrompt', 'saving text', data.text);
-            this.updateImage(img.media, data.text);
+            this.logger.debug('presentAlertPrompt', 'saving text', data.text, data.desc);
+            this.updateImage(img.media, data.text, data.desc);
           } else {
             return false;
           }
         }
-      }
-      ]
+      }],
+      cssClass: 'alert-library',
     });
 
     alert.present();
