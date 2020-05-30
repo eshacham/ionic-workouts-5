@@ -43,7 +43,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
   @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
   slideOpts = {
-    slidesPerView: 3,
+    slidesPerView: 2,
+    spaceBetween: 8,
+    centeredSlides: false,
     zoom: false,
   };
   private musclesFilter: Muscles[];

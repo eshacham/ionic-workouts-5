@@ -68,7 +68,7 @@ ion-grid {
             }
         }
         ion-slides {
-            width: 100%;
+            // width: 100%;
 
             ion-button.img-btn {
                 height: auto;
@@ -80,7 +80,7 @@ ion-grid {
                     width: 100%;
                     height: auto;
                     border: 2px;
-                    border-radius: 8px;
+                    border-radius: 10px;
                     border-style: solid;
                     border-color: var(--ion-color-tertiary)
                 }
