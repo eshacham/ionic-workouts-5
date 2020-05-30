@@ -54,7 +54,9 @@ ion-card {
 
             ion-row {
                 background: var(--ion-color-secondary);
-
+                border-color: var(--ion-color-tertiary);
+                border-style: solid;
+                border-width: 2px;
                 &.allRound {
                     border-radius: 8px;
                 }
@@ -62,11 +64,13 @@ ion-card {
                 &.topRound {
                     border-top-left-radius: 8px;
                     border-top-right-radius: 8px;
+                    border-bottom-style: unset;
                 }
 
                 &.bottomRound {
                     border-bottom-left-radius: 8px;
                     border-bottom-right-radius: 8px;
+                    border-top-style: unset;
                 }
 
                 ion-col {
