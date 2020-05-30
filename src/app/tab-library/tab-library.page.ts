@@ -245,10 +245,6 @@ export class TabLibraryPage implements OnInit, OnDestroy {
       .then(result => {
         this.logger.info('onDidDismiss', result.data as MediaAction);
         switch (result.data) {
-          case MediaAction.ShowUsage:
-          case MediaAction.HideUsage:
-            this.expandItem(media);
-            break;
           case MediaAction.ViewLarge:
             this.viewLarge(media, selectedIndex);
             break;

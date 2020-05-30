@@ -68,7 +68,6 @@ ion-grid {
             }
         }
         ion-slides {
-            // width: 100%;
 
             ion-button.img-btn {
                 height: auto;
@@ -87,6 +86,9 @@ ion-grid {
             }
         }
 
+    }
+    ion-button.expand-button {
+        color: var(--ion-color-tertiary);
     }
 }
 

@@ -30,9 +30,6 @@ export class ChooseMediaActionPopoverComponent implements OnInit {
   close(action: MediaAction) {
     this.popoverController.dismiss(action);
   }
-  showUsage() {
-    this.close(MediaAction.ShowUsage);
-  }
   viewLarge() {
     this.close(MediaAction.ViewLarge);
   }

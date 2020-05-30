@@ -80,6 +80,16 @@
             </ion-slides>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button fill="outline" class="expand-button"
+                (click)="expandItem(img)">
+                <ion-icon slot="icon-only"
+                    [name]="img.expanded ? 'caret-up-sharp' : 'caret-down-sharp'">
+                </ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
         <ion-row *ngIf="img.expanded">
           <ion-col size="12">
             <p class="ion-text-wrap description">
@@ -92,12 +102,12 @@
                   (click)="goToWorkoutDay(use, $event)">
                 <ion-icon slot="icon-only" name="walk-sharp"></ion-icon>
               </ion-button >
-            </ion-col>
-            <ion-col>
-              <ion-label *ngIf="!img.usage || img.usage.length === 0" color="light">
-                Exercise not used in any workout!
-              </ion-label>
-            </ion-col>
+          </ion-col>
+          <ion-col *ngIf="!img.usage || img.usage.length === 0" class="ion-text-center">
+            <ion-label color="danger" >
+              Exercise not used in any workout!
+            </ion-label>
+          </ion-col>
         </ion-row>
       </div>
    </ion-row>
