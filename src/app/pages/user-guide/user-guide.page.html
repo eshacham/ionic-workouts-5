@@ -14,17 +14,311 @@
         <ion-label>Workouts</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="ion-align-items-center">
       <ion-col>
         <img [src]="safeImage('image001.png')">
       </ion-col>
       <ion-col>
           <p>
-This is where your workouts are managed. Each workout appears on a workout card, displaying its name, description and a list of links to each day of the workout.
-To view a specific day of the workout, tap the DAY button corresponding to the day number.
+            This is where your workouts are managed. Each workout appears on a workout card, displaying its name, description and a list of links to each day of the workout.
+            To view a specific day of the workout, tap the DAY button corresponding to the day number.
           </p>
       </ion-col>
-
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+          <p>
+            <b>Update Workout:</b>
+            <br/>Tap the round gear button to switch to Edit mode. Tap the Workout’s name to update it. Tap the Workout’s description to update it.
+            <br/><b>Delete Workout:</b>
+            <br/>Tap the trash can button to delete the workout.
+          </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image002.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image003.png')">
+      </ion-col>
+      <ion-col>
+          <p>
+            <b>Add Workout:</b>
+            <br/>Tap the rounded plus button (to the right of the top left X button). Edit the name and description.
+          </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Export Workout:</b>
+          <br/>Tap the share-social button (below top left X button). Select ‘upload to the cloud’ to store the workout online.
+          You can send the workout id to other users so they can import it. The id is displayed below the share-social button and can be copied by tapping the copy button on the right.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <p>
+            <b>Share Workout:</b>
+            <br/>Tap the share-social button (below top left X button). Select ‘Share via SMS’ to open the SMS app on the device to send your user id and workout id to other users.
+          </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image004.png')">
+      </ion-col>
+      <ion-col>
+          <p>
+            <b>Import Workout:</b>
+            <br/>Tap the download button (below top left X button). Enter the user id of the workout’s creator and the workout id. This will download the workout and import it into your workouts list.
+          </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>View Workout Day:</b>
+          <br/>The workout day displays its name and the list of exercise. Each exercise displays its name, properties and a media image.
+          Tapping the image will take you to the Exercises tab (see more later). Swipe up or down to scroll through all the exercises for that day.
+          Swipe left or right to switch to other days in the workout.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image005.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image006.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <b>Workout Day actions:</b>
+          <br/>Tap the top right calendar button.
+          <br/><b>To add a day,</b> tap the plus button below the top right X button.
+          <br/><b>To delete a day,</b> tap the minus button below the top right X button.
+          <br/><b>To shift a day</b> backward or forward, tap the left or right buttons below the top right X button correspondingly.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Working out:</b>
+          <br/>Tap the bottom right play button to start working out on the selected day. Each set in the exercise will be horizontally aligned and will display the set’s reps, weight, and time.
+          The current set will animate while it’s active.
+          When you’ve completed a set, <b>tap the Done! Button to move to the next set</b>. If the exercise has a rest time between set, rest progress time will be displayed.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image007.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image008.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <br/><b>To skip the rest</b>, tap the skip button.
+          <br/><b>To skip sets</b>, tap the forward button.
+          <br/><b>To repeat a set</b>, tap the backward button
+          <br/><b>To view a larger image</b> of the exercise, tap the image and select ‘View Larger’.
+          <br/><b>To view more information</b> about the exercise, tap the image and select ‘Find in Exercises’.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <br/>At any time, you can <b>switch to any other exercise in the day</b> by tapping the play button at the specific exercise.
+          <br/><b>To stop the workout</b> before its completed, tap the stop, or the X button on the bottom right.
+          <br/><b>To mute the set’s cues</b>, tap the mute button. Tap again to unmute.
+          <br/><b>To show any other exercise’s sets</b> while working out, tap the exercise’s image, and select ‘show set’. <b>To hide it</b>, select ‘Hide set’.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image009.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image010.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <b>Edit workout Day:</b>
+          <br/>Tap the bottom left gear button to switch into Edit mode.
+          <br/><b>To update the Day name</b>, tap the it and edit it. While you update the Day’s name, you can also <b>update the number of times to repeat the Day’s exercises.</b>
+          <br/><b>To update the exercise name</b>, tap it and edit it.
+          <br/><b>To delete the exercise</b>, tap the image and select ‘Delete this exercise’.
+          <br/><b>To view more information</b> about the exercise, tap the image and select ‘Find in exercises.
+          <br/><b>To change the settings</b> of the exercise, tap the settings under the image and update it.
+          <br/><b>To change a set</b>, tap the set button and select ‘Edit this set’.
+          <br/><b>To add a set</b>, tap the set button and select ‘Add a copied set’. This will copy the selected set and add it to the end of the sets.
+          <br/><b>To delete a set</b>, if it’s not the only one, tap the set button and select ‘Delete this set’.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Edit workout Day:</b>
+          <br/><b>To update the rest times</b>, tap the down arrow to open the rest times and drag any of the ‘Rest between sets’, or ‘Rest after exercise’ bars.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image011.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image012.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <b>Add an exercise:</b>
+          <br/>Tap the dumbbell button to the right of the bottom left X button. A list of all the exercises in your app will be shown.
+          <br/>Check off any exercise you’d like to <b>add to the current workout day.</b>
+          <br/>Tap the ‘Add Exercise(s)’ button on the bottom left to add the selected exercises and get back to the workout day view.
+          <br/>A ‘Multiset’ is a set with multiple exercises that is executed without rest between the exercises. Check off the multiset option to <b>create Multiset </b>with the selected exercises.
+          <br/><b>To filter the list of exercises by the muscle groups</b> they use, tap the top left ‘Filter by Muscles’ toggle, and then tap the ‘Filter by Muscles’ button on the right.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Filter exercises by Muscle Group:</b>
+          <br/>Select a muscle group by either tapping on the image’s specific muscle or tapping the muscle group name on the bottom. More than one muscles can be selected.
+          Cardio exercises can also be selected by tapping the heart shape on the image.
+      </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image013.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image014.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          Once the muscles are selected, tap the Back button to get back to the exercise list. The list will be filtered by the selected muscles.
+          You can disable the filter by tapping the top left ‘Filter by Muscles’ toggle.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>To change the order of the exercises</b> in the Day, drag the ‘reorder handle’ on the middle right of the exercise view up or down to move it back or forth.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label>Exercises</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          This is where all of all the exercises in your app are listed. The list can be filtered by muscle group(s) [see above]. Each Exercise has a name and related muscle groups count link.
+          <br/><b>To change the muscle group</b> associated with an exercise, tap the link button. This will take you to the Muscles selection view where you can select the muscles group for that exercise
+          <br/><b>To Delete an exercise</b>, tap the trash can button on the right. Note: an exercise cannot be deleted if it is used in a workout.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image015.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image016.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <b>To view more information</b> about the exercise, tap the chevron button. A description of the exercise is displayed.
+          In addition, a list of ‘walking man’ links will take you to every workout day where this exercise is used.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>To change the name of an exercise</b>, tap its name.
+          <br/><b>To View a larger image</b> of the exercise, tap the image, and select ‘Expanded’.
+          <br/>If an exercise has more than one image, <b>you can change the order of the images</b> by tapping the image and selecting ‘Move Image Forward’ (if it’s not last). The first image in an exercise is the one that appears in the workout day.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image017.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row  class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>To add new exercise image</b>, tap the ‘Add Image’ camera button on the bottom. This will allow you to select an image from your device’s library or to take a new picture using the camera.
+          <br/><b>To add an image</b> to an existing exercise, tap the exercise’s image, and select ‘Add Image’.
+          <br/><b>To remove an image</b> from an existing exercise, tap the exercise’s image, and select ‘Remove this Image’.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label>Settings</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Account</b>
+          <br/>This is where your TrainMe account is displayed. If you don’t have an account, you can create one. Once created and verified, you can sign into your account.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image018.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image019.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          Once signed in, your username will be displayed with a sign out button. Your user id will also be displayed below the username. you will need the user id in order to import (download) your exported workouts.
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <p>
+          <b>Themes</b>
+          <br/>TrainMe has a variety of themes. To change the theme, select it from the list.
+        </p>
+      </ion-col>
+      <ion-col>
+        <img [src]="safeImage('image020.png')">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <img [src]="safeImage('image021.png')">
+      </ion-col>
+      <ion-col>
+        <p>
+          <b>Options</b>
+          <br/>In this segment, you will have links to the User Guide, Release Notes, and Terms & Policy of TrainMe.
+          <br/><b>To view the User Guide</b>, tap the link. This user Guide will be displayed. Tap th back button to get back to the Options list.
+          <br/><b>To view the Release notes</b>, tap the link. A popup will be displayed with a list of various release (version) and their related features.
+          <br/><b>To view the Terms & Policy</b>, tap the link. Once the document is viewed, you will need to accept the terms if you wish to use all the app’s features.
+          <br/><b>To restore the app’s data</b> to its initial state, tap the ‘Reset Workout Data’ button.
+        </p>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
