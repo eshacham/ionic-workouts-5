@@ -1,0 +1,15 @@
+ion-grid {
+    margin-top: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    border-radius: 8px;
+    background: var(--ion-color-primary);
+    p {
+        color: var(--ion-color-secondary);
+        font-size: small;
+    }
+    ion-label {
+        color: var(--ion-color-tertiary);
+    }
+}

@@ -1,5 +1,5 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,16 @@ import {
   AmplifyIonicModule,
 } from 'aws-amplify-angular';
 
+const routes: Routes = [
+  {
+    path: '', component: TabSettingsPage
+  },
+  {
+    path: 'user-guide',
+    loadChildren: () => import('../pages/user-guide/user-guide.module').then(m => m.UserGuidePageModule)
+  }
+]
+
 @NgModule({
   imports: [
     IonicModule,
@@ -19,7 +29,7 @@ import {
     FormsModule,
     AmplifyAngularModule,
     AmplifyIonicModule,
-    RouterModule.forChild([{ path: '', component: TabSettingsPage }])
+    RouterModule.forChild(routes),
   ],
   declarations: [
     TabSettingsPage,

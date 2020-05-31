@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemeServiceProvider, Themes } from '../providers/theme-service/theme-service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
@@ -46,6 +46,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
 
   constructor(
     loggingService: LoggingService,
+    private route: ActivatedRoute,
     private themeService: ThemeServiceProvider,
     private store: Store<IAppState>,
     private router: Router,
@@ -130,6 +131,10 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
+  gotoUserGuide() {
+    this.router.navigate(['/tabs/tab-settings/user-guide'], { relativeTo: this.route.root });
+
+  }
   async presentReleaseNotesModal() {
     const modal = await this.modalController.create({
       component: ReleaseNotesComponent,

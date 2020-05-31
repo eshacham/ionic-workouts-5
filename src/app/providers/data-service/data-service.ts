@@ -29,6 +29,7 @@ const IMAGES_STORAGE_KEY = 'my_images';
 const THEME_STORAGE_KEY = 'my_theme';
 const TERMS_STORAGE_KEY = 'my_terms';
 const IMAGES_EXERCISES_PATH = 'images/exercises/';
+const IMAGES_USERGUIDE_PATH = 'images/user-guide/';
 const AWS_REGION = 'us-east-1'
 
 @Injectable()
@@ -375,6 +376,9 @@ export class DataServiceProvider {
   private getImageDefaultPath(imageName: string): string {
     return `assets/${IMAGES_EXERCISES_PATH}${imageName}`;
   }
+  private getUserGuideImagePath(imageName: string): string {
+    return `assets/${IMAGES_USERGUIDE_PATH}${imageName}`;
+  }
   private getMobilePath(url: string) {
     return this.webview.convertFileSrc(url);
   }
@@ -383,6 +387,12 @@ export class DataServiceProvider {
       ? this.getImageDefaultPath(media.images[index])
       : this.getMobilePath(this.getImageNativePath(media.images[index]));
 
+    const url = this.domSanitizer.bypassSecurityTrustUrl(imagePath);
+    return url;
+  }
+
+  safeUserGuideImage(imageName: string) {
+    const imagePath = this.getUserGuideImagePath(imageName);
     const url = this.domSanitizer.bypassSecurityTrustUrl(imagePath);
     return url;
   }
