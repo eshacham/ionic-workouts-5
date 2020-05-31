@@ -1,31 +1,35 @@
 ion-list {
-    padding: 0px;
-
-    ion-list-header {
-        --background: var(--ion-color-secondary);
-        ion-label.headerLabel {
-            margin-top: 6px;
-            color: var(--ion-color-dark);
-            &.currentVersion {
-                color: var(--ion-color-danger);
-            }
-        }
-    }
-
     ion-item {
+        --padding-start: 0px;
         --background: var(--ion-color-secondary);
         --background-hover: var(--ion-color-danger);
-        ion-label {
-            color: var(--ion-color-dark);
-            &.striked {
-                text-decoration: line-through;
+        --detail-icon-color: var(--ion-color-primary);
+        ion-grid.outer {
+            padding-left: 8px;;
+        }
+        ion-row {
+            --background: var(--ion-color-secondary);
+            ion-label.headerLabel {
+                margin-top: 6px;
+                color: var(--ion-color-dark);
+                &.currentVersion {
+                    color: var(--ion-color-danger);
+                }
             }
         }
 
-        &.itemNoPadding {
+        ion-button {
             --padding-start: 0px;
             --padding-end: 0px;
-            --inner-padding-end: 0px;
+            ion-label {
+                color: var(--ion-color-dark);
+                &.striked {
+                    text-decoration: line-through;
+                }
+            }
+        }
+        ion-label.desc {
+            color: var(--ion-color-tertiary);
         }
     }
 }

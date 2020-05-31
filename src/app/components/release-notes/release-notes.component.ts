@@ -3,6 +3,14 @@ import { ModalController } from '@ionic/angular';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
 
+interface IExpandableFeature extends Feature {
+  isExpanded: boolean;
+}
+interface IExpandableVersion {
+  id: string;
+  name: string;
+  features: IExpandableFeature[];
+}
 
 @Component({
   selector: 'app-release-notes',
@@ -11,13 +19,19 @@ import { Feature } from 'src/app/models/Feature';
 })
 export class ReleaseNotesComponent implements OnInit {
   @Input() releaseNotes: Version[];
+  expandableReleaseNotes: IExpandableVersion[];
   @Input() appVersion: string;
   constructor(
     private modalCtrl: ModalController,
   ) { }
 
-  ngOnInit() {}
-  isCurrentVersion(version): boolean {
+  ngOnInit() {
+    this.expandableReleaseNotes = this.releaseNotes.map((item: Version) => ({
+        ...item,
+        features: item.features.map((f: Feature) => ({...f, isExpanded: false }))
+      }));
+  }
+  isCurrentVersion(version: Version): boolean {
     return this.appVersion === version.id;
   }
   getVersionTitle(version: Version): string {
