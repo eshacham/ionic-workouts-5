@@ -122,7 +122,7 @@ export class TabWorkoutsPage implements OnInit, OnDestroy {
 
   importWorkout(event: any) {
     event.stopPropagation();
-    this.featureService.runFeatureIfEnabled('importWorkout',
+    this.featureService.runFeatureIfEnabled('Import Workout',
       () => {
         this.presentImportWorkoutAlertPrompt();
       });

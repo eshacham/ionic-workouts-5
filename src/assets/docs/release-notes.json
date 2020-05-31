@@ -2,34 +2,32 @@
     "1.0.0": {
       "name": "Initial Release",
       "features": [ {
-        "name": "exportWorkout",
-        "description": "allow user the zip and upload a workout's data including it's images",
+        "name": "Export Workout",
+        "description": "Export (upload) a workout's data (including it's images) to the cloud where it can be downloaded by another user.",
         "on": true
         }, {
-        "name": "importWorkout",
-        "description": "allow user to imoport a specific workout's data including it's images",
+          "name": "Share Workout",
+          "description": "Send workout's key and creator's user id via SMS where it can be used to download by another user.",
+          "on": true
+        },{
+        "name": "Import Workout",
+        "description": "Import (download) a specific workout (including it's images) by providing its creator's user id and workout key.",
         "on": true
-        }
-      ]
-    },
-    "0.9.0": {
-      "name": "Beta Release",
-      "features": [ {
-        "name": "exportWorkout",
-        "description": "allow user the zip and upload a workout's data including it's images",
-        "on": false
         }, {
-        "name": "importWorkout",
-        "description": "allow user to imoport a specific workout's data including it's images",
-        "on": false
-        }
-      ]
-    },
-    "0.1.0": {
-      "name": "Alpha Release",
-      "features": [ {
-        "name": "All Fetures",
-        "description": "allow user/trainer to build, maintain and train with workouts"
+        "name": "Create, Update and Delete workouts",
+        "description": "Create, update and delete workouts, including its workout days, exercises, sets and reps."
+        }, {
+          "name": "Working Out",
+          "description": "Executing a specific workout, starting at any day, or any exercise."
+        }, {
+          "name": "Maintain Exercises Media Library",
+          "description": "Add, Update and Delete exercise's (media) images, including importing device's photos and taking pictures using the devise's camera."
+        }, {
+          "name": "Associate Muscle Groups to Exercises",
+          "description": "Exercise can be associated with various muscle groups. This can be used to search for exercises that impacts specific muscle groups."
+        }, {
+          "name": "Switch Theme",
+          "description": "Switch app color theme."
         }
       ]
     }

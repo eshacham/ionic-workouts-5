@@ -124,7 +124,7 @@ export class WorkoutCardComponent implements OnInit, OnDestroy {
   }
 
   shareWorkout(event: Event) {
-    this.featureService.runFeatureIfEnabled('exportWorkout',
+    this.featureService.runFeatureIfEnabled('Export Workout',
       () => {
         if (this.signedInUser) {
           this.presentExportActionsPopover(event);
