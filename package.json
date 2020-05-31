@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "prep-ios": "ionic cordova prepare ios",
     "run-and": "ionic cordova run android --livereload",
-    "run-ios": "ionic cordova emulate ios --livereload"
+    "run-ios": "ionic cordova emulate ios --livereload",
+    "upload-release-notes": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/src/assets/docs/release-notes.json s3://train-me135150-prod/public/release-notes.json"
   },
   "private": true,
   "dependencies": {
