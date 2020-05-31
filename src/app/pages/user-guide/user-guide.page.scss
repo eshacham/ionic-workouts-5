@@ -8,6 +8,9 @@ ion-grid {
     p {
         color: var(--ion-color-secondary);
         font-size: small;
+        b {
+            color: var(--ion-color-tertiary);
+        }
     }
     ion-label {
         color: var(--ion-color-tertiary);
