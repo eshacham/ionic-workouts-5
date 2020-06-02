@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DataServiceProvider } from '../data-service/data-service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
-import { IAppState } from 'src/app/store/state/app.state';
-import { getReleaseNotesAndTermsOfUse } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
+import { IAppState } from 'src/app/store/state/app.state';
+import { environment } from 'src/environments/environment';
+import { DataServiceProvider } from '../data-service/data-service';
+import { getReleaseNotesAndTermsOfUse } from 'src/app/store/selectors/data.selectors';
+import { ToastService } from 'src/app/providers/toast-service/toast-service';
+import { LoadReleaseNotesAndTermsOfUse } from 'src/app/store/actions/data.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class FeatureManagerService {
     private dataService: DataServiceProvider,
     private appVersion: AppVersion,
     private store: Store<IAppState>,
+    private toastService: ToastService,
 
   ) {
   }
@@ -36,22 +39,27 @@ export class FeatureManagerService {
   runFeatureIfEnabled(
     featureName: string,
     featureInvokation: () => void) {
+      this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
       this.store.select(getReleaseNotesAndTermsOfUse)
       .pipe(take(1))
       .subscribe(async (data) => {
         if (!data || !data.releaseNotes || !data.releaseNotes.length) {
+          this.toastService.presentToast('Releae Notes not found. Aborting!')
           return;
         }
         if (!data.termsOfUse || !data.termsOfUse.isAccepted) {
+          this.toastService.presentToast('Terms of Use not accepted. Aborting!')
           return;
         }
         const currentVersionId = (await this.getAppVersion()).number;
         const version = data.releaseNotes.find(v=>v.id === currentVersionId);
         if (!version) {
+          this.toastService.presentToast(`App version ${version} not supported. Aborting!`)
           return;
         }
         const feature  = version.features.find(f=>f.name === featureName);
         if (!feature || !feature.on) {
+          this.toastService.presentToast(`Feature ${featureName} is disabled. Aborting!`)
           return;
         }
         featureInvokation();
