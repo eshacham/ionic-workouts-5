@@ -63,16 +63,6 @@ export class DataServiceProvider {
           this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
         }
       });
-
-    setInterval(() => {
-      this.store.select(getIsOnline)
-        .pipe(take(1))
-        .subscribe((isOnline) => {
-          if (isOnline && navigator.onLine) {
-            this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
-          }
-        });
-    }, 1000*60*60);
   }
 
   async displayPlatform() {

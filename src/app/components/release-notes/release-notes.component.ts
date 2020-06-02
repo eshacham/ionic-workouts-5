@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Version } from 'src/app/models/Version';
 import { Feature } from 'src/app/models/Feature';
+import { LoadReleaseNotesAndTermsOfUse } from 'src/app/store/actions/data.actions';
+import { IAppState } from 'src/app/store/state/app.state';
+import { Store } from '@ngrx/store';
 
 interface IExpandableFeature extends Feature {
   isExpanded: boolean;
@@ -23,6 +26,7 @@ export class ReleaseNotesComponent implements OnInit {
   @Input() appVersion: string;
   constructor(
     private modalCtrl: ModalController,
+    private store: Store<IAppState>,
   ) { }
 
   ngOnInit() {
@@ -55,5 +59,8 @@ export class ReleaseNotesComponent implements OnInit {
     this.modalCtrl.dismiss({
 
     });
+  }
+  refresh() {
+    this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
   }
 }
