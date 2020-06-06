@@ -26,7 +26,7 @@
     "@angular/router": "~8.2.14",
     "@aws-amplify/auth": "^3.2.12",
     "@aws-amplify/storage": "^3.1.6",
-    "aws-amplify": "^3.0.7",
+    "aws-amplify": "^3.0.16",
     "aws-amplify-angular": "^5.0.7",
     "@ionic-native/app-version": "^5.26.0",
     "@ionic-native/camera": "^5.26.0",
