@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { ActionSheetController, IonList, AlertController, PopoverController, ModalController } from '@ionic/angular';
+import { ActionSheetController, IonList, AlertController, PopoverController, ModalController, IonGrid } from '@ionic/angular';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { ExerciseMediaBean } from '../models/ExerciseMedia';
@@ -41,7 +41,7 @@ export interface ExerciseMediaWithUsage {
 })
 export class TabLibraryPage implements OnInit, OnDestroy {
   private logger: Logger;
-  @ViewChild(IonList, { static: true, read: ElementRef }) list: ElementRef;
+  @ViewChild(IonGrid, { static: true, read: ElementRef }) list: ElementRef;
   slideOpts = {
     slidesPerView: 2,
     spaceBetween: 8,
@@ -125,9 +125,9 @@ export class TabLibraryPage implements OnInit, OnDestroy {
         if (index) {
           this.logger.debug('ionViewDidEnter', `scrolling to media id ${mediaId}`);
           setTimeout(() => {
-            this.scrollToImage(index);
             // cancel the query params by overrding the url
             this.router.navigate(['/tabs/tab-library']);
+            this.scrollToImage(index);
           }, 500);
         }
       }
