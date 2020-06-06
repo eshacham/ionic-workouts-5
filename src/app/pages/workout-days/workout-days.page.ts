@@ -43,7 +43,6 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
       el: '.swiper-pagination',
       cssMode: true,
       longSwipes: false,
-      dynamicBullets: true,
     },
     noSwipingSelector: 'ion-range, ion-reorder, ion-fab, ion-button'
   };
@@ -95,7 +94,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
           this.logger.debug('ngOnIhandleCurrentWorkoutChangesnit', `${this.workoutId} - getCurrentWorkout`, data);
           this.firstSelectedDayId = data.selectedDayId;
           if (this.slides) {
-            this.MaybeSlideToSelectedDay();
+            this.MaybeSlideToSelectedDay('handleCurrentWorkoutChanges');
           }
         } else {
           this.logger.info('handleCurrentWorkoutChanges', `${this.workoutId} - not in state`, data);
@@ -104,22 +103,22 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  ionViewDidEnter() {
-    if (this.days) {
-      this.MaybeSlideToSelectedDay();
-    }
-  }
+  // ionViewDidEnter() {
+  //   if (this.days) {
+  //     this.MaybeSlideToSelectedDay('ionViewDidEnter');
+  //   }
+  // }
 
-  private MaybeSlideToSelectedDay() {
+  private MaybeSlideToSelectedDay(origin: string) {
     const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
-    this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
+    this.logger.info(`MaybeSlideToSelectedDay:${origin}`, `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
     if (selectedDayIndex !== this.activeDayIndex) {
-      this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
+      this.logger.info(`MaybeSlideToSelectedDay:${origin}`, `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
       this.activeDayIndex = selectedDayIndex;
       this.slides.slideTo(selectedDayIndex, 0, false);
     }
     else {
-      this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
+      this.logger.info(`MaybeSlideToSelectedDay:${origin}`, `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
     }
   }
   async slideChanged() {
@@ -171,7 +170,7 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
       displayMode: DisplayMode.Edit,
     });
     const index = this.activeDayIndex;
-    const islast = this.days.length - 1 === index;
+    // const islast = await this.slides.isEnd();//  this.days.length - 1 === index;
     this.logger.info('addWorkoutDay', `${this.workoutId} insert at ${index}`);
     this.fabEdit.activated = true;
     this.store.dispatch(new AddWorkoutDay({
@@ -180,12 +179,12 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
       index2AddFrom: index
     }));
 
-    if (this.slides) {
+    // if (this.slides) {
       await this.slides.update();
-      if (islast) {
-        await this.slides.slideTo(this.days.length - 1);
-      }
-    }
+      // if (islast) {
+      setTimeout(() => this.slides.slideTo(index + 1), 0);
+      // }
+    // }
 
   }
   async deleteWorkoutDay(event) {
