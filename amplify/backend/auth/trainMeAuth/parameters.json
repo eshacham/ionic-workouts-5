@@ -23,13 +23,28 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+        "address",
+        "family_name",
+        "gender",
+        "name",
+        "phone_number",
+        "picture",
+        "profile",
+        "website",
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+        "email",
+        "family_name",
+        "gender",
+        "name",
+        "phone_number",
+        "picture",
+        "profile",
+        "website"
     ],
     "userpoolClientLambdaRole": "trainMd637eaed_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "trainMeAuth",

@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage as storage} from '@ionic/storage';
 import { File as MobileFile, FileEntry } from '@ionic-native/File/ngx';
 import { Platform } from '@ionic/angular';
 import { ExerciseMediaBean } from '../../models/ExerciseMedia';
@@ -11,7 +11,7 @@ import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme, LoadReleaseNotesAndTermsOfUse, AppOffline, AppOnline, TermsNotAccpeted } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
-import S3 from '@aws-amplify/storage';
+import { Storage as S3} from 'aws-amplify';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -44,7 +44,7 @@ export class DataServiceProvider {
     private platform: Platform,
     private webview: WebView,
     private mobileFile: MobileFile,
-    private storage: Storage,
+    private ionicStorage: storage,
     private store: Store<IAppState>,
     private http: HttpClient,
   ) {
@@ -119,8 +119,8 @@ export class DataServiceProvider {
   }
 
   private async getImagesData(): Promise<MediaDataMaps> {
-    await this.storage.ready();
-    const data: MediaDataMaps = await this.storage.get(IMAGES_STORAGE_KEY);
+    await this.ionicStorage.ready();
+    const data: MediaDataMaps = await this.ionicStorage.get(IMAGES_STORAGE_KEY);
     if (!data) return null;
     Object.keys(data.media.byId).map(mediaId => {
       const media = data.media.byId[mediaId];
@@ -132,14 +132,14 @@ export class DataServiceProvider {
     return Object.keys(data.media.byId).length > 0 ? data : null;
   }
   private async getTheme(): Promise<string> {
-    await this.storage.ready();
-    const theme: string = await this.storage.get(THEME_STORAGE_KEY);
+    await this.ionicStorage.ready();
+    const theme: string = await this.ionicStorage.get(THEME_STORAGE_KEY);
     return theme;
   }
 
   private async getTerms(): Promise<TermsOfUse> {
-    await this.storage.ready();
-    const terms: TermsOfUse = await this.storage.get(TERMS_STORAGE_KEY);
+    await this.ionicStorage.ready();
+    const terms: TermsOfUse = await this.ionicStorage.get(TERMS_STORAGE_KEY);
     return terms;
   }
 
@@ -152,8 +152,8 @@ export class DataServiceProvider {
   }
 
   private async getWorkoutsData(): Promise<WorkoutsDataMaps> {
-    await this.storage.ready();
-    const data: WorkoutsDataMaps = await this.storage.get(WORKOUTS_STORAGE_KEY);
+    await this.ionicStorage.ready();
+    const data: WorkoutsDataMaps = await this.ionicStorage.get(WORKOUTS_STORAGE_KEY);
     return data;
   }
 
@@ -166,30 +166,30 @@ export class DataServiceProvider {
   }
 
   async saveImages(images: MediaDataMaps) {
-    await this.storage.ready();
-    await this.storage.set(IMAGES_STORAGE_KEY, images);
+    await this.ionicStorage.ready();
+    await this.ionicStorage.set(IMAGES_STORAGE_KEY, images);
     this.logger.info('saveImages', 'images have been saved');
   }
   async saveTheme(theme: string) {
-    await this.storage.ready();
-    await this.storage.set(THEME_STORAGE_KEY, theme);
+    await this.ionicStorage.ready();
+    await this.ionicStorage.set(THEME_STORAGE_KEY, theme);
     this.logger.info('saveTheme', 'theme have been saved');
   }
   async saveTerms(terms: TermsOfUse) {
-    await this.storage.ready();
-    await this.storage.set(TERMS_STORAGE_KEY, terms);
+    await this.ionicStorage.ready();
+    await this.ionicStorage.set(TERMS_STORAGE_KEY, terms);
     this.logger.info('saveTerms', 'terms have been saved');
   }
   async saveWorkouts(workoutsDataMaps: WorkoutsDataMaps) {
-    await this.storage.ready();
-    await this.storage.set(WORKOUTS_STORAGE_KEY, workoutsDataMaps);
+    await this.ionicStorage.ready();
+    await this.ionicStorage.set(WORKOUTS_STORAGE_KEY, workoutsDataMaps);
     this.logger.info('saveWorkouts', 'workouts have been saved');
   }
 
   async resetData() {
-    await this.storage.ready();
-    await this.storage.remove(IMAGES_STORAGE_KEY);
-    await this.storage.remove(WORKOUTS_STORAGE_KEY);
+    await this.ionicStorage.ready();
+    await this.ionicStorage.remove(IMAGES_STORAGE_KEY);
+    await this.ionicStorage.remove(WORKOUTS_STORAGE_KEY);
     this.store.dispatch(new LoadData());
     this.logger.info('resetData', 'images and workouts have been reset');
   }
@@ -319,9 +319,11 @@ export class DataServiceProvider {
       `${workoutId}/${WORKOUTS_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
     const myImagesGetResult: { Body: any } = await this.getProtectedS3File(
       `${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
+    const ImagesText = await myImagesGetResult.Body.text();
+    const workoutsText = await myWorkoutGetResult.Body.text();
     const result = {
-      workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
-      imagesData: myImagesGetResult.Body as MediaDataMaps,
+      workoutsData: JSON.parse(workoutsText) as WorkoutsDataMaps,
+      imagesData: JSON.parse(ImagesText) as MediaDataMaps,
     };
 
     if (this.isMobile) {
@@ -413,19 +415,19 @@ export class DataServiceProvider {
     const PP = 'privacy-policy.html';
     const files = { [RN]: null, [TOU]: null, [PP]: null };
     await Promise.all(Object.keys(files).map(async item => {
-      const file = await this.getS3File(item, { download: true, level: 'public' });
-      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
-      files[item] = file;
+      const blob = await this.getS3File(item, { download: true, level: 'public' });
+      files[item] = await blob.Body.text();
+      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, files[item]);
   }));
-    const releaseNotesFile = files[RN];
+    const releaseNotesObj = JSON.parse(files[RN]);
     const releaseNotes: Record<string, Version> = {};
-    Object.keys(releaseNotesFile.Body).forEach(key => {
-      const rnVersion = releaseNotesFile.Body[key];
+    Object.keys(releaseNotesObj).forEach(key => {
+      const rnVersion = releaseNotesObj[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    const conditions: string = files[TOU].Body;
-    const privacyPolicy: string = files[PP].Body;
+    const conditions: string = files[TOU];
+    const privacyPolicy: string = files[PP];
     let termsOfUse: TermsOfUse = await this.getTerms();
     if (!termsOfUse || termsOfUse.conditions !== conditions || termsOfUse.privacyPolicy !== privacyPolicy) {
       termsOfUse = { conditions, privacyPolicy, isAccepted: false };

@@ -5,7 +5,6 @@ import {
   getWorkoutExportInProgress,
   getWorkoutImportInProgress,
   getTheme,
-  getIsOnline
 } from '../store/selectors/data.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { LoadData, ClearError } from '../store/actions/data.actions';

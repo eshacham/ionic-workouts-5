@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule ,APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/File/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -16,10 +17,10 @@ import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { AmplifyAngularModule, AmplifyIonicModule, AmplifyService } from 'aws-amplify-angular'
+// import { AmplifyAngularModule, AmplifyIonicModule, AmplifyService } from 'aws-amplify-angular'
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 import { DataEffects } from './store/effects/data.effects';
 import { appReducers, metaReducers, storeDevtoolsModule } from './store/reducers/appReducers';
@@ -40,8 +41,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
   declarations: [
     AppComponent,
   ],
-  entryComponents: [
-  ],
+  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -58,14 +58,14 @@ export function configureLogging(loggingService: LoggingService): () => void {
     EffectsModule.forRoot([DataEffects]),
     HttpClientModule,
     LoggingServiceModule,
-    AmplifyAngularModule,
-    AmplifyIonicModule,
+    // AmplifyAngularModule,
+    // AmplifyIonicModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AmplifyService,
+    // AmplifyService,
     {
       deps: [LoggingService],
       multi: true,

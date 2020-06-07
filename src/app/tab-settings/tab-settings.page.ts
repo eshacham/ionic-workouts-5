@@ -70,11 +70,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
           this.themes.find(t => t.theTheme === theme).selected = true;
         }
       });
-      this.store.select(getSignedInUser)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(signedInUser => {
-        this.signedInUser = signedInUser;
-      });
+
       this.store.select(getReleaseNotesAndTermsOfUse)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(data => {

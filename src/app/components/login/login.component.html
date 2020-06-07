@@ -1,15 +1,23 @@
+<amplify-authenticator [initialAuthState]="initialAuthState">
 
-<amplify-authenticator class="amplify-angular"
-  [signUpConfig]="signUpConfig"
-  framework="ionic">
+  <div slot="greetings">
+    <amplify-greetings [username]="signedInUser?.username">
+    </amplify-greetings>
+    <ion-item >
+      <ion-label slot="start"><small>
+        {{identityIdText}}</small>
+      </ion-label>
+      <ion-button slot="end" class="noPadding" [disabled]="IsWebApp"
+        fill="clear" (click)="copyUserId()">
+        <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <amplify-sign-up slot="sign-up" header-text="Create a new TrainMe account">
+  </amplify-sign-up>
+
+  <amplify-sign-in slot="sign-in" header-text="Sign-in to TrainMe">
+  </amplify-sign-in>
+
 </amplify-authenticator>
-
-<ion-item>
-  <ion-label slot="start"><small>
-    {{identityIdText}}</small>
-  </ion-label>
-  <ion-button slot="end" class="noPadding" [disabled]="IsWebApp"
-    fill="clear" (click)="copyUserId()">
-    <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
-  </ion-button>
-</ion-item>
