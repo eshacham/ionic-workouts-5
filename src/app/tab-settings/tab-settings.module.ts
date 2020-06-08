@@ -10,11 +10,12 @@ import { TermsOfUseComponent } from '../components/terms-of-use/terms-of-use.com
 
 /* Add Amplify imports */
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
-import Amplify from 'aws-amplify';
-const awsconfig = require('../../aws-exports').default;
+// import Amplify from 'aws-amplify';
+// const awsconfig = require('../../aws-exports').default;
 
 /* Configure Amplify resources */
-Amplify.configure(awsconfig);
+// Amplify.configure(awsconfig);
+// console.log('tab-settings-Amplify.configure(awsconfig)', awsconfig)
 
 const routes: Routes = [
   {
