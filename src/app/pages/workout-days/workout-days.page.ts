@@ -104,22 +104,22 @@ export class WorkoutDaysPage implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  ionViewDidEnter() {
-    if (this.days) {
-      this.MaybeSlideToSelectedDay();
-    }
-  }
+  // ionViewDidEnter() {
+  //   if (this.days) {
+  //     this.MaybeSlideToSelectedDay();
+  //   }
+  // }
 
   private MaybeSlideToSelectedDay() {
     const selectedDayIndex = this.days.findIndex(day => day === this.firstSelectedDayId);
-    this.logger.info('ionViewDidEnter', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
+    this.logger.info('handleCurrentWorkoutChanges', `${this.workoutId} - selectedDay ${this.firstSelectedDayId} on index ${selectedDayIndex}`);
     if (selectedDayIndex !== this.activeDayIndex) {
-      this.logger.info('ngOnInit', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
+      this.logger.info('handleCurrentWorkoutChanges', `${this.workoutId} - sliding to last selected day index ${selectedDayIndex}`);
       this.activeDayIndex = selectedDayIndex;
       this.slides.slideTo(selectedDayIndex, 0, false);
     }
     else {
-      this.logger.info('ngOnInit', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
+      this.logger.info('handleCurrentWorkoutChanges', `${this.workoutId} - staying in current day ${this.firstSelectedDayId}`);
     }
   }
   async slideChanged() {
