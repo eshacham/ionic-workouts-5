@@ -8,6 +8,7 @@ import { IAppState } from 'src/app/store/state/app.state';
 import { SetSignedInUser } from 'src/app/store/actions/data.actions';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { ISignedInUser } from 'src/app/store/state/data.state';
+import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { ISignedInUser } from 'src/app/store/state/data.state';
 export class LoginComponent implements OnInit {
   private logger: Logger;
   @Input() signedInUser: ISignedInUser;
+  authState: AuthState;
   signUpConfig = {
     header: 'Create a new TrainMe account',
     hideAllDefaults: true,
@@ -62,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
 
 get identityIdText(): string {
-  if (!this.signedInUser && !this.signedInUser.identityId) {
+  if (!this.signedInUser || !this.signedInUser.identityId) {
     return '(Not Signed In)';
   } else {
     return `${this.signedInUser.identityId.split(':')[1]}`;
@@ -75,20 +77,21 @@ get identityIdText(): string {
     private clipboard: Clipboard,
     private dataService: DataServiceProvider,
   ) {
-    this.logger = loggingService.getLogger('App.ExerciseThumbnailComponent');
+    this.logger = loggingService.getLogger('App.LoginComponent');
   }
 
   ngOnInit() {
     this.amplifyService.authStateChange$
       .subscribe(async authState => {
         this.logger.info('ngOnInit', 'authStateChange', authState);
+        this.authState = authState;
         if (authState.state === 'signedIn'){
           const creds = await this.displayAuthCreds();
           this.store.dispatch(new SetSignedInUser({
             username: authState.user.username,
             identityId: creds.identityId
           }));
-        } else {
+        } else if (authState.state === 'signedOut'){
           this.store.dispatch(new SetSignedInUser(null));
         }
       });
