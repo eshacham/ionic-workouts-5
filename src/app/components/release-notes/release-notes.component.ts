@@ -60,7 +60,7 @@ export class ReleaseNotesComponent implements OnInit {
 
     });
   }
-  refresh() {
-    this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
-  }
+  // refresh() {
+  //   this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
+  // }
 }

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { IAppState } from '../store/state/app.state';
 import { getTheme, getSignedInUser, getReleaseNotesAndTermsOfUse } from '../store/selectors/data.selectors';
 import { take, takeUntil } from 'rxjs/operators';
-import { SetTheme, ResetData, TermsAccpeted, TermsNotAccpeted } from '../store/actions/data.actions';
+import { SetTheme, ResetData, TermsAccpeted, TermsNotAccpeted, LoadReleaseNotesAndTermsOfUse } from '../store/actions/data.actions';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
@@ -75,14 +75,25 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .subscribe(signedInUser => {
         this.signedInUser = signedInUser;
       });
-      this.store.select(getReleaseNotesAndTermsOfUse)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(data => {
-        this.releaseNotes = data.releaseNotes;
-        this.termsOfUse = data.termsOfUse;
-      });
+      // this.loadReleaseNotes();
       this.appVersion = (await this.featureService.getAppVersion()).number;
     }
+
+  private async loadReleaseNotesAndTermsOfUse() {
+    let gotIt = 0;
+    this.store.dispatch(new LoadReleaseNotesAndTermsOfUse());
+    return new Promise((resolve) => {
+      this.store.select(getReleaseNotesAndTermsOfUse)
+      .pipe(take(2))
+      .subscribe(data => {
+        if (++gotIt === 2) {
+          this.releaseNotes = data.releaseNotes;
+          this.termsOfUse = data.termsOfUse;
+          resolve();
+        }
+      });
+    });
+  }
 
     ngOnDestroy() {
       this.ngUnsubscribe.next();
@@ -136,6 +147,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
 
   }
   async presentReleaseNotesModal() {
+    await this.loadReleaseNotesAndTermsOfUse();
     const modal = await this.modalController.create({
       component: ReleaseNotesComponent,
       componentProps: {
@@ -150,6 +162,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
     this.logger.info('presentReleaseNotesModal', 'onWillDismiss', data);
   }
   async presentTermsOfUseModal() {
+    await this.loadReleaseNotesAndTermsOfUse();
     const modal = await this.modalController.create({
       component: TermsOfUseComponent,
       componentProps: {

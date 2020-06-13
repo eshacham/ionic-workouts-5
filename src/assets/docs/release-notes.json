@@ -1,21 +1,22 @@
 {
     "1.0.0": {
       "name": "Initial Release",
-      "features": [ {
-        "name": "Export Workout",
-        "description": "Export (upload) a workout's data (including it's images) to the cloud where it can be downloaded by another user.",
-        "on": true
+      "features": [
+        {
+          "name": "Export Workout",
+          "description": "Export (upload) a workout's data (including it's images) to the cloud where it can be downloaded by another user.",
+          "on": true
         }, {
           "name": "Share Workout",
           "description": "Send workout's key and creator's user id via SMS where it can be used to download by another user.",
           "on": true
         },{
-        "name": "Import Workout",
-        "description": "Import (download) a specific workout (including it's images) by providing its creator's user id and workout key.",
-        "on": true
+          "name": "Import Workout",
+          "description": "Import (download) a specific workout (including it's images) by providing its creator's user id and workout key.",
+          "on": true
         }, {
-        "name": "Create, Update and Delete workouts",
-        "description": "Create, update and delete workouts, including its workout days, exercises, sets and reps."
+          "name": "Create, Update and Delete workouts",
+          "description": "Create, update and delete workouts, including its workout days, exercises, sets and reps."
         }, {
           "name": "Working Out",
           "description": "Executing a specific workout, starting at any day, or any exercise."
