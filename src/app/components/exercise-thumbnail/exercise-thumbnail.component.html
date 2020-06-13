@@ -131,20 +131,20 @@
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="!isResting" class="ion-align-items-center buttons">
-                    <ion-col class="ion-text-center ion-no-padding" >
-                        <ion-button expand="full" [disabled]="!isPrevSetAvailable"
+                    <ion-col class="ion-no-padding" >
+                        <ion-button [disabled]="!isPrevSetAvailable" class="workout-button"
                             (click)="runPrevSet()">
                             <ion-icon slot="icon-only" name="play-skip-back-circle-sharp"></ion-icon>
                         </ion-button>
                     </ion-col>
                     <ion-col size="6" class="ion-no-padding">
-                        <ion-button expand="full" class="workout-button"
+                        <ion-button class="workout-button"
                             (click)="runNextSet()">
                             Done!
                         </ion-button>
                     </ion-col>
-                    <ion-col class="ion-text-center ion-no-padding">
-                        <ion-button expand="full"
+                    <ion-col class="ion-no-padding">
+                        <ion-button class="workout-button"
                             (click)="runNextSet(false)">
                             <ion-icon slot="icon-only" name="play-skip-forward-circle-sharp"></ion-icon>
                         </ion-button>

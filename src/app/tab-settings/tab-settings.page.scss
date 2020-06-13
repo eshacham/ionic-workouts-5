@@ -20,7 +20,7 @@ ion-list {
     ion-item {
         --background: var(--ion-color-primary);
         --background-hover: var(--ion-color-danger);
-        --detail-icon-color: var(--ion-color-light);
+        --detail-icon-color: var(--ion-color-tertiary);
 
         ion-label {
             color: var(--ion-color-light);
