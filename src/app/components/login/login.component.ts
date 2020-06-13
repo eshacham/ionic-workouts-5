@@ -41,12 +41,12 @@ export class LoginComponent implements OnInit {
         required: true,
         displayOrder: 3,
         type: 'password'
-      },{
-        label: 'Phone Number',
-        key: 'phone_number',
-        required: false,
-        displayOrder: 4,
-        type: 'string'
+      // },{
+      //   label: 'Phone Number',
+      //   key: 'phone_number',
+      //   required: false,
+      //   displayOrder: 4,
+      //   type: 'string'
       },{
         label: 'PT Certifications',
         key: 'custom:certs',
