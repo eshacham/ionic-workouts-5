@@ -11,9 +11,12 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prep-ios": "ionic cordova prepare ios",
+    "prep-and": "ionic cordova prepare android",
     "run-and": "ionic cordova run android --livereload",
     "run-ios": "ionic cordova emulate ios --livereload",
-    "upload-release-notes": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/src/assets/docs/release-notes.json s3://train-me135150-prod/public/release-notes.json"
+    "upload-release-notes": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/release-notes.json s3://train-me135150-prod/public/release-notes.txt",
+    "upload-privacy-policy": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/privacy-policy.html s3://train-me135150-prod/public/privacy-policy.txt",
+    "upload-terms-of-use": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/terms-of-use.html s3://train-me135150-prod/public/terms-of-use.txt"
   },
   "private": true,
   "dependencies": {

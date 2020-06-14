@@ -408,9 +408,9 @@ export class DataServiceProvider {
   }
 
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
-    const RN = 'release-notes.json';
-    const TOU = 'terms-of-use.html';
-    const PP = 'privacy-policy.html';
+    const RN = 'release-notes.txt';
+    const TOU = 'terms-of-use.txt';
+    const PP = 'privacy-policy.txt';
     const files = { [RN]: null, [TOU]: null, [PP]: null };
     await Promise.all(Object.keys(files).map(async item => {
       const file = await this.getS3File(item, { download: true, level: 'public' });
