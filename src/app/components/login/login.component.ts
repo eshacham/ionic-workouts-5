@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   @Input() signedInUser: ISignedInUser;
   authState: AuthState;
   signUpConfig = {
-    header: 'Create a new TrainMe account',
+    header: 'Create a new TrainEx account',
     hideAllDefaults: true,
     signUpFields: [
       {
