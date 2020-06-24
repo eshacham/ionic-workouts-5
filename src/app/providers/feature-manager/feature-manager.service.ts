@@ -43,7 +43,7 @@ export class FeatureManagerService {
       this.store.select(getReleaseNotesAndTermsOfUse)
       .pipe(take(1))
       .subscribe(async (data) => {
-        if (!data || !data.releaseNotes || !data.releaseNotes.length) {
+        if (!data || !data.releaseNotes) {
           this.toastService.presentToast('Releae Notes not found. Aborting!')
           return;
         }
@@ -52,7 +52,7 @@ export class FeatureManagerService {
           return;
         }
         const currentVersionId = (await this.getAppVersion()).number;
-        const version = data.releaseNotes.find(v=>v.id === currentVersionId);
+        const version = data.releaseNotes[currentVersionId];
         if (!version) {
           this.toastService.presentToast(`App version ${version} not supported. Aborting!`)
           return;

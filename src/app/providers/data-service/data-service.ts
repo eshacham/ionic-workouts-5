@@ -11,7 +11,7 @@ import { IAppState } from '../../store/state/app.state';
 import { LoadData, SetTheme, LoadReleaseNotesAndTermsOfUse, AppOffline, AppOnline, TermsNotAccpeted } from 'src/app/store/actions/data.actions';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
-import S3 from '@aws-amplify/storage';
+import { Storage as S3 } from '@aws-amplify/storage';
 import { Logger, LoggingService } from 'ionic-logging-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser/';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -320,8 +320,8 @@ export class DataServiceProvider {
     const myImagesGetResult: { Body: any } = await this.getProtectedS3File(
       `${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
     const result = {
-      workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
-      imagesData: myImagesGetResult.Body as MediaDataMaps,
+      workoutsData: JSON.parse(await myWorkoutGetResult.Body.text()) as WorkoutsDataMaps,
+      imagesData: JSON.parse(await myImagesGetResult.Body.text()) as MediaDataMaps,
     };
 
     if (this.isMobile) {
@@ -414,18 +414,19 @@ export class DataServiceProvider {
     const files = { [RN]: null, [TOU]: null, [PP]: null };
     await Promise.all(Object.keys(files).map(async item => {
       const file = await this.getS3File(item, { download: true, level: 'public' });
-      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
-      files[item] = file;
+      files[item] = await file.Body.text();
+      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, files[item]);
   }));
     const releaseNotesFile = files[RN];
+    const releaseNotesObj = JSON.parse(releaseNotesFile)
     const releaseNotes: Record<string, Version> = {};
-    Object.keys(releaseNotesFile.Body).forEach(key => {
-      const rnVersion = releaseNotesFile.Body[key];
+    Object.keys(releaseNotesObj).forEach(key => {
+      const rnVersion = releaseNotesObj[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    const conditions: string = files[TOU].Body;
-    const privacyPolicy: string = files[PP].Body;
+    const conditions: string = files[TOU];
+    const privacyPolicy: string = files[PP];
     let termsOfUse: TermsOfUse = await this.getTerms();
     if (!termsOfUse || termsOfUse.conditions !== conditions || termsOfUse.privacyPolicy !== privacyPolicy) {
       termsOfUse = { conditions, privacyPolicy, isAccepted: false };

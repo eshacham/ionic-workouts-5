@@ -75,9 +75,9 @@ export const getSignedInUser = createSelector(
 export const getReleaseNotesAndTermsOfUse = createSelector(
     dataState,
     (state: IDataState): {
-        releaseNotes: Version[],
+        releaseNotes: Record<string, Version>,
         termsOfUse: TermsOfUse } =>
-        ({ releaseNotes: Object.values(state.releaseNotes),
+        ({ releaseNotes: state.releaseNotes,
             termsOfUse: state.termsOfUse,
         })
 );

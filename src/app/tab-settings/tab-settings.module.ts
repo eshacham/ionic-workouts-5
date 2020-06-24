@@ -7,10 +7,18 @@ import { TabSettingsPage } from './tab-settings.page';
 import { LoginComponent } from '../components/login/login.component'
 import { ReleaseNotesComponent } from '../components/release-notes/release-notes.component'
 import { TermsOfUseComponent } from '../components/terms-of-use/terms-of-use.component'
-import {
-  AmplifyAngularModule,
-  AmplifyIonicModule,
-} from 'aws-amplify-angular';
+// import {
+//   AmplifyAngularModule,
+//   AmplifyIonicModule,
+// } from 'aws-amplify-angular';
+
+/* Add Amplify imports */
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import Amplify from 'aws-amplify';
+// const awsconfig = require('../../aws-exports').default;
+import awsconfig from '../../aws-exports';
+/* Configure Amplify resources */
+Amplify.configure(awsconfig);
 
 const routes: Routes = [
   {
@@ -27,8 +35,9 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
-    AmplifyAngularModule,
-    AmplifyIonicModule,
+    // AmplifyAngularModule,
+    // AmplifyIonicModule,
+    AmplifyUIAngularModule,
     RouterModule.forChild(routes),
   ],
   declarations: [

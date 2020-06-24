@@ -40,7 +40,7 @@ export class TabSettingsPage implements OnInit, OnDestroy {
   selectedTheme: string;
   signedInUser: ISignedInUser;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  releaseNotes: Version[];
+  releaseNotes: Record<string, Version>;
   termsOfUse: TermsOfUse;
   appVersion: string;
 
@@ -70,11 +70,11 @@ export class TabSettingsPage implements OnInit, OnDestroy {
           this.themes.find(t => t.theTheme === theme).selected = true;
         }
       });
-      this.store.select(getSignedInUser)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(signedInUser => {
-        this.signedInUser = signedInUser;
-      });
+      // this.store.select(getSignedInUser)
+      // .pipe(takeUntil(this.ngUnsubscribe))
+      // .subscribe(signedInUser => {
+      //   this.signedInUser = signedInUser;
+      // });
       // this.loadReleaseNotes();
       this.appVersion = (await this.featureService.getAppVersion()).number;
     }

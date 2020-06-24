@@ -21,7 +21,7 @@ interface IExpandableVersion {
   styleUrls: ['./release-notes.component.scss'],
 })
 export class ReleaseNotesComponent implements OnInit {
-  @Input() releaseNotes: Version[];
+  @Input() releaseNotes: Record<string, Version>;
   expandableReleaseNotes: IExpandableVersion[];
   @Input() appVersion: string;
   constructor(
@@ -30,7 +30,7 @@ export class ReleaseNotesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.expandableReleaseNotes = this.releaseNotes.map((item: Version) => ({
+    this.expandableReleaseNotes = Object.values(this.releaseNotes).map((item: Version) => ({
         ...item,
         features: item.features.map((f: Feature) => ({...f, isExpanded: false }))
       }));
