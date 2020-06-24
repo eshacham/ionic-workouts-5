@@ -449,7 +449,7 @@ export class ExerciseThumbnailComponent implements OnInit, OnDestroy, AfterViewI
                 if (this.remainingSetRestTime <= 0) {
                     this.stopRestTimer();
                     this.stopAnimatedProgressBar(this.restProgressBar);
-                    return new callbackAction();
+                    callbackAction();
                 }
             }, interval);
         }
