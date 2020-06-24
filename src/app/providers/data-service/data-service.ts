@@ -315,9 +315,9 @@ export class DataServiceProvider {
 
   async importWorkout(workoutId: string, workoutOwnerId: string):
     Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    const myWorkoutGetResult: { Body: any } = await this.getProtectedS3File(
+    const myWorkoutGetResult: { Body: any } = await this.downloadProtectedS3File(
       `${workoutId}/${WORKOUTS_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
-    const myImagesGetResult: { Body: any } = await this.getProtectedS3File(
+    const myImagesGetResult: { Body: any } = await this.downloadProtectedS3File(
       `${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
     const result = {
       workoutsData: JSON.parse(await myWorkoutGetResult.Body.text()) as WorkoutsDataMaps,
@@ -335,7 +335,7 @@ export class DataServiceProvider {
   }
   async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const getResult: { Body: any } = await this.getProtectedS3File(
+      const getResult: { Body: any } = await this.downloadProtectedS3File(
         `${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`, workoutOwnerId) as { Body: any };
       const blob = getResult.Body;
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
@@ -402,31 +402,44 @@ export class DataServiceProvider {
       reader.readAsArrayBuffer(blob);
     });
   }
-  private getS3File(path: string, options: object): Promise<{ Body: any }> { return S3.get(path, options) as Promise<{ Body: any }>; }
-  private getProtectedS3File(path: string, identityId: string): Promise<{ Body: any }> {
-    return S3.get(path, { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' }) as Promise<{ Body: any }>;
+  private async downloadS3PublicFile(key: string) {
+    return await S3.get(key, { download: true, level: 'public' });
+  }
+  private async downloadProtectedS3File(path: string, identityId: string) {
+    return await S3.get(path, { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' })
   }
 
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
     const RN = 'release-notes.txt';
     const TOU = 'terms-of-use.txt';
     const PP = 'privacy-policy.txt';
-    const files = { [RN]: null, [TOU]: null, [PP]: null };
-    await Promise.all(Object.keys(files).map(async item => {
-      const file = await this.getS3File(item, { download: true, level: 'public' });
-      files[item] = await file.Body.text();
-      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, files[item]);
-  }));
-    const releaseNotesFile = files[RN];
-    const releaseNotesObj = JSON.parse(releaseNotesFile)
+    let releaseNotesObj;
+    const releaseNotesFile = await this.downloadS3PublicFile(RN) as { Body };
+    if (releaseNotesFile.Body.text) {
+      releaseNotesObj = JSON.parse(await releaseNotesFile.Body.text());
+    } else {
+      releaseNotesObj = releaseNotesFile.Body;
+    }
     const releaseNotes: Record<string, Version> = {};
     Object.keys(releaseNotesObj).forEach(key => {
       const rnVersion = releaseNotesObj[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });
-    const conditions: string = files[TOU];
-    const privacyPolicy: string = files[PP];
+    let conditions;
+    const conditionsFile = await this.downloadS3PublicFile(TOU) as { Body };
+    if (conditionsFile.Body.text) {
+      conditions = await conditionsFile.Body.text();
+    } else {
+      conditions = conditionsFile.Body;
+    }
+    let privacyPolicy;
+    const privacyPolicyFile = await this.downloadS3PublicFile(PP) as { Body };
+    if (privacyPolicyFile.Body.text) {
+      privacyPolicy = await privacyPolicyFile.Body.text();
+    } else {
+      privacyPolicy = privacyPolicyFile.Body;
+    }
     let termsOfUse: TermsOfUse = await this.getTerms();
     if (!termsOfUse || termsOfUse.conditions !== conditions || termsOfUse.privacyPolicy !== privacyPolicy) {
       termsOfUse = { conditions, privacyPolicy, isAccepted: false };
