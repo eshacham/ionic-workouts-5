@@ -1,6 +1,6 @@
 {
   "name": "ionic-workouts-5",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -10,13 +10,16 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prep-ios": "ionic cordova prepare ios",
-    "prep-and": "ionic cordova prepare android",
+    "b-ios": "ionic cordova build ios",
+    "b-and": "ionic cordova vuild android",
     "run-and": "ionic cordova run android",
     "run-ios": "ionic cordova emulate ios",
     "upload-release-notes": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/release-notes.json s3://train-me135150-prod/public/release-notes.txt",
     "upload-privacy-policy": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/privacy-policy.html s3://train-me135150-prod/public/privacy-policy.txt",
-    "upload-terms-of-use": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/terms-of-use.html s3://train-me135150-prod/public/terms-of-use.txt"
+    "upload-terms-of-use": "aws s3 cp ~/gitRepos/ionic/ionic-workouts-5/docs/terms-of-use.html s3://train-me135150-prod/public/terms-of-use.txt",
+    "sign-and-apk": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/Documents/TrainMe/my-release-key.jks ~/gitRepos/ionic/ionic-workouts-5/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk my-alias",
+    "opt-and-apk": "rm ~/Documents/TrainMe/TrainEx.apk && ~/Library/Android/sdk/build-tools/29.0.2/zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ~/Documents/TrainMe/TrainEx.apk",
+    "ver-and-apk": "~/Library/Android/sdk/build-tools/29.0.2/apksigner verify ~/Documents/TrainMe/TrainEx.apk"
   },
   "private": true,
   "dependencies": {
@@ -49,7 +52,6 @@
     "@types/howler": "^2.1.2",
     "aws-amplify": "^3.0.7",
     "aws-amplify-angular": "^5.0.7",
-    "cordova-android": "8.1.0",
     "cordova-clipboard": "^1.3.0",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-app-version": "^0.1.9",
@@ -125,7 +127,6 @@
       "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
-      "android",
       "ios"
     ]
   }
