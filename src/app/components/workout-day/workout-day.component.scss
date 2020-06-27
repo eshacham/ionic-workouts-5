@@ -11,7 +11,10 @@ ion-fab {
       ion-icon {
         color: var(--ion-color-dark);
         &.stateOn {
-            color: var(--ion-color-primary);
+            border-style: inset;
+        }
+        &.stateOff {
+            border-style: outset;
         }
       }
     }

@@ -13,7 +13,9 @@
     </ion-fab-button>
     <ion-fab-button size="small"
     (click)="toggleVolume($event)" >
-    <ion-icon name="volume-mute-sharp" [ngClass]="{'stateOn' : isVolumeMuted}"></ion-icon>
+    <ion-icon name="volume-mute-sharp"
+      [ngClass]="{'stateOn' : isVolumeMuted, 'stateOff' : !isVolumeMuted}">
+    </ion-icon>
   </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
