@@ -1,4 +1,13 @@
 {
+    "1.0.3": {
+      "name": "Post Release update",
+      "features": [
+        {
+          "name": "Previous Features",
+          "description": "All Previous Version's Features"
+        }
+      ]
+    },
     "1.0.2": {
       "name": "Initial Release",
       "features": [
@@ -27,7 +36,7 @@
           "name": "Associate Muscle Groups to Exercises",
           "description": "Exercise can be associated with various muscle groups. This can be used to search for exercises that impacts specific muscle groups."
         }, {
-          "name": "Switch Theme",
+          "name": "Switch Between Theme",
           "description": "Switch app color theme."
         }
       ]
