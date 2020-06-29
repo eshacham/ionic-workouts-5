@@ -23,6 +23,7 @@ import { Feature } from 'src/app/models/Feature';
 import { getIsOnline } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { TermsOfUse } from 'src/app/models/TermsOfUse';
+import releaseNotesJson from '../../../assets/release-notes.json'
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -417,10 +418,10 @@ export class DataServiceProvider {
       this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
       files[item] = file;
   }));
-    const releaseNotesFile = files[RN];
+    const releaseNotesFile = releaseNotesJson;// files[RN];
     const releaseNotes: Record<string, Version> = {};
-    Object.keys(releaseNotesFile.Body).forEach(key => {
-      const rnVersion = releaseNotesFile.Body[key];
+    Object.keys(releaseNotesFile).forEach(key => {
+      const rnVersion = releaseNotesFile[key];
       const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
       releaseNotes[key] = new Version(key, rnVersion.name, features);
     });

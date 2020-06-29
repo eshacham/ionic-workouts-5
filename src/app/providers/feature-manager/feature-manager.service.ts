@@ -58,7 +58,7 @@ export class FeatureManagerService {
           return;
         }
         const feature  = version.features.find(f=>f.name === featureName);
-        if (!feature || !feature.on) {
+        if (feature && !feature.on) {
           this.toastService.presentToast(`Feature ${featureName} is disabled. Aborting!`)
           return;
         }

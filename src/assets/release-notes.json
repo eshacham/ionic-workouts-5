@@ -1,0 +1,44 @@
+{
+    "1.0.3": {
+      "name": "Post Release update",
+      "features": [
+        {
+          "name": "Previous Features",
+          "description": "All Previous Version's Features"
+        }
+      ]
+    },
+    "1.0.2": {
+      "name": "Initial Release",
+      "features": [
+        {
+          "name": "Export Workout",
+          "description": "Export (upload) a workout's data (including it's images) to the cloud where it can be downloaded by another user.",
+          "on": true
+        }, {
+          "name": "Share Workout",
+          "description": "Send workout's key and creator's user id via SMS where it can be used to download by another user.",
+          "on": true
+        },{
+          "name": "Import Workout",
+          "description": "Import (download) a specific workout (including it's images) by providing its creator's user id and workout key.",
+          "on": true
+        }, {
+          "name": "Create, Update and Delete workouts",
+          "description": "Create, update and delete workouts, including its workout days, exercises, sets and reps."
+        }, {
+          "name": "Working Out",
+          "description": "Executing a specific workout, starting at any day, or any exercise."
+        }, {
+          "name": "Maintain Exercises Media Library",
+          "description": "Add, Update and Delete exercise's (media) images, including importing device's photos and taking pictures using the devise's camera."
+        }, {
+          "name": "Associate Muscle Groups to Exercises",
+          "description": "Exercise can be associated with various muscle groups. This can be used to search for exercises that impacts specific muscle groups."
+        }, {
+          "name": "Switch Between Theme",
+          "description": "Switch app color theme."
+        }
+      ]
+    }
+  }
