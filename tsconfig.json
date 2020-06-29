@@ -3,13 +3,16 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
     "module": "esnext",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "sourceMap": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -17,9 +20,7 @@
       "es2018",
       "dom"
     ],
-    "resolveJsonModule": true
   },
-  "importHelpers": true,
   "angularCompilerOptions": {
     "enableIvy": false
   }
