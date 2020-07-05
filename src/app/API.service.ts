@@ -8,17 +8,44 @@ import { Observable } from "zen-observable-ts";
 
 export type CreateReleaseInput = {
   id?: string | null;
+  order: number;
   name: string;
   version: string;
 };
 
 export type ModelReleaseConditionInput = {
+  order?: ModelIntInput | null;
   name?: ModelStringInput | null;
   version?: ModelStringInput | null;
   and?: Array<ModelReleaseConditionInput | null> | null;
   or?: Array<ModelReleaseConditionInput | null> | null;
   not?: ModelReleaseConditionInput | null;
 };
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export enum ModelAttributeTypes {
+  binary = "binary",
+  binarySet = "binarySet",
+  bool = "bool",
+  list = "list",
+  map = "map",
+  number = "number",
+  numberSet = "numberSet",
+  string = "string",
+  stringSet = "stringSet",
+  _null = "_null"
+}
 
 export type ModelStringInput = {
   ne?: string | null;
@@ -36,19 +63,6 @@ export type ModelStringInput = {
   size?: ModelSizeInput | null;
 };
 
-export enum ModelAttributeTypes {
-  binary = "binary",
-  binarySet = "binarySet",
-  bool = "bool",
-  list = "list",
-  map = "map",
-  number = "number",
-  numberSet = "numberSet",
-  string = "string",
-  stringSet = "stringSet",
-  _null = "_null"
-}
-
 export type ModelSizeInput = {
   ne?: number | null;
   eq?: number | null;
@@ -61,6 +75,7 @@ export type ModelSizeInput = {
 
 export type UpdateReleaseInput = {
   id: string;
+  order?: number | null;
   name?: string | null;
   version?: string | null;
 };
@@ -71,6 +86,7 @@ export type DeleteReleaseInput = {
 
 export type CreateFeatureInput = {
   id?: string | null;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -78,6 +94,7 @@ export type CreateFeatureInput = {
 };
 
 export type ModelFeatureConditionInput = {
+  order?: ModelIntInput | null;
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   releaseID?: ModelIDInput | null;
@@ -112,6 +129,7 @@ export type ModelBooleanInput = {
 
 export type UpdateFeatureInput = {
   id: string;
+  order?: number | null;
   name?: string | null;
   description?: string | null;
   releaseID?: string | null;
@@ -124,6 +142,7 @@ export type DeleteFeatureInput = {
 
 export type ModelReleaseFilterInput = {
   id?: ModelIDInput | null;
+  order?: ModelIntInput | null;
   name?: ModelStringInput | null;
   version?: ModelStringInput | null;
   and?: Array<ModelReleaseFilterInput | null> | null;
@@ -133,6 +152,7 @@ export type ModelReleaseFilterInput = {
 
 export type ModelFeatureFilterInput = {
   id?: ModelIDInput | null;
+  order?: ModelIntInput | null;
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   releaseID?: ModelIDInput | null;
@@ -145,6 +165,7 @@ export type ModelFeatureFilterInput = {
 export type CreateReleaseMutation = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -152,6 +173,7 @@ export type CreateReleaseMutation = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -168,6 +190,7 @@ export type CreateReleaseMutation = {
 export type UpdateReleaseMutation = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -175,6 +198,7 @@ export type UpdateReleaseMutation = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -191,6 +215,7 @@ export type UpdateReleaseMutation = {
 export type DeleteReleaseMutation = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -198,6 +223,7 @@ export type DeleteReleaseMutation = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -214,6 +240,7 @@ export type DeleteReleaseMutation = {
 export type CreateFeatureMutation = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -221,6 +248,7 @@ export type CreateFeatureMutation = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -237,6 +265,7 @@ export type CreateFeatureMutation = {
 export type UpdateFeatureMutation = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -244,6 +273,7 @@ export type UpdateFeatureMutation = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -260,6 +290,7 @@ export type UpdateFeatureMutation = {
 export type DeleteFeatureMutation = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -267,6 +298,7 @@ export type DeleteFeatureMutation = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -283,6 +315,7 @@ export type DeleteFeatureMutation = {
 export type GetReleaseQuery = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -290,6 +323,7 @@ export type GetReleaseQuery = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -308,6 +342,7 @@ export type ListReleasesQuery = {
   items: Array<{
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -323,6 +358,7 @@ export type ListReleasesQuery = {
 export type GetFeatureQuery = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -330,6 +366,7 @@ export type GetFeatureQuery = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -348,6 +385,7 @@ export type ListFeaturesQuery = {
   items: Array<{
     __typename: "Feature";
     id: string;
+    order: number;
     name: string;
     description: string;
     releaseID: string;
@@ -355,6 +393,7 @@ export type ListFeaturesQuery = {
     release: {
       __typename: "Release";
       id: string;
+      order: number;
       name: string;
       version: string;
       createdAt: string;
@@ -369,6 +408,7 @@ export type ListFeaturesQuery = {
 export type OnCreateReleaseSubscription = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -376,6 +416,7 @@ export type OnCreateReleaseSubscription = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -392,6 +433,7 @@ export type OnCreateReleaseSubscription = {
 export type OnUpdateReleaseSubscription = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -399,6 +441,7 @@ export type OnUpdateReleaseSubscription = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -415,6 +458,7 @@ export type OnUpdateReleaseSubscription = {
 export type OnDeleteReleaseSubscription = {
   __typename: "Release";
   id: string;
+  order: number;
   name: string;
   version: string;
   features: {
@@ -422,6 +466,7 @@ export type OnDeleteReleaseSubscription = {
     items: Array<{
       __typename: "Feature";
       id: string;
+      order: number;
       name: string;
       description: string;
       releaseID: string;
@@ -438,6 +483,7 @@ export type OnDeleteReleaseSubscription = {
 export type OnCreateFeatureSubscription = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -445,6 +491,7 @@ export type OnCreateFeatureSubscription = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -461,6 +508,7 @@ export type OnCreateFeatureSubscription = {
 export type OnUpdateFeatureSubscription = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -468,6 +516,7 @@ export type OnUpdateFeatureSubscription = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -484,6 +533,7 @@ export type OnUpdateFeatureSubscription = {
 export type OnDeleteFeatureSubscription = {
   __typename: "Feature";
   id: string;
+  order: number;
   name: string;
   description: string;
   releaseID: string;
@@ -491,6 +541,7 @@ export type OnDeleteFeatureSubscription = {
   release: {
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -516,6 +567,7 @@ export class APIService {
         createRelease(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           version
           features {
@@ -523,6 +575,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -555,6 +608,7 @@ export class APIService {
         updateRelease(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           version
           features {
@@ -562,6 +616,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -594,6 +649,7 @@ export class APIService {
         deleteRelease(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           version
           features {
@@ -601,6 +657,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -633,6 +690,7 @@ export class APIService {
         createFeature(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -640,6 +698,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -672,6 +731,7 @@ export class APIService {
         updateFeature(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -679,6 +739,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -711,6 +772,7 @@ export class APIService {
         deleteFeature(input: $input, condition: $condition) {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -718,6 +780,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -747,6 +810,7 @@ export class APIService {
         getRelease(id: $id) {
           __typename
           id
+          order
           name
           version
           features {
@@ -754,6 +818,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -786,6 +851,7 @@ export class APIService {
           items {
             __typename
             id
+            order
             name
             version
             features {
@@ -818,6 +884,7 @@ export class APIService {
         getFeature(id: $id) {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -825,6 +892,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -857,6 +925,7 @@ export class APIService {
           items {
             __typename
             id
+            order
             name
             description
             releaseID
@@ -864,6 +933,7 @@ export class APIService {
             release {
               __typename
               id
+              order
               name
               version
               createdAt
@@ -898,6 +968,7 @@ export class APIService {
         onCreateRelease {
           __typename
           id
+          order
           name
           version
           features {
@@ -905,6 +976,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -929,6 +1001,7 @@ export class APIService {
         onUpdateRelease {
           __typename
           id
+          order
           name
           version
           features {
@@ -936,6 +1009,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -960,6 +1034,7 @@ export class APIService {
         onDeleteRelease {
           __typename
           id
+          order
           name
           version
           features {
@@ -967,6 +1042,7 @@ export class APIService {
             items {
               __typename
               id
+              order
               name
               description
               releaseID
@@ -991,6 +1067,7 @@ export class APIService {
         onCreateFeature {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -998,6 +1075,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -1022,6 +1100,7 @@ export class APIService {
         onUpdateFeature {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -1029,6 +1108,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {
@@ -1053,6 +1133,7 @@ export class APIService {
         onDeleteFeature {
           __typename
           id
+          order
           name
           description
           releaseID
@@ -1060,6 +1141,7 @@ export class APIService {
           release {
             __typename
             id
+            order
             name
             version
             features {

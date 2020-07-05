@@ -2,11 +2,13 @@
 subscription OnCreateRelease {
   onCreateRelease {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -23,11 +25,13 @@ subscription OnCreateRelease {
 subscription OnUpdateRelease {
   onUpdateRelease {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -44,11 +48,13 @@ subscription OnUpdateRelease {
 subscription OnDeleteRelease {
   onDeleteRelease {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -65,12 +71,14 @@ subscription OnDeleteRelease {
 subscription OnCreateFeature {
   onCreateFeature {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {
@@ -86,12 +94,14 @@ subscription OnCreateFeature {
 subscription OnUpdateFeature {
   onUpdateFeature {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {
@@ -107,12 +117,14 @@ subscription OnUpdateFeature {
 subscription OnDeleteFeature {
   onDeleteFeature {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {

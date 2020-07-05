@@ -5,11 +5,13 @@ mutation CreateRelease(
 ) {
   createRelease(input: $input, condition: $condition) {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -29,11 +31,13 @@ mutation UpdateRelease(
 ) {
   updateRelease(input: $input, condition: $condition) {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -53,11 +57,13 @@ mutation DeleteRelease(
 ) {
   deleteRelease(input: $input, condition: $condition) {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -77,12 +83,14 @@ mutation CreateFeature(
 ) {
   createFeature(input: $input, condition: $condition) {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {
@@ -101,12 +109,14 @@ mutation UpdateFeature(
 ) {
   updateFeature(input: $input, condition: $condition) {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {
@@ -125,12 +135,14 @@ mutation DeleteFeature(
 ) {
   deleteFeature(input: $input, condition: $condition) {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {

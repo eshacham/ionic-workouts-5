@@ -3,15 +3,14 @@
 //  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api";
-import { GraphQLResult } from "@aws-amplify/api/lib/types";
-import { Observable } from "zen-observable-ts";
-import { APIService, ModelReleaseFilterInput, ListReleasesQuery, GetFeatureQuery, ModelFeatureFilterInput, ListFeaturesQuery, OnCreateReleaseSubscription, OnUpdateReleaseSubscription, OnDeleteReleaseSubscription, OnCreateFeatureSubscription, OnUpdateFeatureSubscription, OnDeleteFeatureSubscription } from './API.service';
+import { APIService, ModelReleaseFilterInput } from './API.service';
 
 export type ListReleasesFullQuery = {
   __typename: "ModelReleaseConnection";
   items: Array<{
     __typename: "Release";
     id: string;
+    order: number;
     name: string;
     version: string;
     features: {
@@ -19,6 +18,7 @@ export type ListReleasesFullQuery = {
       items: Array<{
         __typename: "Feature";
         id: string;
+        order: number;
         name: string;
         description: string;
         enabled: boolean;
@@ -47,12 +47,14 @@ export class APIServiceExtended extends APIService {
         items {
           __typename
           id
+          order
           name
           version
           features {
             __typename
             items {
               __typename
+              order
               name
               description
               enabled

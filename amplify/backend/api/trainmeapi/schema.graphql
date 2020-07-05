@@ -4,6 +4,7 @@ type Release
     rules: [{ allow: public, provider: iam, operations: [read] }]
   ){
   id: ID!
+  order: Int!
   name: String!
   version: String!
   features: [Feature!]! @connection(keyName: "byRelease", fields: ["id"])
@@ -16,6 +17,7 @@ type Feature
 @model
 @key(name: "byRelease", fields: ["releaseID"]) {
   id: ID!
+  order: Int!
   name: String!
   description: String!
   releaseID: ID!

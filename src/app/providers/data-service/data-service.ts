@@ -23,7 +23,6 @@ import { Feature } from 'src/app/models/Feature';
 import { getIsOnline } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { TermsOfUse } from 'src/app/models/TermsOfUse';
-import releaseNotesJson from '../../../assets/release-notes.json'
 import { APIServiceExtended } from 'src/app/API.service.extended';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
@@ -410,25 +409,34 @@ export class DataServiceProvider {
     return S3.get(path, { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' }) as Promise<{ Body: any }>;
   }
 
+  async getReleaseNotesGQLData(): Promise<Record<string, Version>> {
+    const releaseNotes: Record<string, Version> = {};
+    const releaseNotesGq = await this.apiService.ListReleasesFull();
+    this.logger.debug(`getReleaseNotesFromDynamo`, releaseNotesGq);
+    releaseNotesGq.items
+    .sort((i1, i2) => i2.order - i1.order)
+    .forEach(rn => {
+      const features = rn.features.items
+      .sort((i1, i2) => i1.order - i2.order)
+      .map(f => new Feature(f.name, f.description, f.enabled));
+      releaseNotes[rn.version] = new Version(rn.version, rn.name, features);
+    });
+    return releaseNotes;
+  }
+
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
-    const rn = await this.apiService.ListReleasesFull();
-    this.logger.debug(`getReleaseNotesFromDynamo`, rn);
-    const RN = 'release-notes.txt';
     const TOU = 'terms-of-use.txt';
     const PP = 'privacy-policy.txt';
-    const files = { [RN]: null, [TOU]: null, [PP]: null };
+    const files = {
+      [TOU]: null,
+      [PP]: null
+    };
     await Promise.all(Object.keys(files).map(async item => {
       const file = await this.getS3File(item, { download: true, level: 'public' });
       this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
       files[item] = file;
-  }));
-    const releaseNotesFile = releaseNotesJson;// files[RN];
-    const releaseNotes: Record<string, Version> = {};
-    Object.keys(releaseNotesFile).forEach(key => {
-      const rnVersion = releaseNotesFile[key];
-      const features = rnVersion.features.map(f => new Feature(f.name, f.description, f.on));
-      releaseNotes[key] = new Version(key, rnVersion.name, features);
-    });
+    }));
+    const releaseNotes: Record<string, Version> = await this.getReleaseNotesGQLData();
     const conditions: string = files[TOU].Body;
     const privacyPolicy: string = files[PP].Body;
     let termsOfUse: TermsOfUse = await this.getTerms();

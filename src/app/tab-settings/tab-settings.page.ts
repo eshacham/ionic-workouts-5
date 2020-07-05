@@ -75,7 +75,6 @@ export class TabSettingsPage implements OnInit, OnDestroy {
       .subscribe(signedInUser => {
         this.signedInUser = signedInUser;
       });
-      // this.loadReleaseNotes();
       this.appVersion = (await this.featureService.getAppVersion()).number;
     }
 

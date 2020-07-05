@@ -2,11 +2,13 @@
 query GetRelease($id: ID!) {
   getRelease(id: $id) {
     id
+    order
     name
     version
     features {
       items {
         id
+        order
         name
         description
         releaseID
@@ -28,6 +30,7 @@ query ListReleases(
   listReleases(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      order
       name
       version
       features {
@@ -42,12 +45,14 @@ query ListReleases(
 query GetFeature($id: ID!) {
   getFeature(id: $id) {
     id
+    order
     name
     description
     releaseID
     enabled
     release {
       id
+      order
       name
       version
       features {
@@ -68,12 +73,14 @@ query ListFeatures(
   listFeatures(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      order
       name
       description
       releaseID
       enabled
       release {
         id
+        order
         name
         version
         createdAt
