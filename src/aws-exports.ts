@@ -9,7 +9,10 @@ const awsmobile = {
     aws_user_pools_web_client_id: '58b50jofsekqo2jko59a73u61f',
     oauth: {},
     aws_user_files_s3_bucket: 'train-me135150-prod',
-    aws_user_files_s3_bucket_region: 'us-east-1'
+    aws_user_files_s3_bucket_region: 'us-east-1',
+    aws_appsync_graphqlEndpoint: 'https://vrkntbaanjdsxix2l6ipluphuy.appsync-api.us-east-1.amazonaws.com/graphql',
+    aws_appsync_region: 'us-east-1',
+    aws_appsync_authenticationType: 'AWS_IAM'
 };
 
 

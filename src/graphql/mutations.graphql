@@ -1,0 +1,145 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateRelease(
+  $input: CreateReleaseInput!
+  $condition: ModelReleaseConditionInput
+) {
+  createRelease(input: $input, condition: $condition) {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateRelease(
+  $input: UpdateReleaseInput!
+  $condition: ModelReleaseConditionInput
+) {
+  updateRelease(input: $input, condition: $condition) {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteRelease(
+  $input: DeleteReleaseInput!
+  $condition: ModelReleaseConditionInput
+) {
+  deleteRelease(input: $input, condition: $condition) {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateFeature(
+  $input: CreateFeatureInput!
+  $condition: ModelFeatureConditionInput
+) {
+  createFeature(input: $input, condition: $condition) {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateFeature(
+  $input: UpdateFeatureInput!
+  $condition: ModelFeatureConditionInput
+) {
+  updateFeature(input: $input, condition: $condition) {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteFeature(
+  $input: DeleteFeatureInput!
+  $condition: ModelFeatureConditionInput
+) {
+  deleteFeature(input: $input, condition: $condition) {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

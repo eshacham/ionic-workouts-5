@@ -1,0 +1,127 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateRelease {
+  onCreateRelease {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateRelease {
+  onUpdateRelease {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteRelease {
+  onDeleteRelease {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateFeature {
+  onCreateFeature {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateFeature {
+  onUpdateFeature {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteFeature {
+  onDeleteFeature {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

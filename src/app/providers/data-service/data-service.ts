@@ -24,6 +24,7 @@ import { getIsOnline } from 'src/app/store/selectors/data.selectors';
 import { take } from 'rxjs/operators';
 import { TermsOfUse } from 'src/app/models/TermsOfUse';
 import releaseNotesJson from '../../../assets/release-notes.json'
+import { APIServiceExtended } from 'src/app/API.service.extended';
 
 const WORKOUTS_STORAGE_KEY = 'my_workouts';
 const IMAGES_STORAGE_KEY = 'my_images';
@@ -48,6 +49,7 @@ export class DataServiceProvider {
     private storage: Storage,
     private store: Store<IAppState>,
     private http: HttpClient,
+    private apiService: APIServiceExtended
   ) {
     this.logger = loggingService.getLogger('App.DataServiceProvider');
     this.init();
@@ -409,6 +411,8 @@ export class DataServiceProvider {
   }
 
   async getReleaseNotesAndTermsOfUseFromS3(): Promise<{releaseNotes: Record<string, Version>, termsOfUse: TermsOfUse}> {
+    const rn = await this.apiService.ListReleasesFull();
+    this.logger.debug(`getReleaseNotesFromDynamo`, rn);
     const RN = 'release-notes.txt';
     const TOU = 'terms-of-use.txt';
     const PP = 'privacy-policy.txt';

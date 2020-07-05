@@ -1,0 +1,87 @@
+# this is an auto generated file. This will be overwritten
+query GetRelease($id: ID!) {
+  getRelease(id: $id) {
+    id
+    name
+    version
+    features {
+      items {
+        id
+        name
+        description
+        releaseID
+        enabled
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListReleases(
+  $filter: ModelReleaseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReleases(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetFeature($id: ID!) {
+  getFeature(id: $id) {
+    id
+    name
+    description
+    releaseID
+    enabled
+    release {
+      id
+      name
+      version
+      features {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListFeatures(
+  $filter: ModelFeatureFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFeatures(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      releaseID
+      enabled
+      release {
+        id
+        name
+        version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

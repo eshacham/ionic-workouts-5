@@ -11,5 +11,19 @@
             "service": "S3",
             "providerPlugin": "awscloudformation"
         }
+    },
+    "api": {
+        "trainmeapi": {
+            "service": "AppSync",
+            "providerPlugin": "awscloudformation",
+            "output": {
+                "authConfig": {
+                    "additionalAuthenticationProviders": [],
+                    "defaultAuthentication": {
+                        "authenticationType": "AWS_IAM"
+                    }
+                }
+            }
+        }
     }
 }
