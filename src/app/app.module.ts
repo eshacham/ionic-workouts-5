@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/File/ngx';
@@ -64,6 +65,7 @@ export function configureLogging(loggingService: LoggingService): () => void {
   providers: [
     StatusBar,
     SplashScreen,
+    BackgroundMode,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AmplifyService,
     {
