@@ -18,6 +18,272 @@ const buildDefaultWorkouts = () => {
             days: [
                 new WorkoutDay({
                     id: Guid.raw(),
+                    name: 'Lower Body and Core',
+                    repeatsCount: 1,
+                    exerciseSets: [
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Elliptical Warmups',
+                                    mediaId: attachMedia2Exercise('elliptical'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            time: 300
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 0,
+                            restAfterExercise: 20
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Braced Single Dumbbell Squats',
+                                    mediaId: attachMedia2Exercise('braced squats'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    typeOfWeight: WeightType.Dumbbell,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        })
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30,
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Cable Kickbacks',
+                                    mediaId: attachMedia2Exercise('cable kickbacks'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Dumbbells Squat',
+                                    mediaId: attachMedia2Exercise('squat'),
+                                    theGrip: new Grip(
+                                        GripType.Overhand,
+                                        GripWidth.Normal,
+                                    ),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    typeOfWeight: WeightType.Dumbbell,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 15
+                                        }),
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 15
+                                        }),
+                                        new Set({
+                                            weight: 15,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 15
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'cable crossover',
+                                    mediaId: attachMedia2Exercise('cable crossover'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 50,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        }),
+                                        new Set({
+                                            weight: 30,
+                                            weightUnit: WeightUnit.Lbs,
+                                            reps: 12
+                                        })
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Single Leg Squats',
+                                    mediaId: attachMedia2Exercise('single leg squats'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            reps: 8
+                                        }),
+                                        new Set({
+                                            reps: 8
+                                        }),
+                                        new Set({
+                                            reps: 8
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Plank',
+                                    mediaId: attachMedia2Exercise('plank'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            time: 60
+                                        }),
+                                        new Set({
+                                            time: 60
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'Side Plank Hip Raise',
+                                    mediaId: attachMedia2Exercise('side plank hip raise'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            reps: 10
+                                        }),
+                                        new Set({
+                                            reps: 10
+                                        }),
+                                        new Set({
+                                            reps: 10
+                                        }),
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 30,
+                            restAfterExercise: 30
+                        }),
+                        new ExerciseSet({
+                            id: Guid.raw(),
+                            exercises: [
+                                new Exercise({
+                                    id: Guid.raw(),
+                                    name: 'V Up',
+                                    mediaId: attachMedia2Exercise('v up'),
+                                    repSpeed: RepetitionSpeed.Medium,
+                                    isFavorite: false,
+                                    sets: [
+                                        new Set({
+                                            reps: 15
+                                        }),
+                                        new Set({
+                                            reps: 15
+                                        }),
+                                        new Set({
+                                            reps: 15
+                                        }),
+                                        new Set({
+                                            reps: 15
+                                        })
+                                    ],
+                                })
+                            ],
+                            restBetweenSets: 20,
+                            restAfterExercise: 20
+                        }),
+                    ],
+                }),
+                new WorkoutDay({
+                    id: Guid.raw(),
                     name: 'Upper Body and Core',
                     repeatsCount: 1,
                     exerciseSets: [
@@ -38,7 +304,7 @@ const buildDefaultWorkouts = () => {
                                 })
                             ],
                             restBetweenSets: 0,
-                            restAfterExercise: 10
+                            restAfterExercise: 20
                         }),
                         new ExerciseSet({
                             id: Guid.raw(),
@@ -319,272 +585,6 @@ const buildDefaultWorkouts = () => {
                                     id: Guid.raw(),
                                     name: 'Russian Twist',
                                     mediaId: attachMedia2Exercise('russian twist'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            reps: 15
-                                        }),
-                                        new Set({
-                                            reps: 15
-                                        }),
-                                        new Set({
-                                            reps: 15
-                                        }),
-                                        new Set({
-                                            reps: 15
-                                        })
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 20,
-                            restAfterExercise: 20
-                        }),
-                    ],
-                }),
-                new WorkoutDay({
-                    id: Guid.raw(),
-                    name: 'Lower Body and Core',
-                    repeatsCount: 1,
-                    exerciseSets: [
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Elliptical Warmups',
-                                    mediaId: attachMedia2Exercise('elliptical'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            time: 300
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 0,
-                            restAfterExercise: 10
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Braced Single Dumbbell Squats',
-                                    mediaId: attachMedia2Exercise('braced squats'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    typeOfWeight: WeightType.Dumbbell,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        })
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 30,
-                            restAfterExercise: 30,
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Cable Kickbacks',
-                                    mediaId: attachMedia2Exercise('cable kickbacks'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            weight: 20,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 20,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 20,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 30,
-                            restAfterExercise: 30
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Dumbbells Squat',
-                                    mediaId: attachMedia2Exercise('squat'),
-                                    theGrip: new Grip(
-                                        GripType.Overhand,
-                                        GripWidth.Normal,
-                                    ),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    typeOfWeight: WeightType.Dumbbell,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 15
-                                        }),
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 15
-                                        }),
-                                        new Set({
-                                            weight: 15,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 15
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 20,
-                            restAfterExercise: 20
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'cable crossover',
-                                    mediaId: attachMedia2Exercise('cable crossover'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            weight: 30,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 30,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 30,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        }),
-                                        new Set({
-                                            weight: 30,
-                                            weightUnit: WeightUnit.Lbs,
-                                            reps: 12
-                                        })
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 20,
-                            restAfterExercise: 20
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Single Leg Squats',
-                                    mediaId: attachMedia2Exercise('single leg squats'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            reps: 8
-                                        }),
-                                        new Set({
-                                            reps: 8
-                                        }),
-                                        new Set({
-                                            reps: 8
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 20,
-                            restAfterExercise: 20
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Plank',
-                                    mediaId: attachMedia2Exercise('plank'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            time: 60
-                                        }),
-                                        new Set({
-                                            time: 60
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 20,
-                            restAfterExercise: 20
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'Side Plank Hip Raise',
-                                    mediaId: attachMedia2Exercise('side plank hip raise'),
-                                    repSpeed: RepetitionSpeed.Medium,
-                                    isFavorite: false,
-                                    sets: [
-                                        new Set({
-                                            reps: 10
-                                        }),
-                                        new Set({
-                                            reps: 10
-                                        }),
-                                        new Set({
-                                            reps: 10
-                                        }),
-                                    ],
-                                })
-                            ],
-                            restBetweenSets: 30,
-                            restAfterExercise: 30
-                        }),
-                        new ExerciseSet({
-                            id: Guid.raw(),
-                            exercises: [
-                                new Exercise({
-                                    id: Guid.raw(),
-                                    name: 'V Up',
-                                    mediaId: attachMedia2Exercise('v up'),
                                     repSpeed: RepetitionSpeed.Medium,
                                     isFavorite: false,
                                     sets: [
