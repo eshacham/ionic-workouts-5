@@ -1,6 +1,6 @@
 {
   "name": "ionic-workouts-5",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -17,8 +17,9 @@
     "b-ios-p": "ionic cordova build ios --prod",
     "b-and": "ionic cordova build android",
     "run-and": "ionic cordova run android",
-    "b-and-p": "ionic cordova build android --prod --release",
+    "b-and-p": "ionic cordova build android --prod --release ",
     "sign-and-apk": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/Documents/TrainMe/my-release-key.jks ~/gitRepos/ionic/ionic-workouts-5/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk my-alias",
+    "rm-and-apk": "[ -e /Users/eyalshacham/Documents/TrainMe/TrainEx.apk ] && rm /Users/eyalshacham/Documents/TrainMe/TrainEx.apk",
     "opt-and-apk": "~/Library/Android/sdk/build-tools/29.0.2/zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ~/Documents/TrainMe/TrainEx.apk",
     "ver-and-apk": "~/Library/Android/sdk/build-tools/29.0.2/apksigner verify ~/Documents/TrainMe/TrainEx.apk"
   },

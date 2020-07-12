@@ -34,7 +34,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.store.dispatch(new LoadTheme());
       this.splashScreen.hide();
-      this.backgroundMode.enable();
+      if (this.platform.is('ios')) {
+        this.backgroundMode.enable();
+        // this.backgroundMode.disableWebViewOptimizations();
+        // this.backgroundMode.overrideBackButton();
+        // this.backgroundMode.on('activate').subscribe(()=> {
+        //     this.logger.info('backgroundMode', 'activate')
+        // });
+      }
     });
   }
 }

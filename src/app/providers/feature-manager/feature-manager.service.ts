@@ -54,7 +54,7 @@ export class FeatureManagerService {
         const currentVersionId = (await this.getAppVersion()).number;
         const version = data.releaseNotes.find(v=>v.id === currentVersionId);
         if (!version) {
-          this.toastService.presentToast(`App version ${version} not supported. Aborting!`)
+          this.toastService.presentToast(`App version ${currentVersionId} not supported. Aborting!`)
           return;
         }
         const feature  = version.features.find(f=>f.name === featureName);
