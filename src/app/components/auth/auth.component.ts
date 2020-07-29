@@ -147,7 +147,7 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('resendCode', err);
-      this.toastService.presentToast('Failed to resend verification code!');
+      this.toastService.presentToast('Failed to resend verification code!', true);
     }
   }
 
@@ -158,7 +158,7 @@ export class AuthComponent implements OnInit {
       this.changePasswordState = false;
     } catch (err) {
       this.logger.error('changePassword', err);
-      this.toastService.presentToast('Failed to change password!');
+      this.toastService.presentToast('Failed to change password!', true);
     }
   }
 
@@ -176,7 +176,7 @@ export class AuthComponent implements OnInit {
       this.signUpState = true;
     } catch (err) {
       this.logger.error('signUp', err);
-      this.toastService.presentToast('Failed to sign up!');
+      this.toastService.presentToast('Failed to sign up!', true);
     }
   }
 
@@ -192,7 +192,7 @@ export class AuthComponent implements OnInit {
       this.updateAccountState = false;
     } catch (err) {
       this.logger.error('updateAccount', err);
-      this.toastService.presentToast('Failed to update account!');
+      this.toastService.presentToast('Failed to update account!', true);
     }
   }
 
@@ -204,7 +204,7 @@ export class AuthComponent implements OnInit {
       this.signUpState = false;
     } catch (err) {
       this.logger.error('confirmSignUp', err);
-      this.toastService.presentToast('Failed to confirm verification code!');
+      this.toastService.presentToast('Failed to confirm verification code!', true);
     }
   }
 
@@ -215,7 +215,7 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('forgotPassword', err);
-      this.toastService.presentToast('Failed to reset Password!');
+      this.toastService.presentToast('Failed to reset Password!', true);
     }
   }
 
@@ -227,7 +227,7 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('resetPassword', err);
-      this.toastService.presentToast('Failed to submit new Password!');
+      this.toastService.presentToast('Failed to submit new Password!', true);
     }
   }
 
@@ -242,7 +242,7 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('signIn', err);
-      this.toastService.presentToast('Failed to sign in!');
+      this.toastService.presentToast(`Failed to sign in! ${err.message}`, true);
     }
   }
 
@@ -253,7 +253,7 @@ export class AuthComponent implements OnInit {
       this.signedInState = false;
     } catch (err) {
       this.logger.error('signOut', err);
-      this.toastService.presentToast('Failed to sign out!');
+      this.toastService.presentToast('Failed to sign out!', true);
     }
   }
 
