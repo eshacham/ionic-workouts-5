@@ -54,12 +54,12 @@ export class FeatureManagerService {
         const currentVersionId = (await this.getAppVersion()).number;
         const version = data.releaseNotes.find(v => v.id === currentVersionId);
         if (!version) {
-          this.toastService.presentToast(`App version ${currentVersionId} not supported. Aborting!`)
+          this.toastService.presentToast(`App version ${currentVersionId} not supported. Aborting!`);
           return;
         }
         const feature  = version.features.find(f => f.name === featureName);
         if (feature && !feature.on) {
-          this.toastService.presentToast(`Feature ${featureName} is disabled. Aborting!`)
+          this.toastService.presentToast(`Feature ${featureName} is disabled. Aborting!`);
           return;
         }
         featureInvokation();
