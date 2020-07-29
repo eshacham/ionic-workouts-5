@@ -7,6 +7,7 @@ import { IAppState } from 'src/app/store/state/app.state';
 import { SetSignedInUser } from 'src/app/store/actions/data.actions';
 import { DataServiceProvider } from 'src/app/providers/data-service/data-service';
 import { ISignedInUser } from 'src/app/store/state/data.state';
+import { ToastService } from 'src/app/providers/toast-service/toast-service';
 
 export enum FormState {
   SignUp,
@@ -59,6 +60,8 @@ export class AuthComponent implements OnInit {
     private store: Store<IAppState>,
     private clipboard: Clipboard,
     private dataService: DataServiceProvider,
+    private toastService: ToastService,
+
   ) {
     this.logger = loggingService.getLogger('App.LoginComponent');
   }
@@ -86,7 +89,7 @@ export class AuthComponent implements OnInit {
     });
     try {
       const user = await Auth.currentAuthenticatedUser();
-      await this.setSignedInUser(user?.username);
+      await this.setSignedInUser(user);
       console.log('user is signed in:', this.signedInUser);
       if (this.signedInUser) {
         this.signedInState = true;
@@ -107,7 +110,7 @@ export class AuthComponent implements OnInit {
       this.user = data;
       const creds = await this.getAuthCreds();
       this.signedInUser = {
-        username: data?.username,
+        username: data.username,
         identityId: creds.identityId
       };
     } else {
@@ -142,7 +145,10 @@ export class AuthComponent implements OnInit {
       this.confirmSignUpState = true;
       this.resetPasswordState = false;
       this.forgotPasswordState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('resendCode', err);
+      this.toastService.presentToast('Failed to resend verification code!');
+    }
   }
 
   async changePassword() {
@@ -150,7 +156,10 @@ export class AuthComponent implements OnInit {
       await Auth.changePassword(this.user, this.formInputState.oldPassword, this.formInputState.password);
       this.signInState = true;
       this.changePasswordState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('changePassword', err);
+      this.toastService.presentToast('Failed to change password!');
+    }
   }
 
   async signUp() {
@@ -165,7 +174,10 @@ export class AuthComponent implements OnInit {
         }});
       this.confirmSignUpState = true;
       this.signUpState = true;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('signUp', err);
+      this.toastService.presentToast('Failed to sign up!');
+    }
   }
 
   async updateAccount() {
@@ -178,7 +190,10 @@ export class AuthComponent implements OnInit {
         });
       this.signedInState = true;
       this.updateAccountState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('updateAccount', err);
+      this.toastService.presentToast('Failed to update account!');
+    }
   }
 
   async confirmSignUp() {
@@ -187,7 +202,10 @@ export class AuthComponent implements OnInit {
       this.signInState = true;
       this.confirmSignUpState = false;
       this.signUpState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('confirmSignUp', err);
+      this.toastService.presentToast('Failed to confirm verification code!');
+    }
   }
 
   async forgotPassword() {
@@ -195,7 +213,10 @@ export class AuthComponent implements OnInit {
       await Auth.forgotPassword(this.formInputState.username);
       this.resetPasswordState = true;
       this.forgotPasswordState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('forgotPassword', err);
+      this.toastService.presentToast('Failed to reset Password!');
+    }
   }
 
   async resetPassword() {
@@ -204,7 +225,10 @@ export class AuthComponent implements OnInit {
       this.signInState = true;
       this.resetPasswordState = false;
       this.forgotPasswordState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('resetPassword', err);
+      this.toastService.presentToast('Failed to submit new Password!');
+    }
   }
 
   async signIn() {
@@ -216,7 +240,10 @@ export class AuthComponent implements OnInit {
       this.signedInState = true;
       this.signInState = false;
       this.forgotPasswordState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('signIn', err);
+      this.toastService.presentToast('Failed to sign in!');
+    }
   }
 
   async signOut() {
@@ -224,7 +251,10 @@ export class AuthComponent implements OnInit {
       await Auth.signOut();
       this.signInState = true;
       this.signedInState = false;
-    } catch (err) { console.log({ err }); }
+    } catch (err) {
+      this.logger.error('signOut', err);
+      this.toastService.presentToast('Failed to sign out!');
+    }
   }
 
   getUserAttributes(attr: string) {
