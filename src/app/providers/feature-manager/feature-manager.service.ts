@@ -44,20 +44,20 @@ export class FeatureManagerService {
       .pipe(take(1))
       .subscribe(async (data) => {
         if (!data || !data.releaseNotes || !data.releaseNotes.length) {
-          this.toastService.presentToast('Releae Notes not found. Aborting!')
+          this.toastService.presentToast('Releae Notes not found. Aborting!');
           return;
         }
         if (!data.termsOfUse || !data.termsOfUse.isAccepted) {
-          this.toastService.presentToast('Terms of Use not accepted. Aborting!')
+          this.toastService.presentToast('Terms of Use not accepted. Aborting!');
           return;
         }
         const currentVersionId = (await this.getAppVersion()).number;
-        const version = data.releaseNotes.find(v=>v.id === currentVersionId);
+        const version = data.releaseNotes.find(v => v.id === currentVersionId);
         if (!version) {
           this.toastService.presentToast(`App version ${currentVersionId} not supported. Aborting!`)
           return;
         }
-        const feature  = version.features.find(f=>f.name === featureName);
+        const feature  = version.features.find(f => f.name === featureName);
         if (feature && !feature.on) {
           this.toastService.presentToast(`Feature ${featureName} is disabled. Aborting!`)
           return;
