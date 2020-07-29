@@ -7,7 +7,7 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">username</ion-label>
+        <ion-label position="floating">Username</ion-label>
         <ion-input
           placeholder="Enter username"
           name="username"
@@ -21,7 +21,7 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">password</ion-label>
+        <ion-label position="floating">Password</ion-label>
         <ion-input
           placeholder="Enter password"
           type="password"
@@ -36,9 +36,9 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">email</ion-label>
+        <ion-label position="floating">Email</ion-label>
         <ion-input
-          placeholder="Enter email"
+          placeholder="Enter email address"
           type="email"
           name="email"
           enterkeyhint="signup"
@@ -87,10 +87,6 @@
     </ion-col>
   </ion-row>
 
-  <!-- <ion-item>
-    <ion-button (click)="confirmSignUpState=true;signUpState=false;">Confirm SignUp Code</ion-button>
-  </ion-item> -->
-
   <div *ngIf="confirmSignUpState">
     <ion-row>
       <ion-col>
@@ -100,7 +96,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">username</ion-label>
+          <ion-label position="floating">Username</ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
@@ -115,7 +111,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">verification code</ion-label>
+          <ion-label position="floating">Verification Code</ion-label>
           <ion-input
             placeholder="Enter verification code"
             name="verificationCode"
@@ -134,16 +130,19 @@
       </ion-col>
       <ion-col>
         <ion-button fill="clear" size="small"
-          (click)="confirmSignUp()">Confirm code
+          (click)="confirmSignUp()">Confirm
         </ion-button>
       </ion-col>
     </ion-row>
-    <!-- <ion-item>
-      <ion-button (click)="resendCode()">Resend SignUp Code</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-button (click)="signInState=true;">Sign In</ion-button>
-    </ion-item> -->
+    <ion-row>
+      <ion-col>
+        <ion-label><h3>Lost your code?</h3></ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button fill="clear" size="small"
+          (click)="resendCode()">Resend SignUp Code</ion-button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-grid>
 
@@ -156,10 +155,11 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">username</ion-label>
+        <ion-label position="floating">Username</ion-label>
         <ion-input
           placeholder="Enter username"
           name="username"
+          [value]=formInputState?.username
           enterkeyhint="signin"
           required="true"
           (ionChange)="onChange($event)">
@@ -170,7 +170,7 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">password</ion-label>
+        <ion-label position="floating">Password</ion-label>
         <ion-input
           placeholder="Enter password"
           type="password"
@@ -213,7 +213,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">username</ion-label>
+          <ion-label position="floating">Username</ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
@@ -245,12 +245,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">username</ion-label>
+          <ion-label position="floating">Username</ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
             [value]=formInputState?.username
-            enterkeyhint="signup"
+            enterkeyhint="reset"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -260,12 +260,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">password</ion-label>
+          <ion-label position="floating">New Password</ion-label>
           <ion-input
-            placeholder="Enter password"
+            placeholder="Enter new password"
             type="password"
             name="password"
-            enterkeyhint="signup"
+            enterkeyhint="reset"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -275,11 +275,11 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">verification code</ion-label>
+          <ion-label position="floating">Verification Code</ion-label>
           <ion-input
             placeholder="Enter code"
             name="verificationCode"
-            enterkeyhint="verify"
+            enterkeyhint="reset"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -294,7 +294,7 @@
       </ion-col>
       <ion-col>
         <ion-button fill="clear" size="small"
-          (click)="resetPassword()">Verify Code
+          (click)="resetPassword()">Reset
         </ion-button>
       </ion-col>
     </ion-row>
@@ -402,7 +402,7 @@
             placeholder="PT Certification"
             name="custom_pt_cert"
             [value]="getUserAttributes('custom:certs')"
-            enterkeyhint="submit"
+            enterkeyhint="update"
             required="false"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -417,7 +417,7 @@
             placeholder="Clubs/Gyms"
             name="custom_clubs_gyms"
             [value]="getUserAttributes('custom:clubs')"
-            enterkeyhint="signup"
+            enterkeyhint="update"
             required="false"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -431,7 +431,7 @@
       </ion-col>
       <ion-col>
         <ion-button fill="clear" size="small"
-         (click)="updateAccount()">Submit</ion-button>
+         (click)="updateAccount()">Update</ion-button>
       </ion-col>
     </ion-row>
   </div>

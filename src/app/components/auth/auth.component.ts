@@ -125,7 +125,7 @@ export class AuthComponent implements OnInit {
     this.formInputState = { ...this.formInputState, [event.target.name]: event.target.value };
   }
 
-  get IsWebApp() { return this.dataService.isWebApp; }
+  // get IsWebApp() { return this.dataService.isWebApp; }
 
   async getAuthCreds() {
     const credentials = await Auth.currentCredentials();
@@ -147,23 +147,25 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('resendCode', err);
-      this.toastService.presentToast('Failed to resend verification code!', true);
+      this.toastService.presentToast(`Failed to resend verification code! ${err.message}`, true);
     }
   }
 
   async changePassword() {
     try {
       await Auth.changePassword(this.user, this.formInputState.oldPassword, this.formInputState.password);
-      this.signInState = true;
+      this.signInState = false;
       this.changePasswordState = false;
     } catch (err) {
       this.logger.error('changePassword', err);
-      this.toastService.presentToast('Failed to change password!', true);
+      this.toastService.presentToast(`Failed to change password! ${err.message}`, true);
     }
   }
 
   async signUp() {
     try {
+      if (!this.formInputState.email) {
+        throw Error('Email cannot be empty as it is used to send the verification code');      }
       await Auth.signUp({
         username: this.formInputState.username,
         password: this.formInputState.password,
@@ -176,7 +178,7 @@ export class AuthComponent implements OnInit {
       this.signUpState = true;
     } catch (err) {
       this.logger.error('signUp', err);
-      this.toastService.presentToast('Failed to sign up!', true);
+      this.toastService.presentToast(`Failed to sign up! ${err.message}`, true);
     }
   }
 
@@ -192,7 +194,7 @@ export class AuthComponent implements OnInit {
       this.updateAccountState = false;
     } catch (err) {
       this.logger.error('updateAccount', err);
-      this.toastService.presentToast('Failed to update account!', true);
+      this.toastService.presentToast(`Failed to update account! ${err.message}`, true);
     }
   }
 
@@ -204,7 +206,7 @@ export class AuthComponent implements OnInit {
       this.signUpState = false;
     } catch (err) {
       this.logger.error('confirmSignUp', err);
-      this.toastService.presentToast('Failed to confirm verification code!', true);
+      this.toastService.presentToast(`Failed to confirm verification code! ${err.message}`, true);
     }
   }
 
@@ -215,7 +217,7 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('forgotPassword', err);
-      this.toastService.presentToast('Failed to reset Password!', true);
+      this.toastService.presentToast(`Failed to reset Password! ${err.message}`, true);
     }
   }
 
@@ -227,14 +229,14 @@ export class AuthComponent implements OnInit {
       this.forgotPasswordState = false;
     } catch (err) {
       this.logger.error('resetPassword', err);
-      this.toastService.presentToast('Failed to submit new Password!', true);
+      this.toastService.presentToast(`Failed to submit new Password! ${err.message}`, true);
     }
   }
 
   async signIn() {
     try {
-      if (!this.formInputState.password) {
-        throw Error('passowrd cannot be empty');
+      if (!this.formInputState.password || !this.formInputState.username) {
+        throw Error('Username or Passowrd cannot be empty');
       }
       await Auth.signIn(this.formInputState.username, this.formInputState.password);
       this.signedInState = true;
@@ -253,7 +255,7 @@ export class AuthComponent implements OnInit {
       this.signedInState = false;
     } catch (err) {
       this.logger.error('signOut', err);
-      this.toastService.presentToast('Failed to sign out!', true);
+      this.toastService.presentToast(`Failed to sign out! ${err}`, true);
     }
   }
 
