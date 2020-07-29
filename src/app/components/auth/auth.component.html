@@ -1,0 +1,448 @@
+<ion-grid *ngIf="signUpState">
+  <ion-row>
+    <ion-col>
+      <ion-label><h2>Create a new account</h2></ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">username</ion-label>
+        <ion-input
+          placeholder="Enter username"
+          name="username"
+          enterkeyhint="signup"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">password</ion-label>
+        <ion-input
+          placeholder="Enter password"
+          type="password"
+          name="password"
+          enterkeyhint="signup"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">email</ion-label>
+        <ion-input
+          placeholder="Enter email"
+          type="email"
+          name="email"
+          enterkeyhint="signup"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">PT Certification</ion-label>
+        <ion-input
+          placeholder="PT Certification"
+          name="custom_pt_cert"
+          enterkeyhint="signup"
+          required="false"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Clubs/Gyms</ion-label>
+        <ion-input
+          placeholder="Clubs/Gyms"
+          name="custom_clubs_gyms"
+          enterkeyhint="signup"
+          required="false"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button fill="clear" size="small"
+        (click)="signInState=true;signUpState=false;">Cancel</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="clear" size="small"
+        (click)="signUp()">Create Account</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- <ion-item>
+    <ion-button (click)="confirmSignUpState=true;signUpState=false;">Confirm SignUp Code</ion-button>
+  </ion-item> -->
+
+  <div *ngIf="confirmSignUpState">
+    <ion-row>
+      <ion-col>
+      <ion-label><h2>Confirm your account</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">username</ion-label>
+          <ion-input
+            placeholder="Enter username"
+            name="username"
+            [value]=formInputState?.username
+            enterkeyhint="confirm"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">verification code</ion-label>
+          <ion-input
+            placeholder="Enter verification code"
+            name="verificationCode"
+            enterkeyhint="confirm"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="signInState=true;confirmSignUpState=false;signUpState=false">Cancel
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="confirmSignUp()">Confirm code
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-item>
+      <ion-button (click)="resendCode()">Resend SignUp Code</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="signInState=true;">Sign In</ion-button>
+    </ion-item> -->
+  </div>
+</ion-grid>
+
+<ion-grid *ngIf="signInState">
+  <ion-row>
+    <ion-col>
+      <ion-label><h2>Sign in to your account</h2></ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">username</ion-label>
+        <ion-input
+          placeholder="Enter username"
+          name="username"
+          enterkeyhint="signin"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">password</ion-label>
+        <ion-input
+          placeholder="Enter password"
+          type="password"
+          name="password"
+          enterkeyhint="signin"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full"
+        (click)="signIn()">Sign In</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!forgotPasswordState && !resetPasswordState">
+    <ion-col>
+      <ion-label><h3>Forgot your password?</h3></ion-label>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button fill="clear" size="small"
+        (click)="forgotPasswordState=true;">Reset Password</ion-button>
+    </ion-col>
+  </ion-row>
+  <div *ngIf="forgotPasswordState">
+    <ion-row>
+      <ion-col>
+        <ion-label><h2>Reset your password</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-text>
+          <small>You will recieve a verification code to reset your password</small>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">username</ion-label>
+          <ion-input
+            placeholder="Enter username"
+            name="username"
+            enterkeyhint="confirm"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="signInState=true;forgotPasswordState=false;">Cancel
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="forgotPassword()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="resetPasswordState">
+    <ion-row>
+      <ion-col>
+        <ion-label><h2>Reset your password</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">username</ion-label>
+          <ion-input
+            placeholder="Enter username"
+            name="username"
+            [value]=formInputState?.username
+            enterkeyhint="signup"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">password</ion-label>
+          <ion-input
+            placeholder="Enter password"
+            type="password"
+            name="password"
+            enterkeyhint="signup"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">verification code</ion-label>
+          <ion-input
+            placeholder="Enter code"
+            name="verificationCode"
+            enterkeyhint="verify"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="signInState=true;resetPasswordState=false;forgotPasswordState=false;">Cancel
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="resetPassword()">Verify Code
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row>
+    <ion-col>
+      <ion-label><h3>Don't have an Account?</h3></ion-label>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button fill="clear" size="small"
+        (click)="signUpState=true;signInState=false;confirmSignUpState=false;">Create Account</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-label><h3>Have a verfication code?</h3></ion-label>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button fill="clear" size="small"
+        (click)="confirmSignUpState=true;signUpState=true;signInState=false;">Confirm Code</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+<ion-grid *ngIf="signedInState">
+  <ion-row>
+    <ion-col class="ion-text-start">
+      <ion-label><h1>Hi {{signedInUser.username}}</h1></ion-label>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="full" (click)="signOut()">Sign Out</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!updateAccountState">
+    <ion-col class='ion-text-center'>
+      <ion-button fill="clear" size="small"
+        (click)="updateAccountState=true;changePasswordState=false;">Update Account</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!changePasswordState">
+    <ion-col class='ion-text-center'>
+      <ion-button fill="clear" size="small"
+        (click)="changePasswordState=true;updateAccountState=false;">Change Password</ion-button>
+    </ion-col>
+  </ion-row>
+  <div *ngIf="changePasswordState">
+    <ion-row>
+      <ion-col>
+        <ion-label><h2>Change your password</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Old Password</ion-label>
+          <ion-input
+            placeholder="Enter old password"
+            type="password"
+            name="oldPassword"
+            enterkeyhint="submit"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">New Password</ion-label>
+          <ion-input
+            placeholder="Enter new password"
+            type="password"
+            name="password"
+            enterkeyhint="submit"
+            required="true"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="signedInState=true;changePasswordState=false;">Cancel</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+          (click)="changePassword()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="updateAccountState" >
+    <ion-row>
+      <ion-col>
+        <ion-label><h2>Update your account</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">PT Certification</ion-label>
+          <ion-input
+            placeholder="PT Certification"
+            name="custom_pt_cert"
+            [value]="getUserAttributes('custom:certs')"
+            enterkeyhint="submit"
+            required="false"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Clubs/Gyms</ion-label>
+          <ion-input
+            placeholder="Clubs/Gyms"
+            name="custom_clubs_gyms"
+            [value]="getUserAttributes('custom:clubs')"
+            enterkeyhint="signup"
+            required="false"
+            (ionChange)="onChange($event)">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+         (click)="signedInState=true;updateAccountState=false;">Cancel</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" size="small"
+         (click)="updateAccount()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-grid>
+
+<ion-item>
+  <ion-label slot="start"><small>
+    {{identityIdText}}</small>
+  </ion-label>
+  <ion-button slot="end" class="noPadding" [disabled]="IsWebApp"
+    fill="clear" (click)="copyUserId()">
+    <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+  </ion-button>
+</ion-item>

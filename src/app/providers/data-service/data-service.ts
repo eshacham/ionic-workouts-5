@@ -31,7 +31,7 @@ const THEME_STORAGE_KEY = 'my_theme';
 const TERMS_STORAGE_KEY = 'my_terms';
 const IMAGES_EXERCISES_PATH = 'images/exercises/';
 const IMAGES_USERGUIDE_PATH = 'images/user-guide/';
-const AWS_REGION = 'us-east-1'
+const AWS_REGION = 'us-east-1';
 
 @Injectable()
 export class DataServiceProvider {
@@ -123,7 +123,7 @@ export class DataServiceProvider {
   private async getImagesData(): Promise<MediaDataMaps> {
     await this.storage.ready();
     const data: MediaDataMaps = await this.storage.get(IMAGES_STORAGE_KEY);
-    if (!data) return null;
+    if (!data) { return null; }
     Object.keys(data.media.byId).map(mediaId => {
       const media = data.media.byId[mediaId];
       if (!media.images || media.images.length === 0) {
@@ -212,15 +212,15 @@ export class DataServiceProvider {
         images: [newImageId],
         isDefault: false,
         muscles: new Set(),
-      })
-    };
+      });
+    }
     return newEntry;
   }
 
   async removeImage(options: IRemoveImageOptions): Promise<ExerciseMediaBean> {
     const index = options.media.images.indexOf(options.imageName);
     this.logger.info('removeImage', `old image ${options.imageName} to be deleted`);
-    await this.deleteImage(options.media, index)
+    await this.deleteImage(options.media, index);
     const newEntry = ExerciseMediaBean.copy(options.media);
     newEntry.images.splice(index, 1);
     return newEntry;
@@ -228,7 +228,7 @@ export class DataServiceProvider {
 
   async deleteMedia(media: ExerciseMediaBean): Promise<string> {
     await Promise.all(media.images.map((image, index) => {
-      this.deleteImage(media, index)
+      this.deleteImage(media, index);
     }));
     return media.id;
   }
@@ -299,7 +299,7 @@ export class DataServiceProvider {
       this.logger.debug('exportWorkout', flattenImages);
       await Promise.all(flattenImages.map(image => {
         const parts = image.name.split('.');
-        const ext = parts[parts.length-1];
+        const ext = parts[parts.length - 1];
         S3.put(`${workoutId}/${IMAGES_EXERCISES_PATH}${image.name}`, image.data, { contentType: `application/${ext}`, level: 'protected' });
       }));
       workoutsData.exercises.byId = exercisesById;
@@ -317,31 +317,34 @@ export class DataServiceProvider {
 
   async importWorkout(workoutId: string, workoutOwnerId: string):
     Promise<{ workoutsData: WorkoutsDataMaps, imagesData: MediaDataMaps }> {
-    const myWorkoutGetResult: { Body: any } = await this.getProtectedS3File(
-      `${workoutId}/${WORKOUTS_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
-    const myImagesGetResult: { Body: any } = await this.getProtectedS3File(
-      `${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId) as { Body: any };
+    let getResult: { Body: any };
+
+    getResult = await this.getProtectedS3File(`${workoutId}/${WORKOUTS_STORAGE_KEY}`, workoutOwnerId);
+    const myWorkoutGetResult = await (new Response(getResult.Body)).json();
+
+    getResult = await this.getProtectedS3File(`${workoutId}/${IMAGES_STORAGE_KEY}`, workoutOwnerId);
+    const myImagesGetResult = await (new Response(getResult.Body)).json();
+
     const result = {
-      workoutsData: myWorkoutGetResult.Body as WorkoutsDataMaps,
-      imagesData: myImagesGetResult.Body as MediaDataMaps,
+      workoutsData: myWorkoutGetResult as WorkoutsDataMaps,
+      imagesData: myImagesGetResult as MediaDataMaps,
     };
 
     if (this.isMobile) {
       await Promise.all(Object.keys(result.imagesData.media.byId).map(async (imageId) => {
         const image = result.imagesData.media.byId[imageId];
-        this.updateAndCreateNewImage(image, workoutId, workoutOwnerId);
+        this.createNewImage(image, workoutId, workoutOwnerId);
       }));
     }
     this.logger.info('importWorkout', 'imported and updated result', result);
     return result;
   }
-  async updateAndCreateNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
+  async createNewImage(image: ExerciseMediaBean, workoutId: string, workoutOwnerId: string) {
     await Promise.all(image.images.map(async (imageId) => {
-      const getResult: { Body: any } = await this.getProtectedS3File(
-        `${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`, workoutOwnerId) as { Body: any };
-      const blob = getResult.Body;
+      const getResult = await this.getProtectedS3File(`${workoutId}/${IMAGES_EXERCISES_PATH}${imageId}`, workoutOwnerId);
+      const blob = await (new Response(getResult.Body)).blob();
       const file = await this.mobileFile.writeFile(this.mobileFile.dataDirectory, imageId, blob, { replace: true });
-      this.logger.debug('updateAndCreateNewImage', `image ${imageId} imported`, file);
+      this.logger.debug('createNewImage', `image ${imageId} imported`, file);
     }));
   }
 
@@ -404,9 +407,13 @@ export class DataServiceProvider {
       reader.readAsArrayBuffer(blob);
     });
   }
-  private getS3File(path: string, options: object): Promise<{ Body: any }> { return S3.get(path, options) as Promise<{ Body: any }>; }
+  private getS3File(path: string, options: object): Promise<{ Body: any }> {
+    return S3.get(path, options) as Promise<{ Body: any }>;
+  }
+
   private getProtectedS3File(path: string, identityId: string): Promise<{ Body: any }> {
-    return S3.get(path, { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' }) as Promise<{ Body: any }>;
+    return this.getS3File(path,
+      { identityId: `${AWS_REGION}:${identityId}`, download: true, level: 'protected' }) as Promise<{ Body: any }>;
   }
 
   async getReleaseNotesGQLData(): Promise<Record<string, Version>> {
@@ -432,8 +439,9 @@ export class DataServiceProvider {
       [PP]: null
     };
     await Promise.all(Object.keys(files).map(async item => {
-      const file = await this.getS3File(item, { download: true, level: 'public' });
-      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file.Body);
+      const result: {Body: any} = await this.getS3File(item, { download: true, level: 'public' });
+      const file = await (new Response(result.Body)).text();
+      this.logger.debug(`getReleaseNotesAndTermsOfUseFromS3: ${item}`, file);
       files[item] = file;
     }));
     const releaseNotes: Record<string, Version> = await this.getReleaseNotesGQLData();
@@ -444,14 +452,14 @@ export class DataServiceProvider {
       termsOfUse = { conditions, privacyPolicy, isAccepted: false };
       this.store.dispatch(new TermsNotAccpeted(termsOfUse));
     }
-    return { releaseNotes, termsOfUse }
+    return { releaseNotes, termsOfUse };
   }
 
   scrollToItem(items: any[], index: number) {
     const item = items[index];
-      if (item) {
-        item.scrollIntoView(this.isIos ? true : { behavior: 'smooth', block: 'start' });
-      }
+    if (item) {
+      item.scrollIntoView(this.isIos ? true : { behavior: 'smooth', block: 'start' });
+    }
   }
 
 }

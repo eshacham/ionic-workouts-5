@@ -10,7 +10,7 @@ export interface ISignedInUser {
 export interface IRunningWorkoutDayState {
     workoutId: string;
     dayId: string;
-    setId?: string
+    setId?: string;
     runningState: RunningState;
     runningExerciseSetIndex?: number;
     repeatsCompleted?: number;

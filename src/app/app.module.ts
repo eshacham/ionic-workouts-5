@@ -17,8 +17,6 @@ import { LoggingService, LoggingServiceModule } from 'ionic-logging-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { AmplifyAngularModule, AmplifyIonicModule, AmplifyService } from 'aws-amplify-angular'
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -29,9 +27,14 @@ import { ThemeServiceProvider } from './providers/theme-service/theme-service';
 import { FeatureManagerService } from './providers/feature-manager/feature-manager.service';
 import { DataServiceProvider } from './providers/data-service/data-service';
 import { AudioServiceProvider } from './providers/audio-service/audio-service';
-import { SocialSharing }  from '@ionic-native/social-sharing/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 import { environment } from 'src/environments/environment';
+
+import Amplify from 'aws-amplify';
+import awsconfig from '../aws-exports';
+
+Amplify.configure(awsconfig);
 
 export function configureLogging(loggingService: LoggingService): () => void {
   return () => loggingService.configure(environment.logging);
@@ -59,15 +62,12 @@ export function configureLogging(loggingService: LoggingService): () => void {
     EffectsModule.forRoot([DataEffects]),
     HttpClientModule,
     LoggingServiceModule,
-    AmplifyAngularModule,
-    AmplifyIonicModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     BackgroundMode,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AmplifyService,
     {
       deps: [LoggingService],
       multi: true,

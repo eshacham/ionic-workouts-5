@@ -1,7 +1,12 @@
-amplify-authenticator {
+ion-grid {
     --ion-item-background: var(--ion-color-primary);
 }
-
+ion-row {
+    align-items: center
+}
+ion-col {
+    text-align: center
+}
 ion-item {
     margin: 10px;
     border-radius: 6px;
