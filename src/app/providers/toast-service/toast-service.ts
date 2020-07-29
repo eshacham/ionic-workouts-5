@@ -15,7 +15,7 @@ export class ToastService {
         message: text,
         position: 'top',
         duration: 3000,
-      })
+      });
     } else {
       toast = await this.toastController.create({
         message: text,
@@ -27,7 +27,7 @@ export class ToastService {
             }
           }
         ]
-      })
+      });
     }
     toast.present();
   }
