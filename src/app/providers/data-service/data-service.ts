@@ -445,8 +445,8 @@ export class DataServiceProvider {
       files[item] = file;
     }));
     const releaseNotes: Record<string, Version> = await this.getReleaseNotesGQLData();
-    const conditions: string = files[TOU].Body;
-    const privacyPolicy: string = files[PP].Body;
+    const conditions: string = files[TOU];
+    const privacyPolicy: string = files[PP];
     let termsOfUse: TermsOfUse = await this.getTerms();
     if (!termsOfUse || termsOfUse.conditions !== conditions || termsOfUse.privacyPolicy !== privacyPolicy) {
       termsOfUse = { conditions, privacyPolicy, isAccepted: false };
