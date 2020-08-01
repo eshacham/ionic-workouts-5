@@ -26,12 +26,9 @@
 
 <ion-content [ngSwitch]="selectedSegment">
 
-  <app-auth *ngSwitchCase="segment.Account" [signedInUser]="signedInUser">
-  </app-auth>
-
   <ion-list *ngSwitchCase="segment.Themes"
-      class="ion-no-padding">
-    <ion-radio-group value={{selectedTheme}}
+  class="ion-no-padding">
+  <ion-radio-group value={{selectedTheme}}
       (ionChange)="themeSelected($event.detail.value)">
       <ion-item *ngFor='let theme of themes'>
         <ion-label>{{theme.theTheme}}</ion-label>
@@ -77,5 +74,8 @@
     </ion-item>
 
   </ion-list>
+
+  <app-auth [hidden]="selectedSegment!==segment.Account" [signedInUser]="signedInUser">
+  </app-auth>
 
 </ion-content>
