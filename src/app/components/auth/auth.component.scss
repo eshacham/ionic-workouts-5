@@ -1,21 +1,47 @@
 ion-grid {
-    --ion-item-background: var(--ion-color-primary);
-}
-ion-row {
-    align-items: center
-}
-ion-col {
-    text-align: center
-}
-ion-item {
+    background: var(--ion-color-primary);
+    --ion-grid-padding: 0px;
     margin: 10px;
     border-radius: 6px;
+    ion-row {
+        align-items: center;
+    }
+    ion-col {
+        text-align: center;
+        &.end {
+            text-align: end;
+        }
+        &.start {
+            text-align: start;
+        }
+    }
+    ion-label {
+        --color: var(--ion-color-light);
+        h1, h2 {
+            color: var(--ion-color-light);
+        }
+        h3 {
+            color: var(--ion-color-tertiary);
+        }
+    }
+}
+
+ion-item {
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --inner-padding-end: 0px;
     --background: var(--ion-color-primary);
     --ion-item-border-color: var(--ion-color-primary);
+    ion-input {
+        --background: var(--ion-color-light)
+    }
     ion-label {
-        color: var(--ion-color-tertiary);
+        color: var(--ion-color-light);
+        &.md {
+            margin-bottom: 8px;
+        }
     }
-    ion-button {
-        --color: var(--ion-color-tertiary);
-    }
+}
+ion-button {
+    --color: var(--ion-color-light);
 }

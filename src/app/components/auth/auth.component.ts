@@ -263,4 +263,7 @@ export class AuthComponent implements OnInit {
     return this.user?.attributes[attr];
   }
 
+  get IsWebApp() { return this.dataService.isWebApp; }
+
+
 }

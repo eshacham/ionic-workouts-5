@@ -1,3 +1,4 @@
+
 <ion-grid *ngIf="signUpState">
   <ion-row>
     <ion-col>
@@ -7,11 +8,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Username</ion-label>
+        <ion-label position="floating">Username <ion-text color="danger">*</ion-text>
+        </ion-label>
         <ion-input
           placeholder="Enter username"
           name="username"
-          enterkeyhint="signup"
+          enterkeyhint="done"
           required="true"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -21,12 +23,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Password</ion-label>
+        <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
         <ion-input
           placeholder="Enter password"
           type="password"
           name="password"
-          enterkeyhint="signup"
+          enterkeyhint="done"
           required="true"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -36,12 +38,13 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Email</ion-label>
+        <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
         <ion-input
           placeholder="Enter email address"
           type="email"
+          inputmode="email"
           name="email"
-          enterkeyhint="signup"
+          enterkeyhint="done"
           required="true"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -55,7 +58,7 @@
         <ion-input
           placeholder="PT Certification"
           name="custom_pt_cert"
-          enterkeyhint="signup"
+          enterkeyhint="done"
           required="false"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -69,7 +72,7 @@
         <ion-input
           placeholder="Clubs/Gyms"
           name="custom_clubs_gyms"
-          enterkeyhint="signup"
+          enterkeyhint="done"
           required="false"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -96,12 +99,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Username</ion-label>
+          <ion-label position="floating">Username <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
             [value]=formInputState?.username
-            enterkeyhint="confirm"
+            enterkeyhint="send"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -111,11 +114,11 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Verification Code</ion-label>
+          <ion-label position="floating">Verification Code <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter verification code"
             name="verificationCode"
-            enterkeyhint="confirm"
+            enterkeyhint="send"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -135,10 +138,10 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col class="start">
         <ion-label><h3>Lost your code?</h3></ion-label>
       </ion-col>
-      <ion-col size="6">
+      <ion-col size="7" class="start">
         <ion-button fill="clear" size="small"
           (click)="resendCode()">Resend SignUp Code</ion-button>
       </ion-col>
@@ -155,12 +158,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Username</ion-label>
+        <ion-label position="floating">Username <ion-text color="danger">*</ion-text></ion-label>
         <ion-input
           placeholder="Enter username"
           name="username"
           [value]=formInputState?.username
-          enterkeyhint="signin"
+          enterkeyhint="go"
           required="true"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -170,12 +173,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Password</ion-label>
+        <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
         <ion-input
           placeholder="Enter password"
           type="password"
           name="password"
-          enterkeyhint="signin"
+          enterkeyhint="go"
           required="true"
           (ionChange)="onChange($event)">
         </ion-input>
@@ -189,10 +192,10 @@
     </ion-col>
   </ion-row>
   <ion-row *ngIf="!forgotPasswordState && !resetPasswordState">
-    <ion-col>
+    <ion-col class="start">
       <ion-label><h3>Forgot your password?</h3></ion-label>
     </ion-col>
-    <ion-col size="6">
+    <ion-col size="5" class="start">
       <ion-button fill="clear" size="small"
         (click)="forgotPasswordState=true;">Reset Password</ion-button>
     </ion-col>
@@ -205,7 +208,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-text>
+        <ion-text color="danger">
           <small>You will recieve a verification code to reset your password</small>
         </ion-text>
       </ion-col>
@@ -213,11 +216,11 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Username</ion-label>
+          <ion-label position="floating">Username <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
-            enterkeyhint="confirm"
+            enterkeyhint="send"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -245,12 +248,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Username</ion-label>
+          <ion-label position="floating">Username <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter username"
             name="username"
             [value]=formInputState?.username
-            enterkeyhint="reset"
+            enterkeyhint="done"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -260,12 +263,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">New Password</ion-label>
+          <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter new password"
             type="password"
             name="password"
-            enterkeyhint="reset"
+            enterkeyhint="done"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -275,11 +278,11 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Verification Code</ion-label>
+          <ion-label position="floating">Verification Code <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter code"
             name="verificationCode"
-            enterkeyhint="reset"
+            enterkeyhint="done"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -300,25 +303,26 @@
     </ion-row>
   </div>
   <ion-row>
-    <ion-col>
+    <ion-col class="start">
       <ion-label><h3>Don't have an Account?</h3></ion-label>
     </ion-col>
-    <ion-col size="6">
+    <ion-col size="5" class="start">
       <ion-button fill="clear" size="small"
-        (click)="signUpState=true;signInState=false;confirmSignUpState=false;">Create Account</ion-button>
+        (click)="signUpState=true;signInState=false;confirmSignUpState=false;">Create Account
+      </ion-button>
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col>
+    <ion-col class="start">
       <ion-label><h3>Have a verfication code?</h3></ion-label>
     </ion-col>
-    <ion-col size="6">
+    <ion-col size="5" class="start">
       <ion-button fill="clear" size="small"
-        (click)="confirmSignUpState=true;signUpState=true;signInState=false;">Confirm Code</ion-button>
+        (click)="confirmSignUpState=true;signUpState=true;signInState=false;">Confirm Code
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>
-
 
 <ion-grid *ngIf="signedInState">
   <ion-row>
@@ -329,10 +333,21 @@
       <ion-button expand="full" (click)="signOut()">Sign Out</ion-button>
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-col class='ion-text-center'>
+      <ion-label *ngIf="IsWebApp" color="secondary">
+        <small>{{identityIdText}}</small>
+      </ion-label>
+      <ion-button *ngIf="!IsWebApp" fill="clear" size="small"
+        (click)="copyUserId()">Copy User Id
+      </ion-button>
+    </ion-col>
+  </ion-row>
   <ion-row *ngIf="!updateAccountState">
     <ion-col class='ion-text-center'>
       <ion-button fill="clear" size="small"
-        (click)="updateAccountState=true;changePasswordState=false;">Update Account</ion-button>
+        (click)="updateAccountState=true;changePasswordState=false;">Update Account
+      </ion-button>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="!changePasswordState">
@@ -350,12 +365,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">Old Password</ion-label>
+          <ion-label position="floating">Old Password <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter old password"
             type="password"
             name="oldPassword"
-            enterkeyhint="submit"
+            enterkeyhint="done"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -365,12 +380,12 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-label position="floating">New Password</ion-label>
+          <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
           <ion-input
             placeholder="Enter new password"
             type="password"
             name="password"
-            enterkeyhint="submit"
+            enterkeyhint="done"
             required="true"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -402,7 +417,7 @@
             placeholder="PT Certification"
             name="custom_pt_cert"
             [value]="getUserAttributes('custom:certs')"
-            enterkeyhint="update"
+            enterkeyhint="done"
             required="false"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -417,7 +432,7 @@
             placeholder="Clubs/Gyms"
             name="custom_clubs_gyms"
             [value]="getUserAttributes('custom:clubs')"
-            enterkeyhint="update"
+            enterkeyhint="done"
             required="false"
             (ionChange)="onChange($event)">
           </ion-input>
@@ -427,22 +442,12 @@
     <ion-row>
       <ion-col>
         <ion-button fill="clear" size="small"
-         (click)="signedInState=true;updateAccountState=false;">Cancel</ion-button>
+        (click)="signedInState=true;updateAccountState=false;">Cancel</ion-button>
       </ion-col>
       <ion-col>
         <ion-button fill="clear" size="small"
-         (click)="updateAccount()">Update</ion-button>
+        (click)="updateAccount()">Update</ion-button>
       </ion-col>
     </ion-row>
   </div>
 </ion-grid>
-
-<ion-item>
-  <ion-label slot="start"><small>
-    {{identityIdText}}</small>
-  </ion-label>
-  <ion-button slot="end" class="noPadding" [disabled]="IsWebApp"
-    fill="clear" (click)="copyUserId()">
-    <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
-  </ion-button>
-</ion-item>
