@@ -59,6 +59,7 @@ export function dataReducers (
             };
         }
         case DataActionsTypes.LoadDataError:
+        case DataActionsTypes.AuthActionError:
         case DataActionsTypes.LoadReleaseNotesAndTermsOfUseError:
         case DataActionsTypes.TermsAccpetedError:
         case DataActionsTypes.TermsNotAccpetedError:
@@ -88,6 +89,19 @@ export function dataReducers (
             return  {
                 ...state,
                 workoutImportInProgress: false
+            };
+        }
+        case DataActionsTypes.AuthAction: {
+            return  {
+                ...state,
+                authActionInProgress: true
+            };
+        }
+        case DataActionsTypes.AuthActionSuccess: {
+            return  {
+                ...state,
+                error: null,
+                authActionInProgress: false
             };
         }
         case WorkoutsActionsTypes.ExportWorkout: {

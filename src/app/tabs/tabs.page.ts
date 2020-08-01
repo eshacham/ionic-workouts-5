@@ -5,7 +5,7 @@ import {
   getWorkoutExportInProgress,
   getWorkoutImportInProgress,
   getTheme,
-  getIsOnline
+  getAuthActionInProgress,
 } from '../store/selectors/data.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { LoadData, ClearError } from '../store/actions/data.actions';
@@ -27,6 +27,7 @@ export class TabsPage implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private exportHasStarted = false;
   private importHasStarted = false;
+  private authHasStarted = false;
   private loading: HTMLIonLoadingElement;
 
   constructor(
@@ -88,6 +89,19 @@ export class TabsPage implements OnInit, OnDestroy {
         this.importHasStarted = importInProgress;
         if (this.importHasStarted) {
           this.presentBusy('Importing Workout...');
+        }
+      });
+
+    this.store.select(getAuthActionInProgress)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(async (authInProgress) => {
+        this.logger.debug('ngOnInit', 'getAuthActionInProgress', authInProgress);
+        if (this.authHasStarted && !authInProgress && this.loadingController) {
+          setTimeout(() => this.loadingController.dismiss(), 100);
+        }
+        this.authHasStarted = authInProgress;
+        if (this.authHasStarted) {
+          this.presentBusy(null);
         }
       });
   }

@@ -54,10 +54,26 @@
   <ion-row>
     <ion-col>
       <ion-item>
+        <ion-label position="floating">Confirm Email <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          placeholder="Confirm email address"
+          type="email"
+          inputmode="email"
+          name="confirmEmail"
+          enterkeyhint="done"
+          required="true"
+          (ionChange)="onChange($event)">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
         <ion-label position="floating">PT Certification</ion-label>
         <ion-input
           placeholder="PT Certification"
-          name="custom_pt_cert"
+          name="custom_certs"
           enterkeyhint="done"
           required="false"
           (ionChange)="onChange($event)">
@@ -71,7 +87,7 @@
         <ion-label position="floating">Clubs/Gyms</ion-label>
         <ion-input
           placeholder="Clubs/Gyms"
-          name="custom_clubs_gyms"
+          name="custom_clubs"
           enterkeyhint="done"
           required="false"
           (ionChange)="onChange($event)">
@@ -415,7 +431,7 @@
           <ion-label position="floating">PT Certification</ion-label>
           <ion-input
             placeholder="PT Certification"
-            name="custom_pt_cert"
+            name="custom_certs"
             [value]="getUserAttributes('custom:certs')"
             enterkeyhint="done"
             required="false"
@@ -430,7 +446,7 @@
           <ion-label position="floating">Clubs/Gyms</ion-label>
           <ion-input
             placeholder="Clubs/Gyms"
-            name="custom_clubs_gyms"
+            name="custom_clubs"
             [value]="getUserAttributes('custom:clubs')"
             enterkeyhint="done"
             required="false"

@@ -56,6 +56,10 @@ export const getWorkoutImportInProgress = createSelector(
     (state: IDataState) => state.workoutImportInProgress
 );
 
+export const getAuthActionInProgress = createSelector(
+    dataState,
+    (state: IDataState) => state.authActionInProgress
+);
 
 export const getError = createSelector(
     dataState,

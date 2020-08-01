@@ -33,6 +33,10 @@ export enum DataActionsTypes {
 
     SetSignedInUser = '[Data] Set SignedIn User',
 
+    AuthAction = '[Data] Auth action started',
+    AuthActionSuccess = '[Data] Auth action success',
+    AuthActionError = '[Data] Auth action error',
+
     LoadReleaseNotesAndTermsOfUse = '[Data] Load release notes and terms of use',
     LoadReleaseNotesAndTermsOfUseSuccess = '[Data] Get release notes and terms of use success',
     LoadReleaseNotesAndTermsOfUseError = '[Data] Load release notes and terms of use error',
@@ -74,10 +78,11 @@ export class TermsNotAccpetedSuccess implements Action {
     public readonly type = DataActionsTypes.TermsNotAccpetedSuccess;
     constructor(public payload: TermsOfUse) { }
 
-}export class TermsAccpetedError implements Action {
+}
+
+export class TermsAccpetedError implements Action {
     public readonly type = DataActionsTypes.TermsAccpetedError;
     constructor(public payload: string) { }
-
 }
 
 export class TermsNotAccpetedError implements Action {
@@ -98,6 +103,18 @@ export class LoadDataError implements Action {
     constructor(public payload: string) { }
 }
 
+export class AuthAction implements Action {
+    public readonly type = DataActionsTypes.AuthAction;
+}
+
+export class AuthActionSuccess implements Action {
+    public readonly type = DataActionsTypes.AuthActionSuccess;
+    constructor() { }
+}
+export class AuthActionError implements Action {
+    public readonly type = DataActionsTypes.AuthActionError;
+    constructor(public payload: string) { }
+}
 export class LoadTheme implements Action {
     public readonly type = DataActionsTypes.LoadTheme;
 }
@@ -191,6 +208,9 @@ export type DataActions =
     LoadData |
     LoadDataSuccess |
     LoadDataError |
+    AuthAction |
+    AuthActionSuccess |
+    AuthActionError |
     LoadTheme |
     LoadThemeSuccess |
     LoadThemeError |

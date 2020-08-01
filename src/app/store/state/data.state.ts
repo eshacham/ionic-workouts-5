@@ -21,6 +21,7 @@ export interface IDataState {
     hasDataBeenReset: boolean;
     hasDataBeenLoaded: boolean;
     workoutImportInProgress: boolean;
+    authActionInProgress: boolean;
     workoutExportInProgress: boolean;
     error: string;
     theme: string;
@@ -34,6 +35,7 @@ export const initialDataState: IDataState = {
     hasDataBeenReset: false,
     hasDataBeenLoaded: false,
     workoutImportInProgress: false,
+    authActionInProgress: false,
     workoutExportInProgress: false,
     error: null,
     theme: null,
